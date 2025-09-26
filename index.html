@@ -5,18 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>王泽恒 · 个人主页 | Wang Zeheng</title>
 
-<!-- Bootstrap / Icons / AOS / Isotope / GLightbox / Swiper -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" rel="stylesheet">
-
+<!-- Favicon & OG -->
+<link rel="icon" href="assets/Favicon.png">
 <meta name="description" content="王泽恒｜媒体与传播 · 庆熙大学MBA。新媒体内容与研究：NAS / 情绪传播 / 媒体融合。">
 <meta property="og:title" content="王泽恒 · 个人主页 | Wang Zeheng">
 <meta property="og:description" content="个人简介 · 作品展示 · 学术与行业成果 · 时间线 · 目标 · 联系方式">
 <meta property="og:type" content="website">
 <meta property="og:image" content="assets/new%20media%20projects3.png">
-<link rel="icon" href="assets/Favicon.png"/>
+
+<!-- Bootstrap / Icons / AOS / Isotope / GLightbox -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" rel="stylesheet">
 
 <style>
 :root{
@@ -26,7 +27,8 @@
 }
 body{
   font-family: system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,"Microsoft YaHei";
-  color:var(--ink); background:
+  color:var(--ink);
+  background:
     url("data:image/svg+xml;utf8,\
     <svg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'>\
       <filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter>\
@@ -46,18 +48,36 @@ body{
 .btn-ghost{background:#eef1f4;border:1px solid var(--border);color:var(--ink)}
 .section-title .bar{width:64px;height:4px;border-radius:2px;background:linear-gradient(90deg,var(--accent1),var(--accent2))}
 .card-soft{background:var(--card);border:1px solid var(--border);border-radius:1rem;box-shadow:0 10px 30px rgba(16,18,34,.06)}
-.icon-circle{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;
-  background:linear-gradient(135deg,var(--accent1),var(--accent2)); color:#fff}
+.badge-soft{background:#eef2ff;border:1px solid #dfe3ff;color:#2a4099}
 .stat{font-weight:800;font-size:2rem}
 .port-thumb{aspect-ratio:16/9;object-fit:cover;border-radius:.75rem;border:1px solid var(--border)}
 .filter-btn.active{background:var(--brand);color:#fff;border-color:var(--brand)}
-.price{font-size:2rem;font-weight:800}
 .footer{border-top:1px solid var(--border)}
-.badge-soft{background:#eef2ff;border:1px solid #dfe3ff;color:#2a4099}
 .copyable{cursor:pointer}
+
+/* —— 正圆头像 + 渐变描边（微调新增） —— */
+.avatar-wrap{
+  width:280px; height:280px; border-radius:50%;
+  padding:6px;                  /* 描边厚度 */
+  background: conic-gradient(from 120deg, var(--accent1), var(--accent2), var(--accent1));
+  box-shadow: 0 16px 40px rgba(102,126,234,.18), 0 6px 18px rgba(118,75,162,.12);
+}
+.avatar-round{
+  width:100%; height:100%; border-radius:50%;
+  object-fit:cover; object-position:center;
+  background:#fff; border:4px solid #fff;   /* 内圈白边，提升层次 */
+  display:block;
+}
+.avatar-wrap:hover{ filter: saturate(1.05); transform: translateY(-2px); transition:.18s ease }
+
+/* 返回顶部 */
 #backTop{position:fixed;right:16px;bottom:16px;width:44px;height:44px;border-radius:999px;display:none;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--accent1),var(--accent2));color:#fff}
 #backTop.show{display:flex}
-@media (max-width: 992px){ .stat{font-size:1.75rem} }
+
+@media (max-width: 992px){
+  .stat{font-size:1.75rem}
+  .avatar-wrap{width:220px;height:220px}
+}
 </style>
 </head>
 <body>
@@ -103,22 +123,25 @@ body{
         </div>
       </div>
       <div class="col-lg-5 text-center" data-aos="zoom-in">
-        <img src="assets/11cun.jpg" class="img-fluid rounded-circle border border-3" style="max-width:280px" alt="证件照">
+        <!-- 正圆 + 渐变描边（替换为容器包裹） -->
+        <div class="avatar-wrap mx-auto">
+          <img src="assets/11cun.jpg" class="avatar-round" alt="证件照">
+        </div>
       </div>
     </div>
   </div>
 </header>
 
-<!-- About -->
+<!-- About（仅简介） -->
 <section id="about" class="py-5">
   <div class="container">
     <div class="text-center mb-4">
       <h2 class="fw-bold">个人简介</h2>
       <div class="bar mx-auto"></div>
     </div>
-    <div class="row g-4">
-      <div class="col-lg-7" data-aos="fade-right">
-        <div class="card-soft p-4 h-100">
+    <div class="row justify-content-center">
+      <div class="col-lg-10" data-aos="fade-up">
+        <div class="card-soft p-4">
           <p class="mb-2">
             本科毕业于荆楚理工学院广播电视编导（GPA 3.77/4.00）。2019–2023 于南昌广播电视台任多媒体记者/新媒体编辑，
             负责选题策划、采访撰稿、拍摄剪辑及全平台运营，年浏览量超1亿；曾联合央视与“学习强国”策划大型直播，单场观看量破百万。
@@ -128,24 +151,11 @@ body{
           </p>
         </div>
       </div>
-      <div class="col-lg-5" data-aos="fade-left">
-        <div class="card-soft p-4 h-100">
-          <h6 class="fw-bold mb-3">联系方式</h6>
-          <p class="mb-1"><i class="bi bi-envelope"></i> <span class="copyable" data-copy="1433890263@qq.com">1433890263@qq.com</span></p>
-          <p class="mb-1"><i class="bi bi-envelope"></i> <span class="copyable" data-copy="wangzeheng202311@163.com">wangzeheng202311@163.com</span></p>
-          <p class="mb-2"><i class="bi bi-envelope"></i> <span class="copyable" data-copy="wzh1025@khu.ac.kr">wzh1025@khu.ac.kr</span></p>
-          <p class="mb-3"><i class="bi bi-telephone"></i> <span class="copyable" data-copy="(+86) 181-7091-1025">(+86) 181-7091-1025</span></p>
-          <div class="d-flex align-items-center gap-3">
-            <img src="assets/WeChat.png" width="120" class="rounded border" alt="WeChat">
-            <div class="small text-secondary">扫码添加微信（备注来意）<br>或在底部表单留言</div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </section>
 
-<!-- Achievements: Academic & Industry -->
+<!-- Achievements -->
 <section id="achieve" class="py-5">
   <div class="container">
     <div class="text-center mb-4">
@@ -330,7 +340,7 @@ body{
   </div>
 </section>
 
-<!-- Contact -->
+<!-- Contact（仅底部这一块） -->
 <section id="contact" class="py-5">
   <div class="container">
     <div class="text-center mb-4">
@@ -343,15 +353,9 @@ body{
           <h6 class="fw-bold mb-3">留言</h6>
           <form action="mailto:1433890263@qq.com" method="post" enctype="text/plain" onsubmit="toast('将打开邮件客户端发送');">
             <div class="row g-3">
-              <div class="col-md-6">
-                <input name="name" class="form-control" placeholder="你的名字" required>
-              </div>
-              <div class="col-md-6">
-                <input name="email" type="email" class="form-control" placeholder="你的邮箱" required>
-              </div>
-              <div class="col-12">
-                <textarea name="message" rows="4" class="form-control" placeholder="想说的话…" required></textarea>
-              </div>
+              <div class="col-md-6"><input name="name" class="form-control" placeholder="你的名字" required></div>
+              <div class="col-md-6"><input name="email" type="email" class="form-control" placeholder="你的邮箱" required></div>
+              <div class="col-12"><textarea name="message" rows="4" class="form-control" placeholder="想说的话…" required></textarea></div>
             </div>
             <button class="btn btn-brand mt-3">发送</button>
           </form>
@@ -359,15 +363,15 @@ body{
       </div>
       <div class="col-lg-6" data-aos="fade-left">
         <div class="card-soft p-4 h-100">
-          <h6 class="fw-bold mb-3">邮箱 / 微信</h6>
+          <h6 class="fw-bold mb-3">邮箱 / 微信 / 简历</h6>
           <p class="mb-1"><i class="bi bi-envelope"></i> <span class="copyable" data-copy="1433890263@qq.com">1433890263@qq.com</span></p>
           <p class="mb-1"><i class="bi bi-envelope"></i> <span class="copyable" data-copy="wangzeheng202311@163.com">wangzeheng202311@163.com</span></p>
           <p class="mb-3"><i class="bi bi-envelope"></i> <span class="copyable" data-copy="wzh1025@khu.ac.kr">wzh1025@khu.ac.kr</span></p>
-          <div class="d-flex align-items-center gap-3">
+          <div class="d-flex align-items-center gap-3 mb-3">
             <img src="assets/WeChat.png" width="120" class="rounded border" alt="WeChat">
-            <div class="small text-secondary">扫码添加微信（备注来意）<br>或在表单中留言</div>
+            <div class="small text-secondary">扫码添加微信（备注来意）<br>或在左侧表单留言</div>
           </div>
-          <a id="btnCv2" class="btn btn-ghost mt-3" href="assets/CV.pdf" target="_blank"><i class="bi bi-file-earmark-pdf"></i> 下载简历</a>
+          <a id="btnCv2" class="btn btn-ghost" href="assets/CV.pdf" target="_blank"><i class="bi bi-file-earmark-pdf"></i> 下载简历</a>
         </div>
       </div>
     </div>
@@ -391,7 +395,6 @@ body{
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 
 <!-- Bootstrap Toast 容器 -->
 <div class="position-fixed bottom-0 start-50 translate-middle-x p-3" style="z-index:1080">
@@ -406,7 +409,7 @@ body{
 <script>
 AOS.init({ once:true, duration:700, easing:"ease-out-cubic" });
 
-// CounterUp（零依赖实现）
+// CounterUp
 document.querySelectorAll('.countup').forEach(el=>{
   const target = +el.dataset.count; let n = 0;
   const step = Math.max(1, Math.round(target/60));
