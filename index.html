@@ -1,66 +1,48 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>王泽恒 · 个人主页</title>
-  <meta name="description" content="王泽恒的个人主页：个人简介、成果展示与阶段目标。" />
-  <meta property="og:title" content="王泽恒 · 个人主页"/>
-  <meta property="og:description" content="个人简介、成果展示与阶段目标。"/>
-  <meta property="og:type" content="website"/>
-  <meta property="og:image" content="/assets/cover.jpg"/>
-  <link rel="icon" href="/assets/favicon.ico"/>
+  <meta name="description" content="王泽恒 · 庆熙大学媒体管理MBA在读。4年南昌广播电视台记者/新媒体编辑经验，研究方向：新媒体传播、社交媒体与新闻融合、NAS及情绪传播。">
+  <meta property="og:title" content="王泽恒 · 个人主页">
+  <meta property="og:description" content="个人简介、成果展示、阶段目标与联系方式。">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="/IMG_0485.jpg">
   <style>
     :root{
-      --bg:#ffffff;           /* 背景：明亮 */
-      --ink:#111827;          /* 文字 */
-      --muted:#6b7280;        /* 次级文字 */
-      --brand:#2563eb;        /* 品牌主色（可改）*/
-      --card:#ffffff;         /* 卡片底 */
-      --border:#e5e7eb;       /* 边框 */
-      --chip:#eef2ff;         /* 标签底 */
+      --bg:#ffffff; --ink:#111827; --muted:#6b7280;
+      --brand:#2563eb; --border:#e5e7eb; --chip:#eef2ff;
     }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0}
     body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;line-height:1.7;background:var(--bg);color:var(--ink)}
     .container{max-width:1000px;margin:0 auto;padding:24px}
-    header{position:sticky;top:0;background:rgba(255,255,255,.9);backdrop-filter:saturate(180%) blur(10px);border-bottom:1px solid var(--border);z-index:20}
+    header{position:sticky;top:0;background:rgba(255,255,255,.9);backdrop-filter:saturate(180%) blur(10px);border-bottom:1px solid var(--border);z-index:10}
     nav{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
-    .logo{font-weight:800;letter-spacing:.3px}
+    .logo{font-weight:800}
     .nav a{color:var(--muted);text-decoration:none;margin-left:16px}
     .nav a:hover{color:var(--brand)}
-    .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center;padding:28px 0}
-    .hero h1{font-size:36px;margin:0 0 6px}
+    .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:24px;align-items:center;padding:28px 0}
+    .hero h1{font-size:34px;margin:0 0 6px}
     .hero p{margin:0;color:var(--muted)}
-    .avatar{width:160px;height:160px;border-radius:24px;object-fit:cover;border:1px solid var(--border)}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+    .chip{background:var(--chip);color:#3730a3;border:1px solid #e0e7ff;border-radius:999px;padding:4px 10px;font-size:12px}
+    .btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
     .btn{display:inline-block;background:var(--brand);color:#fff;text-decoration:none;padding:10px 16px;border-radius:10px;font-weight:600}
     .btn.ghost{background:#f3f4f6;color:var(--ink)}
-    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-    .chip{background:var(--chip);color:#3730a3;border:1px solid #e0e7ff;border-radius:999px;padding:4px 10px;font-size:12px}
-
-    .section{padding:14px 0;margin-top:8px}
-    .section h2{font-size:22px;margin:0 0 8px}
+    .avatar{width:180px;height:180px;border-radius:22px;object-fit:cover;border:1px solid var(--border)}
+    .section{padding:8px 0;margin-top:8px}
+    .section h2{font-size:22px;margin:0 0 10px}
+    .card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:16px}
     .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-    .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px}
-    .card h3{margin:0 0 6px;font-size:18px}
-    .card p{margin:0;color:var(--muted)}
-    .list{display:grid;gap:8px}
-
-    .timeline{border-left:2px solid var(--border);padding-left:14px}
-    .tl{margin:10px 0}
-    .tl strong{display:inline-block;margin-bottom:2px}
+    .list{margin:0;padding-left:18px}
     .muted{color:var(--muted)}
     footer{margin-top:36px;border-top:1px solid var(--border)}
     .footer{display:grid;grid-template-columns:2fr 1fr 1fr;gap:16px;padding:18px 0}
     .footer a{color:var(--muted);text-decoration:none}
     .top{position:fixed;right:16px;bottom:16px;background:#111827;color:#fff;border-radius:24px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;text-decoration:none}
-
-    @media (max-width:920px){
-      .hero{grid-template-columns:1fr}
-      .grid{grid-template-columns:1fr}
-      .footer{grid-template-columns:1fr 1fr}
-      .hero h1{font-size:28px}
-    }
+    @media (max-width:920px){ .hero{grid-template-columns:1fr} .grid{grid-template-columns:1fr} .footer{grid-template-columns:1fr 1fr} .hero h1{font-size:28px}}
   </style>
   <script type="application/ld+json">
   {
@@ -68,8 +50,10 @@
     "@type":"Person",
     "name":"王泽恒",
     "url":"https://www.wangzeheng.cn",
-    "sameAs":["https://www.xiaohongshu.com/","https://www.douyin.com/"],
-    "jobTitle":"媒体与传播｜研究者/创作者"
+    "email":"mailto:1433890263@qq.com",
+    "image":"https://www.wangzeheng.cn/IMG_0485.jpg",
+    "jobTitle":"媒体与传播 · 记者/新媒体编辑/研究者",
+    "alumniOf":["庆熙大学（媒体管理MBA）","荆楚理工学院（广播电视编导）"]
   }
   </script>
 </head>
@@ -79,8 +63,8 @@
     <nav>
       <div class="logo">王泽恒 · Wang Zeheng</div>
       <div class="nav">
-        <a href="#about">关于我</a>
-        <a href="#works">成果展示</a>
+        <a href="#about">简介</a>
+        <a href="#works">成果</a>
         <a href="#goals">目标</a>
         <a href="#contact">联系</a>
       </div>
@@ -89,39 +73,34 @@
 </header>
 
 <main class="container">
-  <!-- Hero / 简介 -->
+  <!-- Hero -->
   <section class="hero">
     <div>
       <h1>做有温度的内容与研究</h1>
-      <p>媒体与传播｜新媒体创业与学术研究并行。关注短视频平台、情绪价值、老年与青年受众差异、文化传播与数字体验。</p>
+      <p>现居江西南昌，庆熙大学（韩国）媒体管理MBA在读。4年南昌广播电视台记者/新媒体编辑经验，关注新媒体传播、社交媒体与新闻融合、NAS与情绪传播。</p>
       <div class="chips">
-        <span class="chip">内容策略</span>
-        <span class="chip">学术写作</span>
-        <span class="chip">数据与方法</span>
-        <span class="chip">品牌与电商</span>
+        <span class="chip">内容制作（文/图/音/视频）</span>
+        <span class="chip">账号运营 & 直播策划</span>
+        <span class="chip">新媒体研究（NAS/情绪传播）</span>
       </div>
-      <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
+      <div class="btns">
         <a class="btn" href="#works">查看成果</a>
-        <a class="btn ghost" href="/assets/cv.pdf" target="_blank">下载简历（PDF）</a>
+        <a class="btn ghost" href="/CV（王泽恒）.docx" target="_blank">下载简历</a>
       </div>
     </div>
     <div style="display:flex;justify-content:center">
-      <img class="avatar" src="/assets/avatar.jpg" alt="头像占位（替换为你的照片）" />
+      <img class="avatar" src="/IMG_0485.jpg" alt="王泽恒"/>
     </div>
   </section>
 
-  <!-- 当前在做 -->
-  <section id="now" class="section">
-    <h2>现在在做</h2>
-    <div class="grid">
-      <div class="card">
-        <h3>论文：地方媒体议程影响力的新路径</h3>
-        <p>基于“颖响力”案例，构建 AMPP 模型，结合 NAS/AAS 视角做混合方法研究。</p>
-      </div>
-      <div class="card">
-        <h3>项目：宠物友好社区（Pet-Friendly Hub）</h3>
-        <p>宠物友好酒店/路线/活动的UGC平台，探索内容电商转化与本地社区运营。</p>
-      </div>
+  <!-- 个人简介 -->
+  <section id="about" class="section">
+    <h2>个人简介</h2>
+    <div class="card">
+      <p>
+        王泽恒，现居中国江西南昌，庆熙大学（韩国）媒体管理专业MBA在读（2024.09–2025.12，GPA 3.89/4.3，均分90.71）；本科毕业于荆楚理工学院广播电视编导专业（2014.09–2018.06，GPA 3.77/4.00）。
+        拥有4年南昌广播电视台多媒体记者/新媒体编辑经验（2019.01–2023.03），擅长摄影/摄像、音视频与图像编辑、账号运营及大型直播策划。研究兴趣聚焦新媒体传播、社交媒体与新闻融合、网络议程设置（NAS）与情绪传播。
+      </p>
     </div>
   </section>
 
@@ -129,53 +108,86 @@
   <section id="works" class="section">
     <h2>成果展示</h2>
     <div class="grid">
-      <article class="card">
-        <h3>研究与发表</h3>
-        <div class="list">
-          <div>· <strong>AI 生成新闻与传统新闻的比较研究</strong>（2025）</div>
-          <div>· <strong>内容分析方法应用</strong>：SPSS/NVivo/可视化模板</div>
-          <div>· <strong>航拍纪录片研究</strong>、<strong>反转新闻负效应</strong> 等论文</div>
-        </div>
-      </article>
-      <article class="card">
-        <h3>新媒体与品牌</h3>
-        <div class="list">
-          <div>· 账号运营：小红书/抖音/视频号（生活方式、学习与工具）</div>
-          <div>· IBP整合营销策划：男性养生品牌“不油腻男朋友”</div>
-        </div>
-      </article>
+      <div class="card">
+        <h3>学术成果</h3>
+        <ul class="list">
+          <li>《反转新闻的负面影响及预防策略》（《新闻与传播》，湖北省教育厅人文社科重大项目 17ZD032）</li>
+          <li>《大众媒体价值观对受众的影响调查——基于近十年“两会”报道变化的案例研究》</li>
+          <li>《航拍在当代纪录片中的应用——以〈航拍中国〉为例》</li>
+          <li>待发表：<em>“拆盲盒”直播中情绪化传播与用户行为研究</em>（预计2025年10月见刊）</li>
+          <li>待发表：<em>新媒体环境下地方媒体议程设置的功能转型与传播策略——以“颖响力”为例</em>（预计2025年12月见刊）</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>工作成果</h3>
+        <ul class="list">
+          <li>制作编辑100+多媒体新闻稿，多篇被新华社等国家级媒体转载</li>
+          <li>现象级视频《白鹭王国迎来万只“小可爱”》12小时1400万播放，登微博热搜第42位</li>
+          <li>疫情系列《天使日记》在全国平台传播</li>
+          <li>负责微信/微博/抖音/视频号等账号运营，年浏览量超1亿</li>
+          <li>联合央视、“学习强国”策划大型直播，单场观看量突破100万</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>荣誉奖项</h3>
+        <ul class="list">
+          <li>南昌广播电视台“年度优秀个人”（2020–2021）</li>
+          <li>“江西广播电视奖——优秀广播节目”入围奖（2021）</li>
+          <li>《遇见荆门》获湖北大学生新闻传播教育创新实践技能竞赛播音主持类一等奖（2017）</li>
+          <li>《转折点》获同赛微视频三等奖（2017）</li>
+          <li>论文《大众传媒中表达的价值观…》获湖北省第十一届“挑战杯”三等奖</li>
+          <li>《30S》获第九届全国大学生广告艺术大赛（湖北赛区）优秀奖</li>
+        </ul>
+      </div>
     </div>
   </section>
 
-  <!-- 目标与里程碑 -->
+  <!-- 阶段目标 -->
   <section id="goals" class="section">
     <h2>阶段目标</h2>
     <div class="grid">
-      <div class="card timeline">
-        <div class="tl"><strong>Q3–Q4 · 论文完善</strong><div class="muted">完成模型验证、补充深访，准备投稿。</div></div>
-        <div class="tl"><strong>Q4 · 社区上线</strong><div class="muted">发布宠物友好社区Beta，验证UGC与转化路径。</div></div>
-        <div class="tl"><strong>Q4–Q1 · 技能栈</strong><div class="muted">巩固统计/可视化（SPSS/AMOS）与Web搭建工作流。</div></div>
+      <div class="card">
+        <h3>短期（1–2年，至2026）</h3>
+        <ul class="list">
+          <li>完成庆熙大学MBA并维持优异GPA</li>
+          <li>确保2篇待发论文按时见刊；完成《AI新闻写作能力边界与感知悖论研究》并发表</li>
+          <li>在抖音/小红书打造1个细分主题个人账号</li>
+        </ul>
       </div>
       <div class="card">
-        <h3>长期规划</h3>
-        <p class="muted">聚焦“算法与情绪传播”研究；构建跨学术与产业的知识与产品接口。</p>
+        <h3>中期（3–5年，至2028）</h3>
+        <ul class="list">
+          <li>进入专业媒体机构或文化传播公司</li>
+          <li>聚焦数字传播、社交媒体、市场营销方向，参与重点事件研究</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>长期（5年以上）</h3>
+        <p class="muted">持续探索“算法与情绪传播”的交叉研究与产业化应用，具体路径待定。</p>
       </div>
     </div>
   </section>
 
   <!-- 联系方式 -->
   <section id="contact" class="section">
-    <h2>联系我</h2>
+    <h2>联系方式</h2>
     <div class="grid">
       <div class="card">
         <h3>邮箱</h3>
-        <p><a href="mailto:hello@wangzeheng.cn">hello@wangzeheng.cn</a></p>
-        <p class="muted">也欢迎通过小红书/抖音私信联系。</p>
+        <p>
+          <a href="mailto:1433890263@qq.com">1433890263@qq.com</a> /
+          <a href="mailto:wangzeheng202311@163.com">wangzeheng202311@163.com</a> /
+          <a href="mailto:wzh1025@khu.ac.kr">wzh1025@khu.ac.kr</a>
+        </p>
       </div>
       <div class="card">
-        <h3>社交</h3>
-        <p><a href="https://www.xiaohongshu.com/" target="_blank">小红书</a> · <a href="https://www.douyin.com/" target="_blank">抖音</a> · <a href="#" target="_blank">GitHub</a></p>
-        <p class="muted">更多链接可放在此处，如博客、Notion、B站等。</p>
+        <h3>电话 & 平台</h3>
+        <p>电话：(+86) 181-7091-1025</p>
+        <p class="muted">平台：微信公众号、微博、抖音、视频号、今日头条（曾负责/运营）</p>
+      </div>
+      <div class="card">
+        <h3>下载</h3>
+        <p><a href="/CV（王泽恒）.docx" target="_blank">简历（DOCX）</a></p>
       </div>
     </div>
   </section>
@@ -189,21 +201,17 @@
     </div>
     <div>
       <div class="muted">快速导航</div>
-      <a href="#about">关于我</a>
-      <a href="#works">成果展示</a>
+      <a href="#about">简介</a><br/>
+      <a href="#works">成果</a>
     </div>
     <div>
-      <div class="muted">资料下载</div>
-      <a href="/assets/cv.pdf" target="_blank">简历 PDF</a>
-      <a href="/assets/portfolio.pdf" target="_blank">作品集 PDF</a>
+      <div class="muted">文件</div>
+      <a href="/CV（王泽恒）.docx" target="_blank">简历下载</a>
     </div>
   </div>
 </footer>
 
 <a class="top" href="#">↑</a>
-
-<script>
-  document.getElementById('year').textContent=new Date().getFullYear();
-</script>
+<script>document.getElementById('year').textContent=new Date().getFullYear();</script>
 </body>
 </html>
