@@ -8,1112 +8,335 @@
   <meta property="og:title" content="王泽恒 · 个人主页 | Wang Zeheng"/>
   <meta property="og:description" content="个人简介 · 作品展示 · 阶段目标 · 联系方式"/>
   <meta property="og:type" content="website"/>
-  <link rel="icon" href="/Favicon.png"/>
+  <meta property="og:image" content="/assets/projects-3.png"/>
+  <link rel="icon" href="/assets/favicon.png"/>
   <style>
-    :root {
-      --primary: #5B4FE9;
-      --primary-light: #7B71F2;
-      --primary-dark: #4A3FD8;
-      --accent: #FFB84D;
-      --accent-glow: rgba(255, 184, 77, 0.3);
-      
-      --bg-main: #0A0B0F;
-      --bg-card: #12131A;
-      --bg-hover: #1A1B24;
-      --bg-gradient: linear-gradient(135deg, #0A0B0F 0%, #15161D 100%);
-      
-      --text-primary: #FFFFFF;
-      --text-secondary: #9CA3AF;
-      --text-muted: #6B7280;
-      
-      --border: rgba(255, 255, 255, 0.08);
-      --border-hover: rgba(255, 255, 255, 0.15);
-      
-      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-      --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.4);
-      --shadow-lg: 0 24px 48px rgba(0, 0, 0, 0.5);
-      --shadow-glow: 0 0 40px rgba(91, 79, 233, 0.3);
-      
-      --radius-sm: 8px;
-      --radius-md: 16px;
-      --radius-lg: 24px;
-      
-      --container: 1200px;
-      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* === Academic Palette === */
+    :root{
+      --bg:#f9f9f6; --ink:#111827; --muted:#6b7280;
+      --brand:#2a4b8d; --brand-ink:#ffffff;
+      --border:#d1d5db; --shadow:0 12px 32px rgba(17,24,39,.06);
+      --chip:#eaf0ff; --chip-ink:#2a4b8d;
+      --card:#ffffff; --grad1:#ffffff; --grad2:#f3f4f6;
+      --radius:18px; --container:1100px;
     }
-    
-    /* Light mode */
-    @media (prefers-color-scheme: light) {
-      :root {
-        --bg-main: #FAFBFC;
-        --bg-card: #FFFFFF;
-        --bg-hover: #F3F4F6;
-        --bg-gradient: linear-gradient(135deg, #FFFFFF 0%, #F9FAFB 100%);
-        
-        --text-primary: #111827;
-        --text-secondary: #4B5563;
-        --text-muted: #9CA3AF;
-        
-        --border: rgba(0, 0, 0, 0.08);
-        --border-hover: rgba(0, 0, 0, 0.15);
-        
-        --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
-        --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.08);
-        --shadow-lg: 0 24px 48px rgba(0, 0, 0, 0.12);
-      }
-    }
-    
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    
-    html {
-      scroll-behavior: smooth;
-    }
-    
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      line-height: 1.6;
-      background: var(--bg-main);
-      color: var(--text-primary);
-      overflow-x: hidden;
-    }
-    
-    /* Animated Background */
-    .bg-animation {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      opacity: 0.5;
-      background: radial-gradient(circle at 20% 50%, rgba(91, 79, 233, 0.1) 0%, transparent 50%),
-                  radial-gradient(circle at 80% 80%, rgba(255, 184, 77, 0.08) 0%, transparent 50%),
-                  radial-gradient(circle at 40% 20%, rgba(91, 79, 233, 0.06) 0%, transparent 50%);
-      animation: bgFloat 20s ease-in-out infinite;
-    }
-    
-    @keyframes bgFloat {
-      0%, 100% { transform: translate(0, 0) rotate(0deg); }
-      33% { transform: translate(-20px, -20px) rotate(1deg); }
-      66% { transform: translate(20px, -10px) rotate(-1deg); }
-    }
-    
-    .container {
-      max-width: var(--container);
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-    
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;line-height:1.75;background:var(--bg);color:var(--ink)}
+    .container{max-width:var(--container);margin:0 auto;padding:24px}
+
     /* Header */
-    header {
-      position: sticky;
-      top: 0;
-      background: rgba(10, 11, 15, 0.8);
-      backdrop-filter: blur(20px) saturate(180%);
-      border-bottom: 1px solid var(--border);
-      z-index: 1000;
-      transition: var(--transition);
-    }
-    
-    @media (prefers-color-scheme: light) {
-      header {
-        background: rgba(255, 255, 255, 0.8);
-      }
-    }
-    
-    nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 20px 0;
-    }
-    
-    .logo {
-      font-size: 20px;
-      font-weight: 700;
-      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      letter-spacing: -0.5px;
-    }
-    
-    .nav-links {
-      display: flex;
-      gap: 8px;
-    }
-    
-    .nav-links a {
-      color: var(--text-secondary);
-      text-decoration: none;
-      padding: 8px 16px;
-      border-radius: var(--radius-sm);
-      transition: var(--transition);
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .nav-links a::before {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      width: 0;
-      height: 2px;
-      background: var(--primary);
-      transition: all 0.3s ease;
-      transform: translateX(-50%);
-    }
-    
-    .nav-links a:hover {
-      color: var(--primary);
-    }
-    
-    .nav-links a:hover::before {
-      width: 80%;
-    }
-    
-    .lang-switch {
-      display: flex;
-      gap: 4px;
-      background: var(--bg-card);
-      padding: 4px;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border);
-    }
-    
-    .lang-switch a {
-      color: var(--text-muted);
-      text-decoration: none;
-      padding: 6px 12px;
-      border-radius: 6px;
-      transition: var(--transition);
-      font-size: 14px;
-    }
-    
-    .lang-switch a.active {
-      background: var(--primary);
-      color: white;
-    }
-    
-    /* Hero Section */
-    .hero {
-      margin-top: 60px;
-      padding: 80px 0;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .hero-content {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      align-items: center;
-    }
-    
-    .hero-text h1 {
-      font-size: clamp(36px, 5vw, 56px);
-      font-weight: 800;
-      line-height: 1.2;
-      margin-bottom: 24px;
-      background: linear-gradient(135deg, var(--text-primary) 0%, var(--primary-light) 100%);
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: fadeInUp 0.8s ease;
-    }
-    
-    .hero-text .subtitle {
-      font-size: 20px;
-      color: var(--text-secondary);
-      margin-bottom: 32px;
-      animation: fadeInUp 0.8s ease 0.1s backwards;
-    }
-    
-    .hero-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 40px;
-      animation: fadeInUp 0.8s ease 0.2s backwards;
-    }
-    
-    .tag {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      color: var(--primary-light);
-      padding: 8px 20px;
-      border-radius: 999px;
-      font-size: 14px;
-      font-weight: 500;
-      transition: var(--transition);
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .tag::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 0;
-      height: 0;
-      background: var(--primary);
-      opacity: 0.1;
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      transition: width 0.5s ease, height 0.5s ease;
-    }
-    
-    .tag:hover {
-      border-color: var(--primary);
-      transform: translateY(-2px);
-    }
-    
-    .tag:hover::before {
-      width: 200%;
-      height: 200%;
-    }
-    
-    .hero-buttons {
-      display: flex;
-      gap: 16px;
-      animation: fadeInUp 0.8s ease 0.3s backwards;
-    }
-    
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 14px 32px;
-      border-radius: var(--radius-md);
-      font-weight: 600;
-      text-decoration: none;
-      transition: var(--transition);
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-    }
-    
-    .btn-primary {
-      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-      color: white;
-      box-shadow: 0 8px 32px rgba(91, 79, 233, 0.3);
-    }
-    
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 40px rgba(91, 79, 233, 0.4);
-    }
-    
-    .btn-secondary {
-      background: var(--bg-card);
-      color: var(--text-primary);
-      border: 1px solid var(--border);
-    }
-    
-    .btn-secondary:hover {
-      border-color: var(--primary);
-      box-shadow: 0 8px 32px rgba(91, 79, 233, 0.2);
-    }
-    
-    .hero-image {
-      position: relative;
-      animation: fadeIn 1s ease 0.4s backwards;
-    }
-    
-    .avatar-container {
-      position: relative;
-      width: 300px;
-      height: 300px;
-      margin: 0 auto;
-    }
-    
-    .avatar-glow {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 120%;
-      height: 120%;
-      background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
-      opacity: 0.3;
-      filter: blur(40px);
-      transform: translate(-50%, -50%);
-      animation: pulse 4s ease-in-out infinite;
-    }
-    
-    @keyframes pulse {
-      0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
-      50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.5; }
-    }
-    
-    .avatar {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid var(--border);
-      box-shadow: var(--shadow-lg);
-      position: relative;
-      z-index: 1;
-    }
-    
-    /* Section Styles */
-    .section {
-      padding: 80px 0;
-      animation: fadeInUp 0.8s ease;
-    }
-    
-    .section-header {
-      text-align: center;
-      margin-bottom: 60px;
-    }
-    
-    .section-title {
-      font-size: 36px;
-      font-weight: 700;
-      margin-bottom: 16px;
-      background: linear-gradient(135deg, var(--text-primary) 0%, var(--primary) 100%);
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    
-    .section-subtitle {
-      color: var(--text-secondary);
-      font-size: 18px;
-    }
-    
-    /* Cards Grid */
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: 30px;
-    }
-    
-    .card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      transition: var(--transition);
-      position: relative;
-    }
-    
-    .card:hover {
-      transform: translateY(-8px);
-      border-color: var(--border-hover);
-      box-shadow: var(--shadow-lg), var(--shadow-glow);
-    }
-    
-    .card-image {
-      width: 100%;
-      height: 240px;
-      object-fit: cover;
-      transition: var(--transition);
-    }
-    
-    .card:hover .card-image {
-      transform: scale(1.05);
-    }
-    
-    .card-content {
-      padding: 24px;
-    }
-    
-    .card-title {
-      font-size: 20px;
-      font-weight: 600;
-      margin-bottom: 12px;
-      color: var(--text-primary);
-    }
-    
-    .card-description {
-      color: var(--text-secondary);
-      line-height: 1.6;
-    }
-    
-    .card-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--primary);
-      text-decoration: none;
-      margin-top: 16px;
-      font-weight: 500;
-      transition: var(--transition);
-    }
-    
-    .card-link:hover {
-      gap: 12px;
-    }
-    
+    header{position:sticky;top:0;background:rgba(255,255,255,.86);backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid var(--border);z-index:50}
+    nav{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
+    .logo{font-weight:800;letter-spacing:.2px}
+    .nav a{color:var(--muted);text-decoration:none;margin-left:18px}
+    .nav a:hover{color:var(--brand)}
+    .lang a{color:var(--muted);text-decoration:none;margin-left:12px}
+    .lang a.active{color:var(--brand);font-weight:700}
+
+    /* Hero */
+    .hero{background:linear-gradient(145deg,var(--grad1) 0%, var(--grad2) 100%);border:1px solid var(--border);border-radius:22px;box-shadow:var(--shadow);padding:40px;display:grid;grid-template-columns:1.2fr .8fr;gap:32px;align-items:center;margin-top:18px}
+    .hero h1{font-size:38px;line-height:1.2;margin:0 0 10px}
+    .hero p{margin:0;color:var(--muted)}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+    .chip{background:var(--chip);color:var(--chip-ink);border:1px solid rgba(42,75,141,.25);border-radius:999px;padding:4px 12px;font-size:13px;font-weight:500;letter-spacing:.2px}
+    .btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+    .btn{display:inline-block;background:var(--brand);color:var(--brand-ink);text-decoration:none;padding:12px 22px;border-radius:12px;font-weight:700;letter-spacing:.3px;box-shadow:0 8px 22px rgba(42,75,141,.2);transition:all .25s ease}
+    .btn:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(42,75,141,.25)}
+    .btn.ghost{background:#eef1f4;color:#111827;box-shadow:none}
+    .avatar{width:220px;height:220px;border-radius:50%;object-fit:cover;border:1px solid var(--border);box-shadow:var(--shadow)}
+
+    /* Sections */
+    .section{padding:12px 0;margin-top:16px}
+    .section h2{font-size:24px;margin:0 0 12px}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);transition:transform .25s ease, box-shadow .25s ease}
+    .card:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(17,24,39,.08)}
+    .list{margin:0;padding-left:18px}
+    .muted{color:var(--muted)}
+
+    /* Featured */
+    .thumb{width:100%;height:200px;object-fit:cover;border-radius:14px;border:1px solid var(--border)}
+
     /* Timeline */
-    .timeline {
-      position: relative;
-      padding-left: 40px;
+    .timeline{border-left:2px solid var(--border);padding-left:14px}
+    .tl{margin:12px 0}
+    .tl strong{display:block;margin-bottom:2px}
+
+    /* Footer + Top */
+    footer{margin-top:44px;border-top:1px solid var(--border)}
+    .footer{display:grid;grid-template-columns:2fr 1fr 1fr;gap:16px;padding:20px 0}
+    .footer a{color:var(--muted);text-decoration:none}
+    .top{position:fixed;right:16px;bottom:16px;background:#0f172a;color:#fff;border-radius:999px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:var(--shadow)}
+
+    /* Reveal Anim */
+    [data-fade]{opacity:0;transform:translateY(12px);transition:all .6s ease}
+    [data-fade].in{opacity:1;transform:none}
+
+    /* Responsive + Dark */
+    @media (max-width:960px){ .hero{grid-template-columns:1fr;padding:28px} .grid{grid-template-columns:1fr} .footer{grid-template-columns:1fr 1fr} .hero h1{font-size:30px}}
+    @media (prefers-color-scheme:dark){
+      :root{ --bg:#0B1016; --ink:#E8ECEF; --muted:#A6B0BA; --card:#0F141B; --border:#1D2530; --grad1:#0B1016; --grad2:#0E141C;}
+      .btn.ghost{background:#1A2430;color:#E8ECEF}
     }
-    
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 8px;
-      top: 0;
-      bottom: 0;
-      width: 2px;
-      background: linear-gradient(180deg, var(--primary) 0%, transparent 100%);
-    }
-    
-    .timeline-item {
-      position: relative;
-      margin-bottom: 40px;
-      opacity: 0;
-      animation: slideInLeft 0.6s ease forwards;
-    }
-    
-    .timeline-item:nth-child(1) { animation-delay: 0.1s; }
-    .timeline-item:nth-child(2) { animation-delay: 0.2s; }
-    .timeline-item:nth-child(3) { animation-delay: 0.3s; }
-    
-    .timeline-dot {
-      position: absolute;
-      left: -36px;
-      top: 8px;
-      width: 16px;
-      height: 16px;
-      background: var(--primary);
-      border: 3px solid var(--bg-main);
-      border-radius: 50%;
-      box-shadow: 0 0 0 4px rgba(91, 79, 233, 0.2);
-    }
-    
-    .timeline-content {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 20px;
-      transition: var(--transition);
-    }
-    
-    .timeline-content:hover {
-      border-color: var(--primary);
-      box-shadow: var(--shadow-md);
-    }
-    
-    .timeline-date {
-      font-weight: 600;
-      color: var(--primary);
-      margin-bottom: 8px;
-    }
-    
-    .timeline-title {
-      font-size: 18px;
-      margin-bottom: 8px;
-    }
-    
-    .timeline-description {
-      color: var(--text-secondary);
-    }
-    
-    /* Contact Section */
-    .contact-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
-    }
-    
-    .contact-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 32px;
-      text-align: center;
-      transition: var(--transition);
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .contact-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
-      transform: translateX(-100%);
-      transition: transform 0.5s ease;
-    }
-    
-    .contact-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-lg);
-    }
-    
-    .contact-card:hover::before {
-      transform: translateX(0);
-    }
-    
-    .contact-icon {
-      width: 60px;
-      height: 60px;
-      margin: 0 auto 20px;
-      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-      border-radius: var(--radius-md);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-    }
-    
-    /* Footer */
-    footer {
-      background: var(--bg-card);
-      border-top: 1px solid var(--border);
-      padding: 60px 0 40px;
-      margin-top: 100px;
-    }
-    
-    .footer-content {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
-      gap: 40px;
-      margin-bottom: 40px;
-    }
-    
-    .footer-section h3 {
-      margin-bottom: 16px;
-      color: var(--text-primary);
-    }
-    
-    .footer-section a {
-      color: var(--text-secondary);
-      text-decoration: none;
-      transition: var(--transition);
-      display: inline-block;
-      margin-bottom: 8px;
-    }
-    
-    .footer-section a:hover {
-      color: var(--primary);
-      transform: translateX(4px);
-    }
-    
-    .footer-bottom {
-      padding-top: 32px;
-      border-top: 1px solid var(--border);
-      text-align: center;
-      color: var(--text-muted);
-    }
-    
-    /* Back to Top Button */
-    .back-to-top {
-      position: fixed;
-      bottom: 32px;
-      right: 32px;
-      width: 56px;
-      height: 56px;
-      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-      color: white;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      box-shadow: var(--shadow-lg);
-      opacity: 0;
-      visibility: hidden;
-      transition: var(--transition);
-      z-index: 999;
-    }
-    
-    .back-to-top.visible {
-      opacity: 1;
-      visibility: visible;
-    }
-    
-    .back-to-top:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(91, 79, 233, 0.4);
-    }
-    
-    /* Animations */
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
-    @keyframes slideInLeft {
-      from {
-        opacity: 0;
-        transform: translateX(-30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-    
-    /* Intersection Observer Classes */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    
-    /* Responsive */
-    @media (max-width: 968px) {
-      .hero-content {
-        grid-template-columns: 1fr;
-        text-align: center;
-      }
-      
-      .hero-text h1 {
-        font-size: 36px;
-      }
-      
-      .hero-buttons {
-        justify-content: center;
-      }
-      
-      .cards-grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .footer-content {
-        grid-template-columns: 1fr;
-        text-align: center;
-      }
-      
-      .nav-links {
-        display: none;
-      }
-    }
+    html{scroll-behavior:smooth}
   </style>
 </head>
 <body>
-  <div class="bg-animation"></div>
-  
-  <header>
-    <div class="container">
-      <nav>
-        <div class="logo">王泽恒</div>
-        <div class="nav-links">
-          <a href="#about">关于</a>
-          <a href="#projects">作品</a>
-          <a href="#experience">经历</a>
-          <a href="#contact">联系</a>
-        </div>
-        <div class="lang-switch">
-          <a href="#" id="btn-zh" class="active">中文</a>
-          <a href="#" id="btn-en">EN</a>
-        </div>
-      </nav>
-    </div>
-  </header>
-  
-  <main>
-    <!-- Hero Section -->
-    <section class="hero">
-      <div class="container">
-        <div class="hero-content">
-          <div class="hero-text">
-            <h1 data-i18n="hero_title">做有温度的内容与研究</h1>
-            <p class="subtitle" data-i18n="hero_subtitle">
-              现居江西南昌，庆熙大学（韩国）媒体管理MBA在读。<br>
-              4年南昌广播电视台记者/新媒体编辑经验
-            </p>
-            <div class="hero-tags">
-              <span class="tag">内容创作</span>
-              <span class="tag">新媒体运营</span>
-              <span class="tag">NAS研究</span>
-              <span class="tag">情绪传播</span>
-            </div>
-            <div class="hero-buttons">
-              <a href="#projects" class="btn btn-primary">
-                <span data-i18n="btn_projects">查看作品</span>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
-              </a>
-              <a href="/CV.pdf" class="btn btn-secondary" target="_blank">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
-                </svg>
-                <span data-i18n="btn_cv">下载简历</span>
-              </a>
-            </div>
-          </div>
-          <div class="hero-image">
-            <div class="avatar-container">
-              <div class="avatar-glow"></div>
-              <img class="avatar" src="/avatar.jpg" alt="王泽恒">
-            </div>
-          </div>
-        </div>
+<header>
+  <div class="container">
+    <nav>
+      <div class="logo" data-i18n="brand">王泽恒 · Wang Zeheng</div>
+      <div class="nav">
+        <a href="#about" data-i18n="nav_about">简介</a>
+        <a href="#featured" data-i18n="nav_featured">作品</a>
+        <a href="#works" data-i18n="nav_works">经历</a>
+        <a href="#goals" data-i18n="nav_goals">目标</a>
+        <a href="#contact" data-i18n="nav_contact">联系</a>
       </div>
-    </section>
-    
-    <!-- About Section -->
-    <section id="about" class="section fade-in">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title" data-i18n="about_title">个人简介</h2>
-          <p class="section-subtitle" data-i18n="about_subtitle">媒体人 · 研究者 · 内容创作者</p>
-        </div>
-        <div class="card" style="max-width: 900px; margin: 0 auto; padding: 40px;">
-          <p style="font-size: 18px; line-height: 1.8; color: var(--text-secondary);" data-i18n="about_content">
-            王泽恒，现居中国江西南昌，庆熙大学（韩国）媒体管理专业MBA在读（2024.09—2025.12，GPA 3.89/4.3，均分90.71）；
-            本科毕业于豫楚理工学院广播电视编导专业（2014.09—2018.06，GPA 3.77/4.00）。
-            拥有4年南昌广播电视台多媒体记者/新媒体编辑经验（2019.01—2023.03），
-            擅长摄影/摄像、音视频与图像编辑、账号运营及大型直播策划。
-            研究兴趣：新媒体传播、社交媒体与新闻融合、网络议程设置（NAS）与情绪传播。
-          </p>
-        </div>
+      <div class="lang">
+        <a href="#" id="btn-zh" class="active">中文</a>
+        <a href="#" id="btn-en">English</a>
       </div>
-    </section>
-    
-    <!-- Projects Section -->
-    <section id="projects" class="section fade-in">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title" data-i18n="projects_title">精选作品</h2>
-          <p class="section-subtitle" data-i18n="projects_subtitle">新媒体报道 · 内容创作</p>
-        </div>
-        <div class="cards-grid">
-          <article class="card">
-            <img class="card-image" src="/project1.jpg" alt="上岸了，这些捕鱼人成了养鱼人">
-            <div class="card-content">
-              <h3 class="card-title" data-i18n="project1_title">上岸了，这些捕鱼人成了养鱼人</h3>
-              <p class="card-description" data-i18n="project1_desc">
-                深度报道渔民转型故事，展现时代变迁下的个人选择
-              </p>
-              <a href="#" class="card-link" target="_blank">
-                查看作品 →
-              </a>
-            </div>
-          </article>
-          
-          <article class="card">
-            <img class="card-image" src="/project2.jpg" alt="幸福生活"一键直达"！南昌老旧社区加装电梯">
-            <div class="card-content">
-              <h3 class="card-title" data-i18n="project2_title">幸福生活"一键直达"</h3>
-              <p class="card-description" data-i18n="project2_desc">
-                关注民生工程，记录老旧社区改造中的温暖故事
-              </p>
-              <a href="#" class="card-link" target="_blank">
-                查看作品 →
-              </a>
-            </div>
-          </article>
-          
-          <article class="card">
-            <img class="card-image" src="/project3.jpg" alt="共同的战"疫"">
-            <div class="card-content">
-              <h3 class="card-title" data-i18n="project3_title">共同的战"疫"</h3>
-              <p class="card-description" data-i18n="project3_desc">
-                疫情期间特别报道，记录平凡英雄的不凡故事
-              </p>
-              <a href="#" class="card-link" target="_blank">
-                查看作品 →
-              </a>
-            </div>
-          </article>
-        </div>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <!-- Hero -->
+  <section class="hero" data-fade>
+    <div>
+      <h1 data-i18n="hero_title">做有温度的内容与研究</h1>
+      <p data-i18n="hero_sub">现居江西南昌，庆熙大学（韩国）媒体管理MBA在读。4年南昌广播电视台记者/新媒体编辑经验，关注新媒体传播、社交媒体与新闻融合、网络议程设置（NAS）与情绪传播。</p>
+      <div class="chips">
+        <span class="chip" data-i18n="tag_content">内容制作（文/图/音/视频）</span>
+        <span class="chip" data-i18n="tag_ops">账号运营 & 直播策划</span>
+        <span class="chip" data-i18n="tag_research">NAS / 情绪传播</span>
       </div>
-    </section>
-    
-    <!-- Experience Section -->
-    <section id="experience" class="section fade-in">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title" data-i18n="exp_title">工作经历</h2>
-          <p class="section-subtitle" data-i18n="exp_subtitle">教育背景 · 职业经历 · 荣誉奖项</p>
-        </div>
-        <div class="timeline">
-          <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content">
-              <div class="timeline-date">2024.09 - 2025.12</div>
-              <h3 class="timeline-title">庆熙大学 · 媒体管理MBA</h3>
-              <p class="timeline-description">GPA 3.89/4.3，研究方向：新媒体传播、NAS、情绪传播</p>
-            </div>
-          </div>
-          
-          <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content">
-              <div class="timeline-date">2019.01 - 2023.03</div>
-              <h3 class="timeline-title">南昌广播电视台 · 多媒体记者/新媒体编辑</h3>
-              <p class="timeline-description">100+ 新闻稿；直播策划；年浏览量破亿</p>
-            </div>
-          </div>
-          
-          <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content">
-              <div class="timeline-date">2014.09 - 2018.06</div>
-              <h3 class="timeline-title">豫楚理工学院 · 广播电视编导专业</h3>
-              <p class="timeline-description">GPA 3.77/4.00，多项省级竞赛获奖</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    
-    <!-- Contact Section -->
-    <section id="contact" class="section fade-in">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title" data-i18n="contact_title">联系方式</h2>
-          <p class="section-subtitle" data-i18n="contact_subtitle">期待与您的交流与合作</p>
-        </div>
-        <div class="contact-grid">
-          <div class="contact-card">
-            <div class="contact-icon">📧</div>
-            <h3>邮箱</h3>
-            <p><a href="mailto:1433890263@qq.com">1433890263@qq.com</a></p>
-            <p><a href="mailto:wzh1025@khu.ac.kr">wzh1025@khu.ac.kr</a></p>
-          </div>
-          
-          <div class="contact-card">
-            <div class="contact-icon">📱</div>
-            <h3>电话</h3>
-            <p>(+86) 181-7091-1025</p>
-          </div>
-          
-          <div class="contact-card">
-            <div class="contact-icon">💬</div>
-            <h3>微信</h3>
-            <p>扫码添加（备注来意）</p>
-            <img src="/wechat-qr.png" alt="WeChat QR" style="width: 120px; margin-top: 12px;">
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-  
-  <footer>
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-section">
-          <h3>王泽恒 · Wang Zeheng</h3>
-          <p style="color: var(--text-secondary);">
-            媒体人 · 研究者 · 内容创作者<br>
-            做有温度的内容与研究
-          </p>
-        </div>
-        <div class="footer-section">
-          <h3>快速链接</h3>
-          <a href="#about">关于我</a><br>
-          <a href="#projects">作品展示</a><br>
-          <a href="#experience">工作经历</a><br>
-          <a href="#contact">联系方式</a>
-        </div>
-        <div class="footer-section">
-          <h3>下载</h3>
-          <a href="/CV.pdf" target="_blank">个人简历 (PDF)</a><br>
-          <a href="/portfolio.pdf" target="_blank">作品集 (PDF)</a>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>© <span id="year"></span> wangzeheng.cn · All rights reserved.</p>
+      <div class="btns">
+        <a class="btn" href="#featured" data-i18n="btn_view_works">查看作品</a>
+        <a class="btn ghost" href="/assets/cv.pdf" target="_blank" data-i18n="btn_cv">下载简历</a>
       </div>
     </div>
-  </footer>
-  
-  <a href="#" class="back-to-top" id="backToTop">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <path d="M18 15l-6-6-6 6"/>
-    </svg>
-  </a>
-  
-  <script>
-    // i18n translations
-    const translations = {
-      zh: {
-        hero_title: "做有温度的内容与研究",
-        hero_subtitle: "现居江西南昌，庆熙大学（韩国）媒体管理MBA在读。<br>4年南昌广播电视台记者/新媒体编辑经验",
-        btn_projects: "查看作品",
-        btn_cv: "下载简历",
-        about_title: "个人简介",
-        about_subtitle: "媒体人 · 研究者 · 内容创作者",
-        about_content: "王泽恒，现居中国江西南昌，庆熙大学（韩国）媒体管理专业MBA在读（2024.09—2025.12，GPA 3.89/4.3，均分90.71）；本科毕业于豫楚理工学院广播电视编导专业（2014.09—2018.06，GPA 3.77/4.00）。拥有4年南昌广播电视台多媒体记者/新媒体编辑经验（2019.01—2023.03），擅长摄影/摄像、音视频与图像编辑、账号运营及大型直播策划。研究兴趣：新媒体传播、社交媒体与新闻融合、网络议程设置（NAS）与情绪传播。",
-        projects_title: "精选作品",
-        projects_subtitle: "新媒体报道 · 内容创作",
-        project1_title: "上岸了，这些捕鱼人成了养鱼人",
-        project1_desc: "深度报道渔民转型故事，展现时代变迁下的个人选择",
-        project2_title: "幸福生活"一键直达"",
-        project2_desc: "关注民生工程，记录老旧社区改造中的温暖故事",
-        project3_title: "共同的战"疫"",
-        project3_desc: "疫情期间特别报道，记录平凡英雄的不凡故事",
-        exp_title: "工作经历",
-        exp_subtitle: "教育背景 · 职业经历 · 荣誉奖项",
-        contact_title: "联系方式",
-        contact_subtitle: "期待与您的交流与合作"
-      },
-      en: {
-        hero_title: "Creating Content & Research with Warmth",
-        hero_subtitle: "Based in Nanchang, China. MBA in Media Management at Kyung Hee University (Korea).<br>4 years as multimedia reporter & social media editor",
-        btn_projects: "View Projects",
-        btn_cv: "Download CV",
-        about_title: "About Me",
-        about_subtitle: "Media Professional · Researcher · Content Creator",
-        about_content: "Wang Zeheng, based in Nanchang, Jiangxi, China. Currently pursuing MBA in Media Management at Kyung Hee University, Korea (2024.09—2025.12, GPA 3.89/4.3). Bachelor's degree in Broadcasting & TV Directing (2014.09—2018.06, GPA 3.77/4.00). 4 years of experience as multimedia reporter/social media editor at Nanchang Broadcasting Station (2019.01—2023.03). Skilled in photography/videography, audio/video editing, channel operations, and live streaming production. Research interests: new media communication, social media-news convergence, Network Agenda Setting (NAS), and emotional communication.",
-        projects_title: "Featured Projects",
-        projects_subtitle: "New Media Reports · Content Creation",
-        project1_title: "From Fishers to Fish Farmers",
-        project1_desc: "In-depth report on fishermen's transformation, showcasing personal choices amid changing times",
-        project2_title: "One-Click to Happiness",
-        project2_desc: "Focus on livelihood projects, documenting heartwarming stories of old community renovations",
-        project3_title: "Fighting COVID Together",
-        project3_desc: "Special pandemic coverage, recording extraordinary stories of ordinary heroes",
-        exp_title: "Experience",
-        exp_subtitle: "Education · Career · Awards",
-        contact_title: "Contact",
-        contact_subtitle: "Looking forward to connecting with you"
-      }
-    };
-    
-    // Language switcher
-    let currentLang = 'zh';
-    
-    function switchLanguage(lang) {
-      currentLang = lang;
-      document.querySelectorAll('[data-i18n]').forEach(element => {
-        const key = element.getAttribute('data-i18n');
-        if (translations[lang][key]) {
-          element.innerHTML = translations[lang][key];
-        }
-      });
-      
-      document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
-      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-      
-      localStorage.setItem('language', lang);
+    <div style="display:flex;justify-content:center">
+      <img class="avatar" src="/assets/avatar.jpg" alt="王泽恒 头像"/>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="section" data-fade>
+    <h2 data-i18n="about_title">个人简介</h2>
+    <div class="card">
+      <p data-i18n="about_body">
+        王泽恒，现居中国江西南昌，庆熙大学（韩国）媒体管理专业MBA在读（2024.09–2025.12，GPA 3.89/4.3，均分90.71）；本科毕业于荆楚理工学院广播电视编导专业（2014.09–2018.06，GPA 3.77/4.00）。拥有4年南昌广播电视台多媒体记者/新媒体编辑经验（2019.01–2023.03），擅长摄影/摄像、音视频与图像编辑、账号运营及大型直播策划。研究兴趣：新媒体传播、社交媒体与新闻融合、网络议程设置（NAS）与情绪传播。
+      </p>
+    </div>
+  </section>
+
+  <!-- Featured Projects -->
+  <section id="featured" class="section" data-fade>
+    <h2 data-i18n="featured_title">精选作品 / Featured Projects</h2>
+    <div class="grid">
+      <article class="card">
+        <a href="https://xhpfmapi.zhongguowangshi.com/vh512/share/9684591?channel=weixin" target="_blank" rel="noopener">
+          <img class="thumb" src="/assets/projects-3.png" alt="上岸了，这些捕鱼人成了养鱼人 封面">
+        </a>
+        <h3 data-i18n="f1_t">上岸了，这些捕鱼人成了养鱼人</h3>
+        <p class="muted" data-i18n="f1_d">点击封面查看报道</p>
+      </article>
+
+      <article class="card">
+        <a href="https://h.xinhuaxmt.com/vh512/share/10639704?docid=10639704&newstype=1001&d=1348992" target="_blank" rel="noopener">
+          <img class="thumb" src="/assets/projects-2.png" alt="幸福生活“一键直达”！南昌老旧社区加装电梯 封面">
+        </a>
+        <h3 data-i18n="f2_t">幸福生活“一键直达”！南昌老旧社区加装电梯</h3>
+        <p class="muted" data-i18n="f2_d">点击封面查看报道</p>
+      </article>
+
+      <article class="card">
+        <a href="https://h.xinhuaxmt.com/vh512/share/11352820?d=134b03c" target="_blank" rel="noopener">
+          <img class="thumb" src="/assets/projects-1.png" alt="共同的战“疫” 封面">
+        </a>
+        <h3 data-i18n="f3_t">共同的战“疫”</h3>
+        <p class="muted" data-i18n="f3_d">点击封面查看报道</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- Experience / Works -->
+  <section id="works" class="section" data-fade>
+    <h2 data-i18n="works_title">经历与成果</h2>
+    <div class="grid">
+      <div class="card timeline">
+        <div class="tl">
+          <strong data-i18n="tl1_t">2024.09–2025.12 · 庆熙大学 媒体管理MBA（GPA 3.89/4.3）</strong>
+          <div class="muted" data-i18n="tl1_d">研究：新媒体传播 / NAS / 情绪传播</div>
+        </div>
+        <div class="tl">
+          <strong data-i18n="tl2_t">2019.01–2023.03 · 南昌广播电视台 多媒体记者/新媒体编辑</strong>
+          <div class="muted" data-i18n="tl2_d">100+ 新闻稿；直播策划；年浏览量破亿</div>
+        </div>
+      </div>
+      <div class="card">
+        <h3 data-i18n="works_academic">学术成果（选）</h3>
+        <ul class="list">
+          <li data-i18n="w1">《反转新闻的负面影响及预防策略》（《新闻与传播》，湖北人文社科重大项目 17ZD032）</li>
+          <li data-i18n="w2">《大众媒体价值观对受众的影响调查——基于近十年“两会”报道变化的案例研究》</li>
+          <li data-i18n="w3">《航拍在当代纪录片中的应用——以〈航拍中国〉为例》</li>
+          <li data-i18n="w4">待发表： “拆盲盒”直播中情绪化传播与用户行为研究（预计2025年10月）</li>
+          <li data-i18n="w5">待发表： 新媒体环境下地方媒体议程设置的功能转型与传播策略——以“颖响力”为例（预计2025年12月）</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 data-i18n="works_awards">荣誉奖项（选）</h3>
+        <ul class="list">
+          <li data-i18n="a1">南昌广播电视台“年度优秀个人”（2020–2021）</li>
+          <li data-i18n="a2">“江西广播电视奖——优秀广播节目”入围奖（2021）</li>
+          <li data-i18n="a3">《遇见荆门》省赛播音主持类一等奖（2017）</li>
+          <li data-i18n="a4">《转折点》省赛微视频三等奖（2017）</li>
+          <li data-i18n="a5">“挑战杯”省赛三等奖；国广艺赛（湖北赛区）优秀奖</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="section" data-fade>
+    <h2 data-i18n="contact_title">联系方式</h2>
+    <div class="grid">
+      <div class="card">
+        <h3 data-i18n="contact_mail_t">邮箱 & 电话</h3>
+        <p>
+          <a href="mailto:1433890263@qq.com">1433890263@qq.com</a> /
+          <a href="mailto:wangzeheng202311@163.com">wangzeheng202311@163.com</a> /
+          <a href="mailto:wzh1025@khu.ac.kr">wzh1025@khu.ac.kr</a><br/>
+          <span data-i18n="contact_phone">电话：(+86) 181-7091-1025</span>
+        </p>
+      </div>
+      <div class="card" style="display:flex;gap:16px;align-items:center;justify-content:space-between;">
+        <div>
+          <h3>WeChat</h3>
+          <div class="muted" data-i18n="wx_tip">扫码添加微信（备注来意）</div>
+        </div>
+        <img src="/assets/wechat-qr.png" alt="WeChat QR" style="width:160px;border:1px solid var(--border);border-radius:12px"/>
+      </div>
+      <div class="card" style="display:flex;gap:12px;align-items:center;justify-content:space-between;">
+        <div>
+          <h3 style="margin:0 0 6px;" data-i18n="download_t">资料下载</h3>
+        </div>
+        <a class="btn" href="/assets/cv.pdf" target="_blank" rel="noopener" data-i18n="download_btn">下载简历</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container footer">
+    <div>
+      <strong>王泽恒 · Wang Zeheng</strong>
+      <div class="muted">© <span id="year"></span> wangzeheng.cn · All rights reserved.</div>
+    </div>
+    <div>
+      <div class="muted" data-i18n="footer_nav">快速导航</div>
+      <a href="#about" data-i18n="nav_about">简介</a><br/>
+      <a href="#featured" data-i18n="nav_featured">作品</a>
+    </div>
+    <div>
+      <div class="muted" data-i18n="footer_note">备注</div>
+      <span class="muted" data-i18n="footer_note_d">别划啦！底部彩蛋是我 —— 论文赶稿中、文化短视频更新中，要是你也对‘怎么用新媒体讲好文化故事’感兴趣，评论区蹲个唠嗑～</span>
+    </div>
+  </div>
+</footer>
+
+<a class="top" href="#" title="Back to top">↑</a>
+
+<script>
+  // i18n 字典：中文 & 英文
+  const dict = {
+    zh:{
+      brand:"王泽恒 · Wang Zeheng",
+      nav_about:"简介", nav_featured:"作品", nav_works:"经历", nav_goals:"目标", nav_contact:"联系",
+      hero_title:"做有温度的内容与研究",
+      hero_sub:"现居江西南昌，庆熙大学（韩国）媒体管理MBA在读。4年南昌广播电视台记者/新媒体编辑经验，关注新媒体传播、社交媒体与新闻融合、网络议程设置（NAS）与情绪传播。",
+      tag_content:"内容制作（文/图/音/视频）", tag_ops:"账号运营 & 直播策划", tag_research:"NAS / 情绪传播",
+      btn_view_works:"查看作品", btn_cv:"下载简历",
+      about_title:"个人简介",
+      about_body:"王泽恒，现居中国江西南昌，庆熙大学（韩国）媒体管理专业MBA在读（2024.09–2025.12，GPA 3.89/4.3，均分90.71）；本科毕业于荆楚理工学院广播电视编导专业（2014.09–2018.06，GPA 3.77/4.00）。拥有4年南昌广播电视台多媒体记者/新媒体编辑经验（2019.01–2023.03），擅长摄影/摄像、音视频与图像编辑、账号运营及大型直播策划。研究兴趣：新媒体传播、社交媒体与新闻融合、网络议程设置（NAS）与情绪传播。",
+      featured_title:"精选作品 / Featured Projects",
+      f1_t:"上岸了，这些捕鱼人成了养鱼人", f1_d:"点击封面查看报道",
+      f2_t:"幸福生活“一键直达”！南昌老旧社区加装电梯", f2_d:"点击封面查看报道",
+      f3_t:"共同的战“疫”", f3_d:"点击封面查看报道",
+      works_title:"经历与成果", works_academic:"学术成果（选）", works_awards:"荣誉奖项（选）",
+      w1:"《反转新闻的负面影响及预防策略》（《新闻与传播》，湖北人文社科重大项目 17ZD032）",
+      w2:"《大众媒体价值观对受众的影响调查——基于近十年“两会”报道变化的案例研究》",
+      w3:"《航拍在当代纪录片中的应用——以〈航拍中国〉为例》",
+      w4:"待发表： “拆盲盒”直播中情绪化传播与用户行为研究（预计2025年10月）",
+      w5:"待发表： 新媒体环境下地方媒体议程设置的功能转型与传播策略——以“颖响力”为例（预计2025年12月）",
+      a1:"南昌广播电视台“年度优秀个人”（2020–2021）",
+      a2:"“江西广播电视奖——优秀广播节目”入围奖（2021）",
+      a3:"《遇见荆门》省赛播音主持类一等奖（2017）",
+      a4:"《转折点》省赛微视频三等奖（2017）",
+      a5:"“挑战杯”省赛三等奖；国广艺赛（湖北赛区）优秀奖",
+      contact_title:"联系方式", contact_mail_t:"邮箱 & 电话",
+      contact_phone:"电话：(+86) 181-7091-1025", wx_tip:"扫码添加微信（备注来意）",
+      download_t:"资料下载", download_btn:"下载简历",
+      footer_nav:"快速导航", footer_note:"备注",
+      footer_note_d:"别划啦！底部彩蛋是我 —— 论文赶稿中、文化短视频更新中，要是你也对‘怎么用新媒体讲好文化故事’感兴趣，评论区蹲个唠嗑～"
+    },
+    en:{
+      brand:"Wang Zeheng",
+      nav_about:"About", nav_featured:"Projects", nav_works:"Experience", nav_goals:"Goals", nav_contact:"Contact",
+      hero_title:"Research & Content with Warmth",
+      hero_sub:"Based in Nanchang, China. MBA in Media Management at Kyung Hee University (Korea). 4 years as a multimedia reporter & social media editor. Focus: social media–news convergence, NAS and emotion in communication.",
+      tag_content:"Content (text/photo/audio/video)", tag_ops:"Channel Ops & Live Streaming", tag_research:"NAS / Emotion",
+      btn_view_works:"View Projects", btn_cv:"Download CV",
+      about_title:"About Me",
+      about_body:"MBA candidate in Media Management at Kyung Hee University (2024.09–2025.12, GPA 3.89/4.3). BA in Broadcasting & TV Directing at Jingchu University of Technology (GPA 3.77/4.00). 4 years at Nanchang Broadcasting (2019–2023). Skilled in shooting/editing, social ops & live-stream planning. Research: social media–news convergence, NAS, emotion.",
+      featured_title:"Featured Projects",
+      f1_t:"From Fishers to Fish Farmers", f1_d:"Open story",
+      f2_t:"Elevator Upgrades in Nanchang Communities", f2_d:"Open story",
+      f3_t:"Fighting COVID-19 Together", f3_d:"Open story",
+      works_title:"Experience & Works", works_academic:"Academic (selected)", works_awards:"Awards (selected)",
+      w1:"Negative Effects & Prevention of ‘Reversed News’ (Journal of Journalism & Communication; Grant No. 17ZD032)",
+      w2:"Audience Values Shaped by Mass Media: A Case of ‘Two Sessions’ Coverage",
+      w3:"Aerial Filming in Contemporary Documentaries: Case of ‘Aerial China’",
+      w4:"In press: Emotion & User Behavior in Blind-Box Live Streams (Oct 2025)",
+      w5:"In press: Local Media Agenda-Setting in New Media—‘YingXiangLi’ (Dec 2025)",
+      a1:"Annual Excellence, Nanchang Broadcasting (2020–2021)",
+      a2:"Finalist, Jiangxi Radio & TV Awards (2021)",
+      a3:"1st Prize, Broadcasting Host (2017, provincial)",
+      a4:"3rd Prize, Micro-video (2017, provincial)",
+      a5:"3rd Prize, Challenge Cup; Merit, National Advertising Art (Hubei)",
+      contact_title:"Contact", contact_mail_t:"Email & Phone",
+      contact_phone:"Phone: (+86) 181-7091-1025", wx_tip:"Scan to add WeChat (note your intent)",
+      download_t:"Downloads", download_btn:"Download CV",
+      footer_nav:"Quick Links", footer_note:"Note",
+      footer_note_d:"Don’t scroll away—Easter egg: I’m drafting papers & making short cultural videos. If you’re into ‘telling cultural stories with new media’, let’s chat!"
     }
-    
-    // Initialize language
-    const savedLang = localStorage.getItem('language') || 'zh';
-    switchLanguage(savedLang);
-    
-    document.getElementById('btn-zh').addEventListener('click', (e) => {
-      e.preventDefault();
-      switchLanguage('zh');
+  };
+
+  // 切换语言
+  function applyLang(lang){
+    document.querySelectorAll("[data-i18n]").forEach(el=>{
+      const key = el.getAttribute("data-i18n");
+      if(dict[lang] && dict[lang][key]) el.textContent = dict[lang][key];
     });
-    
-    document.getElementById('btn-en').addEventListener('click', (e) => {
-      e.preventDefault();
-      switchLanguage('en');
-    });
-    
-    // Back to top button
-    const backToTop = document.getElementById('backToTop');
-    
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 300) {
-        backToTop.classList.add('visible');
-      } else {
-        backToTop.classList.remove('visible');
-      }
-    });
-    
-    backToTop.addEventListener('click', (e) => {
-      e.preventDefault();
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
-    
-    // Intersection Observer for animations
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-    
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, observerOptions);
-    
-    document.querySelectorAll('.fade-in').forEach(el => {
-      observer.observe(el);
-    });
-    
-    // Set current year
-    document.getElementById('year').textContent = new Date().getFullYear();
-    
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-      });
-    });
-    
-    // Add parallax effect to hero section
-    window.addEventListener('scroll', () => {
-      const scrolled = window.pageYOffset;
-      const hero = document.querySelector('.hero');
-      if (hero) {
-        hero.style.transform = `translateY(${scrolled * 0.5}px)`;
-      }
-    });
-    
-    // Add typing effect to hero title (optional)
-    function typeWriter(element, text, speed = 100) {
-      let i = 0;
-      element.textContent = '';
-      
-      function type() {
-        if (i < text.length) {
-          element.textContent += text.charAt(i);
-          i++;
-          setTimeout(type, speed);
-        }
-      }
-      
-      type();
-    }
-    
-    // Initialize typing effect on page load
-    window.addEventListener('load', () => {
-      const heroTitle = document.querySelector('[data-i18n="hero_title"]');
-      if (heroTitle) {
-        const text = heroTitle.textContent;
-        typeWriter(heroTitle, text, 80);
-      }
-    });
-  </script>
+    document.getElementById("btn-zh").classList.toggle("active", lang==="zh");
+    document.getElementById("btn-en").classList.toggle("active", lang==="en");
+    document.documentElement.setAttribute("lang", lang==="zh" ? "zh-CN" : "en");
+    localStorage.setItem("lang", lang);
+  }
+  const initLang = localStorage.getItem("lang") || "zh";
+  applyLang(initLang);
+  document.getElementById("btn-zh").addEventListener("click", e=>{e.preventDefault();applyLang("zh")});
+  document.getElementById("btn-en").addEventListener("click", e=>{e.preventDefault();applyLang("en")});
+
+  // 入场动画
+  const io = new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting) e.target.classList.add("in");});},{threshold:.15});
+  document.querySelectorAll("[data-fade]").forEach(el=>io.observe(el));
+
+  // 年份
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
 </body>
 </html>
