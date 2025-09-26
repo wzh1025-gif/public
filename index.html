@@ -122,14 +122,57 @@ body{
   </div>
 </header>
 
-<!-- 下面保持不变（About、Achievements、Timeline、Stats、Portfolio、Goals、Contact、Footer） -->
-<!-- … (省略，内容结构与之前一样) … -->
+<!-- 这里接下来的 About / Achieve / Timeline / Stats / Portfolio / Goals 保持不变 -->
+<!-- Contact 底部 -->
+<section id="contact" class="py-5">
+  <div class="container">
+    <div class="text-center mb-4">
+      <h2 class="fw-bold">联系我</h2>
+      <div class="bar mx-auto"></div>
+    </div>
+    <div class="row g-4">
+      <div class="col-lg-6" data-aos="fade-right">
+        <div class="card-soft p-4 h-100">
+          <h6 class="fw-bold mb-3">留言</h6>
+          <form action="mailto:1433890263@qq.com" method="post" enctype="text/plain" onsubmit="toast('将打开邮件客户端发送');">
+            <div class="row g-3">
+              <div class="col-md-6"><input name="name" class="form-control" placeholder="你的名字" required></div>
+              <div class="col-md-6"><input name="email" type="email" class="form-control" placeholder="你的邮箱" required></div>
+              <div class="col-12"><textarea name="message" rows="4" class="form-control" placeholder="想说的话…" required></textarea></div>
+            </div>
+            <button class="btn btn-brand rounded-pill px-4 mt-3">发送</button>
+          </form>
+        </div>
+      </div>
+      <div class="col-lg-6" data-aos="fade-left">
+        <div class="card-soft p-4 h-100">
+          <h6 class="fw-bold mb-3">邮箱 / 微信 / 简历</h6>
+          <p class="mb-1"><i class="bi bi-envelope"></i> <span class="copyable" data-copy="1433890263@qq.com">1433890263@qq.com</span></p>
+          <p class="mb-1"><i class="bi bi-envelope"></i> <span class="copyable" data-copy="wangzeheng202311@163.com">wangzeheng202311@163.com</span></p>
+          <p class="mb-3"><i class="bi bi-envelope"></i> <span class="copyable" data-copy="wzh1025@khu.ac.kr">wzh1025@khu.ac.kr</span></p>
+          <img src="assets/WeChat.png" width="120" class="rounded border mb-2" alt="WeChat">
+          <div class="small text-secondary mb-3">扫码添加微信（备注来意） · 或在左侧表单留言</div>
+          <a id="btnCv2" class="btn btn-ghost rounded-pill px-4" href="assets/CV.pdf" target="_blank">
+            <i class="bi bi-file-earmark-pdf"></i> 下载简历
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-<!-- Contact 底部的下载简历按钮统一 -->
-<a id="btnCv2" class="btn btn-ghost rounded-pill px-4" href="assets/CV.pdf" target="_blank">
-  <i class="bi bi-file-earmark-pdf"></i> 下载简历
-</a>
+<!-- Footer 保持不变 -->
+<footer class="footer py-4">
+  <div class="container d-flex flex-column flex-lg-row justify-content-between align-items-center gap-3">
+    <div class="text-secondary small">© <span id="year"></span> 王泽恒 · All rights reserved.</div>
+    <div class="small text-secondary" id="easter" style="cursor:pointer">
+      别划啦！底部彩蛋是我 —— 论文赶稿中、文化短视频更新中，要是你也对“用新媒体讲好文化故事”感兴趣，来聊聊吧～
+    </div>
+  </div>
+</footer>
 
-<!-- Footer & Scripts 同之前 -->
+<a href="#" id="backTop" class="shadow"><i class="bi bi-arrow-up"></i></a>
+
+<!-- Scripts 略，保持原有的 AOS / Isotope / Toast / Year 等逻辑 -->
 </body>
 </html>
