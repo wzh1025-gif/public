@@ -8,37 +8,21 @@
   <meta property="og:title" content="王泽恒 · 个人主页 | Wang Zeheng"/>
   <meta property="og:description" content="个人简介 · 作品展示 · 阶段目标 · 联系方式"/>
   <meta property="og:type" content="website"/>
-  <!-- OG 图：用项目封面3（文件名含空格，已编码）。可换成 /assets/og.jpg -->
   <meta property="og:image" content="/new%20media%20projects3.png"/>
   <link rel="icon" href="/Favicon.png"/>
   <style>
-    /* === Academic Palette（学术风格）=== */
     :root{
-      --bg:#f9f9f6;          /* Ivory background */
-      --ink:#111827;         /* Academic ink black */
-      --muted:#6b7280;       /* Cool gray for secondary text */
-      --brand:#2a4b8d;       /* Deep, low-sat academic blue */
-      --brand-ink:#ffffff;   /* Button text */
-      --border:#d1d5db;      /* Soft border */
-      --shadow:0 12px 32px rgba(17,24,39,.06);
-
-      --chip:#eaf0ff;        /* Tag bg */
-      --chip-ink:#2a4b8d;    /* Tag text */
-
-      --card:#ffffff;        /* Cards */
-      --grad1:#ffffff;
-      --grad2:#f3f4f6;       /* Hero gradient */
-
-      --radius:18px;
-      --container:1100px;
+      --bg:#f9f9f6; --ink:#111827; --muted:#6b7280;
+      --brand:#2a4b8d; --brand-ink:#ffffff;
+      --border:#d1d5db; --shadow:0 12px 32px rgba(17,24,39,.06);
+      --chip:#eaf0ff; --chip-ink:#2a4b8d;
+      --card:#ffffff; --grad1:#ffffff; --grad2:#f3f4f6;
+      --radius:18px; --container:1100px;
     }
-
     *{box-sizing:border-box}
     html,body{margin:0}
     body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;line-height:1.75;background:var(--bg);color:var(--ink)}
     .container{max-width:var(--container);margin:0 auto;padding:24px}
-
-    /* Header */
     header{position:sticky;top:0;background:rgba(255,255,255,.86);backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid var(--border);z-index:50}
     nav{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
     .logo{font-weight:800;letter-spacing:.2px}
@@ -46,8 +30,6 @@
     .nav a:hover{color:var(--brand)}
     .lang a{color:var(--muted);text-decoration:none;margin-left:12px}
     .lang a.active{color:var(--brand);font-weight:700}
-
-    /* Hero */
     .hero{background:linear-gradient(145deg,var(--grad1) 0%, var(--grad2) 100%);border:1px solid var(--border);border-radius:22px;box-shadow:var(--shadow);padding:40px;display:grid;grid-template-columns:1.2fr .8fr;gap:32px;align-items:center;margin-top:18px}
     .hero h1{font-size:38px;line-height:1.2;margin:0 0 10px}
     .hero p{margin:0;color:var(--muted)}
@@ -58,8 +40,6 @@
     .btn:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(42,75,141,.25)}
     .btn.ghost{background:#eef1f4;color:#111827;box-shadow:none}
     .avatar{width:220px;height:220px;border-radius:50%;object-fit:cover;border:1px solid var(--border);box-shadow:var(--shadow)}
-
-    /* Sections */
     .section{padding:12px 0;margin-top:16px}
     .section h2{font-size:24px;margin:0 0 12px}
     .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
@@ -67,26 +47,15 @@
     .card:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(17,24,39,.08)}
     .list{margin:0;padding-left:18px}
     .muted{color:var(--muted)}
-
-    /* Featured */
     .thumb{width:100%;height:200px;object-fit:cover;border-radius:14px;border:1px solid var(--border)}
-
-    /* Timeline */
     .timeline{border-left:2px solid var(--border);padding-left:14px}
-    .tl{margin:12px 0}
-    .tl strong{display:block;margin-bottom:2px}
-
-    /* Footer + Top */
+    .tl{margin:12px 0} .tl strong{display:block;margin-bottom:2px}
     footer{margin-top:44px;border-top:1px solid var(--border)}
     .footer{display:grid;grid-template-columns:2fr 1fr 1fr;gap:16px;padding:20px 0}
     .footer a{color:var(--muted);text-decoration:none}
     .top{position:fixed;right:16px;bottom:16px;background:#0f172a;color:#fff;border-radius:999px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:var(--shadow)}
-
-    /* Reveal Anim */
     [data-fade]{opacity:0;transform:translateY(12px);transition:all .6s ease}
     [data-fade].in{opacity:1;transform:none}
-
-    /* Responsive + Dark */
     @media (max-width:960px){ .hero{grid-template-columns:1fr;padding:28px} .grid{grid-template-columns:1fr} .footer{grid-template-columns:1fr 1fr} .hero h1{font-size:30px}}
     @media (prefers-color-scheme:dark){
       :root{ --bg:#0B1016; --ink:#E8ECEF; --muted:#A6B0BA; --card:#0F141B; --border:#1D2530; --grad1:#0B1016; --grad2:#0E141C;}
@@ -120,9 +89,7 @@
   <section class="hero" data-fade>
     <div>
       <h1 data-i18n="hero_title">做有温度的内容与研究</h1>
-      <p data-i18n="hero_sub">
-        现居江西南昌，庆熙大学（韩国）媒体管理MBA在读。4年南昌广播电视台记者/新媒体编辑经验，关注新媒体传播、社交媒体与新闻融合、网络议程设置（NAS）与情绪传播。
-      </p>
+      <p data-i18n="hero_sub">现居江西南昌，庆熙大学（韩国）媒体管理MBA在读。4年南昌广播电视台记者/新媒体编辑经验，关注新媒体传播、社交媒体与新闻融合、网络议程设置（NAS）与情绪传播。</p>
       <div class="chips">
         <span class="chip" data-i18n="tag_content">内容制作（文/图/音/视频）</span>
         <span class="chip" data-i18n="tag_ops">账号运营 & 直播策划</span>
@@ -142,13 +109,11 @@
   <section id="about" class="section" data-fade>
     <h2 data-i18n="about_title">个人简介</h2>
     <div class="card">
-      <p data-i18n="about_body">
-        王泽恒，现居中国江西南昌，庆熙大学（韩国）媒体管理专业MBA在读（2024.09–2025.12，GPA 3.89/4.3，均分90.71）；本科毕业于荆楚理工学院广播电视编导专业（2014.09–2018.06，GPA 3.77/4.00）。拥有4年南昌广播电视台多媒体记者/新媒体编辑经验（2019.01–2023.03），擅长摄影/摄像、音视频与图像编辑、账号运营及大型直播策划。研究兴趣：新媒体传播、社交媒体与新闻融合、网络议程设置（NAS）与情绪传播。
-      </p>
+      <p data-i18n="about_body">王泽恒，现居中国江西南昌，庆熙大学（韩国）媒体管理专业MBA在读（2024.09–2025.12，GPA 3.89/4.3，均分90.71）；本科毕业于荆楚理工学院广播电视编导专业（2014.09–2018.06，GPA 3.77/4.00）。拥有4年南昌广播电视台多媒体记者/新媒体编辑经验（2019.01–2023.03），擅长摄影/摄像、音视频与图像编辑、账号运营及大型直播策划。研究兴趣：新媒体传播、社交媒体与新闻融合、网络议程设置（NAS）与情绪传播。</p>
     </div>
   </section>
 
-  <!-- Featured Projects（封面 + 外链） -->
+  <!-- Featured Projects -->
   <section id="featured" class="section" data-fade>
     <h2 data-i18n="featured_title">精选作品 / Featured Projects</h2>
     <div class="grid">
@@ -157,7 +122,7 @@
           <img class="thumb" src="/new%20media%20projects3.png" alt="上岸了，这些捕鱼人成了养鱼人 封面">
         </a>
         <h3 data-i18n="f1_t">上岸了，这些捕鱼人成了养鱼人</h3>
-        <p class="muted" data-i18n="f1_d">点击封面查看 → 新华社报道</p>
+        <p class="muted" data-i18n="f1_d">点击封面查看报道</p>
       </article>
 
       <article class="card">
@@ -165,7 +130,7 @@
           <img class="thumb" src="/new%20media%20projects2.png" alt="幸福生活“一键直达”！南昌老旧社区加装电梯 封面">
         </a>
         <h3 data-i18n="f2_t">幸福生活“一键直达”！南昌老旧社区加装电梯</h3>
-        <p class="muted" data-i18n="f2_d">点击封面查看 → 新华网报道</p>
+        <p class="muted" data-i18n="f2_d">点击封面查看报道</p>
       </article>
 
       <article class="card">
@@ -173,12 +138,12 @@
           <img class="thumb" src="/new%20media%20projects1.png" alt="共同的战“疫” 封面">
         </a>
         <h3 data-i18n="f3_t">共同的战“疫”</h3>
-        <p class="muted" data-i18n="f3_d">点击封面查看 → 新华网报道</p>
+        <p class="muted" data-i18n="f3_d">点击封面查看报道</p>
       </article>
     </div>
   </section>
 
-  <!-- Works / Awards 简历式概览（时间线 + 列表） -->
+  <!-- Experience / Works -->
   <section id="works" class="section" data-fade>
     <h2 data-i18n="works_title">经历与成果</h2>
     <div class="grid">
@@ -215,18 +180,7 @@
     </div>
   </section>
 
-  <!-- Certificates 拼贴 -->
-  <section id="certificates" class="section" data-fade>
-    <h2 data-i18n="cert_title">荣誉 & 证书</h2>
-    <div class="grid">
-      <img src="/certificate1.png" alt="证书1" class="card"/>
-      <img src="/certificate2.png" alt="证书2" class="card"/>
-      <img src="/certificate3.png" alt="证书3" class="card"/>
-      <img src="/certificate4.jpg" alt="证书4" class="card"/>
-    </div>
-  </section>
-
-  <!-- Contact / QR / Life Photo -->
+  <!-- Contact -->
   <section id="contact" class="section" data-fade>
     <h2 data-i18n="contact_title">联系方式</h2>
     <div class="grid">
@@ -245,10 +199,6 @@
           <div class="muted" data-i18n="wx_tip">扫码添加微信（备注来意）</div>
         </div>
         <img src="/WeChat.png" alt="微信二维码" style="width:160px;border:1px solid var(--border);border-radius:12px"/>
-      </div>
-      <div class="card">
-        <h3 data-i18n="life_t">生活照</h3>
-        <img src="/photo-wzh1.jpg" alt="生活照" style="width:100%;border-radius:14px;border:1px solid var(--border)"/>
       </div>
       <div class="card" style="display:flex;gap:12px;align-items:center;justify-content:space-between;">
         <div>
@@ -274,7 +224,7 @@
     </div>
     <div>
       <div class="muted" data-i18n="footer_note">备注</div>
-      <span class="muted" data-i18n="footer_note_d">单页版本，后续可扩展多页。</span>
+      <span class="muted" data-i18n="footer_note_d">别划啦！底部彩蛋是我 —— 论文赶稿中、文化短视频更新中，要是你也对‘怎么用新媒体讲好文化故事’感兴趣，评论区蹲个唠嗑～</span>
     </div>
   </div>
 </footer>
@@ -282,7 +232,7 @@
 <a class="top" href="#" title="Back to top">↑</a>
 
 <script>
-  // ===== i18n 字典：中文 & 英文 =====
+  // i18n
   const dict = {
     zh:{
       brand:"王泽恒 · Wang Zeheng",
@@ -294,9 +244,9 @@
       about_title:"个人简介",
       about_body:"王泽恒，现居中国江西南昌，庆熙大学（韩国）媒体管理专业MBA在读（2024.09–2025.12，GPA 3.89/4.3，均分90.71）；本科毕业于荆楚理工学院广播电视编导专业（2014.09–2018.06，GPA 3.77/4.00）。拥有4年南昌广播电视台多媒体记者/新媒体编辑经验（2019.01–2023.03），擅长摄影/摄像、音视频与图像编辑、账号运营及大型直播策划。研究兴趣：新媒体传播、社交媒体与新闻融合、网络议程设置（NAS）与情绪传播。",
       featured_title:"精选作品 / Featured Projects",
-      f1_t:"上岸了，这些捕鱼人成了养鱼人", f1_d:"点击封面查看 → 新华社报道",
-      f2_t:"幸福生活“一键直达”！南昌老旧社区加装电梯", f2_d:"点击封面查看 → 新华网报道",
-      f3_t:"共同的战“疫”", f3_d:"点击封面查看 → 新华网报道",
+      f1_t:"上岸了，这些捕鱼人成了养鱼人", f1_d:"点击封面查看报道",
+      f2_t:"幸福生活“一键直达”！南昌老旧社区加装电梯", f2_d:"点击封面查看报道",
+      f3_t:"共同的战“疫”", f3_d:"点击封面查看报道",
       works_title:"经历与成果", works_academic:"学术成果（选）", works_awards:"荣誉奖项（选）",
       w1:"《反转新闻的负面影响及预防策略》（《新闻与传播》，湖北人文社科重大项目 17ZD032）",
       w2:"《大众媒体价值观对受众的影响调查——基于近十年“两会”报道变化的案例研究》",
@@ -308,12 +258,11 @@
       a3:"《遇见荆门》省赛播音主持类一等奖（2017）",
       a4:"《转折点》省赛微视频三等奖（2017）",
       a5:"“挑战杯”省赛三等奖；国广艺赛（湖北赛区）优秀奖",
-      cert_title:"荣誉 & 证书",
       contact_title:"联系方式", contact_mail_t:"邮箱 & 电话",
       contact_phone:"电话：(+86) 181-7091-1025", wx_tip:"扫码添加微信（备注来意）",
-      life_t:"生活照",
       download_t:"资料下载", download_d:"简历（PDF）", download_btn:"下载简历",
-      footer_nav:"快速导航", footer_note:"备注", footer_note_d:"单页版本，后续可扩展多页。"
+      footer_nav:"快速导航", footer_note:"备注",
+      footer_note_d:"别划啦！底部彩蛋是我 —— 论文赶稿中、文化短视频更新中，要是你也对‘怎么用新媒体讲好文化故事’感兴趣，评论区蹲个唠嗑～"
     },
     en:{
       brand:"Wang Zeheng",
@@ -325,9 +274,9 @@
       about_title:"About Me",
       about_body:"MBA candidate in Media Management at Kyung Hee University (2024.09–2025.12, GPA 3.89/4.3). BA in Broadcasting & TV Directing (GPA 3.77/4.00). 4 years at Nanchang Broadcasting (2019–2023). Skilled in shooting/editing, social ops & live-stream planning. Research: social media–news convergence, NAS, emotion.",
       featured_title:"Featured Projects",
-      f1_t:"From Fishers to Fish Farmers", f1_d:"Open in Xinhua app/portal",
-      f2_t:"Elevator Upgrades in Nanchang Communities", f2_d:"Open in Xinhuanet",
-      f3_t:"Fighting COVID-19 Together", f3_d:"Open in Xinhuanet",
+      f1_t:"From Fishers to Fish Farmers", f1_d:"Open story",
+      f2_t:"Elevator Upgrades in Nanchang Communities", f2_d:"Open story",
+      f3_t:"Fighting COVID-19 Together", f3_d:"Open story",
       works_title:"Experience & Works", works_academic:"Academic (selected)", works_awards:"Awards (selected)",
       w1:"Negative Effects & Prevention of ‘Reversed News’ (Journal of Journalism & Communication; Grant No. 17ZD032)",
       w2:"Audience Values Shaped by Mass Media: A Case of ‘Two Sessions’ Coverage",
@@ -338,17 +287,15 @@
       a2:"Finalist, Jiangxi Radio & TV Awards (2021)",
       a3:"1st Prize, Broadcasting Host (2017, provincial)",
       a4:"3rd Prize, Micro-video (2017, provincial)",
-      a5:"3rd Prize, Challenge Cup (provincial); Merit, National Advertising Art (Hubei)",
-      cert_title:"Certificates & Honors",
+      a5:"3rd Prize, Challenge Cup; Merit, National Advertising Art (Hubei)",
       contact_title:"Contact", contact_mail_t:"Email & Phone",
       contact_phone:"Phone: (+86) 181-7091-1025", wx_tip:"Scan to add WeChat (note your intent)",
-      life_t:"Life Photo",
       download_t:"Downloads", download_d:"CV (PDF)", download_btn:"Download CV",
-      footer_nav:"Quick Links", footer_note:"Note", footer_note_d:"Single-page; can be expanded later."
+      footer_nav:"Quick Links", footer_note:"Note",
+      footer_note_d:"Don’t scroll away—Easter egg here: I’m drafting papers & making short cultural videos. If you’re into ‘telling cultural stories with new media’, let’s chat!"
     }
   };
 
-  // 切换语言
   function applyLang(lang){
     document.querySelectorAll("[data-i18n]").forEach(el=>{
       const key = el.getAttribute("data-i18n");
@@ -364,11 +311,8 @@
   document.getElementById("btn-zh").addEventListener("click", e=>{e.preventDefault();applyLang("zh")});
   document.getElementById("btn-en").addEventListener("click", e=>{e.preventDefault();applyLang("en")});
 
-  // 入场动画
   const io = new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting) e.target.classList.add("in");});},{threshold:.15});
   document.querySelectorAll("[data-fade]").forEach(el=>io.observe(el));
-
-  // 年份
   document.getElementById("year").textContent = new Date().getFullYear();
 </script>
 </body>
