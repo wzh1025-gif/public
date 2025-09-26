@@ -2,71 +2,90 @@
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>王泽恒 · 个人主页</title>
-  <meta name="description" content="王泽恒 · 庆熙大学媒体管理MBA在读。4年南昌广播电视台记者/新媒体编辑经验，研究方向：新媒体传播、社交媒体与新闻融合、NAS及情绪传播。">
-  <meta property="og:title" content="王泽恒 · 个人主页">
-  <meta property="og:description" content="个人简介、成果展示、阶段目标与联系方式。">
-  <meta property="og:type" content="website">
-  <meta property="og:image" content="/IMG_0485.jpg">
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>王泽恒 · 个人主页 | Wang Zeheng</title>
+  <meta name="description" content="王泽恒｜媒体与传播 · 庆熙大学MBA。新媒体内容与研究：NAS / 情绪传播 / 媒体融合。"/>
+  <meta property="og:title" content="王泽恒 · 个人主页 | Wang Zeheng"/>
+  <meta property="og:description" content="个人简介 · 成果展示 · 阶段目标 · 联系方式"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:image" content="/IMG_0485.jpg"/>
+  <link rel="icon" href="/IMG_0485.jpg"/>
   <style>
     :root{
-      --bg:#ffffff; --ink:#111827; --muted:#6b7280;
-      --brand:#2563eb; --border:#e5e7eb; --chip:#eef2ff;
+      --bg:#ffffff; --ink:#0f172a; --muted:#64748b;
+      --brand:#2563eb; --brand-ink:#ffffff;
+      --border:#e5e7eb; --shadow:0 14px 40px rgba(2,6,23,.08);
+      --chip:#eef2ff; --chip-ink:#3730a3;
+      --card:#ffffff; --grad1:#ffffff; --grad2:#f6f9ff;
+      --radius:18px; --container:1100px;
     }
     *{box-sizing:border-box}
-    html,body{margin:0;padding:0}
-    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;line-height:1.7;background:var(--bg);color:var(--ink)}
-    .container{max-width:1000px;margin:0 auto;padding:24px}
-    header{position:sticky;top:0;background:rgba(255,255,255,.9);backdrop-filter:saturate(180%) blur(10px);border-bottom:1px solid var(--border);z-index:10}
-    nav{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
-    .logo{font-weight:800}
-    .nav a{color:var(--muted);text-decoration:none;margin-left:16px}
+    html,body{margin:0}
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;line-height:1.75;background:var(--bg);color:var(--ink)}
+    .container{max-width:var(--container);margin:0 auto;padding:24px}
+    /* Header */
+    header{position:sticky;top:0;background:rgba(255,255,255,.86);backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid var(--border);z-index:50}
+    nav{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
+    .logo{font-weight:800;letter-spacing:.2px}
+    .nav a{color:var(--muted);text-decoration:none;margin-left:18px}
     .nav a:hover{color:var(--brand)}
-    .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:24px;align-items:center;padding:28px 0}
-    .hero h1{font-size:34px;margin:0 0 6px}
+    .lang a{color:var(--muted);text-decoration:none;margin-left:12px}
+    .lang a.active{color:var(--brand);font-weight:700}
+    /* Hero */
+    .hero{background:linear-gradient(180deg,var(--grad1) 0%,var(--grad2) 100%);border:1px solid var(--border);border-radius:22px;padding:40px;box-shadow:var(--shadow);display:grid;grid-template-columns:1.2fr .8fr;gap:32px;align-items:center;margin-top:18px}
+    .hero h1{font-size:38px;line-height:1.2;margin:0 0 10px}
     .hero p{margin:0;color:var(--muted)}
-    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-    .chip{background:var(--chip);color:#3730a3;border:1px solid #e0e7ff;border-radius:999px;padding:4px 10px;font-size:12px}
-    .btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
-    .btn{display:inline-block;background:var(--brand);color:#fff;text-decoration:none;padding:10px 16px;border-radius:10px;font-weight:600}
-    .btn.ghost{background:#f3f4f6;color:var(--ink)}
-    .avatar{width:180px;height:180px;border-radius:22px;object-fit:cover;border:1px solid var(--border)}
-    .section{padding:8px 0;margin-top:8px}
-    .section h2{font-size:22px;margin:0 0 10px}
-    .card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:16px}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+    .chip{background:var(--chip);color:var(--chip-ink);border:1px solid #e0e7ff;border-radius:999px;padding:4px 10px;font-size:12px}
+    .btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+    .btn{display:inline-block;background:var(--brand);color:var(--brand-ink);text-decoration:none;padding:12px 18px;border-radius:12px;font-weight:700;box-shadow:0 8px 22px rgba(37,99,235,.18)}
+    .btn.ghost{background:#f3f4f6;color:#0f172a;box-shadow:none}
+    .avatar{width:220px;height:220px;border-radius:50%;object-fit:cover;border:1px solid var(--border);box-shadow:var(--shadow)}
+    /* Sections */
+    .section{padding:12px 0;margin-top:16px}
+    .section h2{font-size:24px;margin:0 0 12px}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
     .list{margin:0;padding-left:18px}
     .muted{color:var(--muted)}
-    footer{margin-top:36px;border-top:1px solid var(--border)}
-    .footer{display:grid;grid-template-columns:2fr 1fr 1fr;gap:16px;padding:18px 0}
+    /* Featured */
+    .thumb{width:100%;height:200px;object-fit:cover;border-radius:14px;border:1px solid var(--border)}
+    /* Timeline */
+    .timeline{border-left:2px solid var(--border);padding-left:14px}
+    .tl{margin:12px 0}
+    .tl strong{display:block;margin-bottom:2px}
+    /* Footer + BackToTop */
+    footer{margin-top:44px;border-top:1px solid var(--border)}
+    .footer{display:grid;grid-template-columns:2fr 1fr 1fr;gap:16px;padding:20px 0}
     .footer a{color:var(--muted);text-decoration:none}
-    .top{position:fixed;right:16px;bottom:16px;background:#111827;color:#fff;border-radius:24px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;text-decoration:none}
-    @media (max-width:920px){ .hero{grid-template-columns:1fr} .grid{grid-template-columns:1fr} .footer{grid-template-columns:1fr 1fr} .hero h1{font-size:28px}}
+    .top{position:fixed;right:16px;bottom:16px;background:#0f172a;color:#fff;border-radius:999px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:var(--shadow)}
+    /* Reveal */
+    [data-fade]{opacity:0;transform:translateY(12px);transition:all .6s ease}
+    [data-fade].in{opacity:1;transform:none}
+    /* Responsive + Dark */
+    @media (max-width:960px){ .hero{grid-template-columns:1fr;padding:28px} .grid{grid-template-columns:1fr} .footer{grid-template-columns:1fr 1fr} .hero h1{font-size:30px}}
+    @media (prefers-color-scheme:dark){
+      :root{ --bg:#0b1220; --ink:#e5e7eb; --muted:#94a3b8; --card:#0f172a; --border:#1f2937; --grad1:#0b1220; --grad2:#0e1627;}
+      .btn.ghost{background:#111827;color:#e5e7eb}
+    }
+    html{scroll-behavior:smooth}
   </style>
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"Person",
-    "name":"王泽恒",
-    "url":"https://www.wangzeheng.cn",
-    "email":"mailto:1433890263@qq.com",
-    "image":"https://www.wangzeheng.cn/IMG_0485.jpg",
-    "jobTitle":"媒体与传播 · 记者/新媒体编辑/研究者",
-    "alumniOf":["庆熙大学（媒体管理MBA）","荆楚理工学院（广播电视编导）"]
-  }
-  </script>
 </head>
 <body>
 <header>
   <div class="container">
     <nav>
-      <div class="logo">王泽恒 · Wang Zeheng</div>
+      <div class="logo" data-i18n="brand">王泽恒 · Wang Zeheng</div>
       <div class="nav">
-        <a href="#about">简介</a>
-        <a href="#works">成果</a>
-        <a href="#goals">目标</a>
-        <a href="#contact">联系</a>
+        <a href="#about" data-i18n="nav_about">简介</a>
+        <a href="#works" data-i18n="nav_works">成果</a>
+        <a href="#featured" data-i18n="nav_featured">精选</a>
+        <a href="#goals" data-i18n="nav_goals">目标</a>
+        <a href="#contact" data-i18n="nav_contact">联系</a>
+      </div>
+      <div class="lang">
+        <a href="#" id="btn-zh" class="active">中文</a>
+        <a href="#" id="btn-en">English</a>
       </div>
     </nav>
   </div>
@@ -74,106 +93,129 @@
 
 <main class="container">
   <!-- Hero -->
-  <section class="hero">
+  <section class="hero" data-fade>
     <div>
-      <h1>做有温度的内容与研究</h1>
-      <p>现居江西南昌，庆熙大学（韩国）媒体管理MBA在读。4年南昌广播电视台记者/新媒体编辑经验，关注新媒体传播、社交媒体与新闻融合、NAS与情绪传播。</p>
+      <h1 data-i18n="hero_title">做有温度的内容与研究</h1>
+      <p data-i18n="hero_sub">
+        现居江西南昌，庆熙大学（韩国）媒体管理MBA在读。4年南昌广播电视台记者/新媒体编辑经验，关注新媒体传播、社交媒体与新闻融合、网络议程设置（NAS）与情绪传播。
+      </p>
       <div class="chips">
-        <span class="chip">内容制作（文/图/音/视频）</span>
-        <span class="chip">账号运营 & 直播策划</span>
-        <span class="chip">新媒体研究（NAS/情绪传播）</span>
+        <span class="chip" data-i18n="tag_content">内容制作（文/图/音/视频）</span>
+        <span class="chip" data-i18n="tag_ops">账号运营 & 直播策划</span>
+        <span class="chip" data-i18n="tag_research">NAS / 情绪传播</span>
       </div>
       <div class="btns">
-        <a class="btn" href="#works">查看成果</a>
-        <a class="btn ghost" href="/CV（王泽恒）.docx" target="_blank">下载简历</a>
+        <a class="btn" href="#works" data-i18n="btn_view_works">查看成果</a>
+        <a class="btn ghost" href="/CV（王泽恒）.docx" target="_blank" data-i18n="btn_cv">下载简历</a>
       </div>
     </div>
     <div style="display:flex;justify-content:center">
-      <img class="avatar" src="/IMG_0485.jpg" alt="王泽恒"/>
+      <img class="avatar" src="/IMG_0485.jpg" alt="Avatar"/>
     </div>
   </section>
 
-  <!-- 个人简介 -->
-  <section id="about" class="section">
-    <h2>个人简介</h2>
+  <!-- About -->
+  <section id="about" class="section" data-fade>
+    <h2 data-i18n="about_title">个人简介</h2>
     <div class="card">
-      <p>
-        王泽恒，现居中国江西南昌，庆熙大学（韩国）媒体管理专业MBA在读（2024.09–2025.12，GPA 3.89/4.3，均分90.71）；本科毕业于荆楚理工学院广播电视编导专业（2014.09–2018.06，GPA 3.77/4.00）。
-        拥有4年南昌广播电视台多媒体记者/新媒体编辑经验（2019.01–2023.03），擅长摄影/摄像、音视频与图像编辑、账号运营及大型直播策划。研究兴趣聚焦新媒体传播、社交媒体与新闻融合、网络议程设置（NAS）与情绪传播。
+      <p data-i18n="about_body">
+        王泽恒，现居中国江西南昌，庆熙大学（韩国）媒体管理专业MBA在读（2024.09–2025.12，GPA 3.89/4.3，均分90.71）；本科毕业于荆楚理工学院广播电视编导专业（2014.09–2018.06，GPA 3.77/4.00）。拥有4年南昌广播电视台多媒体记者/新媒体编辑经验（2019.01–2023.03），擅长摄影/摄像、音视频与图像编辑、账号运营及大型直播策划。研究兴趣：新媒体传播、社交媒体与新闻融合、网络议程设置（NAS）与情绪传播。
       </p>
     </div>
   </section>
 
-  <!-- 成果展示 -->
-  <section id="works" class="section">
-    <h2>成果展示</h2>
+  <!-- Works -->
+  <section id="works" class="section" data-fade>
+    <h2 data-i18n="works_title">成果展示</h2>
     <div class="grid">
       <div class="card">
-        <h3>学术成果</h3>
+        <h3 data-i18n="works_academic">学术成果</h3>
         <ul class="list">
-          <li>《反转新闻的负面影响及预防策略》（《新闻与传播》，湖北省教育厅人文社科重大项目 17ZD032）</li>
-          <li>《大众媒体价值观对受众的影响调查——基于近十年“两会”报道变化的案例研究》</li>
-          <li>《航拍在当代纪录片中的应用——以〈航拍中国〉为例》</li>
-          <li>待发表：<em>“拆盲盒”直播中情绪化传播与用户行为研究</em>（预计2025年10月见刊）</li>
-          <li>待发表：<em>新媒体环境下地方媒体议程设置的功能转型与传播策略——以“颖响力”为例</em>（预计2025年12月见刊）</li>
+          <li data-i18n="w1">《反转新闻的负面影响及预防策略》（《新闻与传播》，湖北人文社科重大项目 17ZD032）</li>
+          <li data-i18n="w2">《大众媒体价值观对受众的影响调查——基于近十年“两会”报道变化的案例研究》</li>
+          <li data-i18n="w3">《航拍在当代纪录片中的应用——以〈航拍中国〉为例》</li>
+          <li data-i18n="w4">待发表： “拆盲盒”直播中情绪化传播与用户行为研究（预计2025年10月）</li>
+          <li data-i18n="w5">待发表： 新媒体环境下地方媒体议程设置的功能转型与传播策略——以“颖响力”为例（预计2025年12月）</li>
         </ul>
       </div>
       <div class="card">
-        <h3>工作成果</h3>
+        <h3 data-i18n="works_industry">工作成果</h3>
         <ul class="list">
-          <li>制作编辑100+多媒体新闻稿，多篇被新华社等国家级媒体转载</li>
-          <li>现象级视频《白鹭王国迎来万只“小可爱”》12小时1400万播放，登微博热搜第42位</li>
-          <li>疫情系列《天使日记》在全国平台传播</li>
-          <li>负责微信/微博/抖音/视频号等账号运营，年浏览量超1亿</li>
-          <li>联合央视、“学习强国”策划大型直播，单场观看量突破100万</li>
+          <li data-i18n="i1">制作编辑100+多媒体新闻稿，多篇被新华社等国家级媒体转载</li>
+          <li data-i18n="i2">《白鹭王国迎来万只“小可爱”》12小时1400万播放，微博热搜第42位</li>
+          <li data-i18n="i3">疫情系列《天使日记》多平台联动传播</li>
+          <li data-i18n="i4">负责微信/微博/抖音/视频号等账号运营，年浏览量超1亿</li>
+          <li data-i18n="i5">联合央视、“学习强国”策划大型直播，单场观看量突破100万</li>
         </ul>
       </div>
       <div class="card">
-        <h3>荣誉奖项</h3>
+        <h3 data-i18n="works_awards">荣誉奖项</h3>
         <ul class="list">
-          <li>南昌广播电视台“年度优秀个人”（2020–2021）</li>
-          <li>“江西广播电视奖——优秀广播节目”入围奖（2021）</li>
-          <li>《遇见荆门》获湖北大学生新闻传播教育创新实践技能竞赛播音主持类一等奖（2017）</li>
-          <li>《转折点》获同赛微视频三等奖（2017）</li>
-          <li>论文《大众传媒中表达的价值观…》获湖北省第十一届“挑战杯”三等奖</li>
-          <li>《30S》获第九届全国大学生广告艺术大赛（湖北赛区）优秀奖</li>
+          <li data-i18n="a1">南昌广播电视台“年度优秀个人”（2020–2021）</li>
+          <li data-i18n="a2">“江西广播电视奖——优秀广播节目”入围奖（2021）</li>
+          <li data-i18n="a3">《遇见荆门》省赛播音主持类一等奖（2017）</li>
+          <li data-i18n="a4">《转折点》省赛微视频三等奖（2017）</li>
+          <li data-i18n="a5">论文《大众传媒中表达的价值观…》“挑战杯”省赛三等奖；《30S》国广艺赛（湖北赛区）优秀奖</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <!-- 阶段目标 -->
-  <section id="goals" class="section">
-    <h2>阶段目标</h2>
+  <!-- Featured Projects -->
+  <section id="featured" class="section" data-fade>
+    <h2 data-i18n="featured_title">精选项目</h2>
+    <div class="grid">
+      <article class="card">
+        <img class="thumb" src="/IMG_0485.jpg" alt="featured"/>
+        <h3 data-i18n="f1_t" style="margin:10px 0 6px;">白鹭王国迎来万只“小可爱”</h3>
+        <p class="muted" data-i18n="f1_d">现象级短视频：12小时 1400 万播放，上微博热搜 #42。</p>
+      </article>
+      <article class="card">
+        <img class="thumb" src="/IMG_0485.jpg" alt="featured"/>
+        <h3 data-i18n="f2_t" style="margin:10px 0 6px;">天使日记（抗疫系列）</h3>
+        <p class="muted" data-i18n="f2_d">多平台联动传播，系列报道影响广泛。</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- Goals / Timeline -->
+  <section id="goals" class="section" data-fade>
+    <h2 data-i18n="goals_title">阶段目标</h2>
     <div class="grid">
       <div class="card">
-        <h3>短期（1–2年，至2026）</h3>
+        <h3 data-i18n="g_short_t">短期（1–2年，至2026）</h3>
         <ul class="list">
-          <li>完成庆熙大学MBA并维持优异GPA</li>
-          <li>确保2篇待发论文按时见刊；完成《AI新闻写作能力边界与感知悖论研究》并发表</li>
-          <li>在抖音/小红书打造1个细分主题个人账号</li>
+          <li data-i18n="g_short_1">完成庆熙大学MBA并维持优异GPA</li>
+          <li data-i18n="g_short_2">两篇待发论文按时见刊；完成《AI新闻写作能力边界与感知悖论研究》并发表</li>
+          <li data-i18n="g_short_3">在抖音/小红书打造1个细分主题个人账号</li>
         </ul>
       </div>
       <div class="card">
-        <h3>中期（3–5年，至2028）</h3>
+        <h3 data-i18n="g_mid_t">中期（3–5年，至2028）</h3>
         <ul class="list">
-          <li>进入专业媒体机构或文化传播公司</li>
-          <li>聚焦数字传播、社交媒体、市场营销方向，参与重点事件研究</li>
+          <li data-i18n="g_mid_1">进入专业媒体机构或文化传播公司</li>
+          <li data-i18n="g_mid_2">聚焦数字传播、社交媒体、市场营销方向，参与重点事件研究</li>
         </ul>
       </div>
-      <div class="card">
-        <h3>长期（5年以上）</h3>
-        <p class="muted">持续探索“算法与情绪传播”的交叉研究与产业化应用，具体路径待定。</p>
+      <div class="card timeline">
+        <div class="tl">
+          <strong data-i18n="tl1_t">2024.09–2025.12 · 庆熙大学 媒体管理MBA（GPA 3.89/4.3）</strong>
+          <div class="muted" data-i18n="tl1_d">研究：新媒体传播 / NAS / 情绪传播</div>
+        </div>
+        <div class="tl">
+          <strong data-i18n="tl2_t">2019.01–2023.03 · 南昌广播电视台 多媒体记者/新媒体编辑</strong>
+          <div class="muted" data-i18n="tl2_d">100+ 新闻稿；直播策划；年浏览量破亿</div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- 联系方式 -->
-  <section id="contact" class="section">
-    <h2>联系方式</h2>
+  <!-- Contact / Download -->
+  <section id="contact" class="section" data-fade>
+    <h2 data-i18n="contact_title">联系方式</h2>
     <div class="grid">
       <div class="card">
-        <h3>邮箱</h3>
+        <h3 data-i18n="contact_mail_t">邮箱</h3>
         <p>
           <a href="mailto:1433890263@qq.com">1433890263@qq.com</a> /
           <a href="mailto:wangzeheng202311@163.com">wangzeheng202311@163.com</a> /
@@ -181,13 +223,16 @@
         </p>
       </div>
       <div class="card">
-        <h3>电话 & 平台</h3>
-        <p>电话：(+86) 181-7091-1025</p>
-        <p class="muted">平台：微信公众号、微博、抖音、视频号、今日头条（曾负责/运营）</p>
+        <h3 data-i18n="contact_phone_t">电话 & 平台</h3>
+        <p data-i18n="contact_phone">电话：(+86) 181-7091-1025</p>
+        <p class="muted" data-i18n="contact_plats">平台：微信公众号、微博、抖音、视频号、今日头条（曾负责/运营）</p>
       </div>
-      <div class="card">
-        <h3>下载</h3>
-        <p><a href="/CV（王泽恒）.docx" target="_blank">简历（DOCX）</a></p>
+      <div class="card" style="display:flex;gap:12px;align-items:center;justify-content:space-between;">
+        <div>
+          <h3 style="margin:0 0 6px;" data-i18n="download_t">资料下载</h3>
+          <div class="muted" data-i18n="download_d">简历（DOCX）· 建议后续换为 PDF</div>
+        </div>
+        <a class="btn" href="/CV（王泽恒）.docx" target="_blank" data-i18n="download_btn">下载简历</a>
       </div>
     </div>
   </section>
@@ -200,18 +245,125 @@
       <div class="muted">© <span id="year"></span> wangzeheng.cn · All rights reserved.</div>
     </div>
     <div>
-      <div class="muted">快速导航</div>
-      <a href="#about">简介</a><br/>
-      <a href="#works">成果</a>
+      <div class="muted" data-i18n="footer_nav">快速导航</div>
+      <a href="#about" data-i18n="nav_about">简介</a><br/>
+      <a href="#works" data-i18n="nav_works">成果</a>
     </div>
     <div>
-      <div class="muted">文件</div>
-      <a href="/CV（王泽恒）.docx" target="_blank">简历下载</a>
+      <div class="muted" data-i18n="footer_note">备注</div>
+      <span class="muted" data-i18n="footer_note_d">本页为单页版本，后续可逐步扩展多页。</span>
     </div>
   </div>
 </footer>
 
-<a class="top" href="#">↑</a>
-<script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+<a class="top" href="#" title="Back to top">↑</a>
+
+<script>
+  // 字典：中英
+  const dict = {
+    zh:{
+      brand:"王泽恒 · Wang Zeheng",
+      nav_about:"简介", nav_works:"成果", nav_featured:"精选", nav_goals:"目标", nav_contact:"联系",
+      hero_title:"做有温度的内容与研究",
+      hero_sub:"现居江西南昌，庆熙大学（韩国）媒体管理MBA在读。4年南昌广播电视台记者/新媒体编辑经验，关注新媒体传播、社交媒体与新闻融合、网络议程设置（NAS）与情绪传播。",
+      tag_content:"内容制作（文/图/音/视频）", tag_ops:"账号运营 & 直播策划", tag_research:"NAS / 情绪传播",
+      btn_view_works:"查看成果", btn_cv:"下载简历",
+      about_title:"个人简介",
+      about_body:"王泽恒，现居中国江西南昌，庆熙大学（韩国）媒体管理专业MBA在读（2024.09–2025.12，GPA 3.89/4.3，均分90.71）；本科毕业于荆楚理工学院广播电视编导专业（2014.09–2018.06，GPA 3.77/4.00）。拥有4年南昌广播电视台多媒体记者/新媒体编辑经验（2019.01–2023.03），擅长摄影/摄像、音视频与图像编辑、账号运营及大型直播策划。研究兴趣：新媒体传播、社交媒体与新闻融合、网络议程设置（NAS）与情绪传播。",
+      works_title:"成果展示", works_academic:"学术成果", works_industry:"工作成果", works_awards:"荣誉奖项",
+      w1:"《反转新闻的负面影响及预防策略》（《新闻与传播》，湖北人文社科重大项目 17ZD032）",
+      w2:"《大众媒体价值观对受众的影响调查——基于近十年“两会”报道变化的案例研究》",
+      w3:"《航拍在当代纪录片中的应用——以〈航拍中国〉为例》",
+      w4:"待发表： “拆盲盒”直播中情绪化传播与用户行为研究（预计2025年10月）",
+      w5:"待发表： 新媒体环境下地方媒体议程设置的功能转型与传播策略——以“颖响力”为例（预计2025年12月）",
+      i1:"制作编辑100+多媒体新闻稿，多篇被新华社等国家级媒体转载",
+      i2:"《白鹭王国迎来万只“小可爱”》12小时1400万播放，微博热搜第42位",
+      i3:"疫情系列《天使日记》多平台联动传播",
+      i4:"负责微信/微博/抖音/视频号等账号运营，年浏览量超1亿",
+      i5:"联合央视、“学习强国”策划大型直播，单场观看量突破100万",
+      a1:"南昌广播电视台“年度优秀个人”（2020–2021）",
+      a2:"“江西广播电视奖——优秀广播节目”入围奖（2021）",
+      a3:"《遇见荆门》省赛播音主持类一等奖（2017）",
+      a4:"《转折点》省赛微视频三等奖（2017）",
+      a5:"论文《大众传媒中表达的价值观…》“挑战杯”省赛三等奖；《30S》国广艺赛（湖北赛区）优秀奖",
+      featured_title:"精选项目",
+      f1_t:"白鹭王国迎来万只“小可爱”", f1_d:"现象级短视频：12小时 1400 万播放，上微博热搜 #42。",
+      f2_t:"天使日记（抗疫系列）", f2_d:"多平台联动传播，系列报道影响广泛。",
+      goals_title:"阶段目标",
+      g_short_t:"短期（1–2年，至2026）", g_short_1:"完成庆熙大学MBA并维持优异GPA", g_short_2:"两篇待发论文按时见刊；完成《AI新闻写作能力边界与感知悖论研究》并发表", g_short_3:"在抖音/小红书打造1个细分主题个人账号",
+      g_mid_t:"中期（3–5年，至2028）", g_mid_1:"进入专业媒体机构或文化传播公司", g_mid_2:"聚焦数字传播、社交媒体、市场营销方向，参与重点事件研究",
+      tl1_t:"2024.09–2025.12 · 庆熙大学 媒体管理MBA（GPA 3.89/4.3）", tl1_d:"研究：新媒体传播 / NAS / 情绪传播",
+      tl2_t:"2019.01–2023.03 · 南昌广播电视台 多媒体记者/新媒体编辑", tl2_d:"100+ 新闻稿；直播策划；年浏览量破亿",
+      contact_title:"联系方式", contact_mail_t:"邮箱", contact_phone_t:"电话 & 平台",
+      contact_phone:"电话：(+86) 181-7091-1025", contact_plats:"平台：微信公众号、微博、抖音、视频号、今日头条（曾负责/运营）",
+      download_t:"资料下载", download_d:"简历（DOCX）· 建议后续换为 PDF", download_btn:"下载简历",
+      footer_nav:"快速导航", footer_note:"备注", footer_note_d:"本页为单页版本，后续可逐步扩展多页。"
+    },
+    en:{
+      brand:"Wang Zeheng",
+      nav_about:"About", nav_works:"Works", nav_featured:"Featured", nav_goals:"Goals", nav_contact:"Contact",
+      hero_title:"Research & Content with Warmth",
+      hero_sub:"Based in Nanchang, China. MBA in Media Management at Kyung Hee University (Korea). 4 years as a multimedia reporter & social media editor at Nanchang Broadcasting. Focus on social media–news convergence, Network/Algorithmic Agenda-Setting (NAS) and emotion in communication.",
+      tag_content:"Content (text/photo/audio/video)", tag_ops:"Channel Ops & Live Streaming", tag_research:"NAS / Emotion",
+      btn_view_works:"View Works", btn_cv:"Download CV",
+      about_title:"About Me",
+      about_body:"MBA candidate in Media Management at Kyung Hee University (2024.09–2025.12, GPA 3.89/4.3). BA in Broadcasting & TV Directing at Jingchu University of Technology (GPA 3.77/4.00). 4-year experience as a multimedia reporter/social editor at Nanchang Broadcasting (2019–2023). Skilled in shooting and editing, social operations and large-scale live-stream planning. Research interests: social media–news convergence, NAS, and emotion in communication.",
+      works_title:"Works", works_academic:"Academic", works_industry:"Industry", works_awards:"Awards",
+      w1:"“Negative Effects and Prevention of Reversed News” (Journal of Journalism & Communication; Grant No. 17ZD032)",
+      w2:"“Audience Values Shaped by Mass Media: A Case of Two Sessions Coverage over the Past Decade”",
+      w3:"“Aerial Filming in Contemporary Documentaries: A Case of ‘Aerial China’”",
+      w4:"In press: Emotion & User Behavior in ‘Blind Box’ Live Streams (expected Oct 2025)",
+      w5:"In press: Local Media Agenda-Setting in New Media—A Case of ‘YingXiangLi’ (expected Dec 2025)",
+      i1:"Edited 100+ multimedia news pieces; multiple reprints by national outlets (e.g., Xinhua)",
+      i2:"Viral video “Egret Kingdom” hit 14M views in 12 hours; #42 on Weibo Trending",
+      i3:"Pandemic series “Angel Diary” widely syndicated",
+      i4:"Operated WeChat/Weibo/Douyin/Video Accounts; yearly views >100M",
+      i5:"Co-produced large live streams with CCTV & Xuexi Qiangguo; single-session views >1M",
+      a1:"Nanchang Broadcasting Annual Excellence (2020–2021)",
+      a2:"Finalist, Jiangxi Radio & TV Awards (2021)",
+      a3:"1st Prize, Broadcasting Host (2017, provincial student competition)",
+      a4:"3rd Prize, Micro-video (2017, same competition)",
+      a5:"3rd Prize, Challenge Cup (provincial); Merit, National Advertising Art Competition (Hubei)",
+      featured_title:"Featured",
+      f1_t:"Egret Kingdom", f1_d:"14M views in 12 hours; #42 on Weibo Trending.",
+      f2_t:"Angel Diary (Pandemic Series)", f2_d:"Multi-platform dissemination with broad impact.",
+      goals_title:"Goals",
+      g_short_t:"Short-term (1–2 yrs, to 2026)", g_short_1:"Finish MBA with strong GPA", g_short_2:"Publish 2 papers; complete & publish the AI-News Paradox study", g_short_3:"Build one niche personal channel on Douyin/Xiaohongshu",
+      g_mid_t:"Mid-term (3–5 yrs, to 2028)", g_mid_1:"Join a pro media/cultural org", g_mid_2:"Focus on digital comm/social media/marketing; engage in key research",
+      tl1_t:"2024.09–2025.12 · MBA, Kyung Hee Univ. (GPA 3.89/4.3)", tl1_d:"Research: new media / NAS / emotion",
+      tl2_t:"2019–2023 · Nanchang Broadcasting · Reporter/Social Editor", tl2_d:"100+ stories; live planning; >100M yearly views",
+      contact_title:"Contact", contact_mail_t:"Email", contact_phone_t:"Phone & Platforms",
+      contact_phone:"Phone: (+86) 181-7091-1025", contact_plats:"WeChat Official, Weibo, Douyin, Video Accounts, Toutiao (operated/managed)",
+      download_t:"Download", download_d:"CV (DOCX) · Prefer PDF later", download_btn:"Download CV",
+      footer_nav:"Quick Links", footer_note:"Note", footer_note_d:"Single-page version, can expand later."
+    }
+  };
+
+  function applyLang(lang){
+    document.querySelectorAll("[data-i18n]").forEach(el=>{
+      const key = el.getAttribute("data-i18n");
+      if(dict[lang] && dict[lang][key]) el.textContent = dict[lang][key];
+    });
+    // Lang button active state
+    document.getElementById("btn-zh").classList.toggle("active", lang==="zh");
+    document.getElementById("btn-en").classList.toggle("active", lang==="en");
+    // html lang
+    document.documentElement.setAttribute("lang", lang==="zh" ? "zh-CN" : "en");
+    localStorage.setItem("lang", lang);
+  }
+
+  // init
+  const initLang = localStorage.getItem("lang") || "zh";
+  applyLang(initLang);
+  document.getElementById("btn-zh").addEventListener("click", e=>{e.preventDefault();applyLang("zh")});
+  document.getElementById("btn-en").addEventListener("click", e=>{e.preventDefault();applyLang("en")});
+
+  // reveal on scroll
+  const io = new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting) e.target.classList.add("in");});},{threshold:.15});
+  document.querySelectorAll("[data-fade]").forEach(el=>io.observe(el));
+
+  // year
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
 </body>
 </html>
