@@ -11,18 +11,19 @@
   <meta property="og:image" content="/assets/new%20media%20projects3.png"/>
   <link rel="icon" href="/assets/Favicon.png"/>
   <style>
-    /* === Academic Palette === */
+    /* ===== Academic palette + gradient accents ===== */
     :root{
-      --bg:#f9f9f6; --ink:#111827; --muted:#6b7280;
+      --bg:#f9f9f6; --ink:#101222; --muted:#6b7280;
       --brand:#2a4b8d; --brand-ink:#ffffff;
-      --border:#d1d5db; --shadow:0 12px 32px rgba(17,24,39,.06);
+      --border:#d4d7de; --shadow:0 12px 32px rgba(16,18,34,.08);
       --chip:#eaf0ff; --chip-ink:#2a4b8d;
-      --card:#ffffff; --grad1:#ffffff; --grad2:#f3f4f6;
-      --radius:18px; --container:1100px; --success:#16a34a;
+      --card:#ffffff; --grad1:#ffffff; --grad2:#f3f6fb;
+      --accent1:#667eea; --accent2:#764ba2; /* 渐变点缀色 */
+      --radius:18px; --container:1100px; --ok:#16a34a;
     }
     *{box-sizing:border-box}
     html,body{margin:0}
-    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;line-height:1.75;background:var(--bg);color:var(--ink)}
+    body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,"Microsoft YaHei";line-height:1.75;background:var(--bg);color:var(--ink)}
     .container{max-width:var(--container);margin:0 auto;padding:24px}
 
     /* Header */
@@ -31,39 +32,56 @@
     .logo{font-weight:800;letter-spacing:.2px}
     .nav a{color:var(--muted);text-decoration:none;margin-left:18px}
     .nav a:hover{color:var(--brand)}
-    .lang a{color:var(--muted);text-decoration:none;margin-left:12px}
-    .lang a.active{color:var(--brand);font-weight:700}
+    .lang a{color:var(--muted);text-decoration:none;margin-left:12px;border:1px solid var(--border);padding:6px 10px;border-radius:999px}
+    .lang a.active{background:linear-gradient(135deg,var(--accent1),var(--accent2));color:#fff;border-color:transparent}
 
-    /* Hero */
-    .hero{background:linear-gradient(145deg,var(--grad1) 0%, var(--grad2) 100%);border:1px solid var(--border);border-radius:22px;box-shadow:var(--shadow);padding:40px;display:grid;grid-template-columns:1.2fr .8fr;gap:32px;align-items:center;margin-top:18px}
+    /* Hero（学术淡色 + 渐变丝感） */
+    .hero{
+      background:
+        linear-gradient(145deg,var(--grad1) 0%, var(--grad2) 100%),
+        radial-gradient(1200px 400px at 10% -10%, rgba(102,126,234,.08), transparent),
+        radial-gradient(1000px 400px at 110% 10%, rgba(118,75,162,.08), transparent);
+      border:1px solid var(--border);border-radius:22px;box-shadow:var(--shadow);
+      padding:40px;display:grid;grid-template-columns:1.2fr .8fr;gap:32px;align-items:center;margin-top:18px
+    }
     .hero h1{font-size:38px;line-height:1.2;margin:0 0 10px}
     .hero p{margin:0;color:var(--muted)}
     .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
-    .chip{background:var(--chip);color:var(--chip-ink);border:1px solid rgba(42,75,141,.25);border-radius:999px;padding:4px 12px;font-size:13px;font-weight:500;letter-spacing:.2px}
+    .chip{background:var(--chip);color:var(--chip-ink);border:1px solid rgba(42,75,141,.25);border-radius:999px;padding:4px 12px;font-size:13px;font-weight:500}
     .btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
-    .btn{display:inline-block;background:var(--brand);color:var(--brand-ink);text-decoration:none;padding:12px 22px;border-radius:12px;font-weight:700;letter-spacing:.3px;box-shadow:0 8px 22px rgba(42,75,141,.2);transition:all .25s ease}
-    .btn:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(42,75,141,.25)}
-    .btn.ghost{background:#eef1f4;color:#111827;box-shadow:none}
-    .avatar{width:220px;height:220px;border-radius:50%;object-fit:cover;border:1px solid var(--border);box-shadow:var(--shadow)}
+    .btn{display:inline-block;background:var(--brand);color:var(--brand-ink);text-decoration:none;padding:12px 22px;border-radius:12px;font-weight:700;letter-spacing:.3px;box-shadow:0 8px 22px rgba(42,75,141,.2);transition:transform .18s ease, box-shadow .18s ease}
+    .btn:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(42,75,141,.28)}
+    .btn.ghost{background:#eef1f4;color:#101222;box-shadow:none;border:1px solid var(--border)}
+    .btn.grad{background:linear-gradient(135deg,var(--accent1),var(--accent2))}
+    .avatar{width:220px;height:220px;border-radius:50%;object-fit:cover;border:4px solid #fff;box-shadow:0 20px 40px rgba(0,0,0,.12)}
 
-    /* Sections */
+    /* Section + title underline gradient */
     .section{padding:12px 0;margin-top:16px}
-    .section h2{font-size:24px;margin:0 0 12px}
+    .section h2{font-size:24px;margin:0 0 12px;position:relative}
+    .section h2::after{
+      content:"";position:absolute;left:0;bottom:-8px;width:64px;height:4px;
+      background:linear-gradient(90deg,var(--accent1),var(--accent2));border-radius:2px
+    }
+
+    /* Grid & Card（卡片高阶悬浮） */
     .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-    .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease}
-    .card:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(17,24,39,.08);border-color:#c9ced6}
+    .card{
+      background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;
+      box-shadow:var(--shadow);transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease
+    }
+    .card:hover{transform:translateY(-4px);box-shadow:0 18px 42px rgba(16,18,34,.12);border-color:#cbd0d8}
     .list{margin:0;padding-left:18px}
     .muted{color:var(--muted)}
 
-    /* Featured / Projects */
+    /* Projects（融合动效） */
     .thumb{width:100%;height:200px;object-fit:cover;border-radius:14px;border:1px solid var(--border);transition:transform .18s ease, box-shadow .18s ease}
-    .thumb:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(17,24,39,.12)}
-    .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
-    .filter{cursor:pointer;border:1px solid var(--border);padding:6px 10px;border-radius:999px;background:#fff;color:#333;font-size:13px}
-    .filter.active{background:var(--brand);color:#fff;border-color:var(--brand)}
+    .thumb:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(16,18,34,.14)}
+    .filters{display:flex;gap:8px;flex-wrap:wrap;margin:4px 0 14px}
+    .filter{cursor:pointer;border:1px solid var(--border);padding:6px 12px;border-radius:999px;background:#fff;color:#333;font-size:13px}
+    .filter.active{background:linear-gradient(135deg,var(--accent1),var(--accent2));color:#fff;border:0}
     .card[data-hide="1"]{display:none}
 
-    /* Accordion */
+    /* Accordion（折叠） */
     .accordion{display:grid;gap:10px}
     .acc-item{border:1px solid var(--border);border-radius:12px;background:#fff}
     .acc-head{padding:12px 16px;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
@@ -78,20 +96,21 @@
     /* Modal */
     .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:20px}
     .modal.open{display:flex}
-    .modal-card{background:#fff;border-radius:16px;padding:18px;border:1px solid var(--border);max-width:360px;width:100%;text-align:center}
+    .modal-card{background:#fff;border-radius:16px;padding:18px;border:1px solid var(--border);max-width:360px;width:100%;text-align:center;box-shadow:var(--shadow)}
     .modal-card img{max-width:240px;border:1px solid var(--border);border-radius:12px}
     .modal-card .close{margin-top:12px;display:inline-block}
 
-    /* Timeline */
-    .timeline{border-left:2px solid var(--border);padding-left:14px}
-    .tl{margin:12px 0}
+    /* Timeline（融合渐变主线） */
+    .timeline{border-left:3px solid var(--accent1);padding-left:14px;background:#fbfcff;border-radius:14px;border-right:1px solid var(--border);padding:18px}
+    .tl{margin:12px 0;animation:slideIn .5s ease both}
     .tl strong{display:block;margin-bottom:2px}
+    @keyframes slideIn{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:none}}
 
     /* Footer + Top */
     footer{margin-top:44px;border-top:1px solid var(--border)}
     .footer{display:grid;grid-template-columns:2fr 1fr 1fr;gap:16px;padding:20px 0}
     .footer a{color:var(--muted);text-decoration:none}
-    .top{position:fixed;right:16px;bottom:16px;background:#0f172a;color:#fff;border-radius:999px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:var(--shadow)}
+    .top{position:fixed;right:16px;bottom:16px;background:linear-gradient(135deg,var(--accent1),var(--accent2));color:#fff;border-radius:999px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:var(--shadow)}
 
     /* Reveal Anim */
     [data-fade]{opacity:0;transform:translateY(12px);transition:all .6s ease}
@@ -139,7 +158,7 @@
         <span class="chip" data-i18n="tag_research">NAS / 情绪传播</span>
       </div>
       <div class="btns">
-        <a class="btn" href="#featured" data-i18n="btn_view_works">查看作品</a>
+        <a class="btn grad" href="#featured" data-i18n="btn_view_works">查看作品</a>
         <a class="btn ghost" href="/assets/CV（王泽恒）%20.pdf" target="_blank" data-i18n="btn_cv">下载简历</a>
         <button class="btn ghost" id="btn-wechat" type="button" data-i18n="btn_wechat">加我微信</button>
       </div>
@@ -156,9 +175,6 @@
       <p data-i18n="about_body">
         王泽恒，现居中国江西南昌，庆熙大学（韩国）媒体管理专业MBA在读（2024.09–2025.12，GPA 3.89/4.3，均分90.71）；本科毕业于荆楚理工学院广播电视编导专业（2014.09–2018.06，GPA 3.77/4.00）。拥有4年南昌广播电视台多媒体记者/新媒体编辑经验（2019.01–2023.03），擅长摄影/摄像、音视频与图像编辑、账号运营及大型直播策划。研究兴趣：新媒体传播、社交媒体与新闻融合、网络议程设置（NAS）与情绪传播。
       </p>
-      <div class="chips" style="margin-top:8px">
-        <span class="chip">学术写作</span><span class="chip">内容增长</span><span class="chip">直播策划</span><span class="chip">可视化表达</span>
-      </div>
     </div>
   </section>
 
@@ -371,9 +387,9 @@
       brand:"Wang Zeheng",
       nav_about:"About", nav_featured:"Projects", nav_works:"Experience", nav_goals:"Goals", nav_contact:"Contact",
       hero_title:"Research & Content with Warmth",
-      hero_sub:"Based in Nanchang, China. MBA in Media Management at Kyung Hee University (Korea). 4 years as a multimedia reporter & social media editor. Focus: social media–news convergence, NAS and emotion in communication.",
+      hero_sub:"Based in Nanchang, China. MBA in Media Management at Kyung Hee University. 4 years as multimedia reporter & social-media editor. Focus: social media–news convergence, NAS & emotion.",
       tag_content:"Content (text/photo/audio/video)", tag_ops:"Channel Ops & Live Streaming", tag_research:"NAS / Emotion",
-      btn_view_works:"View Projects", btn_cv:"Download CV", btn_wechat:"WeChat",
+      btn_view_works:"View Projects", btn_cv:"Download CV", btn_wechat:"WeChat", close:"Close",
       about_title:"About Me",
       about_body:"MBA candidate in Media Management at Kyung Hee University (2024.09–2025.12, GPA 3.89/4.3). BA in Broadcasting & TV Directing at Jingchu University of Technology (GPA 3.77/4.00). 4 years at Nanchang Broadcasting (2019–2023). Skilled in shooting/editing, social ops & live-stream planning. Research: social media–news convergence, NAS, emotion.",
       f_all:"All", f_human:"Human", f_live:"Livelihood", f_covid:"COVID",
@@ -385,7 +401,7 @@
       tl2_t:"2019–2023 · Nanchang Broadcasting · Reporter/Social Editor", tl2_d:"100+ stories; live planning; >100M yearly views",
       goals_title:"Goals",
       g_short_t:"Short-term (1–2 yrs, to 2026)", g_short_1:"Finish MBA with strong GPA", g_short_2:"Publish 2 papers; complete & publish the AI-news paradox study", g_short_3:"Build one niche channel on Douyin/Xiaohongshu",
-      g_mid_t:"Mid-term (3–5 yrs, to 2028)", g_mid_1:"Join a pro media/cultural org", g_mid_2:"Focus on digital comm / social media / marketing research",
+      g_mid_t:"Mid-term (3–5 yrs, to 2028)", g_mid_1:"Join a media/cultural org", g_mid_2:"Focus on digital comm / social media / marketing research",
       contact_title:"Contact", contact_mail_t:"Email & Phone", contact_phone:"Phone: (+86) 181-7091-1025",
       wx_tip:"Scan to add (note your intent)", wx_modal_tip:"Scan to add WeChat",
       download_t:"Downloads", download_btn:"Download CV",
@@ -395,7 +411,7 @@
     }
   };
 
-  // 语言切换
+  /* 语言切换 */
   function applyLang(lang){
     document.querySelectorAll("[data-i18n]").forEach(el=>{
       const key = el.getAttribute("data-i18n");
@@ -411,11 +427,11 @@
   document.getElementById("btn-zh").addEventListener("click", e=>{e.preventDefault();applyLang("zh")});
   document.getElementById("btn-en").addEventListener("click", e=>{e.preventDefault();applyLang("en")});
 
-  // 入场动画
+  /* Reveal on scroll */
   const io = new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting) e.target.classList.add("in");});},{threshold:.15});
   document.querySelectorAll("[data-fade]").forEach(el=>io.observe(el));
 
-  // 作品过滤
+  /* 作品过滤 */
   document.querySelectorAll(".filter").forEach(btn=>{
     btn.addEventListener("click", ()=>{
       document.querySelectorAll(".filter").forEach(b=>b.classList.remove("active"));
@@ -428,33 +444,29 @@
     });
   });
 
-  // Accordion
+  /* 折叠面板 */
   document.querySelectorAll(".acc-head").forEach(h=>{
     h.addEventListener("click", ()=> h.parentElement.classList.toggle("open"));
   });
 
-  // 复制到剪贴板 + Toast
+  /* 复制 + Toast */
   const toast = document.getElementById("toast");
-  function showToast(msg){
-    toast.textContent = msg;
-    toast.classList.add("show");
-    setTimeout(()=>toast.classList.remove("show"),1400);
-  }
+  function showToast(msg){ toast.textContent = msg; toast.classList.add("show"); setTimeout(()=>toast.classList.remove("show"), 1400); }
   document.querySelectorAll(".copy").forEach(el=>{
     el.addEventListener("click", async ()=>{
       const text = el.getAttribute("data-copy") || el.textContent;
-      try{ await navigator.clipboard.writeText(text); showToast("已复制到剪贴板"); }
-      catch(e){ showToast("复制失败"); }
+      try{ await navigator.clipboard.writeText(text); showToast(initLang==="zh"?"已复制到剪贴板":"Copied to clipboard"); }
+      catch(e){ showToast(initLang==="zh"?"复制失败":"Copy failed"); }
     });
   });
 
-  // 微信模态框
+  /* 微信模态框 */
   const modal = document.getElementById("wxModal");
   document.getElementById("btn-wechat").addEventListener("click", ()=>modal.classList.add("open"));
   document.getElementById("wxClose").addEventListener("click", (e)=>{e.preventDefault();modal.classList.remove("open")});
   modal.addEventListener("click",(e)=>{ if(e.target===modal) modal.classList.remove("open"); });
 
-  // 年份
+  /* 返回顶部（可用）——锚点已有平滑滚动 */
   document.getElementById("year").textContent = new Date().getFullYear();
 </script>
 </body>
