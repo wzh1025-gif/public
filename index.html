@@ -3,13 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>学术风格着陆页 · Bootstrap 复刻实现</title>
+<title>王泽恒 · 个人主页 | Wang Zeheng</title>
 
-<!-- Bootstrap / Icons / AOS / Swiper / GLightbox -->
+<!-- Bootstrap / Icons / AOS / Isotope / GLightbox / Swiper -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" rel="stylesheet">
+
+<meta name="description" content="王泽恒｜媒体与传播 · 庆熙大学MBA。新媒体内容与研究：NAS / 情绪传播 / 媒体融合。">
+<meta property="og:title" content="王泽恒 · 个人主页 | Wang Zeheng">
+<meta property="og:description" content="个人简介 · 作品展示 · 学术与行业成果 · 时间线 · 目标 · 联系方式">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/new%20media%20projects3.png">
+<link rel="icon" href="assets/Favicon.png"/>
 
 <style>
 :root{
@@ -37,8 +44,7 @@ body{
 .btn-brand{background:var(--brand);color:var(--brand-ink);border:0}
 .btn-brand:hover{opacity:.92}
 .btn-ghost{background:#eef1f4;border:1px solid var(--border);color:var(--ink)}
-.section-title .bar{width:64px;height:4px;border-radius:2px;
-  background:linear-gradient(90deg,var(--accent1),var(--accent2))}
+.section-title .bar{width:64px;height:4px;border-radius:2px;background:linear-gradient(90deg,var(--accent1),var(--accent2))}
 .card-soft{background:var(--card);border:1px solid var(--border);border-radius:1rem;box-shadow:0 10px 30px rgba(16,18,34,.06)}
 .icon-circle{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;
   background:linear-gradient(135deg,var(--accent1),var(--accent2)); color:#fff}
@@ -47,11 +53,10 @@ body{
 .filter-btn.active{background:var(--brand);color:#fff;border-color:var(--brand)}
 .price{font-size:2rem;font-weight:800}
 .footer{border-top:1px solid var(--border)}
-/* 返回顶部 */
-#backTop{position:fixed;right:16px;bottom:16px;width:44px;height:44px;border-radius:999px;
-  display:none;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--accent1),var(--accent2));color:#fff}
+.badge-soft{background:#eef2ff;border:1px solid #dfe3ff;color:#2a4099}
+.copyable{cursor:pointer}
+#backTop{position:fixed;right:16px;bottom:16px;width:44px;height:44px;border-radius:999px;display:none;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--accent1),var(--accent2));color:#fff}
 #backTop.show{display:flex}
-/* 小屏优化 */
 @media (max-width: 992px){ .stat{font-size:1.75rem} }
 </style>
 </head>
@@ -60,17 +65,17 @@ body{
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg bg-white sticky-top">
   <div class="container">
-    <a class="navbar-brand fw-bold" href="#"><i class="bi bi-mortarboard"></i> AcademicSite</a>
+    <a class="navbar-brand fw-bold" href="#"><i class="bi bi-mortarboard"></i> Wang Zeheng</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navMain">
       <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-3">
-        <li class="nav-item"><a class="nav-link" href="#features">优势</a></li>
-        <li class="nav-item"><a class="nav-link" href="#stats">数据</a></li>
+        <li class="nav-item"><a class="nav-link" href="#about">简介</a></li>
+        <li class="nav-item"><a class="nav-link" href="#achieve">成果</a></li>
+        <li class="nav-item"><a class="nav-link" href="#timeline">时间线</a></li>
         <li class="nav-item"><a class="nav-link" href="#portfolio">作品</a></li>
-        <li class="nav-item"><a class="nav-link" href="#testi">评价</a></li>
-        <li class="nav-item"><a class="nav-link" href="#pricing">价格</a></li>
+        <li class="nav-item"><a class="nav-link" href="#goals">目标</a></li>
         <li class="nav-item"><a class="btn btn-sm btn-brand" href="#contact">联系我</a></li>
       </ul>
     </div>
@@ -78,53 +83,140 @@ body{
 </nav>
 
 <!-- Hero -->
-<header class="hero py-5 py-lg-6">
+<header class="hero py-5">
   <div class="container">
     <div class="row align-items-center gy-4">
-      <div class="col-lg-6" data-aos="fade-up">
+      <div class="col-lg-7" data-aos="fade-up">
         <h1 class="display-5 fw-bold mb-3">做有温度的内容与研究</h1>
-        <p class="text-secondary mb-4">学术气质的媒体着陆页：粘性导航、渐变 Hero、统计计数、筛选作品墙、灯箱与轮播、价格卡片与联系表单。</p>
+        <p class="text-secondary mb-3">
+          现居江西南昌，庆熙大学（韩国）媒体管理MBA在读（GPA 3.89/4.3）。4年南昌广播电视台多媒体记者/新媒体编辑经验，关注新媒体传播、
+          社交媒体与新闻融合、网络议程设置（NAS）与情绪传播。
+        </p>
+        <div class="d-flex flex-wrap gap-2 mb-3">
+          <span class="badge badge-soft rounded-pill px-3 py-2">内容制作（文/图/音/视频）</span>
+          <span class="badge badge-soft rounded-pill px-3 py-2">账号运营 & 直播策划</span>
+          <span class="badge badge-soft rounded-pill px-3 py-2">NAS / 情绪传播</span>
+        </div>
         <div class="d-flex gap-2">
           <a class="btn btn-brand btn-lg" href="#portfolio"><i class="bi bi-collection"></i> 查看作品</a>
-          <a class="btn btn-ghost btn-lg" href="#contact"><i class="bi bi-envelope"></i> 联系我</a>
+          <a id="btnCv" class="btn btn-ghost btn-lg" href="assets/CV.pdf" target="_blank"><i class="bi bi-file-earmark-pdf"></i> 下载简历</a>
         </div>
       </div>
-      <div class="col-lg-6 text-center" data-aos="zoom-in">
-        <img src="https://images.unsplash.com/photo-1529101091764-c3526daf38fe?w=1200&q=80&auto=format&fit=crop"
-             class="img-fluid rounded-4 border" alt="Hero">
+      <div class="col-lg-5 text-center" data-aos="zoom-in">
+        <img src="assets/11cun.jpg" class="img-fluid rounded-circle border border-3" style="max-width:280px" alt="证件照">
       </div>
     </div>
   </div>
 </header>
 
-<!-- Features -->
-<section id="features" class="py-5">
+<!-- About -->
+<section id="about" class="py-5">
   <div class="container">
     <div class="text-center mb-4">
-      <h2 class="fw-bold">为什么选择我</h2>
+      <h2 class="fw-bold">个人简介</h2>
       <div class="bar mx-auto"></div>
     </div>
     <div class="row g-4">
-      <div class="col-md-4" data-aos="fade-up">
+      <div class="col-lg-7" data-aos="fade-right">
         <div class="card-soft p-4 h-100">
-          <div class="icon-circle mb-3"><i class="bi bi-stack"></i></div>
-          <h5 class="fw-bold mb-2">整洁的代码</h5>
-          <p class="text-secondary mb-0">Bootstrap 5 + AOS + Swiper + Isotope + GLightbox，结构清晰、易扩展。</p>
+          <p class="mb-2">
+            本科毕业于荆楚理工学院广播电视编导（GPA 3.77/4.00）。2019–2023 于南昌广播电视台任多媒体记者/新媒体编辑，
+            负责选题策划、采访撰稿、拍摄剪辑及全平台运营，年浏览量超1亿；曾联合央视与“学习强国”策划大型直播，单场观看量破百万。
+          </p>
+          <p class="mb-0">
+            研究兴趣聚焦：新媒体传播、社交媒体与新闻融合、网络/算法议程设置（NAS/AAS）、情绪传播与用户行为。
+          </p>
         </div>
       </div>
-      <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+      <div class="col-lg-5" data-aos="fade-left">
         <div class="card-soft p-4 h-100">
-          <div class="icon-circle mb-3"><i class="bi bi-speedometer2"></i></div>
-          <h5 class="fw-bold mb-2">性能优化</h5>
-          <p class="text-secondary mb-0">图片 16:9 统一、懒加载、响应式 srcset，首屏轻量、滚动动画流畅。</p>
+          <h6 class="fw-bold mb-3">联系方式</h6>
+          <p class="mb-1"><i class="bi bi-envelope"></i> <span class="copyable" data-copy="1433890263@qq.com">1433890263@qq.com</span></p>
+          <p class="mb-1"><i class="bi bi-envelope"></i> <span class="copyable" data-copy="wangzeheng202311@163.com">wangzeheng202311@163.com</span></p>
+          <p class="mb-2"><i class="bi bi-envelope"></i> <span class="copyable" data-copy="wzh1025@khu.ac.kr">wzh1025@khu.ac.kr</span></p>
+          <p class="mb-3"><i class="bi bi-telephone"></i> <span class="copyable" data-copy="(+86) 181-7091-1025">(+86) 181-7091-1025</span></p>
+          <div class="d-flex align-items-center gap-3">
+            <img src="assets/WeChat.png" width="120" class="rounded border" alt="WeChat">
+            <div class="small text-secondary">扫码添加微信（备注来意）<br>或在底部表单留言</div>
+          </div>
         </div>
       </div>
-      <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+    </div>
+  </div>
+</section>
+
+<!-- Achievements: Academic & Industry -->
+<section id="achieve" class="py-5">
+  <div class="container">
+    <div class="text-center mb-4">
+      <h2 class="fw-bold">学术与行业成果</h2>
+      <div class="bar mx-auto"></div>
+    </div>
+    <div class="row g-4">
+      <div class="col-lg-6" data-aos="fade-up">
         <div class="card-soft p-4 h-100">
-          <div class="icon-circle mb-3"><i class="bi bi-brush"></i></div>
-          <h5 class="fw-bold mb-2">学术美学</h5>
-          <p class="text-secondary mb-0">象牙白基调、低饱和深蓝，轻阴影与渐变点缀，简约高级。</p>
+          <h5 class="fw-bold mb-3"><i class="bi bi-journal-text"></i> 学术成果（选）</h5>
+          <ul class="mb-0 text-secondary">
+            <li>《反转新闻的负面影响及预防策略》（《新闻与传播》，湖北省人文社科重大项目 17ZD032）</li>
+            <li>《大众媒体价值观对受众的影响调查——基于近十年“两会”报道变化的案例研究》</li>
+            <li>《航拍在当代纪录片中的应用——以〈航拍中国〉为例》</li>
+            <li>待发表：“拆盲盒”直播中情绪化传播与用户行为研究（2025.10）</li>
+            <li>待发表：新媒体环境下地方媒体议程设置的功能转型与传播策略——以“颖响力”为例（2025.12）</li>
+          </ul>
         </div>
+      </div>
+      <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+        <div class="card-soft p-4 h-100">
+          <h5 class="fw-bold mb-3"><i class="bi bi-broadcast"></i> 工作成果（选）</h5>
+          <ul class="mb-0 text-secondary">
+            <li>制作编辑 100+ 多媒体新闻稿，多篇被新华社等国家级媒体转载</li>
+            <li>《白鹭王国迎来万只“小可爱”》12 小时 1400 万播放，微博热搜第 42 位</li>
+            <li>疫情系列《天使日记》多平台联动传播</li>
+            <li>负责微信/微博/抖音/视频号等账号运营，年浏览量超 1 亿</li>
+            <li>联合央视、“学习强国”策划大型直播，单场观看量突破 100 万</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Timeline -->
+<section id="timeline" class="py-5">
+  <div class="container">
+    <div class="text-center mb-4">
+      <h2 class="fw-bold">时间线</h2>
+      <div class="bar mx-auto"></div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="position-relative">
+          <div class="position-absolute top-0 bottom-0 start-50 translate-middle-x bg-secondary" style="width:2px;opacity:.2;"></div>
+          <div class="row g-4">
+            <div class="col-12" data-aos="fade-right">
+              <div class="card-soft p-3" style="width:48%; margin-left:0">
+                <div class="small text-primary fw-bold">2024.09 – 2025.12</div>
+                <div class="fw-semibold">庆熙大学 · 媒体管理 MBA（GPA 3.89/4.3）</div>
+                <div class="text-secondary">研究：新媒体传播 / NAS / 情绪传播</div>
+              </div>
+            </div>
+            <div class="col-12 d-flex justify-content-end" data-aos="fade-left">
+              <div class="card-soft p-3" style="width:48%; margin-right:0">
+                <div class="small text-primary fw-bold">2019.01 – 2023.03</div>
+                <div class="fw-semibold">南昌广播电视台 · 多媒体记者/新媒体编辑</div>
+                <div class="text-secondary">选题策划 / 采访撰稿 / 拍摄剪辑 / 全平台运营</div>
+              </div>
+            </div>
+            <div class="col-12" data-aos="fade-right">
+              <div class="card-soft p-3" style="width:48%; margin-left:0">
+                <div class="small text-primary fw-bold">2014.09 – 2018.06</div>
+                <div class="fw-semibold">荆楚理工学院 · 广播电视编导（GPA 3.77/4.00）</div>
+                <div class="text-secondary">媒介写作 / 影像制作 / 采访与编辑</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="text-center small text-secondary mt-2">* 移动端自动改为纵向排布</div>
       </div>
     </div>
   </div>
@@ -180,29 +272,25 @@ body{
 
     <!-- Grid -->
     <div class="row g-4" id="grid">
-      <!-- item 1 -->
       <div class="col-md-6 col-lg-4 grid-item cat-human" data-aos="fade-up">
         <a href="https://xhpfmapi.zhongguowangshi.com/vh512/share/9684591?channel=weixin" class="glightbox" data-gallery="work" data-title="上岸了，这些捕鱼人成了养鱼人">
-          <img class="w-100 port-thumb" loading="lazy"
-               src="assets/new%20media%20projects3.png" alt="上岸了，这些捕鱼人成了养鱼人">
+          <img class="w-100 port-thumb" loading="lazy" src="assets/new%20media%20projects3.png" alt="上岸了，这些捕鱼人成了养鱼人">
         </a>
         <h6 class="mt-2 mb-0 fw-semibold">上岸了，这些捕鱼人成了养鱼人</h6>
         <small class="text-secondary">点击封面查看报道 · #人文</small>
       </div>
-      <!-- item 2 -->
+
       <div class="col-md-6 col-lg-4 grid-item cat-life" data-aos="fade-up" data-aos-delay="100">
         <a href="https://h.xinhuaxmt.com/vh512/share/10639704?docid=10639704&newstype=1001&d=1348992" class="glightbox" data-gallery="work" data-title="幸福生活“一键直达”">
-          <img class="w-100 port-thumb" loading="lazy"
-               src="assets/new%20media%20projects2.png" alt="幸福生活“一键直达”！南昌老旧社区加装电梯">
+          <img class="w-100 port-thumb" loading="lazy" src="assets/new%20media%20projects2.png" alt="幸福生活一键直达">
         </a>
         <h6 class="mt-2 mb-0 fw-semibold">幸福生活“一键直达”</h6>
         <small class="text-secondary">点击封面查看报道 · #民生</small>
       </div>
-      <!-- item 3 -->
+
       <div class="col-md-6 col-lg-4 grid-item cat-covid" data-aos="fade-up" data-aos-delay="200">
         <a href="https://h.xinhuaxmt.com/vh512/share/11352820?d=134b03c" class="glightbox" data-gallery="work" data-title="共同的战“疫”">
-          <img class="w-100 port-thumb" loading="lazy"
-               src="assets/new%20media%20projects1.png" alt="共同的战“疫”">
+          <img class="w-100 port-thumb" loading="lazy" src="assets/new%20media%20projects1.png" alt="共同的战疫">
         </a>
         <h6 class="mt-2 mb-0 fw-semibold">共同的战“疫”</h6>
         <small class="text-secondary">点击封面查看报道 · #抗疫</small>
@@ -211,75 +299,31 @@ body{
   </div>
 </section>
 
-<!-- Testimonials -->
-<section id="testi" class="py-5">
+<!-- Goals -->
+<section id="goals" class="py-5">
   <div class="container">
     <div class="text-center mb-4">
-      <h2 class="fw-bold">合作评价</h2>
-      <div class="bar mx-auto"></div>
-    </div>
-    <div class="swiper mySwiper" data-aos="fade-up">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide">
-          <div class="card-soft p-4">
-            <p class="mb-3">“沟通顺畅、执行高效，作品完成度超出预期。”</p>
-            <div class="d-flex align-items-center gap-3">
-              <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=120&h=120&fit=crop&auto=format&q=60" class="rounded-circle" width="48" height="48">
-              <div><strong>Media Partner</strong><br><small class="text-secondary">品牌负责人</small></div>
-            </div>
-          </div>
-        </div>
-        <div class="swiper-slide">
-          <div class="card-soft p-4">
-            <p class="mb-3">“研究结构清晰、数据扎实，可直接支撑传播方案。”</p>
-            <div class="d-flex align-items-center gap-3">
-              <img src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?w=120&h=120&fit=crop&auto=format&q=60" class="rounded-circle" width="48" height="48">
-              <div><strong>Academic Colleague</strong><br><small class="text-secondary">高校教师</small></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="swiper-pagination mt-3"></div>
-    </div>
-  </div>
-</section>
-
-<!-- Pricing -->
-<section id="pricing" class="py-5">
-  <div class="container">
-    <div class="text-center mb-4">
-      <h2 class="fw-bold">合作模式</h2>
+      <h2 class="fw-bold">阶段目标</h2>
       <div class="bar mx-auto"></div>
     </div>
     <div class="row g-4">
-      <div class="col-md-4" data-aos="fade-up">
+      <div class="col-md-6" data-aos="fade-up">
         <div class="card-soft p-4 h-100">
-          <h5 class="fw-bold">基础咨询</h5>
-          <div class="price my-2">¥0–999</div>
-          <ul class="text-secondary mb-3">
-            <li>内容/研究方向建议</li><li>作品评估</li><li>工具清单</li>
+          <h5 class="fw-bold">短期（1–2年，至 2026）</h5>
+          <ul class="mb-0 text-secondary">
+            <li>完成庆熙大学 MBA 并维持优异 GPA</li>
+            <li>两篇待发论文按时见刊；完成《AI 新闻写作能力边界与感知悖论研究》并发表</li>
+            <li>在抖音/小红书打造 1 个细分主题个人账号</li>
           </ul>
-          <a href="#contact" class="btn btn-ghost w-100">联系洽谈</a>
         </div>
       </div>
-      <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+      <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
         <div class="card-soft p-4 h-100">
-          <h5 class="fw-bold">项目共创</h5>
-          <div class="price my-2">¥5k–30k</div>
-          <ul class="text-secondary mb-3">
-            <li>选题策划/脚本</li><li>采编/拍摄/后期</li><li>传播方案</li>
+          <h5 class="fw-bold">中期（3–5年，至 2028）</h5>
+          <ul class="mb-0 text-secondary">
+            <li>进入专业媒体机构或文化传播公司</li>
+            <li>聚焦数字传播、社交媒体、市场营销方向，参与重点事件研究</li>
           </ul>
-          <a href="#contact" class="btn btn-brand w-100">立即合作</a>
-        </div>
-      </div>
-      <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-        <div class="card-soft p-4 h-100">
-          <h5 class="fw-bold">研究服务</h5>
-          <div class="price my-2">面议</div>
-          <ul class="text-secondary mb-3">
-            <li>调研/问卷/访谈</li><li>内容分析/统计</li><li>学术报告</li>
-          </ul>
-          <a href="#contact" class="btn btn-ghost w-100">获取方案</a>
         </div>
       </div>
     </div>
@@ -297,8 +341,7 @@ body{
       <div class="col-lg-6" data-aos="fade-right">
         <div class="card-soft p-4 h-100">
           <h6 class="fw-bold mb-3">留言</h6>
-          <!-- Formspree 示例：把 action 替换成你的 endpoint -->
-          <form action="mailto:1433890263@qq.com" method="post" enctype="text/plain" onsubmit="alert('将打开邮件客户端发送');">
+          <form action="mailto:1433890263@qq.com" method="post" enctype="text/plain" onsubmit="toast('将打开邮件客户端发送');">
             <div class="row g-3">
               <div class="col-md-6">
                 <input name="name" class="form-control" placeholder="你的名字" required>
@@ -317,12 +360,14 @@ body{
       <div class="col-lg-6" data-aos="fade-left">
         <div class="card-soft p-4 h-100">
           <h6 class="fw-bold mb-3">邮箱 / 微信</h6>
-          <p class="mb-1"><i class="bi bi-envelope"></i> <a href="mailto:1433890263@qq.com">1433890263@qq.com</a></p>
-          <p class="mb-3 text-secondary">(点击邮箱可直接发送)</p>
+          <p class="mb-1"><i class="bi bi-envelope"></i> <span class="copyable" data-copy="1433890263@qq.com">1433890263@qq.com</span></p>
+          <p class="mb-1"><i class="bi bi-envelope"></i> <span class="copyable" data-copy="wangzeheng202311@163.com">wangzeheng202311@163.com</span></p>
+          <p class="mb-3"><i class="bi bi-envelope"></i> <span class="copyable" data-copy="wzh1025@khu.ac.kr">wzh1025@khu.ac.kr</span></p>
           <div class="d-flex align-items-center gap-3">
             <img src="assets/WeChat.png" width="120" class="rounded border" alt="WeChat">
             <div class="small text-secondary">扫码添加微信（备注来意）<br>或在表单中留言</div>
           </div>
+          <a id="btnCv2" class="btn btn-ghost mt-3" href="assets/CV.pdf" target="_blank"><i class="bi bi-file-earmark-pdf"></i> 下载简历</a>
         </div>
       </div>
     </div>
@@ -334,19 +379,29 @@ body{
   <div class="container d-flex flex-column flex-lg-row justify-content-between align-items-center gap-3">
     <div class="text-secondary small">© <span id="year"></span> 王泽恒 · All rights reserved.</div>
     <div class="small text-secondary" id="easter" style="cursor:pointer">
-      别划啦！底部彩蛋是我 —— 论文赶稿中、文化短视频更新中，感兴趣就来聊聊～
+      别划啦！底部彩蛋是我 —— 论文赶稿中、文化短视频更新中，要是你也对“用新媒体讲好文化故事”感兴趣，来聊聊吧～
     </div>
   </div>
 </footer>
 
-<a href="#" id="backTop"><i class="bi bi-arrow-up"></i></a>
+<a href="#" id="backTop" class="shadow"><i class="bi bi-arrow-up"></i></a>
 
-<!-- JS -->
+<!-- Bootstrap & libs -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+<!-- Bootstrap Toast 容器 -->
+<div class="position-fixed bottom-0 start-50 translate-middle-x p-3" style="z-index:1080">
+  <div id="liveToast" class="toast align-items-center text-bg-dark border-0" role="status" aria-live="polite" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body" id="toastText">提示</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+    </div>
+  </div>
+</div>
 
 <script>
 AOS.init({ once:true, duration:700, easing:"ease-out-cubic" });
@@ -370,9 +425,6 @@ document.querySelectorAll('.filter-btn').forEach(btn=>{
 // GLightbox
 GLightbox({ selector: '.glightbox' });
 
-// Swiper
-new Swiper('.mySwiper', { loop:true, autoplay:{delay:3500}, pagination:{el:'.swiper-pagination', clickable:true} });
-
 // Back to top
 const back = document.getElementById('backTop');
 window.addEventListener('scroll', ()=>{ back.classList.toggle('show', window.scrollY>300); });
@@ -386,7 +438,29 @@ const eggs = [
 ];
 document.getElementById('easter').addEventListener('click', function(){
   this.textContent = eggs[Math.floor(Math.random()*eggs.length)];
+  this.animate([{transform:'scale(1)'},{transform:'scale(1.05)'},{transform:'scale(1)'}],{duration:260});
+  toast('彩蛋更新～');
 });
+
+// 复制邮箱/电话 + Toast
+document.querySelectorAll('.copyable').forEach(el=>{
+  el.addEventListener('click', async ()=>{
+    const text = el.getAttribute('data-copy')||el.textContent;
+    try{ await navigator.clipboard.writeText(text); toast('已复制到剪贴板'); }catch(_){ toast('复制失败'); }
+  });
+});
+
+// 下载简历 toast
+document.querySelectorAll('#btnCv,#btnCv2').forEach(a=>{
+  a.addEventListener('click', ()=> toast('正在打开简历…'));
+});
+
+// Bootstrap Toast helper
+function toast(msg){
+  const t = document.getElementById('liveToast');
+  document.getElementById('toastText').textContent = msg;
+  bootstrap.Toast.getOrCreateInstance(t,{delay:1400}).show();
+}
 
 // 年份
 document.getElementById('year').textContent = new Date().getFullYear();
