@@ -55,21 +55,29 @@
       z-index:1001;
     }
     
-    /* 汉堡菜单图标 */
+    /* 汉堡菜单图标 - 优化触摸区域 */
     .menu-toggle {
       display:none;
       flex-direction:column;
       gap:5px;
       cursor:pointer;
       z-index:1001;
-      padding:5px;
+      padding:12px;  /* 增大触摸区域 */
+      margin:-12px;  /* 抵消padding保持视觉位置 */
+      min-width:48px;  /* 最小触摸尺寸 */
+      min-height:48px;  /* 最小触摸尺寸 */
+      justify-content:center;
+      align-items:center;
+      -webkit-tap-highlight-color:transparent;
+      user-select:none;
     }
     .menu-toggle span {
       width:28px;
       height:3px;
       background:#FF8300;
       border-radius:2px;
-      transition:all 0.3s;
+      transition:all 0.3s ease;
+      pointer-events:none;  /* 确保点击事件不被阻挡 */
     }
     .menu-toggle.active span:nth-child(1) {
       transform:rotate(45deg) translate(8px, 8px);
@@ -332,24 +340,41 @@
     }
     .pain-points {
       display:grid;
-      gap:20px;
+      gap:25px;
       margin-top:30px;
     }
     .pain-point {
-      background:#FFF2C2;
-      padding:25px;
-      border-radius:12px;
-      border-left:4px solid #FF8300;
-      transition:all 0.3s;
+      background:linear-gradient(135deg, #fff 0%, #FFF9F5 100%);
+      padding:30px 25px;
+      border-radius:16px;
+      border:2px solid #FFE8D6;
+      transition:all 0.3s ease;
+      position:relative;
+      overflow:hidden;
+    }
+    .pain-point::before {
+      content:'';
+      position:absolute;
+      top:0;
+      left:0;
+      width:4px;
+      height:100%;
+      background:linear-gradient(180deg, #FF8300, #FFB300);
+      transform:scaleY(0);
+      transition:transform 0.3s ease;
     }
     .pain-point:hover {
-      transform:translateX(5px);
-      box-shadow:0 5px 15px rgba(255,131,0,0.1);
+      transform:translateY(-5px);
+      box-shadow:0 12px 30px rgba(255,131,0,0.15);
+      border-color:#FF8300;
+    }
+    .pain-point:hover::before {
+      transform:scaleY(1);
     }
     .pain-point h4 {
       color:#FF8300;
-      margin-bottom:10px;
-      font-size:1.15em;
+      margin-bottom:12px;
+      font-size:1.2em;
     }
     
     /* 产品功能卡片 */
@@ -552,27 +577,100 @@
       margin-top:10px;
     }
     
-    /* Tips卡片 */
+    /* 更多等你来 卡片样式 */
+    .ugc-card-more {
+      background:linear-gradient(135deg, #FFF5E6 0%, #FFE8CC 100%);
+      border:2px dashed #FF8300;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:300px;
+      cursor:pointer;
+      position:relative;
+    }
+    .ugc-card-more:hover {
+      background:linear-gradient(135deg, #FFE8CC 0%, #FFD9B3 100%);
+      border-color:#FF6B00;
+    }
+    .ugc-more-content {
+      text-align:center;
+      padding:30px;
+    }
+    .more-icon {
+      font-size:3.5em;
+      margin-bottom:15px;
+      animation:float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform:translateY(0); }
+      50% { transform:translateY(-10px); }
+    }
+    .ugc-more-content h4 {
+      font-size:1.4em;
+      color:#FF8300;
+      margin-bottom:15px;
+      font-weight:600;
+    }
+    .ugc-more-content p {
+      color:#666;
+      font-size:1em;
+      line-height:1.8;
+      margin-bottom:20px;
+    }
+    .more-badge {
+      display:inline-block;
+      background:#FF8300;
+      color:#fff;
+      padding:8px 20px;
+      border-radius:20px;
+      font-size:0.9em;
+      font-weight:500;
+    }
+    
+    /* Tips卡片 - 重新设计 */
     .tips-grid {
       display:grid;
       grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
       gap:25px;
     }
     .tip-card {
-      background:#FFF7EE;
-      border-radius:15px;
-      padding:25px;
-      border-left:4px solid #FF8300;
-      transition:all 0.3s;
+      background:#fff;
+      border-radius:16px;
+      padding:28px;
+      border:2px solid #FFE8D6;
+      transition:all 0.3s ease;
+      position:relative;
+      overflow:hidden;
+    }
+    .tip-card::after {
+      content:'';
+      position:absolute;
+      top:0;
+      right:0;
+      width:60px;
+      height:60px;
+      background:linear-gradient(135deg, #FFE8D6 0%, transparent 100%);
+      border-radius:0 0 0 100%;
     }
     .tip-card:hover {
-      background:#FFE5D9;
-      transform:translateX(5px);
+      background:linear-gradient(135deg, #fff 0%, #FFFAF5 100%);
+      transform:translateY(-5px);
+      box-shadow:0 12px 30px rgba(255,131,0,0.12);
+      border-color:#FF8300;
     }
     .tip-card h4 {
-      font-size:1.3em;
+      font-size:1.25em;
       color:#FF8300;
-      margin-bottom:12px;
+      margin-bottom:15px;
+      font-weight:600;
+      position:relative;
+      z-index:1;
+    }
+    .tip-card p {
+      color:#666;
+      line-height:1.8;
+      position:relative;
+      z-index:1;
     }
     
     /* 合伙人招募 */
@@ -602,40 +700,86 @@
       backdrop-filter:blur(10px);
     }
     
-    /* 双CTA转化区 */
+    /* 双CTA转化区 - 重新设计 */
     .cta-section {
-      background:#fff;
-      border-radius:20px;
-      padding:60px 40px;
+      background:linear-gradient(135deg, #FFF5E6 0%, #fff 50%, #FFF5E6 100%);
+      border-radius:24px;
+      padding:50px 30px;
       text-align:center;
-      box-shadow:0 10px 40px rgba(255,131,0,0.1);
+      box-shadow:0 8px 30px rgba(255,131,0,0.08);
+      border:2px solid #FFE8D6;
     }
     .cta-section h2 {
-      font-size:2.5em;
+      font-size:2.2em;
       color:#FF8300;
-      margin-bottom:40px;
+      margin-bottom:15px;
+      font-weight:600;
+    }
+    .cta-section > p {
+      color:#666;
+      font-size:1.1em;
+      margin-bottom:35px;
     }
     .cta-grid {
       display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));
-      gap:40px;
-      max-width:900px;
+      grid-template-columns:1fr;
+      gap:20px;
+      max-width:500px;
       margin:0 auto;
     }
     .cta-box {
-      background:#FFF7EE;
-      padding:40px 30px;
-      border-radius:15px;
-      transition:all 0.3s;
+      background:#fff;
+      padding:30px 25px;
+      border-radius:16px;
+      transition:all 0.3s ease;
+      border:2px solid #FFE8D6;
+      position:relative;
+      overflow:hidden;
+    }
+    .cta-box::before {
+      content:'';
+      position:absolute;
+      top:0;
+      left:-100%;
+      width:100%;
+      height:100%;
+      background:linear-gradient(90deg, transparent, rgba(255,131,0,0.1), transparent);
+      transition:left 0.5s ease;
+    }
+    .cta-box:hover::before {
+      left:100%;
     }
     .cta-box:hover {
-      transform:translateY(-5px);
-      box-shadow:0 15px 35px rgba(0,0,0,0.1);
+      transform:translateY(-3px);
+      box-shadow:0 12px 28px rgba(255,131,0,0.15);
+      border-color:#FF8300;
     }
     .cta-box h3 {
-      font-size:1.8em;
+      font-size:1.5em;
       color:#FF8300;
+      margin-bottom:15px;
+      font-weight:600;
+    }
+    .cta-box p {
+      color:#666;
       margin-bottom:20px;
+      line-height:1.6;
+    }
+    .cta-box .cta-primary {
+      display:inline-block;
+      background:linear-gradient(135deg, #FF8300 0%, #FFB300 100%);
+      color:#fff;
+      padding:14px 40px;
+      border-radius:30px;
+      text-decoration:none;
+      font-weight:600;
+      font-size:1.05em;
+      transition:all 0.3s ease;
+      box-shadow:0 4px 15px rgba(255,131,0,0.3);
+    }
+    .cta-box .cta-primary:hover {
+      transform:translateY(-2px);
+      box-shadow:0 6px 20px rgba(255,131,0,0.4);
     }
     
     /* Footer */
@@ -808,6 +952,16 @@
       }
       .pain-points {
         grid-template-columns:1fr !important;
+        gap:18px !important;
+      }
+      .pain-point {
+        padding:25px 20px;
+      }
+      .pain-point h4 {
+        font-size:1.15em;
+      }
+      .pain-point p {
+        font-size:0.95em;
       }
       
       /* 功能卡片适配 */
@@ -874,16 +1028,39 @@
         grid-template-columns:1fr;
       }
       
-      /* CTA转化区适配 */
+      /* CTA转化区适配 - 优化手机端显示 */
       .cta-section {
-        padding:40px 20px;
+        padding:35px 20px;
+        border-radius:20px;
       }
       .cta-section h2 {
-        font-size:1.8em;
+        font-size:1.6em;
+        margin-bottom:12px;
+      }
+      .cta-section > p {
+        font-size:1em;
+        margin-bottom:25px;
       }
       .cta-grid {
         grid-template-columns:1fr;
-        gap:30px;
+        gap:15px;
+        max-width:100%;
+      }
+      .cta-box {
+        padding:25px 20px;
+      }
+      .cta-box h3 {
+        font-size:1.3em;
+      }
+      .cta-box p {
+        font-size:0.95em;
+        margin-bottom:18px;
+      }
+      .cta-box .cta-primary {
+        padding:12px 30px;
+        font-size:1em;
+        width:auto;
+        display:inline-block;
       }
       
       /* Footer适配 */
@@ -1344,6 +1521,16 @@
             <h4>十城联动 · 宠友组团出发</h4>
             <p>"最难忘的不是目的地,而是路上遇见的宠友伙伴,感谢宠游伴!"</p>
             <p class="ugc-author">by @小团子</p>
+          </div>
+        </div>
+
+        <!-- 新增: 更多等你来 互动卡片 -->
+        <div class="ugc-card ugc-card-more">
+          <div class="ugc-more-content">
+            <div class="more-icon">✨</div>
+            <h4>更多精彩故事</h4>
+            <p>期待你的旅行分享<br>下一个故事等你来创造</p>
+            <div class="more-badge">未完待续...</div>
           </div>
         </div>
       </div>
