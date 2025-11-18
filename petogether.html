@@ -207,14 +207,12 @@
     }
     .data-grid {
       display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));
       gap:30px;
-      margin-bottom:40px;
     }
     .data-card {
       background:#fff;
       border-radius:15px;
-      padding:30px 25px;
+      padding:25px 20px;
       text-align:center;
       box-shadow:0 5px 20px rgba(0,0,0,0.05);
       transition:all 0.3s;
@@ -224,31 +222,32 @@
       box-shadow:0 15px 35px rgba(255,131,0,0.15);
     }
     .data-number {
-      font-size:2.8em;
+      font-size:2.5em;
       font-weight:bold;
       color:#FF8300;
       margin:15px 0 10px;
     }
     .data-label {
-      font-size:1.1em;
+      font-size:0.95em;
       color:#665200;
       font-weight:500;
+      line-height:1.4;
     }
     .data-icon {
-      font-size:2.5em;
+      font-size:2.2em;
       margin-bottom:10px;
     }
     .data-chart {
       background:#fff;
       border-radius:15px;
-      padding:30px;
-      margin-top:30px;
+      padding:30px 25px;
     }
     .chart-title {
       font-size:1.3em;
       color:#FF8300;
-      margin-bottom:20px;
+      margin-bottom:25px;
       text-align:center;
+      line-height:1.5;
     }
     .progress-bar {
       margin:15px 0;
@@ -304,26 +303,29 @@
     }
     .pain-points {
       display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
       gap:20px;
       margin-top:30px;
     }
     .pain-point {
       background:#FFF2C2;
-      padding:20px;
+      padding:25px;
       border-radius:12px;
       border-left:4px solid #FF8300;
+      transition:all 0.3s;
+    }
+    .pain-point:hover {
+      transform:translateX(5px);
+      box-shadow:0 5px 15px rgba(255,131,0,0.1);
     }
     .pain-point h4 {
       color:#FF8300;
-      margin-bottom:8px;
-      font-size:1.1em;
+      margin-bottom:10px;
+      font-size:1.15em;
     }
     
     /* 产品功能卡片 */
     .features-grid {
       display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
       gap:30px;
     }
     .feature-card {
@@ -713,8 +715,12 @@
       .data-dashboard {
         padding:30px 20px;
       }
+      .data-dashboard > div:first-child {
+        grid-template-columns:1fr !important;
+        gap:30px !important;
+      }
       .data-grid {
-        grid-template-columns:1fr;
+        grid-template-columns:1fr !important;
         gap:20px;
       }
       .data-number {
@@ -735,12 +741,12 @@
         grid-template-columns:1fr;
       }
       .pain-points {
-        grid-template-columns:1fr;
+        grid-template-columns:1fr !important;
       }
       
       /* 功能卡片适配 */
       .features-grid {
-        grid-template-columns:1fr;
+        grid-template-columns:1fr !important;
         gap:20px;
       }
       .feature-card {
@@ -881,71 +887,77 @@
       <p class="section-subtitle">基于313份问卷调研 · 权威数据背书</p>
       
       <div class="data-dashboard">
-        <div class="data-grid">
-          <div class="data-card">
-            <div class="data-icon">💰</div>
-            <div class="data-number">¥5175亿</div>
-            <div class="data-label">2024中国宠物市场规模</div>
-          </div>
-          <div class="data-card">
-            <div class="data-icon">🏠</div>
-            <div class="data-number">1.16亿户</div>
-            <div class="data-label">全国养宠家庭数量</div>
-          </div>
-          <div class="data-card">
-            <div class="data-icon">📈</div>
-            <div class="data-number">8.5%</div>
-            <div class="data-label">市场年增长率</div>
-          </div>
-          <div class="data-card">
-            <div class="data-icon">🎯</div>
-            <div class="data-number">20%+</div>
-            <div class="data-label">养宠家庭渗透率</div>
-          </div>
-        </div>
-
-        <div class="data-chart">
-          <h3 class="chart-title">用户核心需求优先级(基于313份问卷)</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;">
           
-          <div class="progress-bar">
-            <div class="progress-label">
-              <span>🤖 一键生成行程</span>
-              <strong>86.2%</strong>
+          <!-- 左侧:4个数据卡片 -->
+          <div class="data-grid" style="grid-template-columns:repeat(2, 1fr);gap:20px;">
+            <div class="data-card">
+              <div class="data-icon">💰</div>
+              <div class="data-number">¥5175亿</div>
+              <div class="data-label">2024中国宠物市场规模</div>
             </div>
-            <div class="progress-track">
-              <div class="progress-fill" style="width:86.2%"></div>
+            <div class="data-card">
+              <div class="data-icon">🏠</div>
+              <div class="data-number">1.16亿户</div>
+              <div class="data-label">全国养宠家庭数量</div>
             </div>
-          </div>
-
-          <div class="progress-bar">
-            <div class="progress-label">
-              <span>👥 组团约伴同行</span>
-              <strong>77.3%</strong>
+            <div class="data-card">
+              <div class="data-icon">📈</div>
+              <div class="data-number">8.5%</div>
+              <div class="data-label">市场年增长率</div>
             </div>
-            <div class="progress-track">
-              <div class="progress-fill" style="width:77.3%"></div>
-            </div>
-          </div>
-
-          <div class="progress-bar">
-            <div class="progress-label">
-              <span>📱 短视频攻略</span>
-              <strong>59.4%</strong>
-            </div>
-            <div class="progress-track">
-              <div class="progress-fill" style="width:59.4%"></div>
+            <div class="data-card">
+              <div class="data-icon">🎯</div>
+              <div class="data-number">20%+</div>
+              <div class="data-label">养宠家庭渗透率</div>
             </div>
           </div>
 
-          <div class="progress-bar">
-            <div class="progress-label">
-              <span>📝 行程分享社区</span>
-              <strong>52.7%</strong>
+          <!-- 右侧:用户需求图表 -->
+          <div class="data-chart">
+            <h3 class="chart-title">用户核心需求优先级<br><small style="font-size:0.8em;color:#999;">(基于313份问卷)</small></h3>
+            
+            <div class="progress-bar">
+              <div class="progress-label">
+                <span>🤖 一键生成行程</span>
+                <strong>86.2%</strong>
+              </div>
+              <div class="progress-track">
+                <div class="progress-fill" style="width:86.2%"></div>
+              </div>
             </div>
-            <div class="progress-track">
-              <div class="progress-fill" style="width:52.7%"></div>
+
+            <div class="progress-bar">
+              <div class="progress-label">
+                <span>👥 组团约伴同行</span>
+                <strong>77.3%</strong>
+              </div>
+              <div class="progress-track">
+                <div class="progress-fill" style="width:77.3%"></div>
+              </div>
+            </div>
+
+            <div class="progress-bar">
+              <div class="progress-label">
+                <span>📱 短视频攻略</span>
+                <strong>59.4%</strong>
+              </div>
+              <div class="progress-track">
+                <div class="progress-fill" style="width:59.4%"></div>
+              </div>
+            </div>
+
+            <div class="progress-bar">
+              <div class="progress-label">
+                <span>📝 行程分享社区</span>
+                <strong>52.7%</strong>
+              </div>
+              <div class="progress-track">
+                <div class="progress-fill" style="width:52.7%"></div>
+              </div>
             </div>
           </div>
+
         </div>
 
         <p class="data-source">*数据来源: 313份用户问卷 + 艾瑞咨询《2024中国宠物行业白皮书》</p>
@@ -976,7 +988,7 @@
           四大行业痛点
         </h3>
 
-        <div class="pain-points">
+        <div class="pain-points" style="grid-template-columns:repeat(2, 1fr);">
           <div class="pain-point">
             <h4>⚠️ 信息碎片化</h4>
             <p>用户需在小红书、抖音、点评等多个平台反复切换,收集信息效率低</p>
@@ -1006,7 +1018,7 @@
       <h2 class="section-title">🎯 产品核心功能</h2>
       <p class="section-subtitle">一站式解决宠物旅行难题</p>
       
-      <div class="features-grid">
+      <div class="features-grid" style="grid-template-columns:repeat(2, 1fr);gap:30px;max-width:1000px;margin:0 auto;">
         <div class="feature-card">
           <h3>AI智能行程规划</h3>
           <p>3分钟输入宠物信息,一键生成专属旅行方案,科学避坑,轻松省心。解决用户"规划低效"痛点。</p>
