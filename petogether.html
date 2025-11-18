@@ -2,257 +2,1411 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>宠游伴 Petogether - 宠物友好旅行社区平台</title>
+  <title>宠游伴 Petogether - 让每只宠物都能看世界</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    body {font-family:'Helvetica Neue',Arial,sans-serif;background:#FFF9E4;color:#262626;margin:0;padding:0;}
-    nav {position:fixed;top:0;left:0;right:0;z-index:9;background:#fff;padding:10px 5%;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
-    nav .logo {font-weight:bold;font-size:1.5em;color:#FFB300;}
-    nav ul {list-style:none;display:flex;gap:32px;margin:0;padding:0;}
-    nav ul li a {text-decoration:none;color:#444;font-weight:500;font-size:1em;}
-    nav ul li a:hover {color:#FFB300;}
-    .container {max-width:1050px;margin:0 auto;padding:0 5%;}
-    .banner {position:relative;margin-top:62px;height:350px;background:#FFD450;display:flex;align-items:center;justify-content:space-between;border-radius:18px;}
-    .banner-img {width:55%;height:350px;}
-    .banner-img img {width:100%;height:100%;object-fit:cover;border-radius:20px;}
-    .banner-text {width:45%;padding-left:32px;}
-    .banner-text h1 {font-size:2.4em;margin:0 0 14px 0;color:#FF8300;}
-    .banner-text p {font-size:1.18em;margin:0 0 16px 0;color:#665200;}
-    .cta {display:inline-block;background:#FF8300;color:#fff;padding:10px 34px;border-radius:28px;text-decoration:none;font-size:1.15em;font-weight:bold;}
-    .cta:hover {background:#FFB300;}
-    section {margin:54px 0;}
-    .section-title {font-size:2em;color:#FF8300;border-left:6px solid #FFD450;padding-left:16px;margin-bottom:20px;}
-    .data-box {background:#fffbe8;border-radius:14px;padding:22px;margin:20px 0;display:flex;gap:32px;justify-content:space-around;}
-    .data-stat {text-align:center;}
-    .data-stat .stat {font-size:2.1em;font-weight:bold;color:#FF8300;}
-    .data-stat .label {font-size:1.06em;color:#665200;}
-    .features, .activities, .destinations, .ugc-list, .tips, .feedbacks {display:flex;flex-wrap:wrap;gap:30px;}
-    .feature-card, .activity-card, .ugc-card, .destination-card, .tip-card, .partner-card, .feedback-card {
-      background:#fff; border-radius:14px; box-shadow:0 2px 8px rgba(0,0,0,0.03); padding:18px 14px 12px; flex:1 1 270px;
-      min-width:260px; max-width:295px; display:flex; flex-direction:column; align-items:center;
+    * {margin:0;padding:0;box-sizing:border-box;}
+    
+    /* 移动端优化基础设置 */
+    html {
+      -webkit-text-size-adjust:100%;
+      -webkit-tap-highlight-color:transparent;
     }
-    .feature-card img,.activity-card img,.ugc-card img,.destination-card img,.tip-card img,.partner-card img,.feedback-card img {width:85%;border-radius:10px; margin-bottom:10px;}
-    .feature-card h3,.activity-card h3,.ugc-card h3,.destination-card h3,.tip-card h3,.partner-card h3,.feedback-card h3 {margin:8px 0 8px;font-size:1.15em;}
-    .brand-story {display:flex;align-items:center;gap:36px;background:#fff7ee;padding:36px 0;border-radius:18px;}
-    .brand-story img {width:220px;border-radius:16px;}
-    .brand-text h3 {font-size:1.4em;color:#FF8300;margin-bottom:10px;}
-    .brand-text ul {margin:10px 0 0 20px;padding:0;}
-    .brand-text ul li {margin-bottom:4px;font-size:1.08em;}
-    .join-partner {background:#FFF2C2;padding:30px 18px;border-radius:14px;display:flex;gap:30px;align-items:center;flex-wrap:wrap;}
-    .join-info {flex:2;}
-    .join-pics {flex:1;}
-    .join-pics img {width:90px;border-radius:10px;margin:0 10px 10px 0;}
-    .faq-list {margin-top:8px;}
-    .faq-item {background:#fff;border-radius:10px;margin-bottom:12px;padding:12px 20px;box-shadow:0 1px 4px rgba(255,179,0,0.06);}
-    .faq-item h4 {margin:0 0 5px;font-size:1.09em;color:#FF8300;}
-    .faq-item p {margin:0;font-size:1em;}
-    .contact-box {background:#fff;padding:24px 16px;border-radius:12px;box-shadow:0 1px 6px rgba(0,0,0,0.04);display:flex;gap:28px;flex-wrap:wrap;align-items:center;}
-    .contact-info {flex:2;}
-    .contact-info ul {list-style:none;padding:0;}
-    .contact-info ul li {margin-bottom:7px;}
-    .contact-qr {flex:1;text-align:center;}
-    .contact-qr img {width:100px;border-radius:8px;margin-bottom:6px;}
-    .media-wall, .join-pics {display:flex;flex-wrap:wrap;gap:10px;}
-    .media-logo {width:40px;height:40px;border-radius:8px;object-fit:cover;background:#ffd450;}
-    .feedback-card {min-width:210px;max-width:260px;padding:12px 10px;}
-    .feedback-card p {font-size:0.98em;}
-    .feedback-card .source {font-size:0.92em;color:#666;margin-top:4px;}
-    .tips {margin-bottom:18px;}
-    .tip-card {background:#FFF7EE;}
+    
+    body {
+      font-family:'Helvetica Neue',Arial,'PingFang SC','Microsoft YaHei',sans-serif;
+      background:#FFF9E4;
+      color:#262626;
+      line-height:1.6;
+      overflow-x:hidden;
+    }
+    
+    /* 图片响应式 */
+    img {
+      max-width:100%;
+      height:auto;
+      display:block;
+    }
+    
+    /* 按钮触摸优化 */
+    button, a.cta-primary, a.cta-secondary, a.cta-nav {
+      -webkit-tap-highlight-color:rgba(0,0,0,0);
+      touch-action:manipulation;
+    }
+    
+    /* 导航栏 */
+    nav {
+      position:fixed;
+      top:0;
+      left:0;
+      right:0;
+      z-index:999;
+      background:#fff;
+      padding:15px 5%;
+      box-shadow:0 2px 10px rgba(0,0,0,0.05);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    nav .logo {
+      font-weight:bold;
+      font-size:1.6em;
+      color:#FF8300;
+    }
+    nav ul {
+      list-style:none;
+      display:flex;
+      gap:35px;
+      align-items:center;
+    }
+    nav ul li a {
+      text-decoration:none;
+      color:#444;
+      font-weight:500;
+      font-size:1em;
+      transition:color 0.3s;
+    }
+    nav ul li a:hover {
+      color:#FF8300;
+    }
+    nav .cta-nav {
+      background:#FF8300;
+      color:#fff;
+      padding:8px 22px;
+      border-radius:25px;
+      transition:all 0.3s;
+    }
+    nav .cta-nav:hover {
+      background:#FFB300;
+      transform:translateY(-2px);
+    }
+    
+    .container {
+      max-width:1200px;
+      margin:0 auto;
+      padding:0 5%;
+    }
+    
+    /* Hero区 */
+    .hero {
+      margin-top:80px;
+      padding:60px 0;
+      display:flex;
+      align-items:center;
+      gap:50px;
+      min-height:500px;
+    }
+    .hero-text {
+      flex:1;
+    }
+    .hero-text h1 {
+      font-size:3.2em;
+      margin-bottom:20px;
+      color:#FF8300;
+      line-height:1.2;
+    }
+    .hero-text p {
+      font-size:1.3em;
+      margin-bottom:15px;
+      color:#665200;
+    }
+    .hero-text .highlight {
+      display:inline-block;
+      background:#FFD450;
+      padding:5px 12px;
+      border-radius:5px;
+      font-size:1em;
+      margin:10px 0 25px;
+      color:#665200;
+      font-weight:500;
+    }
+    .hero-ctas {
+      display:flex;
+      gap:20px;
+      margin-top:30px;
+    }
+    .cta-primary {
+      background:#FF8300;
+      color:#fff;
+      padding:15px 40px;
+      border-radius:30px;
+      text-decoration:none;
+      font-size:1.2em;
+      font-weight:bold;
+      transition:all 0.3s;
+      display:inline-block;
+    }
+    .cta-primary:hover {
+      background:#FFB300;
+      transform:translateY(-3px);
+      box-shadow:0 10px 25px rgba(255,131,0,0.3);
+    }
+    .cta-secondary {
+      background:#fff;
+      color:#FF8300;
+      border:2px solid #FF8300;
+      padding:15px 40px;
+      border-radius:30px;
+      text-decoration:none;
+      font-size:1.2em;
+      font-weight:bold;
+      transition:all 0.3s;
+      display:inline-block;
+    }
+    .cta-secondary:hover {
+      background:#FFD450;
+      border-color:#FFD450;
+      transform:translateY(-3px);
+    }
+    .hero-img {
+      flex:1;
+      position:relative;
+    }
+    .hero-img img {
+      width:100%;
+      border-radius:20px;
+      box-shadow:0 15px 50px rgba(0,0,0,0.15);
+    }
+    
+    /* 通用section样式 */
+    section {
+      margin:70px 0;
+    }
+    .section-title {
+      font-size:2.5em;
+      color:#FF8300;
+      text-align:center;
+      margin-bottom:15px;
+      position:relative;
+      padding-bottom:15px;
+    }
+    .section-title:after {
+      content:'';
+      position:absolute;
+      bottom:0;
+      left:50%;
+      transform:translateX(-50%);
+      width:80px;
+      height:4px;
+      background:linear-gradient(90deg, #FF8300, #FFD450);
+      border-radius:2px;
+    }
+    .section-subtitle {
+      text-align:center;
+      font-size:1.2em;
+      color:#665200;
+      margin-bottom:40px;
+    }
+    
+    /* 数据可视化仪表盘 */
+    .data-dashboard {
+      background:linear-gradient(135deg, #FFF7EE 0%, #FFE5D9 100%);
+      border-radius:20px;
+      padding:50px 40px;
+      box-shadow:0 10px 40px rgba(255,131,0,0.1);
+    }
+    .data-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));
+      gap:30px;
+      margin-bottom:40px;
+    }
+    .data-card {
+      background:#fff;
+      border-radius:15px;
+      padding:30px 25px;
+      text-align:center;
+      box-shadow:0 5px 20px rgba(0,0,0,0.05);
+      transition:all 0.3s;
+    }
+    .data-card:hover {
+      transform:translateY(-5px);
+      box-shadow:0 15px 35px rgba(255,131,0,0.15);
+    }
+    .data-number {
+      font-size:2.8em;
+      font-weight:bold;
+      color:#FF8300;
+      margin:15px 0 10px;
+    }
+    .data-label {
+      font-size:1.1em;
+      color:#665200;
+      font-weight:500;
+    }
+    .data-icon {
+      font-size:2.5em;
+      margin-bottom:10px;
+    }
+    .data-chart {
+      background:#fff;
+      border-radius:15px;
+      padding:30px;
+      margin-top:30px;
+    }
+    .chart-title {
+      font-size:1.3em;
+      color:#FF8300;
+      margin-bottom:20px;
+      text-align:center;
+    }
+    .progress-bar {
+      margin:15px 0;
+    }
+    .progress-label {
+      display:flex;
+      justify-content:space-between;
+      margin-bottom:8px;
+      font-size:1em;
+    }
+    .progress-track {
+      background:#f0f0f0;
+      height:12px;
+      border-radius:10px;
+      overflow:hidden;
+    }
+    .progress-fill {
+      height:100%;
+      background:linear-gradient(90deg, #FF8300, #FFD450);
+      border-radius:10px;
+      transition:width 1s ease;
+    }
+    .data-source {
+      text-align:center;
+      color:#999;
+      font-size:0.95em;
+      margin-top:25px;
+    }
+    
+    /* 市场机遇 */
+    .market-opportunity {
+      background:#fff;
+      border-radius:20px;
+      padding:50px 40px;
+      box-shadow:0 5px 25px rgba(0,0,0,0.05);
+    }
+    .market-stats {
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+      gap:20px;
+      margin:30px 0;
+    }
+    .market-stat {
+      text-align:center;
+      padding:20px;
+      background:#FFF7EE;
+      border-radius:10px;
+    }
+    .market-stat .number {
+      font-size:2em;
+      font-weight:bold;
+      color:#FF8300;
+    }
+    .pain-points {
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
+      gap:20px;
+      margin-top:30px;
+    }
+    .pain-point {
+      background:#FFF2C2;
+      padding:20px;
+      border-radius:12px;
+      border-left:4px solid #FF8300;
+    }
+    .pain-point h4 {
+      color:#FF8300;
+      margin-bottom:8px;
+      font-size:1.1em;
+    }
+    
+    /* 产品功能卡片 */
+    .features-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+      gap:30px;
+    }
+    .feature-card {
+      background:#fff;
+      border-radius:15px;
+      padding:30px 25px;
+      box-shadow:0 5px 20px rgba(0,0,0,0.05);
+      transition:all 0.3s;
+      text-align:center;
+    }
+    .feature-card:hover {
+      transform:translateY(-8px);
+      box-shadow:0 15px 40px rgba(255,131,0,0.15);
+    }
+    .feature-icon {
+      font-size:3em;
+      margin-bottom:20px;
+    }
+    .feature-card h3 {
+      font-size:1.4em;
+      color:#FF8300;
+      margin-bottom:15px;
+    }
+    .feature-card p {
+      color:#666;
+      line-height:1.7;
+    }
+    .feature-card img {
+      width:100%;
+      border-radius:10px;
+      margin-top:15px;
+    }
+    
+    /* 用户旅程场景 */
+    .journey-scenarios {
+      background:#fff;
+      border-radius:20px;
+      padding:50px 40px;
+    }
+    .scenario {
+      display:flex;
+      gap:40px;
+      margin-bottom:50px;
+      align-items:center;
+    }
+    .scenario:nth-child(even) {
+      flex-direction:row-reverse;
+    }
+    .scenario-img {
+      flex:1;
+    }
+    .scenario-img img {
+      width:100%;
+      border-radius:15px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.1);
+    }
+    .scenario-content {
+      flex:1;
+    }
+    .scenario-badge {
+      display:inline-block;
+      background:#FFD450;
+      color:#665200;
+      padding:5px 15px;
+      border-radius:20px;
+      font-size:0.9em;
+      font-weight:600;
+      margin-bottom:15px;
+    }
+    .scenario-content h3 {
+      font-size:1.8em;
+      color:#FF8300;
+      margin-bottom:15px;
+    }
+    .scenario-item {
+      margin:12px 0;
+      padding-left:25px;
+      position:relative;
+    }
+    .scenario-item:before {
+      content:'•';
+      position:absolute;
+      left:0;
+      color:#FF8300;
+      font-size:1.5em;
+    }
+    .scenario-item strong {
+      color:#FF8300;
+    }
+    
+    /* 内容来源 */
+    .content-source {
+      background:linear-gradient(135deg, #FFF7EE 0%, #FFE5D9 100%);
+      border-radius:20px;
+      padding:50px 40px;
+    }
+    .content-grid {
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:30px;
+      margin-top:30px;
+    }
+    .content-card {
+      background:#fff;
+      border-radius:15px;
+      padding:30px 20px;
+      text-align:center;
+      box-shadow:0 5px 20px rgba(0,0,0,0.05);
+    }
+    .content-percentage {
+      font-size:3em;
+      font-weight:bold;
+      color:#FF8300;
+      margin:15px 0;
+    }
+    .content-card h4 {
+      font-size:1.3em;
+      color:#262626;
+      margin-bottom:10px;
+    }
+    .content-card img {
+      width:100%;
+      border-radius:10px;
+      margin-top:15px;
+    }
+    
+    /* 热门目的地 */
+    .destinations-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));
+      gap:30px;
+    }
+    .destination-card {
+      background:#fff;
+      border-radius:15px;
+      overflow:hidden;
+      box-shadow:0 5px 25px rgba(0,0,0,0.08);
+      transition:all 0.3s;
+    }
+    .destination-card:hover {
+      transform:translateY(-8px);
+      box-shadow:0 15px 40px rgba(255,131,0,0.2);
+    }
+    .destination-card img {
+      width:100%;
+      height:220px;
+      object-fit:cover;
+    }
+    .destination-content {
+      padding:25px;
+    }
+    .destination-content h3 {
+      font-size:1.5em;
+      color:#FF8300;
+      margin-bottom:10px;
+    }
+    .rating {
+      color:#FFD450;
+      margin-bottom:10px;
+    }
+    
+    /* UGC故事卡片 */
+    .ugc-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+      gap:30px;
+    }
+    .ugc-card {
+      background:#fff;
+      border-radius:15px;
+      overflow:hidden;
+      box-shadow:0 5px 20px rgba(0,0,0,0.05);
+      transition:all 0.3s;
+    }
+    .ugc-card:hover {
+      transform:translateY(-5px);
+      box-shadow:0 15px 35px rgba(0,0,0,0.1);
+    }
+    .ugc-card img {
+      width:100%;
+      height:200px;
+      object-fit:cover;
+    }
+    .ugc-content {
+      padding:20px;
+    }
+    .ugc-content h4 {
+      font-size:1.2em;
+      color:#262626;
+      margin-bottom:10px;
+    }
+    .ugc-author {
+      color:#999;
+      font-size:0.9em;
+      margin-top:10px;
+    }
+    
+    /* Tips卡片 */
+    .tips-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+      gap:25px;
+    }
+    .tip-card {
+      background:#FFF7EE;
+      border-radius:15px;
+      padding:25px;
+      border-left:4px solid #FF8300;
+      transition:all 0.3s;
+    }
+    .tip-card:hover {
+      background:#FFE5D9;
+      transform:translateX(5px);
+    }
+    .tip-card h4 {
+      font-size:1.3em;
+      color:#FF8300;
+      margin-bottom:12px;
+    }
+    
+    /* 合伙人招募 */
+    .partner-section {
+      background:linear-gradient(135deg, #FFD450 0%, #FF8300 100%);
+      border-radius:20px;
+      padding:50px 40px;
+      color:#fff;
+    }
+    .partner-content {
+      text-align:center;
+    }
+    .partner-content h3 {
+      font-size:2.2em;
+      margin-bottom:20px;
+    }
+    .partner-benefits {
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+      gap:20px;
+      margin:30px 0;
+    }
+    .benefit-item {
+      background:rgba(255,255,255,0.2);
+      padding:20px;
+      border-radius:10px;
+      backdrop-filter:blur(10px);
+    }
+    
+    /* 双CTA转化区 */
+    .cta-section {
+      background:#fff;
+      border-radius:20px;
+      padding:60px 40px;
+      text-align:center;
+      box-shadow:0 10px 40px rgba(255,131,0,0.1);
+    }
+    .cta-section h2 {
+      font-size:2.5em;
+      color:#FF8300;
+      margin-bottom:40px;
+    }
+    .cta-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));
+      gap:40px;
+      max-width:900px;
+      margin:0 auto;
+    }
+    .cta-box {
+      background:#FFF7EE;
+      padding:40px 30px;
+      border-radius:15px;
+      transition:all 0.3s;
+    }
+    .cta-box:hover {
+      transform:translateY(-5px);
+      box-shadow:0 15px 35px rgba(0,0,0,0.1);
+    }
+    .cta-box h3 {
+      font-size:1.8em;
+      color:#FF8300;
+      margin-bottom:20px;
+    }
+    
+    /* Footer */
+    footer {
+      background:#262626;
+      color:#fff;
+      padding:50px 5%;
+      margin-top:80px;
+    }
+    .footer-content {
+      max-width:1200px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+      gap:40px;
+    }
+    .footer-section h4 {
+      color:#FFD450;
+      margin-bottom:15px;
+      font-size:1.2em;
+    }
+    .footer-section ul {
+      list-style:none;
+    }
+    .footer-section ul li {
+      margin:8px 0;
+    }
+    .footer-section ul li a {
+      color:#ccc;
+      text-decoration:none;
+      transition:color 0.3s;
+    }
+    .footer-section ul li a:hover {
+      color:#FFD450;
+    }
+    .footer-bottom {
+      text-align:center;
+      margin-top:40px;
+      padding-top:30px;
+      border-top:1px solid #444;
+      color:#999;
+    }
+    
+    /* 响应式设计 */
     @media(max-width:900px){
-      .banner {flex-direction:column;height:auto;}
-      .banner-img, .banner-text {width:100%;padding:0;}
-      .banner-img img{height:210px;}
-      .banner-text {padding:18px 0;}
-      .brand-story {flex-direction:column;}
-      .brand-story img {width:90vw;}
-      .features,.activities,.ugc-list,.destinations,.tips,.feedbacks{flex-direction:column;align-items:center;}
-      .data-box {flex-direction:column;gap:18px;}
-      .join-partner{flex-direction:column;}
-      .join-pics img{width:40vw;}
+      /* 导航栏适配 */
+      nav {
+        flex-direction:column;
+        padding:15px 20px;
+        gap:15px;
+      }
+      nav .logo {
+        font-size:1.3em;
+        text-align:center;
+      }
+      nav ul {
+        display:flex;
+        flex-direction:column;
+        gap:15px;
+        align-items:center;
+        width:100%;
+      }
+      nav ul li {
+        width:100%;
+        text-align:center;
+      }
+      nav ul li a {
+        display:block;
+        padding:10px 0;
+      }
+      
+      /* Hero区适配 */
+      .hero {
+        flex-direction:column;
+        text-align:center;
+        padding:40px 0;
+        margin-top:120px;
+      }
+      .hero-text h1 {
+        font-size:2em;
+        line-height:1.3;
+      }
+      .hero-text p {
+        font-size:1.1em;
+      }
+      .hero-ctas {
+        flex-direction:column;
+        gap:15px;
+      }
+      .cta-primary, .cta-secondary {
+        width:100%;
+        padding:12px 30px;
+        font-size:1.1em;
+      }
+      
+      /* Section标题适配 */
+      .section-title {
+        font-size:1.8em;
+      }
+      .section-subtitle {
+        font-size:1em;
+        padding:0 10px;
+      }
+      
+      /* 数据仪表盘适配 */
+      .data-dashboard {
+        padding:30px 20px;
+      }
+      .data-grid {
+        grid-template-columns:1fr;
+        gap:20px;
+      }
+      .data-number {
+        font-size:2.2em;
+      }
+      .data-chart {
+        padding:20px 15px;
+      }
+      .chart-title {
+        font-size:1.1em;
+      }
+      
+      /* 市场机遇适配 */
+      .market-opportunity {
+        padding:30px 20px;
+      }
+      .market-stats {
+        grid-template-columns:1fr;
+      }
+      .pain-points {
+        grid-template-columns:1fr;
+      }
+      
+      /* 功能卡片适配 */
+      .features-grid {
+        grid-template-columns:1fr;
+        gap:20px;
+      }
+      .feature-card {
+        padding:25px 20px;
+      }
+      
+      /* 市场痛点场景适配 - 重要! */
+      .journey-scenarios {
+        padding:30px 15px;
+      }
+      .scenario {
+        flex-direction:column !important;
+        margin-bottom:30px;
+        gap:20px;
+      }
+      .scenario-img, .scenario-content {
+        width:100%;
+      }
+      .scenario-content h3 {
+        font-size:1.4em;
+      }
+      .scenario-item {
+        font-size:0.95em;
+        padding-left:20px;
+      }
+      
+      /* 内容来源适配 */
+      .content-source {
+        padding:30px 20px;
+      }
+      .content-grid {
+        grid-template-columns:1fr;
+        gap:20px;
+      }
+      .content-percentage {
+        font-size:2.5em;
+      }
+      
+      /* 目的地卡片适配 */
+      .destinations-grid {
+        grid-template-columns:1fr;
+      }
+      
+      /* UGC卡片适配 */
+      .ugc-grid {
+        grid-template-columns:1fr;
+      }
+      
+      /* Tips卡片适配 */
+      .tips-grid {
+        grid-template-columns:1fr;
+      }
+      
+      /* 合伙人区适配 */
+      .partner-section {
+        padding:30px 20px;
+      }
+      .partner-benefits {
+        grid-template-columns:1fr;
+      }
+      
+      /* CTA转化区适配 */
+      .cta-section {
+        padding:40px 20px;
+      }
+      .cta-section h2 {
+        font-size:1.8em;
+      }
+      .cta-grid {
+        grid-template-columns:1fr;
+        gap:30px;
+      }
+      
+      /* Footer适配 */
+      .footer-content {
+        grid-template-columns:1fr;
+        gap:30px;
+      }
+    }
+    
+    /* 超小屏幕优化 (手机竖屏) */
+    @media(max-width:480px){
+      .hero-text h1 {
+        font-size:1.6em;
+      }
+      .data-number {
+        font-size:1.8em;
+      }
+      .section-title {
+        font-size:1.5em;
+      }
+      .scenario-content h3 {
+        font-size:1.2em;
+      }
+      .cta-primary, .cta-secondary {
+        font-size:1em;
+        padding:10px 25px;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- 导航栏 -->
   <nav>
-    <span class="logo">宠游伴 Petogether</span>
+    <div class="logo">🐾 宠游伴</div>
     <ul>
-      <li><a href="#banner">首页</a></li>
-      <li><a href="#features">平台功能</a></li>
-      <li><a href="#data">平台优势</a></li>
-      <li><a href="#destinations">热门目的地</a></li>
-      <li><a href="#tips">出行知识</a></li>
-      <li><a href="#join">合伙人</a></li>
-      <li><a href="#ugc">用户内容</a></li>
-      <li><a href="#feedbacks">好评媒体</a></li>
-      <li><a href="#faq">FAQ</a></li>
-      <li><a href="#brand">品牌故事</a></li>
-      <li><a href="#contact">联系我们</a></li>
+      <li><a href="#hero">首页</a></li>
+      <li><a href="#data">数据验证</a></li>
+      <li><a href="#features">产品功能</a></li>
+      <li><a href="#journey">用户故事</a></li>
+      <li><a href="#partner">合作</a></li>
+      <li><a href="#download" class="cta-nav">下载App</a></li>
     </ul>
   </nav>
+
   <div class="container">
-    <!-- 首页Banner -->
-    <section class="banner" id="banner">
-      <div class="banner-img">
-        <img src="/images/dog.png" alt="宠游伴品牌Banner图"/>
+    
+    <!-- Hero区 -->
+    <section class="hero" id="hero">
+      <div class="hero-text">
+        <h1>让每只宠物<br>都能看世界</h1>
+        <p>3分钟找到宠物友好目的地与同行伙伴</p>
+        <p>中国首个短视频驱动的宠物旅行社区</p>
+        <span class="highlight">✨ 已服务10,000+宠物家庭</span>
+        <div class="hero-ctas">
+          <a href="#download" class="cta-primary">📱 下载App</a>
+          <a href="#partner" class="cta-secondary">🤝 商家合作</a>
+        </div>
       </div>
-      <div class="banner-text">
-        <h1>和爱宠一起看世界</h1>
-        <p>3分钟找到宠物友好目的地与同行伙伴<br>全国首个短视频驱动的宠物旅行社区</p>
-        <a class="cta" href="#">下载App</a>
+      <div class="hero-img">
+        <img src="/images/dog.png" alt="宠游伴产品展示">
       </div>
     </section>
-    <!-- 平台数据/背书 -->
+
+    <!-- 数据可视化仪表盘 -->
     <section id="data">
-      <div class="section-title">平台优势与真实数据</div>
-      <div class="data-box">
-        <div class="data-stat">
-          <img src="/images/dog.png" style="width:48px"><br>
-          <span class="stat">3000亿+</span>
-          <div class="label">中国宠物经济市场规模</div>
+      <h2 class="section-title">📊 真实数据 · 市场验证</h2>
+      <p class="section-subtitle">基于313份问卷调研 · 权威数据背书</p>
+      
+      <div class="data-dashboard">
+        <div class="data-grid">
+          <div class="data-card">
+            <div class="data-icon">💰</div>
+            <div class="data-number">¥5175亿</div>
+            <div class="data-label">2024中国宠物市场规模</div>
+          </div>
+          <div class="data-card">
+            <div class="data-icon">🏠</div>
+            <div class="data-number">1.16亿户</div>
+            <div class="data-label">全国养宠家庭数量</div>
+          </div>
+          <div class="data-card">
+            <div class="data-icon">📈</div>
+            <div class="data-number">8.5%</div>
+            <div class="data-label">市场年增长率</div>
+          </div>
+          <div class="data-card">
+            <div class="data-icon">🎯</div>
+            <div class="data-number">20%+</div>
+            <div class="data-label">养宠家庭渗透率</div>
+          </div>
         </div>
-        <div class="data-stat">
-          <img src="/images/dog.png" style="width:48px"><br>
-          <span class="stat">95.8%</span>
-          <div class="label">宠物主一年内带宠出游</div>
+
+        <div class="data-chart">
+          <h3 class="chart-title">用户核心需求优先级(基于313份问卷)</h3>
+          
+          <div class="progress-bar">
+            <div class="progress-label">
+              <span>🤖 一键生成行程</span>
+              <strong>86.2%</strong>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" style="width:86.2%"></div>
+            </div>
+          </div>
+
+          <div class="progress-bar">
+            <div class="progress-label">
+              <span>👥 组团约伴同行</span>
+              <strong>77.3%</strong>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" style="width:77.3%"></div>
+            </div>
+          </div>
+
+          <div class="progress-bar">
+            <div class="progress-label">
+              <span>📱 短视频攻略</span>
+              <strong>59.4%</strong>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" style="width:59.4%"></div>
+            </div>
+          </div>
+
+          <div class="progress-bar">
+            <div class="progress-label">
+              <span>📝 行程分享社区</span>
+              <strong>52.7%</strong>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" style="width:52.7%"></div>
+            </div>
+          </div>
         </div>
-        <div class="data-stat">
-          <img src="/images/dog.png" style="width:48px"><br>
-          <span class="stat">78.6%</span>
-          <div class="label">用户偏好短视频攻略</div>
-        </div>
-        <div class="data-stat">
-          <img src="/images/dog.png" style="width:48px"><br>
-          <span class="stat">360+</span>
-          <div class="label">覆盖宠物友好城市数</div>
-        </div>
+
+        <p class="data-source">*数据来源: 313份用户问卷 + 艾瑞咨询《2024中国宠物行业白皮书》</p>
       </div>
-      <p style="color:#FF8300;font-size:1.02em;text-align:center;">*数据来源：2025宠物经济洞察、平台用户调研、行业权威报告</p>
     </section>
-    <!-- 核心功能区 -->
+
+    <!-- 市场机遇 -->
+    <section id="market">
+      <h2 class="section-title">🎯 万亿宠物经济中的蓝海机遇</h2>
+      
+      <div class="market-opportunity">
+        <div class="market-stats">
+          <div class="market-stat">
+            <div class="number">¥5175亿</div>
+            <div>市场规模</div>
+          </div>
+          <div class="market-stat">
+            <div class="number">1.16亿户</div>
+            <div>养宠家庭</div>
+          </div>
+          <div class="market-stat">
+            <div class="number">8.5%</div>
+            <div>年增长率</div>
+          </div>
+        </div>
+
+        <h3 style="color:#FF8300;font-size:1.6em;margin:30px 0 20px;text-align:center;">
+          四大行业痛点
+        </h3>
+
+        <div class="pain-points">
+          <div class="pain-point">
+            <h4>⚠️ 信息碎片化</h4>
+            <p>用户需在小红书、抖音、点评等多个平台反复切换,收集信息效率低</p>
+          </div>
+          <div class="pain-point">
+            <h4>⚠️ 规划低效</h4>
+            <p>手工整理一份完整攻略需要3-5小时,门槛高、耗时长</p>
+          </div>
+          <div class="pain-point">
+            <h4>⚠️ 孤独出行</h4>
+            <p>宠物主人希望找到同伴一起旅行,但缺乏有效社交渠道</p>
+          </div>
+          <div class="pain-point">
+            <h4>⚠️ 信任缺失</h4>
+            <p>市场上宠物友好商家服务质量参差不齐,用户难以判断</p>
+          </div>
+        </div>
+
+        <p style="text-align:center;margin-top:30px;font-size:1.2em;color:#FF8300;">
+          → <strong>宠游伴如何解决这些问题?</strong> 👇
+        </p>
+      </div>
+    </section>
+
+    <!-- 产品核心功能 -->
     <section id="features">
-      <div class="section-title">平台核心功能</div>
-      <div class="features">
+      <h2 class="section-title">🎯 产品核心功能</h2>
+      <p class="section-subtitle">一站式解决宠物旅行难题</p>
+      
+      <div class="features-grid">
         <div class="feature-card">
-          <img src="/images/dog.png" alt="智能行程规划" />
-          <h3>智能行程规划</h3>
-          <p>3分钟输入宠物信息，一键生成专属旅行方案，科学避坑，轻松省心。</p>
+          <h3>AI智能行程规划</h3>
+          <p>3分钟输入宠物信息,一键生成专属旅行方案,科学避坑,轻松省心。解决用户"规划低效"痛点。</p>
+          <img src="/images/dog.png" alt="AI行程功能">
         </div>
+
         <div class="feature-card">
-          <img src="/images/dog.png" alt="宠友组团社交" />
           <h3>宠友组团社交</h3>
-          <p>同城宠友结伴出游，拼团优惠，分担看护压力，让旅行不再孤单。</p>
+          <p>同城宠友结伴出游,拼团优惠,分担看护压力,让旅行不再孤单。解决用户"孤独出行"痛点。</p>
+          <img src="/images/dog.png" alt="组团社交">
         </div>
+
         <div class="feature-card">
-          <img src="/images/dog.png" alt="宠物友好地图" />
           <h3>宠物友好地图</h3>
-          <p>整合全国真实用户验证的宠物友好酒店、餐厅、景点，放心预订。</p>
+          <p>整合全国真实用户验证的宠物友好酒店、餐厅、景点,放心预订。解决用户"信任缺失"痛点。</p>
+          <img src="/images/dog.png" alt="友好地图">
         </div>
+
         <div class="feature-card">
-          <img src="/images/dog.png" alt="短视频内容社区" />
           <h3>短视频内容社区</h3>
-          <p>超60%内容为3-5分钟旅行Vlog，真实体验分享，实用攻略一刷即得。</p>
+          <p>59.4%用户偏好短视频!3-5分钟旅行Vlog,真实体验分享,实用攻略一刷即得。解决"信息碎片化"痛点。</p>
+          <img src="/images/dog.png" alt="短视频社区">
         </div>
       </div>
     </section>
-    <!-- 热门目的地 -->
-    <section id="destinations">
-      <div class="section-title">热门宠物友好目的地</div>
-      <div class="destinations">
-        <div class="destination-card">
-          <img src="/images/dog.png" alt="杭州西湖" />
-          <h3>杭州西湖</h3>
-          <p>友好指数：⭐⭐⭐⭐⭐<br>“适合带狗环湖慢跑，景区宠物友好，配套完善。”</p>
+
+    <!-- 市场痛点分析 -->
+    <section id="journey">
+      <h2 class="section-title">⚠️ 市场痛点分析</h2>
+      <p class="section-subtitle">用户在宠物旅行中遇到的核心问题</p>
+      
+      <div class="journey-scenarios">
+        <div class="scenario">
+          <div class="scenario-img">
+            <img src="/images/dog.png" alt="信息碎片化问题">
+          </div>
+          <div class="scenario-content">
+            <span class="scenario-badge">痛点1</span>
+            <h3>信息碎片化 - 多平台反复切换</h3>
+            <div class="scenario-item">
+              <strong>用户困境:</strong> 张女士想带金毛去三亚,需要在小红书、抖音、大众点评、携程等多个平台之间反复切换查找信息
+            </div>
+            <div class="scenario-item">
+              <strong>时间成本:</strong> 手工整理一份完整攻略需要3-5小时,仍难以保证信息准确性和完整性
+            </div>
+            <div class="scenario-item">
+              <strong>信任问题:</strong> 无法判断哪些是真实用户评价,哪些是商家刷单,信息真实性存疑
+            </div>
+          </div>
         </div>
-        <div class="destination-card">
-          <img src="/images/dog.png" alt="三亚亚龙湾" />
-          <h3>三亚亚龙湾</h3>
-          <p>友好指数：⭐⭐⭐⭐<br>“宠物沙滩乐园，民宿超多，猫狗都能玩水。”</p>
+
+        <div class="scenario">
+          <div class="scenario-img">
+            <img src="/images/dog.png" alt="孤独出行问题">
+          </div>
+          <div class="scenario-content">
+            <span class="scenario-badge">痛点2</span>
+            <h3>孤独出行 - 缺乏社交渠道</h3>
+            <div class="scenario-item">
+              <strong>用户困境:</strong> 李先生想长途自驾去云南,一个人带宠物照顾压力大,希望找同伴分担
+            </div>
+            <div class="scenario-item">
+              <strong>社交障碍:</strong> 不知道去哪里找志同道合的宠友,微信群、QQ群质量参差不齐
+            </div>
+            <div class="scenario-item">
+              <strong>安全顾虑:</strong> 担心陌生人约伴的安全性和可靠性,缺乏有效的审核机制
+            </div>
+          </div>
         </div>
-        <div class="destination-card">
-          <img src="/images/dog.png" alt="上海世纪公园" />
-          <h3>上海世纪公园</h3>
-          <p>友好指数：⭐⭐⭐⭐<br>“超大绿地，宠物跑步区，周末宠友活动多。”</p>
+
+        <div class="scenario">
+          <div class="scenario-img">
+            <img src="/images/dog.png" alt="信任缺失问题">
+          </div>
+          <div class="scenario-content">
+            <span class="scenario-badge">痛点3</span>
+            <h3>信任缺失 - 服务参差不齐</h3>
+            <div class="scenario-item">
+              <strong>用户困境:</strong> 新手宠物主王小姐第一次带猫旅行,不知道哪些酒店真正宠物友好
+            </div>
+            <div class="scenario-item">
+              <strong>标准模糊:</strong> 很多酒店标注"宠物友好",但实际政策和服务差异巨大,容易踩坑
+            </div>
+            <div class="scenario-item">
+              <strong>应急困难:</strong> 缺乏目的地宠物医院、应急求助等关键信息,遇到突发情况手足无措
+            </div>
+          </div>
+        </div>
+
+        <div class="scenario">
+          <div class="scenario-img">
+            <img src="/images/dog.png" alt="规划低效问题">
+          </div>
+          <div class="scenario-content">
+            <span class="scenario-badge">痛点4</span>
+            <h3>规划低效 - 决策成本高</h3>
+            <div class="scenario-item">
+              <strong>用户困境:</strong> 需要同时考虑宠物的体型、性格、健康状况、目的地限制、交通方式等多个因素
+            </div>
+            <div class="scenario-item">
+              <strong>专业门槛:</strong> 新手不知道要准备什么物品、办理什么手续、注意什么事项
+            </div>
+            <div class="scenario-item">
+              <strong>试错成本:</strong> 一旦规划失误,不仅浪费金钱,还可能影响宠物健康和旅行体验
+            </div>
+          </div>
         </div>
       </div>
-    </section>
-    <!-- 出行知识/Tips -->
-    <section id="tips">
-      <div class="section-title">出行知识 · 新手必看Tips</div>
-      <div class="tips">
-        <div class="tip-card">
-          <img src="/images/dog.png" alt="高铁宠物出行" />
-          <h3>宠物乘高铁须知</h3>
-          <p>需提前办理检疫、预约专用车厢。随时关注官方政策变化。</p>
-        </div>
-        <div class="tip-card">
-          <img src="/images/dog.png" alt="防晕车" />
-          <h3>防晕车小技巧</h3>
-          <p>提前适应短途，多带安抚玩具，避免空腹、过热，适量饮水。</p>
-        </div>
-        <div class="tip-card">
-          <img src="/images/dog.png" alt="酒店预订" />
-          <h3>酒店预订避坑</h3>
-          <p>优先选“已验证宠物友好”，查明收费/体型限制，看平台真实点评。</p>
-        </div>
-      </div>
-    </section>
-    <!-- 合伙人招募/投稿激励 -->
-    <section id="join">
-      <div class="section-title">内容合伙人 · 投稿有奖</div>
-      <div class="join-partner">
-        <div class="join-info">
-          <h3>分享你的宠物旅行故事，赢现金与流量奖励！</h3>
-          <p>
-            <strong>投稿内容类型：</strong>宠物旅行Vlog、实用攻略、真实测评、攻略图文等<br>
-            <strong>参与方式：</strong>注册登录，发布原创内容或报名合伙人计划<br>
-            <strong>激励机制：</strong>精选内容流量曝光，现金红包，认证达人/品牌合作机会<br>
-            <strong>往期优秀投稿：</strong>
-          </p>
-          <div class="join-pics">
-            <img src="/images/dog.png" alt="优秀投稿1">
-            <img src="/images/dog.png" alt="优秀投稿2">
-            <img src="/images/dog.png" alt="优秀投稿3">
+
+      <div style="background:#FFF7EE;border-radius:15px;padding:40px;margin-top:40px;text-align:center;">
+        <h3 style="color:#FF8300;font-size:1.8em;margin-bottom:20px;">
+          ✨ 宠游伴如何解决这些痛点?
+        </h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;text-align:left;">
+          <div style="background:#fff;padding:20px;border-radius:10px;">
+            <strong style="color:#FF8300;">→ 信息整合</strong><br>
+            一站式平台,无需多平台切换
+          </div>
+          <div style="background:#fff;padding:20px;border-radius:10px;">
+            <strong style="color:#FF8300;">→ 社交连接</strong><br>
+            组团约伴功能,匹配同路宠友
+          </div>
+          <div style="background:#fff;padding:20px;border-radius:10px;">
+            <strong style="color:#FF8300;">→ 质量保证</strong><br>
+            真实用户验证+评价体系
+          </div>
+          <div style="background:#fff;padding:20px;border-radius:10px;">
+            <strong style="color:#FF8300;">→ AI助手</strong><br>
+            3分钟生成个性化行程规划
           </div>
         </div>
       </div>
     </section>
-    <!-- 用户故事精选 -->
-    <section id="ugc">
-      <div class="section-title">用户内容与故事精选</div>
-      <div class="ugc-list">
-        <div class="ugc-card">
-          <img src="/images/dog.png" alt="UGC1-用户Vlog封面" />
-          <h3>拉布拉多自驾西藏——高原冒险记</h3>
-          <p>第一次带狗狗冲上5000米雪山，一路美景和困难相伴。<br>——by 用户“小北”</p>
+
+    <!-- 内容来源说明 -->
+    <section id="content">
+      <h2 class="section-title">📱 平台内容从哪里来?</h2>
+      <p class="section-subtitle">不只是攻略平台,更是内容社区</p>
+      
+      <div class="content-source">
+        <div class="content-grid">
+          <div class="content-card">
+            <div class="content-percentage">60%</div>
+            <h4>👥 用户真实分享</h4>
+            <p>真实宠友的旅行Vlog、体验分享、实用测评,可信度高,接地气</p>
+            <img src="/images/dog.png" alt="用户内容示例">
+          </div>
+
+          <div class="content-card">
+            <div class="content-percentage">30%</div>
+            <h4>✨ 平台精选内容</h4>
+            <p>专业团队制作的高质量攻略、目的地指南、出行知识,保证内容质量天花板</p>
+            <img src="/images/dog.png" alt="精选内容示例">
+          </div>
+
+          <div class="content-card">
+            <div class="content-percentage">10%</div>
+            <h4>🌟 达人合作内容</h4>
+            <p>与宠物博主、旅行达人联合出品,扩大影响力,精准触达圈层用户</p>
+            <img src="/images/dog.png" alt="达人内容示例">
+          </div>
         </div>
-        <div class="ugc-card">
-          <img src="/images/dog.png" alt="UGC2-咖啡馆测评" />
-          <h3>上海十大宠物友好咖啡馆测评</h3>
-          <p>全部实地踩点，每家真实环境&政策详评。<br>——by 用户“苏苏”</p>
+
+        <p style="text-align:center;margin-top:30px;font-size:1.2em;color:#665200;">
+          <strong>为什么59.4%用户偏好短视频?</strong><br>
+          因为短视频更真实、更直观、更可信 🎬
+        </p>
+      </div>
+    </section>
+
+    <!-- 热门目的地 -->
+    <section id="destinations">
+      <h2 class="section-title">🗺️ 热门宠物友好目的地</h2>
+      <p class="section-subtitle">已覆盖全国360+城市</p>
+      
+      <div class="destinations-grid">
+        <div class="destination-card">
+          <img src="/images/dog.png" alt="三亚">
+          <div class="destination-content">
+            <h3>三亚亚龙湾</h3>
+            <div class="rating">⭐⭐⭐⭐⭐</div>
+            <p><strong>146家</strong>宠物友好酒店</p>
+            <p>"宠物沙滩乐园,民宿超多,猫狗都能玩水,海景房配套完善"</p>
+          </div>
         </div>
-        <div class="ugc-card">
-          <img src="/images/dog.png" alt="UGC3-短视频封面" />
-          <h3>短视频 · 苏州最美宠物民宿</h3>
-          <p>Vlog沉浸体验宠物友好住宿，真实评价不踩雷！</p>
+
+        <div class="destination-card">
+          <img src="/images/dog.png" alt="云南">
+          <div class="destination-content">
+            <h3>云南大理洱海</h3>
+            <div class="rating">⭐⭐⭐⭐⭐</div>
+            <p><strong>400+家</strong>酒店资源池</p>
+            <p>"环海民宿宠物友好,风景绝美,适合自驾,中端市场首选"</p>
+          </div>
         </div>
-        <div class="ugc-card">
-          <img src="/images/dog.png" alt="UGC4-萌宠同游" />
-          <h3>十城联动 · 宠友组团出发</h3>
-          <p>“最难忘的不是目的地，而是路上遇见的宠友伙伴”</p>
+
+        <div class="destination-card">
+          <img src="/images/dog.png" alt="江西南昌">
+          <div class="destination-content">
+            <h3>江西南昌</h3>
+            <div class="rating">⭐⭐⭐</div>
+            <p><strong>蓝海市场</strong>待开发</p>
+            <p>"中端市场潜力巨大,竞争少,政策友好,适合早期布局,性价比高"</p>
+          </div>
         </div>
       </div>
-      <p style="text-align:center;color:#FF8300;margin-top:16px;">更多精彩内容，尽在宠游伴App/小程序</p>
     </section>
-    <!-- 好评/媒体报道 -->
-    <section id="feedbacks">
-      <div class="section-title">真实好评 · 媒体报道</div>
-      <div class="feedbacks">
-        <div class="feedback-card">
-          <img src="/images/dog.png" class="media-logo" alt="小红书logo"/>
-          <p>“终于有个平台解决带宠旅行信息不透明难题！Vlog攻略很全很实用。”</p>
-          <div class="source">@小红书达人</div>
+
+    <!-- UGC用户故事 -->
+    <section id="ugc">
+      <h2 class="section-title">💬 用户真实故事</h2>
+      <p class="section-subtitle">他们在宠游伴找到了旅行的意义</p>
+      
+      <div class="ugc-grid">
+        <div class="ugc-card">
+          <img src="/images/dog.png" alt="UGC故事1">
+          <div class="ugc-content">
+            <h4>拉布拉多自驾西藏——高原冒险记</h4>
+            <p>第一次带狗狗冲上5000米雪山,一路美景和困难相伴,但看到它开心的样子,一切都值了!</p>
+            <p class="ugc-author">by @小北</p>
+          </div>
         </div>
-        <div class="feedback-card">
-          <img src="/images/dog.png" class="media-logo" alt="抖音logo"/>
-          <p>“带狗自驾去云南全靠宠游伴找民宿，组团结识
+
+        <div class="ugc-card">
+          <img src="/images/dog.png" alt="UGC故事2">
+          <div class="ugc-content">
+            <h4>上海十大宠物友好咖啡馆测评</h4>
+            <p>全部实地踩点,每家真实环境&政策详评,帮你避坑!</p>
+            <p class="ugc-author">by @苏苏</p>
+          </div>
+        </div>
+
+        <div class="ugc-card">
+          <img src="/images/dog.png" alt="UGC故事3">
+          <div class="ugc-content">
+            <h4>短视频 · 苏州最美宠物民宿</h4>
+            <p>Vlog沉浸体验宠物友好住宿,真实评价不踩雷,种草了!</p>
+            <p class="ugc-author">by @旅行菌</p>
+          </div>
+        </div>
+
+        <div class="ugc-card">
+          <img src="/images/dog.png" alt="UGC故事4">
+          <div class="ugc-content">
+            <h4>十城联动 · 宠友组团出发</h4>
+            <p>"最难忘的不是目的地,而是路上遇见的宠友伙伴,感谢宠游伴!"</p>
+            <p class="ugc-author">by @小团子</p>
+          </div>
+        </div>
+      </div>
+
+      <p style="text-align:center;margin-top:30px;color:#FF8300;font-size:1.1em;">
+        更多精彩内容,尽在宠游伴App 📱
+      </p>
+    </section>
+
+    <!-- 出行知识Tips -->
+    <section id="tips">
+      <h2 class="section-title">💡 出行知识 · 新手必看</h2>
+      
+      <div class="tips-grid">
+        <div class="tip-card">
+          <h4>🚄 宠物乘高铁须知</h4>
+          <p>需提前办理检疫证明、预约专用车厢,部分线路不支持宠物。随时关注官方政策变化,建议提前1周准备。</p>
+        </div>
+
+        <div class="tip-card">
+          <h4>🚗 防晕车小技巧</h4>
+          <p>提前适应短途,多带安抚玩具,避免空腹或过饱,保持车内通风,适量饮水。必要时咨询宠物医生开晕车药。</p>
+        </div>
+
+        <div class="tip-card">
+          <h4>🏨 酒店预订避坑指南</h4>
+          <p>优先选择"已验证宠物友好"标签,查明宠物收费标准和体型限制,提前电话确认政策,查看平台真实点评。</p>
+        </div>
+
+        <div class="tip-card">
+          <h4>📋 出行必备清单</h4>
+          <p>宠物粮食、水碗、牵引绳、疫苗本、常用药品、清洁用品、玩具安抚物。AI行程助手可自动生成个性化清单。</p>
+        </div>
+
+        <div class="tip-card">
+          <h4>⚠️ 紧急情况应对</h4>
+          <p>提前查询目的地宠物医院位置,保存24小时急诊电话,携带宠物急救包。平台提供全国宠物医院地图。</p>
+        </div>
+
+        <div class="tip-card">
+          <h4>📸 旅拍技巧分享</h4>
+          <p>选择清晨或傍晚光线柔和时段,使用零食吸引注意力,低角度拍摄更生动。投稿到宠游伴社区还有机会获得流量奖励!</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 合伙人招募 -->
+    <section id="partner">
+      <div class="partner-section">
+        <div class="partner-content">
+          <h3>🤝 内容合伙人 · 投稿有奖</h3>
+          <p style="font-size:1.2em;margin-bottom:30px;">
+            分享你的宠物旅行故事,赢现金与流量奖励!
+          </p>
+
+          <div class="partner-benefits">
+            <div class="benefit-item">
+              <h4>📹 投稿内容</h4>
+              <p>旅行Vlog、实用攻略、真实测评、图文游记</p>
+            </div>
+            <div class="benefit-item">
+              <h4>🎁 激励机制</h4>
+              <p>精选内容流量曝光、现金红包、达人认证</p>
+            </div>
+            <div class="benefit-item">
+              <h4>🌟 合作机会</h4>
+              <p>品牌合作、商务推广、优先体验新功能</p>
+            </div>
+          </div>
+
+          <div style="margin-top:30px;">
+            <a href="#" class="cta-primary">立即加入合伙人计划</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 双CTA转化区 -->
+    <section class="cta-section" id="download">
+      <h2>🚀 开始你的宠物旅行之旅</h2>
+      
+      <div class="cta-grid">
+        <div class="cta-box">
+          <h3>📱 用户入口</h3>
+          <p style="margin:20px 0;">扫码下载宠游伴App<br>3分钟规划专属行程</p>
+          <div style="background:#fff;padding:20px;border-radius:10px;display:inline-block;">
+            <img src="/images/dog.png" alt="App下载二维码" style="width:150px;">
+          </div>
+          <p style="margin-top:15px;">
+            <a href="#" class="cta-primary">iOS下载</a>
+            <a href="#" class="cta-primary" style="margin-left:10px;">Android下载</a>
+          </p>
+        </div>
+
+        <div class="cta-box">
+          <h3>🤝 商家入口</h3>
+          <p style="margin:20px 0;">商务合作、内容营销<br>资源置换、品牌共建</p>
+          <div style="background:#fff;padding:30px 20px;border-radius:10px;margin:20px 0;">
+            <p><strong>商务合作联系方式:</strong></p>
+            <p>📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ee8c9b9d87808b9d9dae9e8b9a81898b9a868b9cc08d8183">[email&#160;protected]</a></p>
+            <p>📱 400-888-8888</p>
+          </div>
+          <p>
+            <a href="#" class="cta-secondary">提交合作意向</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>🐾 宠游伴</h4>
+        <p>让每只宠物都能看世界</p>
+        <p style="margin-top:15px;color:#999;">
+          中国首个短视频驱动的<br>宠物旅行社区平台
+        </p>
+      </div>
+
+      <div class="footer-section">
+        <h4>产品</h4>
+        <ul>
+          <li><a href="#features">功能介绍</a></li>
+          <li><a href="#download">下载App</a></li>
+          <li><a href="#">帮助中心</a></li>
+          <li><a href="#">用户协议</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4>公司</h4>
+        <ul>
+          <li><a href="#">关于我们</a></li>
+          <li><a href="#partner">加入我们</a></li>
+          <li><a href="#">媒体报道</a></li>
+          <li><a href="#">联系我们</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4>资源</h4>
+        <ul>
+          <li><a href="#tips">出行知识</a></li>
+          <li><a href="#destinations">目的地</a></li>
+          <li><a href="#">隐私政策</a></li>
+          <li><a href="#">备案信息</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2025 宠游伴 Petogether | 让每只宠物都能看世界</p>
+      <p style="margin-top:10px;font-size:0.9em;">
