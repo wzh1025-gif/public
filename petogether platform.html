@@ -1,1 +1,1867 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>宠游伴平台生态 - 商务合作·积分体系·社区创作·精选商城</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    * {margin:0;padding:0;box-sizing:border-box;}
+    
+    html {
+      -webkit-text-size-adjust:100%;
+      -webkit-tap-highlight-color:transparent;
+    }
+    
+    body {
+      font-family:'Helvetica Neue',Arial,'PingFang SC','Microsoft YaHei',sans-serif;
+      background:#FFF9E4;
+      color:#262626;
+      line-height:1.6;
+      overflow-x:hidden;
+    }
+    
+    img {
+      max-width:100%;
+      height:auto;
+      display:block;
+    }
+    
+    /* 导航栏 */
+    nav {
+      position:fixed;
+      top:0;
+      left:0;
+      right:0;
+      z-index:999;
+      background:#fff;
+      padding:15px 5%;
+      box-shadow:0 2px 10px rgba(0,0,0,0.05);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    nav .logo {
+      font-weight:bold;
+      font-size:1.6em;
+      color:#FF8300;
+    }
+    nav .back-home {
+      background:#FF8300;
+      color:#fff;
+      padding:8px 20px;
+      border-radius:20px;
+      text-decoration:none;
+      font-size:0.95em;
+      transition:all 0.3s;
+    }
+    nav .back-home:hover {
+      background:#FFB300;
+      transform:translateY(-2px);
+    }
+    
+    .container {
+      max-width:1200px;
+      margin:0 auto;
+      padding:0 5%;
+    }
+    
+    /* Hero区 */
+    .hero {
+      margin-top:80px;
+      padding:40px 0 50px;
+      text-align:center;
+      background:linear-gradient(135deg, #FFE5D9 0%, #FFF7EE 100%);
+      border-radius:0 0 30px 30px;
+    }
+    .hero h1 {
+      font-size:2.5em;
+      color:#FF8300;
+      margin-bottom:15px;
+      line-height:1.3;
+    }
+    .hero p {
+      font-size:1.2em;
+      color:#665200;
+      max-width:800px;
+      margin:0 auto 30px;
+    }
+    .hero-badges {
+      display:flex;
+      justify-content:center;
+      gap:15px;
+      flex-wrap:wrap;
+      margin-top:25px;
+    }
+    .badge {
+      background:#fff;
+      padding:10px 20px;
+      border-radius:20px;
+      font-size:0.95em;
+      color:#FF8300;
+      font-weight:500;
+      box-shadow:0 3px 10px rgba(255,131,0,0.1);
+    }
+    
+    /* 通用section */
+    section {
+      margin:60px 0;
+    }
+    .section-title {
+      font-size:2.2em;
+      color:#FF8300;
+      text-align:center;
+      margin-bottom:15px;
+      position:relative;
+      padding-bottom:15px;
+    }
+    .section-title:after {
+      content:'';
+      position:absolute;
+      bottom:0;
+      left:50%;
+      transform:translateX(-50%);
+      width:80px;
+      height:4px;
+      background:linear-gradient(90deg, #FF8300, #FFD450);
+      border-radius:2px;
+    }
+    .section-subtitle {
+      text-align:center;
+      font-size:1.1em;
+      color:#665200;
+      margin-bottom:35px;
+    }
+    
+    /* 媒体商务模块 */
+    .media-business {
+      background:#fff;
+      border-radius:20px;
+      padding:40px 5%;
+      box-shadow:0 10px 30px rgba(0,0,0,0.05);
+    }
+    .platform-stats {
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));
+      gap:20px;
+      margin:30px 0 40px;
+    }
+    .stat-card {
+      background:linear-gradient(135deg, #FFF7EE 0%, #FFE5D9 100%);
+      padding:20px;
+      border-radius:15px;
+      text-align:center;
+      transition:transform 0.3s;
+    }
+    .stat-card:hover {
+      transform:translateY(-5px);
+    }
+    .stat-number {
+      font-size:2em;
+      font-weight:bold;
+      color:#FF8300;
+      margin:10px 0 5px;
+    }
+    .stat-label {
+      font-size:0.9em;
+      color:#665200;
+    }
+    .cooperation-modes {
+      display:grid;
+      gap:25px;
+      margin:30px 0;
+    }
+    .mode-card {
+      background:#F9F9F9;
+      border-radius:15px;
+      padding:25px;
+      border-left:5px solid #FF8300;
+      transition:all 0.3s;
+    }
+    .mode-card:hover {
+      box-shadow:0 10px 25px rgba(255,131,0,0.15);
+      transform:translateX(5px);
+    }
+    .mode-card h3 {
+      color:#FF8300;
+      font-size:1.4em;
+      margin-bottom:15px;
+    }
+    .mode-card ul {
+      list-style:none;
+      padding-left:0;
+    }
+    .mode-card li {
+      padding:8px 0;
+      padding-left:25px;
+      position:relative;
+    }
+    .mode-card li:before {
+      content:'✓';
+      position:absolute;
+      left:0;
+      color:#FF8300;
+      font-weight:bold;
+    }
+    .case-studies {
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+      gap:20px;
+      margin:30px 0;
+    }
+    .case-card {
+      background:#fff;
+      border-radius:15px;
+      overflow:hidden;
+      box-shadow:0 5px 20px rgba(0,0,0,0.08);
+      transition:transform 0.3s;
+    }
+    .case-card:hover {
+      transform:translateY(-8px);
+    }
+    .case-img {
+      width:100%;
+      height:180px;
+      background:linear-gradient(135deg, #FFD450 0%, #FF8300 100%);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:3em;
+    }
+    .case-content {
+      padding:20px;
+    }
+    .case-content h4 {
+      color:#FF8300;
+      margin-bottom:10px;
+      font-size:1.2em;
+    }
+    .case-result {
+      background:#FFF7EE;
+      padding:12px;
+      border-radius:8px;
+      margin:15px 0;
+      font-size:0.95em;
+    }
+    .contact-form {
+      background:linear-gradient(135deg, #FFE5D9 0%, #FFF7EE 100%);
+      padding:30px;
+      border-radius:15px;
+      margin-top:30px;
+    }
+    .form-group {
+      margin-bottom:20px;
+    }
+    .form-group label {
+      display:block;
+      margin-bottom:8px;
+      color:#665200;
+      font-weight:500;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width:100%;
+      padding:12px;
+      border:2px solid #FFD450;
+      border-radius:8px;
+      font-size:1em;
+      font-family:inherit;
+      transition:border-color 0.3s;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline:none;
+      border-color:#FF8300;
+    }
+    .submit-btn {
+      background:#FF8300;
+      color:#fff;
+      padding:15px 40px;
+      border:none;
+      border-radius:25px;
+      font-size:1.1em;
+      font-weight:bold;
+      cursor:pointer;
+      transition:all 0.3s;
+      width:100%;
+    }
+    .submit-btn:hover {
+      background:#FFB300;
+      transform:translateY(-3px);
+      box-shadow:0 8px 20px rgba(255,131,0,0.3);
+    }
+    
+    /* 游戏化积分模块 */
+    .gamification {
+      background:linear-gradient(135deg, #FFF7EE 0%, #FFE5D9 100%);
+      border-radius:20px;
+      padding:40px 5%;
+    }
+    .points-ways {
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));
+      gap:20px;
+      margin:30px 0;
+    }
+    .point-card {
+      background:#fff;
+      border-radius:15px;
+      padding:25px;
+      text-align:center;
+      box-shadow:0 5px 15px rgba(0,0,0,0.08);
+      transition:all 0.3s;
+      position:relative;
+      overflow:hidden;
+    }
+    .point-card:before {
+      content:'';
+      position:absolute;
+      top:-50%;
+      right:-50%;
+      width:200%;
+      height:200%;
+      background:radial-gradient(circle, rgba(255,131,0,0.1) 0%, transparent 70%);
+      transition:all 0.5s;
+    }
+    .point-card:hover:before {
+      top:-20%;
+      right:-20%;
+    }
+    .point-card:hover {
+      transform:translateY(-8px) scale(1.02);
+      box-shadow:0 15px 30px rgba(255,131,0,0.2);
+    }
+    .point-icon {
+      font-size:3em;
+      margin-bottom:15px;
+    }
+    .point-value {
+      font-size:2em;
+      font-weight:bold;
+      color:#FF8300;
+      margin:10px 0;
+    }
+    .point-action {
+      font-size:1.1em;
+      color:#262626;
+      font-weight:500;
+    }
+    .level-system {
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+      gap:20px;
+      margin:30px 0;
+    }
+    .level-card {
+      background:#fff;
+      border-radius:15px;
+      padding:20px;
+      text-align:center;
+      border:3px solid #FFD450;
+      transition:all 0.3s;
+    }
+    .level-card.premium {
+      border-color:#FF8300;
+      background:linear-gradient(135deg, #FFF7EE 0%, #FFE5D9 100%);
+    }
+    .level-card:hover {
+      transform:scale(1.05);
+      box-shadow:0 10px 25px rgba(255,131,0,0.2);
+    }
+    .level-badge {
+      font-size:3em;
+      margin-bottom:10px;
+    }
+    .level-name {
+      font-size:1.3em;
+      color:#FF8300;
+      font-weight:bold;
+      margin-bottom:10px;
+    }
+    .level-benefits {
+      font-size:0.9em;
+      color:#665200;
+      line-height:1.6;
+    }
+    .points-shop {
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+      gap:20px;
+      margin:30px 0;
+    }
+    .shop-item {
+      background:#fff;
+      border-radius:15px;
+      padding:20px;
+      text-align:center;
+      box-shadow:0 5px 15px rgba(0,0,0,0.08);
+      transition:transform 0.3s;
+    }
+    .shop-item:hover {
+      transform:translateY(-5px);
+    }
+    .shop-icon {
+      font-size:2.5em;
+      margin-bottom:15px;
+    }
+    .shop-price {
+      font-size:1.5em;
+      color:#FF8300;
+      font-weight:bold;
+      margin:10px 0;
+    }
+    .leaderboard {
+      background:#fff;
+      border-radius:15px;
+      padding:25px;
+      margin-top:30px;
+    }
+    .leaderboard-item {
+      display:flex;
+      align-items:center;
+      padding:15px;
+      border-bottom:1px solid #f0f0f0;
+      transition:background 0.3s;
+    }
+    .leaderboard-item:hover {
+      background:#FFF7EE;
+    }
+    .leaderboard-item:last-child {
+      border-bottom:none;
+    }
+    .rank-number {
+      font-size:1.5em;
+      font-weight:bold;
+      color:#FF8300;
+      width:50px;
+      text-align:center;
+    }
+    .rank-number.top3 {
+      font-size:2em;
+    }
+    .user-info {
+      flex:1;
+      margin:0 15px;
+    }
+    .user-name {
+      font-weight:bold;
+      color:#262626;
+      margin-bottom:3px;
+    }
+    .user-content {
+      font-size:0.9em;
+      color:#999;
+    }
+    .user-points {
+      font-size:1.2em;
+      color:#FF8300;
+      font-weight:bold;
+    }
+    
+    /* 社区内容模块 */
+    .community {
+      background:#fff;
+      border-radius:20px;
+      padding:40px 5%;
+      box-shadow:0 10px 30px rgba(0,0,0,0.05);
+    }
+    .community-stats {
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));
+      gap:20px;
+      margin:30px 0;
+    }
+    .community-stat {
+      text-align:center;
+      padding:20px;
+      background:linear-gradient(135deg, #FFF7EE 0%, #FFE5D9 100%);
+      border-radius:15px;
+    }
+    .community-stat-number {
+      font-size:2.2em;
+      font-weight:bold;
+      color:#FF8300;
+      margin-bottom:5px;
+    }
+    .community-stat-label {
+      font-size:0.95em;
+      color:#665200;
+    }
+    .content-categories {
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
+      gap:20px;
+      margin:30px 0;
+    }
+    .category-card {
+      background:#F9F9F9;
+      border-radius:15px;
+      padding:25px;
+      transition:all 0.3s;
+      cursor:pointer;
+    }
+    .category-card:hover {
+      background:#FFF7EE;
+      transform:translateY(-5px);
+      box-shadow:0 10px 20px rgba(255,131,0,0.15);
+    }
+    .category-icon {
+      font-size:2.5em;
+      margin-bottom:15px;
+    }
+    .category-name {
+      font-size:1.3em;
+      color:#FF8300;
+      font-weight:bold;
+      margin-bottom:10px;
+    }
+    .category-count {
+      font-size:0.9em;
+      color:#999;
+    }
+    .creator-benefits {
+      display:grid;
+      gap:20px;
+      margin:30px 0;
+    }
+    .benefit-card {
+      background:linear-gradient(135deg, #FFF7EE 0%, #FFE5D9 100%);
+      border-radius:15px;
+      padding:25px;
+      display:flex;
+      align-items:flex-start;
+      gap:20px;
+    }
+    .benefit-icon {
+      font-size:3em;
+      flex-shrink:0;
+    }
+    .benefit-content h4 {
+      color:#FF8300;
+      font-size:1.3em;
+      margin-bottom:10px;
+    }
+    .benefit-content ul {
+      list-style:none;
+      padding-left:0;
+    }
+    .benefit-content li {
+      padding:5px 0;
+      padding-left:20px;
+      position:relative;
+    }
+    .benefit-content li:before {
+      content:'•';
+      position:absolute;
+      left:0;
+      color:#FF8300;
+      font-size:1.2em;
+    }
+    .creator-showcase {
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+      gap:15px;
+      margin:30px 0;
+    }
+    .creator-avatar {
+      aspect-ratio:1;
+      background:linear-gradient(135deg, #FFD450 0%, #FF8300 100%);
+      border-radius:15px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:3em;
+      transition:transform 0.3s;
+      cursor:pointer;
+    }
+    .creator-avatar:hover {
+      transform:scale(1.05) rotate(5deg);
+    }
+    .publish-cta {
+      background:linear-gradient(135deg, #FF8300 0%, #FFB300 100%);
+      color:#fff;
+      padding:40px;
+      border-radius:20px;
+      text-align:center;
+      margin-top:30px;
+    }
+    .publish-cta h3 {
+      font-size:2em;
+      margin-bottom:15px;
+    }
+    .publish-cta p {
+      font-size:1.2em;
+      margin-bottom:25px;
+      opacity:0.95;
+    }
+    .publish-btn {
+      background:#fff;
+      color:#FF8300;
+      padding:15px 50px;
+      border:none;
+      border-radius:30px;
+      font-size:1.2em;
+      font-weight:bold;
+      cursor:pointer;
+      transition:all 0.3s;
+      display:inline-block;
+      text-decoration:none;
+    }
+    .publish-btn:hover {
+      transform:scale(1.05);
+      box-shadow:0 10px 30px rgba(255,255,255,0.3);
+    }
+    
+    /* 电商模块 */
+    .ecommerce {
+      background:linear-gradient(135deg, #FFF7EE 0%, #FFE5D9 100%);
+      border-radius:20px;
+      padding:40px 5%;
+    }
+    .product-categories {
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(160px, 1fr));
+      gap:15px;
+      margin:30px 0;
+    }
+    .product-category {
+      background:#fff;
+      border-radius:15px;
+      padding:20px;
+      text-align:center;
+      cursor:pointer;
+      transition:all 0.3s;
+      border:2px solid transparent;
+    }
+    .product-category:hover {
+      border-color:#FF8300;
+      transform:translateY(-5px);
+      box-shadow:0 8px 20px rgba(255,131,0,0.15);
+    }
+    .category-emoji {
+      font-size:2.5em;
+      margin-bottom:10px;
+    }
+    .category-title {
+      font-size:1.1em;
+      color:#262626;
+      font-weight:500;
+    }
+    .hot-products {
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+      gap:20px;
+      margin:30px 0;
+    }
+    .product-card {
+      background:#fff;
+      border-radius:15px;
+      overflow:hidden;
+      box-shadow:0 5px 20px rgba(0,0,0,0.08);
+      transition:all 0.3s;
+    }
+    .product-card:hover {
+      transform:translateY(-8px);
+      box-shadow:0 15px 35px rgba(255,131,0,0.2);
+    }
+    .product-image {
+      width:100%;
+      height:200px;
+      background:linear-gradient(135deg, #FFD450 0%, #FF8300 100%);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:4em;
+      position:relative;
+    }
+    .product-tag {
+      position:absolute;
+      top:10px;
+      right:10px;
+      background:#FF3B3B;
+      color:#fff;
+      padding:5px 12px;
+      border-radius:15px;
+      font-size:0.3em;
+      font-weight:bold;
+    }
+    .product-info {
+      padding:20px;
+    }
+    .product-name {
+      font-size:1.2em;
+      color:#262626;
+      margin-bottom:10px;
+      font-weight:bold;
+    }
+    .product-rating {
+      color:#FFD450;
+      margin-bottom:10px;
+      font-size:0.95em;
+    }
+    .product-price {
+      display:flex;
+      align-items:baseline;
+      gap:10px;
+      margin:15px 0;
+    }
+    .current-price {
+      font-size:1.8em;
+      color:#FF8300;
+      font-weight:bold;
+    }
+    .original-price {
+      font-size:1em;
+      color:#999;
+      text-decoration:line-through;
+    }
+    .product-btn {
+      background:#FF8300;
+      color:#fff;
+      padding:12px;
+      border:none;
+      border-radius:8px;
+      width:100%;
+      font-size:1.05em;
+      font-weight:bold;
+      cursor:pointer;
+      transition:all 0.3s;
+    }
+    .product-btn:hover {
+      background:#FFB300;
+    }
+    .user-reviews {
+      display:grid;
+      gap:15px;
+      margin:30px 0;
+    }
+    .review-card {
+      background:#fff;
+      border-radius:15px;
+      padding:20px;
+      display:flex;
+      gap:15px;
+    }
+    .review-avatar {
+      width:50px;
+      height:50px;
+      border-radius:50%;
+      background:linear-gradient(135deg, #FFD450 0%, #FF8300 100%);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:1.5em;
+      flex-shrink:0;
+    }
+    .review-content {
+      flex:1;
+    }
+    .review-header {
+      display:flex;
+      justify-content:space-between;
+      margin-bottom:8px;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+    .review-name {
+      font-weight:bold;
+      color:#262626;
+    }
+    .review-stars {
+      color:#FFD450;
+    }
+    .review-text {
+      color:#665200;
+      line-height:1.6;
+      margin-bottom:10px;
+    }
+    .review-images {
+      display:flex;
+      gap:10px;
+      margin-top:10px;
+    }
+    .review-img {
+      width:80px;
+      height:80px;
+      border-radius:8px;
+      background:#F0F0F0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:2em;
+    }
+    .guarantee-section {
+      background:#fff;
+      border-radius:15px;
+      padding:30px;
+      margin-top:30px;
+    }
+    .guarantee-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+      gap:20px;
+      margin-top:20px;
+    }
+    .guarantee-item {
+      text-align:center;
+      padding:20px;
+      border-radius:10px;
+      background:#FFF7EE;
+    }
+    .guarantee-icon {
+      font-size:2.5em;
+      margin-bottom:10px;
+    }
+    .guarantee-text {
+      font-size:1.1em;
+      color:#665200;
+      font-weight:500;
+    }
+    
+    /* Footer */
+    footer {
+      background:#fff;
+      margin-top:60px;
+      padding:40px 5%;
+      text-align:center;
+    }
+    .footer-links {
+      display:flex;
+      justify-content:center;
+      gap:30px;
+      flex-wrap:wrap;
+      margin-bottom:20px;
+    }
+    .footer-links a {
+      color:#665200;
+      text-decoration:none;
+      transition:color 0.3s;
+    }
+    .footer-links a:hover {
+      color:#FF8300;
+    }
+    .footer-bottom {
+      color:#999;
+      font-size:0.9em;
+      padding-top:20px;
+      border-top:1px solid #f0f0f0;
+    }
+    
+    /* 响应式设计 */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size:2em;
+      }
+      .hero p {
+        font-size:1.05em;
+      }
+      .section-title {
+        font-size:1.8em;
+      }
+      .platform-stats,
+      .points-ways,
+      .level-system,
+      .points-shop,
+      .community-stats,
+      .content-categories,
+      .product-categories,
+      .hot-products {
+        grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));
+      }
+      .case-studies {
+        grid-template-columns:1fr;
+      }
+      nav .logo {
+        font-size:1.3em;
+      }
+      nav .back-home {
+        padding:6px 15px;
+        font-size:0.85em;
+      }
+    }
+    
+    /* 动画效果 */
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .point-icon,
+    .benefit-icon,
+    .category-emoji {
+      animation: float 3s ease-in-out infinite;
+    }
+    .point-card:nth-child(2n) .point-icon {
+      animation-delay: 0.5s;
+    }
+    .point-card:nth-child(3n) .point-icon {
+      animation-delay: 1s;
+    }
+    
+    /* 滚动动画 */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    section {
+      animation: fadeInUp 0.8s ease-out;
+    }
+  </style>
+</head>
+<body>
 
+  <!-- 导航栏 -->
+  <nav>
+    <div class="logo">🐾 宠游伴</div>
+    <a href="petogether-index.html" class="back-home">← 返回首页</a>
+  </nav>
+
+  <div class="container">
+    
+    <!-- Hero区 -->
+    <div class="hero">
+      <h1>🌟 宠游伴平台生态</h1>
+      <p>商务合作 · 游戏化积分 · 社区创作 · 精选商城<br>四大核心模块，构建宠物旅行生态闭环</p>
+      <div class="hero-badges">
+        <div class="badge">💼 B端商务合作</div>
+        <div class="badge">🎮 用户激励体系</div>
+        <div class="badge">✍️ UGC内容生态</div>
+        <div class="badge">🛍️ 旅行好物商城</div>
+      </div>
+    </div>
+
+    <!-- 1. 媒体商务合作模块 -->
+    <section id="media-business">
+      <div class="media-business">
+        <h2 class="section-title">💼 媒体商务合作</h2>
+        <p class="section-subtitle">携手宠游伴，触达千万宠物家庭，共创商业价值</p>
+        
+        <!-- 平台价值数据 -->
+        <div class="platform-stats">
+          <div class="stat-card">
+            <div class="stat-label">注册用户</div>
+            <div class="stat-number">280万+</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">日活用户</div>
+            <div class="stat-number">35万+</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">月均曝光</div>
+            <div class="stat-number">1.2亿</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">用户年龄</div>
+            <div class="stat-number">25-40岁</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">消费能力</div>
+            <div class="stat-number">中高端</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">复购率</div>
+            <div class="stat-number">67%</div>
+          </div>
+        </div>
+
+        <!-- 合作模式 -->
+        <h3 style="font-size:1.8em;color:#FF8300;margin:40px 0 25px;text-align:center;">🤝 四大合作模式</h3>
+        <div class="cooperation-modes">
+          <div class="mode-card">
+            <h3>🏨 酒店民宿合作</h3>
+            <p style="color:#665200;margin-bottom:15px;">打造宠物友好住宿生态，精准获客，提升入住率</p>
+            <ul>
+              <li>平台资源入驻，享受专属流量扶持</li>
+              <li>联合营销活动，限时优惠曝光</li>
+              <li>达人探店体验，短视频种草推广</li>
+              <li>用户真实点评，提升品牌信任度</li>
+              <li>数据看板支持，实时监控转化效果</li>
+            </ul>
+          </div>
+
+          <div class="mode-card">
+            <h3>📹 短视频营销</h3>
+            <p style="color:#665200;margin-bottom:15px;">短视频时代的品牌传播利器，真实种草更高效</p>
+            <ul>
+              <li>KOC达人矩阵，多账号分发覆盖</li>
+              <li>品牌挑战赛，激发用户UGC创作</li>
+              <li>产品软植入，自然场景无违和感</li>
+              <li>直播带货专场，实时互动促转化</li>
+              <li>数据复盘报告，ROI透明可量化</li>
+            </ul>
+          </div>
+
+          <div class="mode-card">
+            <h3>🛍️ 电商带货合作</h3>
+            <p style="color:#665200;margin-bottom:15px;">社区信任背书，测评种草转化率高达18%</p>
+            <ul>
+              <li>精选榜单推荐，首页流量倾斜</li>
+              <li>达人真实测评，提升购买决策信心</li>
+              <li>限时团购活动，制造紧迫感促单</li>
+              <li>会员专属折扣，增强用户粘性</li>
+              <li>售后保障体系，降低用户顾虑</li>
+            </ul>
+          </div>
+
+          <div class="mode-card">
+            <h3>📰 品牌内容共创</h3>
+            <p style="color:#665200;margin-bottom:15px;">深度内容营销，打造品牌专属IP影响力</p>
+            <ul>
+              <li>品牌专题策划，多维度立体传播</li>
+              <li>话题发起引爆，激发用户参与讨论</li>
+              <li>IP联名活动，跨界合作扩大声量</li>
+              <li>软文深度植入，润物细无声式传播</li>
+              <li>长效品牌曝光，持续占领用户心智</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 成功案例 -->
+        <h3 style="font-size:1.8em;color:#FF8300;margin:40px 0 25px;text-align:center;">📊 成功案例展示</h3>
+        <div class="case-studies">
+          <div class="case-card">
+            <div class="case-img">🏨</div>
+            <div class="case-content">
+              <h4>大理洱海·云想宠物民宿</h4>
+              <p style="color:#665200;font-size:0.95em;">通过平台达人探店+短视频种草，30天内实现：</p>
+              <div class="case-result">
+                <strong>📈 曝光量:</strong> 150万+<br>
+                <strong>💰 订单增长:</strong> 320%<br>
+                <strong>⭐ 评分提升:</strong> 4.2→4.9
+              </div>
+              <p style="color:#999;font-size:0.85em;margin-top:10px;">合作周期: 2024年7-8月</p>
+            </div>
+          </div>
+
+          <div class="case-card">
+            <div class="case-img">🎁</div>
+            <div class="case-content">
+              <h4>皇家宠物粮·夏日清凉季</h4>
+              <p style="color:#665200;font-size:0.95em;">品牌挑战赛+电商带货组合拳，单月实现：</p>
+              <div class="case-result">
+                <strong>📹 UGC视频:</strong> 2800+条<br>
+                <strong>🛒 GMV:</strong> 68万元<br>
+                <strong>👥 新增粉丝:</strong> 1.2万
+              </div>
+              <p style="color:#999;font-size:0.85em;margin-top:10px;">合作周期: 2024年6月</p>
+            </div>
+          </div>
+
+          <div class="case-card">
+            <div class="case-img">✈️</div>
+            <div class="case-content">
+              <h4>三亚亚龙湾旅游局</h4>
+              <p style="color:#665200;font-size:0.95em;">目的地营销+话题引爆+资源整合，达成：</p>
+              <div class="case-result">
+                <strong>🔥 话题阅读:</strong> 580万<br>
+                <strong>🏖️ 旅行订单:</strong> 1500+<br>
+                <strong>📱 App下载:</strong> 8000+
+              </div>
+              <p style="color:#999;font-size:0.85em;margin-top:10px;">合作周期: 2024年暑期</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 合作流程 -->
+        <h3 style="font-size:1.8em;color:#FF8300;margin:40px 0 25px;text-align:center;">🔄 合作流程</h3>
+        <div style="background:#F9F9F9;border-radius:15px;padding:30px;margin:20px 0;">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px;text-align:center;">
+            <div>
+              <div style="font-size:2.5em;margin-bottom:10px;">📝</div>
+              <div style="font-weight:bold;color:#FF8300;margin-bottom:5px;">1. 提交意向</div>
+              <div style="font-size:0.9em;color:#665200;">填写商务合作表单</div>
+            </div>
+            <div>
+              <div style="font-size:2.5em;margin-bottom:10px;">💬</div>
+              <div style="font-weight:bold;color:#FF8300;margin-bottom:5px;">2. 需求沟通</div>
+              <div style="font-size:0.9em;color:#665200;">1-3工作日对接</div>
+            </div>
+            <div>
+              <div style="font-size:2.5em;margin-bottom:10px;">📋</div>
+              <div style="font-weight:bold;color:#FF8300;margin-bottom:5px;">3. 方案定制</div>
+              <div style="font-size:0.9em;color:#665200;">提供专属营销方案</div>
+            </div>
+            <div>
+              <div style="font-size:2.5em;margin-bottom:10px;">🚀</div>
+              <div style="font-weight:bold;color:#FF8300;margin-bottom:5px;">4. 项目执行</div>
+              <div style="font-size:0.9em;color:#665200;">专人跟进全程服务</div>
+            </div>
+            <div>
+              <div style="font-size:2.5em;margin-bottom:10px;">📊</div>
+              <div style="font-weight:bold;color:#FF8300;margin-bottom:5px;">5. 数据复盘</div>
+              <div style="font-size:0.9em;color:#665200;">效果报告+优化建议</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 商务联系表单 -->
+        <h3 style="font-size:1.8em;color:#FF8300;margin:40px 0 25px;text-align:center;">📮 商务合作咨询</h3>
+        <div class="contact-form">
+          <div class="form-group">
+            <label>您的姓名 *</label>
+            <input type="text" placeholder="请输入您的姓名" required>
+          </div>
+          <div class="form-group">
+            <label>公司名称 *</label>
+            <input type="text" placeholder="请输入公司名称" required>
+          </div>
+          <div class="form-group">
+            <label>联系电话 *</label>
+            <input type="tel" placeholder="请输入联系电话" required>
+          </div>
+          <div class="form-group">
+            <label>合作类型 *</label>
+            <select required>
+              <option value="">请选择合作类型</option>
+              <option>酒店民宿合作</option>
+              <option>短视频营销</option>
+              <option>电商带货合作</option>
+              <option>品牌内容共创</option>
+              <option>其他合作</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>合作需求描述</label>
+            <textarea rows="4" placeholder="请简要描述您的合作需求和预期目标"></textarea>
+          </div>
+          <button type="submit" class="submit-btn">提交合作申请</button>
+          <p style="text-align:center;margin-top:20px;color:#665200;font-size:0.95em;">
+            💌 商务合作邮箱: <strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="284a5d5b41464d5b5b68584d5c474f4d5c404d5a064b4745">[email&#160;protected]</a></strong><br>
+            📞 商务合作热线: <strong>400-888-8888</strong> (工作日 9:00-18:00)
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. 游戏化积分机制模块 -->
+    <section id="gamification">
+      <div class="gamification">
+        <h2 class="section-title">🎮 游戏化积分体系</h2>
+        <p class="section-subtitle">让每次旅行都值得记录，积分可兑换真金白银！</p>
+
+        <!-- 积分获取方式 -->
+        <h3 style="font-size:1.8em;color:#FF8300;margin:30px 0 25px;text-align:center;">💰 积分获取攻略</h3>
+        <div class="points-ways">
+          <div class="point-card">
+            <div class="point-icon">📹</div>
+            <div class="point-value">+100</div>
+            <div class="point-action">上传旅行Vlog</div>
+            <p style="font-size:0.9em;color:#999;margin-top:10px;">精选内容额外奖励50积分</p>
+          </div>
+
+          <div class="point-card">
+            <div class="point-icon">✍️</div>
+            <div class="point-value">+50</div>
+            <div class="point-action">发布图文游记</div>
+            <p style="font-size:0.9em;color:#999;margin-top:10px;">500字以上，配图3张+</p>
+          </div>
+
+          <div class="point-card">
+            <div class="point-icon">⭐</div>
+            <div class="point-value">+30</div>
+            <div class="point-action">真实评价酒店</div>
+            <p style="font-size:0.9em;color:#999;margin-top:10px;">含图片评价+10积分</p>
+          </div>
+
+          <div class="point-card">
+            <div class="point-icon">💬</div>
+            <div class="point-value">+20</div>
+            <div class="point-action">参与话题讨论</div>
+            <p style="font-size:0.9em;color:#999;margin-top:10px;">优质回复获点赞+5积分</p>
+          </div>
+
+          <div class="point-card">
+            <div class="point-icon">🎯</div>
+            <div class="point-value">+10</div>
+            <div class="point-action">完成每日签到</div>
+            <p style="font-size:0.9em;color:#999;margin-top:10px;">连续7天签到额外奖励</p>
+          </div>
+
+          <div class="point-card">
+            <div class="point-icon">👥</div>
+            <div class="point-value">+200</div>
+            <div class="point-action">邀请好友注册</div>
+            <p style="font-size:0.9em;color:#999;margin-top:10px;">好友完成首单+100积分</p>
+          </div>
+
+          <div class="point-card">
+            <div class="point-icon">🛒</div>
+            <div class="point-value">+1%</div>
+            <div class="point-action">商城消费返积分</div>
+            <p style="font-size:0.9em;color:#999;margin-top:10px;">每消费1元返1积分</p>
+          </div>
+
+          <div class="point-card">
+            <div class="point-icon">🏆</div>
+            <div class="point-value">+500</div>
+            <div class="point-action">月度创作之星</div>
+            <p style="font-size:0.9em;color:#999;margin-top:10px;">内容质量+互动量综合评选</p>
+          </div>
+        </div>
+
+        <!-- 等级体系 -->
+        <h3 style="font-size:1.8em;color:#FF8300;margin:40px 0 25px;text-align:center;">🏅 用户等级特权</h3>
+        <div class="level-system">
+          <div class="level-card">
+            <div class="level-badge">🐾</div>
+            <div class="level-name">萌新旅行家</div>
+            <div class="level-benefits">
+              0-500积分<br>
+              • 基础功能使用<br>
+              • 新手任务奖励<br>
+              • 社区发帖权限
+            </div>
+          </div>
+
+          <div class="level-card">
+            <div class="level-badge">🌟</div>
+            <div class="level-name">资深旅行家</div>
+            <div class="level-benefits">
+              501-2000积分<br>
+              • 专属身份标识<br>
+              • 优先客服响应<br>
+              • 每月专属优惠券
+            </div>
+          </div>
+
+          <div class="level-card premium">
+            <div class="level-badge">👑</div>
+            <div class="level-name">黄金探险家</div>
+            <div class="level-benefits">
+              2001-5000积分<br>
+              • 商城额外9折<br>
+              • 内容优先推荐<br>
+              • 品牌合作机会
+            </div>
+          </div>
+
+          <div class="level-card premium">
+            <div class="level-badge">💎</div>
+            <div class="level-name">传奇旅者</div>
+            <div class="level-benefits">
+              5000+积分<br>
+              • 尊享VIP标识<br>
+              • 年度旅行基金<br>
+              • 独家线下活动
+            </div>
+          </div>
+        </div>
+
+        <!-- 积分商城 -->
+        <h3 style="font-size:1.8em;color:#FF8300;margin:40px 0 25px;text-align:center;">🎁 积分兑换商城</h3>
+        <div class="points-shop">
+          <div class="shop-item">
+            <div class="shop-icon">💵</div>
+            <h4>现金红包</h4>
+            <div class="shop-price">500积分</div>
+            <p style="font-size:0.9em;color:#665200;">兑换5元现金红包</p>
+          </div>
+
+          <div class="shop-item">
+            <div class="shop-icon">🏨</div>
+            <h4>酒店优惠券</h4>
+            <div class="shop-price">300积分</div>
+            <p style="font-size:0.9em;color:#665200;">满300减50元</p>
+          </div>
+
+          <div class="shop-item">
+            <div class="shop-icon">🎒</div>
+            <h4>宠物外出包</h4>
+            <div class="shop-price">1200积分</div>
+            <p style="font-size:0.9em;color:#665200;">市场价值199元</p>
+          </div>
+
+          <div class="shop-item">
+            <div class="shop-icon">📸</div>
+            <h4>免费旅拍体验</h4>
+            <div class="shop-price">2000积分</div>
+            <p style="font-size:0.9em;color:#665200;">专业摄影师1小时</p>
+          </div>
+
+          <div class="shop-item">
+            <div class="shop-icon">🍖</div>
+            <h4>宠物零食礼包</h4>
+            <div class="shop-price">800积分</div>
+            <p style="font-size:0.9em;color:#665200;">6款热销零食组合</p>
+          </div>
+
+          <div class="shop-item">
+            <div class="shop-icon">🎟️</div>
+            <h4>景点门票</h4>
+            <div class="shop-price">1500积分</div>
+            <p style="font-size:0.9em;color:#665200;">全国宠物友好景区</p>
+          </div>
+        </div>
+
+        <!-- 排行榜 -->
+        <h3 style="font-size:1.8em;color:#FF8300;margin:40px 0 25px;text-align:center;">🏆 本月贡献榜TOP10</h3>
+        <div class="leaderboard">
+          <div class="leaderboard-item">
+            <div class="rank-number top3">🥇</div>
+            <div class="user-info">
+              <div class="user-name">@旅行的柴犬</div>
+              <div class="user-content">本月发布12条Vlog，获赞2.3万</div>
+            </div>
+            <div class="user-points">8,650分</div>
+          </div>
+
+          <div class="leaderboard-item">
+            <div class="rank-number top3">🥈</div>
+            <div class="user-info">
+              <div class="user-name">@猫咪环球梦</div>
+              <div class="user-content">精品攻略8篇，帮助1200+宠友</div>
+            </div>
+            <div class="user-points">7,320分</div>
+          </div>
+
+          <div class="leaderboard-item">
+            <div class="rank-number top3">🥉</div>
+            <div class="user-info">
+              <div class="user-name">@小北的旅行日记</div>
+              <div class="user-content">西藏自驾系列，播放量50万+</div>
+            </div>
+            <div class="user-points">6,890分</div>
+          </div>
+
+          <div class="leaderboard-item">
+            <div class="rank-number">4</div>
+            <div class="user-info">
+              <div class="user-name">@宠物民宿测评师</div>
+              <div class="user-content">真实测评15家民宿</div>
+            </div>
+            <div class="user-points">5,240分</div>
+          </div>
+
+          <div class="leaderboard-item">
+            <div class="rank-number">5</div>
+            <div class="user-info">
+              <div class="user-name">@云南自驾攻略</div>
+              <div class="user-content">洱海环游完整路书</div>
+            </div>
+            <div class="user-points">4,780分</div>
+          </div>
+
+          <div class="leaderboard-item">
+            <div class="rank-number">6</div>
+            <div class="user-info">
+              <div class="user-name">@海边的金毛</div>
+              <div class="user-content">三亚宠物友好指南</div>
+            </div>
+            <div class="user-points">4,120分</div>
+          </div>
+
+          <div class="leaderboard-item">
+            <div class="rank-number">7</div>
+            <div class="user-info">
+              <div class="user-name">@宠物摄影师</div>
+              <div class="user-content">旅拍技巧分享</div>
+            </div>
+            <div class="user-points">3,890分</div>
+          </div>
+
+          <div class="leaderboard-item">
+            <div class="rank-number">8</div>
+            <div class="user-info">
+              <div class="user-name">@萌宠出行记</div>
+              <div class="user-content">每日签到+互动达人</div>
+            </div>
+            <div class="user-points">3,560分</div>
+          </div>
+
+          <div class="leaderboard-item">
+            <div class="rank-number">9</div>
+            <div class="user-info">
+              <div class="user-name">@二哈的冒险</div>
+              <div class="user-content">草原自驾Vlog系列</div>
+            </div>
+            <div class="user-points">3,220分</div>
+          </div>
+
+          <div class="leaderboard-item">
+            <div class="rank-number">10</div>
+            <div class="user-info">
+              <div class="user-name">@宠物旅行装备党</div>
+              <div class="user-content">好物测评+种草</div>
+            </div>
+            <div class="user-points">2,950分</div>
+          </div>
+        </div>
+
+        <p style="text-align:center;margin-top:25px;font-size:1.1em;color:#665200;">
+          💡 <strong>温馨提示：</strong>积分永久有效，多劳多得，上不封顶！<br>
+          每月TOP3创作者额外奖励现金红包 🎉
+        </p>
+      </div>
+    </section>
+
+    <!-- 3. 社区内容建设模块 -->
+    <section id="community">
+      <div class="community">
+        <h2 class="section-title">✍️ 社区内容生态</h2>
+        <p class="section-subtitle">你的故事，值得被看见 - 8万+创作者的温暖家园</p>
+
+        <!-- 社区数据 -->
+        <div class="community-stats">
+          <div class="community-stat">
+            <div class="community-stat-number">50万+</div>
+            <div class="community-stat-label">累计UGC内容</div>
+          </div>
+          <div class="community-stat">
+            <div class="community-stat-number">8万+</div>
+            <div class="community-stat-label">活跃创作者</div>
+          </div>
+          <div class="community-stat">
+            <div class="community-stat-number">12.5%</div>
+            <div class="community-stat-label">平均互动率</div>
+          </div>
+          <div class="community-stat">
+            <div class="community-stat-number">2.8亿</div>
+            <div class="community-stat-label">月度总阅读</div>
+          </div>
+        </div>
+
+        <!-- 内容分类 -->
+        <h3 style="font-size:1.8em;color:#FF8300;margin:40px 0 25px;text-align:center;">📂 热门内容分类</h3>
+        <div class="content-categories">
+          <div class="category-card">
+            <div class="category-icon">📍</div>
+            <div class="category-name">目的地攻略</div>
+            <p style="color:#665200;margin:10px 0;font-size:0.95em;">路线规划、景点推荐、避坑指南</p>
+            <div class="category-count">12.5万篇内容</div>
+          </div>
+
+          <div class="category-card">
+            <div class="category-icon">🏨</div>
+            <div class="category-name">酒店民宿测评</div>
+            <p style="color:#665200;margin:10px 0;font-size:0.95em;">真实体验、环境展示、性价比分析</p>
+            <div class="category-count">8.3万篇内容</div>
+          </div>
+
+          <div class="category-card">
+            <div class="category-icon">🚗</div>
+            <div class="category-name">自驾游记</div>
+            <p style="color:#665200;margin:10px 0;font-size:0.95em;">沿途风景、行程记录、旅途故事</p>
+            <div class="category-count">6.7万篇内容</div>
+          </div>
+
+          <div class="category-card">
+            <div class="category-icon">💡</div>
+            <div class="category-name">出行知识</div>
+            <p style="color:#665200;margin:10px 0;font-size:0.95em;">新手教程、实用技巧、经验分享</p>
+            <div class="category-count">9.2万篇内容</div>
+          </div>
+
+          <div class="category-card">
+            <div class="category-icon">😂</div>
+            <div class="category-name">宠物趣事</div>
+            <p style="color:#665200;margin:10px 0;font-size:0.95em;">搞笑瞬间、温馨日常、萌宠记录</p>
+            <div class="category-count">13.8万篇内容</div>
+          </div>
+
+          <div class="category-card">
+            <div class="category-icon">🛍️</div>
+            <div class="category-name">好物种草</div>
+            <p style="color:#665200;margin:10px 0;font-size:0.95em;">装备测评、用品推荐、购物心得</p>
+            <div class="category-count">5.6万篇内容</div>
+          </div>
+        </div>
+
+        <!-- 创作者激励计划 -->
+        <h3 style="font-size:1.8em;color:#FF8300;margin:40px 0 25px;text-align:center;">🌟 创作者激励计划</h3>
+        <div class="creator-benefits">
+          <div class="benefit-card">
+            <div class="benefit-icon">🚀</div>
+            <div class="benefit-content">
+              <h4>新手扶持计划</h4>
+              <ul>
+                <li>前3篇内容享受流量加权，提升50%曝光</li>
+                <li>专属创作导师1对1指导，快速上手</li>
+                <li>新手专属话题标签，精准触达目标用户</li>
+                <li>完成新手任务即送200积分+优惠券礼包</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="benefit-card">
+            <div class="benefit-icon">💰</div>
+            <div class="benefit-content">
+              <h4>优质内容奖励</h4>
+              <ul>
+                <li>月度最佳创作者现金奖励500-2000元</li>
+                <li>精选内容流量倾斜，首页推荐位曝光</li>
+                <li>年度内容之星评选，万元现金大奖</li>
+                <li>优质内容永久收录平台精选合集</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="benefit-card">
+            <div class="benefit-icon">👑</div>
+            <div class="benefit-content">
+              <h4>达人认证体系</h4>
+              <ul>
+                <li>专属V标认证，提升个人影响力</li>
+                <li>优先参与平台活动和新功能内测</li>
+                <li>专属客服通道，问题快速响应</li>
+                <li>个人主页装修权限，打造专属IP</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="benefit-card">
+            <div class="benefit-icon">🤝</div>
+            <div class="benefit-content">
+              <h4>商业合作机会</h4>
+              <ul>
+                <li>品牌探店邀约，免费旅行+创作收益</li>
+                <li>广告分成计划，内容变现直接到账</li>
+                <li>联名IP合作，打造个人品牌影响力</li>
+                <li>线下活动邀请，拓展社交圈层</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- 创作工具 -->
+        <h3 style="font-size:1.8em;color:#FF8300;margin:40px 0 25px;text-align:center;">🛠️ 创作辅助工具</h3>
+        <div style="background:#F9F9F9;border-radius:15px;padding:30px;margin:20px 0;">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;">
+            <div style="text-align:center;">
+              <div style="font-size:2.5em;margin-bottom:10px;">✨</div>
+              <h4 style="color:#FF8300;margin-bottom:8px;">AI辅助写作</h4>
+              <p style="font-size:0.9em;color:#665200;">智能标题生成、内容优化建议</p>
+            </div>
+            <div style="text-align:center;">
+              <div style="font-size:2.5em;margin-bottom:10px;">🎬</div>
+              <h4 style="color:#FF8300;margin-bottom:8px;">视频剪辑模板</h4>
+              <p style="font-size:0.9em;color:#665200;">一键套用，快速出片</p>
+            </div>
+            <div style="text-align:center;">
+              <div style="font-size:2.5em;margin-bottom:10px;">📷</div>
+              <h4 style="color:#FF8300;margin-bottom:8px;">封面生成器</h4>
+              <p style="font-size:0.9em;color:#665200;">海量模板，设计小白也能用</p>
+            </div>
+            <div style="text-align:center;">
+              <div style="font-size:2.5em;margin-bottom:10px;">📊</div>
+              <h4 style="color:#FF8300;margin-bottom:8px;">数据分析看板</h4>
+              <p style="font-size:0.9em;color:#665200;">实时查看阅读、点赞、收藏</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 创作者展示墙 -->
+        <h3 style="font-size:1.8em;color:#FF8300;margin:40px 0 25px;text-align:center;">📸 优秀创作者</h3>
+        <div class="creator-showcase">
+          <div class="creator-avatar">🐕</div>
+          <div class="creator-avatar">🐈</div>
+          <div class="creator-avatar">🦮</div>
+          <div class="creator-avatar">😺</div>
+          <div class="creator-avatar">🐩</div>
+          <div class="creator-avatar">🐱</div>
+          <div class="creator-avatar">🐕‍🦺</div>
+          <div class="creator-avatar">😸</div>
+        </div>
+
+        <!-- 发布CTA -->
+        <div class="publish-cta">
+          <h3>🎉 立即开启你的创作之旅</h3>
+          <p>分享你的宠物旅行故事，获得流量奖励+现金收益</p>
+          <a href="#" class="publish-btn">马上发布内容</a>
+        </div>
+
+        <!-- 社区公约 -->
+        <div style="background:#FFF7EE;border-radius:15px;padding:25px;margin-top:30px;">
+          <h4 style="color:#FF8300;font-size:1.3em;margin-bottom:15px;text-align:center;">📜 社区公约</h4>
+          <div style="display:grid;gap:10px;font-size:0.95em;color:#665200;">
+            <div>✓ 真实性承诺：所有内容必须基于真实体验，禁止虚假信息</div>
+            <div>✓ 原创保护：尊重知识产权，禁止抄袭和未经授权转载</div>
+            <div>✓ 友善互动：保持礼貌尊重，营造温暖社区氛围</div>
+            <div>✓ 反作弊机制：严厉打击刷量、刷赞等违规行为</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. 电商产品展示模块 -->
+    <section id="ecommerce">
+      <div class="ecommerce">
+        <h2 class="section-title">🛍️ 旅行好物商城</h2>
+        <p class="section-subtitle">一站购齐出行装备，社区真实测评保驾护航</p>
+
+        <!-- 商品分类 -->
+        <div class="product-categories">
+          <div class="product-category">
+            <div class="category-emoji">🎒</div>
+            <div class="category-title">出行装备</div>
+          </div>
+          <div class="product-category">
+            <div class="category-emoji">🍖</div>
+            <div class="category-title">旅行零食</div>
+          </div>
+          <div class="product-category">
+            <div class="category-emoji">💊</div>
+            <div class="category-title">医疗保健</div>
+          </div>
+          <div class="product-category">
+            <div class="category-emoji">🧸</div>
+            <div class="category-title">玩具安抚</div>
+          </div>
+          <div class="product-category">
+            <div class="category-emoji">📷</div>
+            <div class="category-title">拍照道具</div>
+          </div>
+          <div class="product-category">
+            <div class="category-emoji">🏷️</div>
+            <div class="category-title">限时秒杀</div>
+          </div>
+        </div>
+
+        <!-- 热销商品 -->
+        <h3 style="font-size:1.8em;color:#FF8300;margin:40px 0 25px;text-align:center;">🔥 热销榜单TOP6</h3>
+        <div class="hot-products">
+          <div class="product-card">
+            <div class="product-image">
+              ✈️
+              <div class="product-tag">热销NO.1</div>
+            </div>
+            <div class="product-info">
+              <div class="product-name">宠物航空箱 - 加大加厚版</div>
+              <div class="product-rating">⭐⭐⭐⭐⭐ 4.9分 (2856评)</div>
+              <p style="font-size:0.9em;color:#665200;margin:10px 0;">符合国际航空标准，透气安全，可折叠收纳</p>
+              <div class="product-price">
+                <span class="current-price">¥268</span>
+                <span class="original-price">¥458</span>
+              </div>
+              <button class="product-btn">立即购买</button>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-image">
+              🚗
+              <div class="product-tag" style="background:#FFB300;">HOT</div>
+            </div>
+            <div class="product-info">
+              <div class="product-name">车载宠物安全垫</div>
+              <div class="product-rating">⭐⭐⭐⭐⭐ 4.8分 (1923评)</div>
+              <p style="font-size:0.9em;color:#665200;margin:10px 0;">防滑防水防脏，保护座椅，宠物更舒适</p>
+              <div class="product-price">
+                <span class="current-price">¥89</span>
+                <span class="original-price">¥159</span>
+              </div>
+              <button class="product-btn">立即购买</button>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-image">
+              💧
+              <div class="product-tag" style="background:#FF8300;">推荐</div>
+            </div>
+            <div class="product-info">
+              <div class="product-name">便携式水壶水碗二合一</div>
+              <div class="product-rating">⭐⭐⭐⭐⭐ 4.9分 (3421评)</div>
+              <p style="font-size:0.9em;color:#665200;margin:10px 0;">一键出水，随时随地补充水分，500ml大容量</p>
+              <div class="product-price">
+                <span class="current-price">¥49</span>
+                <span class="original-price">¥89</span>
+              </div>
+              <button class="product-btn">立即购买</button>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-image">
+              🍖
+            </div>
+            <div class="product-info">
+              <div class="product-name">冻干零食大礼包</div>
+              <div class="product-rating">⭐⭐⭐⭐⭐ 4.7分 (1567评)</div>
+              <p style="font-size:0.9em;color:#665200;margin:10px 0;">6种口味组合，营养美味，旅途必备能量补给</p>
+              <div class="product-price">
+                <span class="current-price">¥128</span>
+                <span class="original-price">¥198</span>
+              </div>
+              <button class="product-btn">立即购买</button>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-image">
+              💊
+            </div>
+            <div class="product-info">
+              <div class="product-name">宠物晕车药+急救包</div>
+              <div class="product-rating">⭐⭐⭐⭐⭐ 4.8分 (987评)</div>
+              <p style="font-size:0.9em;color:#665200;margin:10px 0;">缓解晕车不适，含急救药品，出行安心必备</p>
+              <div class="product-price">
+                <span class="current-price">¥78</span>
+                <span class="original-price">¥128</span>
+              </div>
+              <button class="product-btn">立即购买</button>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <div class="product-image">
+              🧸
+            </div>
+            <div class="product-info">
+              <div class="product-name">安抚玩具套装</div>
+              <div class="product-rating">⭐⭐⭐⭐⭐ 4.6分 (756评)</div>
+              <p style="font-size:0.9em;color:#665200;margin:10px 0;">缓解焦虑，转移注意力，让旅途更轻松愉快</p>
+              <div class="product-price">
+                <span class="current-price">¥68</span>
+                <span class="original-price">¥118</span>
+              </div>
+              <button class="product-btn">立即购买</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 达人推荐 -->
+        <h3 style="font-size:1.8em;color:#FF8300;margin:40px 0 25px;text-align:center;">👑 达人真实测评</h3>
+        <div class="user-reviews">
+          <div class="review-card">
+            <div class="review-avatar">🐕</div>
+            <div class="review-content">
+              <div class="review-header">
+                <div class="review-name">@旅行的柴犬</div>
+                <div class="review-stars">⭐⭐⭐⭐⭐</div>
+              </div>
+              <div class="review-text">
+                航空箱质量超级好！带狗狗坐了3次飞机，每次都很稳。空间足够大，通风性也不错。最重要的是可以折叠，不占地方。强烈推荐给要带宠物坐飞机的朋友！
+              </div>
+              <div class="review-images">
+                <div class="review-img">📷</div>
+                <div class="review-img">📷</div>
+                <div class="review-img">📷</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-avatar">😺</div>
+            <div class="review-content">
+              <div class="review-header">
+                <div class="review-name">@猫咪环球梦</div>
+                <div class="review-stars">⭐⭐⭐⭐⭐</div>
+              </div>
+              <div class="review-text">
+                便携水壶真的太实用了！之前每次出门都要带一堆瓶瓶罐罐，现在一个水壶搞定。猫咪也很喜欢用这个喝水，按一下就出水，超级方便。已经回购3次了！
+              </div>
+              <div class="review-images">
+                <div class="review-img">📷</div>
+                <div class="review-img">📷</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-avatar">🦮</div>
+            <div class="review-content">
+              <div class="review-header">
+                <div class="review-name">@小北的旅行日记</div>
+                <div class="review-stars">⭐⭐⭐⭐⭐</div>
+              </div>
+              <div class="review-text">
+                晕车药效果明显！我家金毛之前坐车就吐，吃了这个药之后好多了。急救包里的东西也很全，创可贴、碘伏、纱布都有。自驾游必备！
+              </div>
+              <div class="review-images">
+                <div class="review-img">📷</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 购物保障 -->
+        <h3 style="font-size:1.8em;color:#FF8300;margin:40px 0 25px;text-align:center;">🛡️ 购物保障</h3>
+        <div class="guarantee-section">
+          <div class="guarantee-grid">
+            <div class="guarantee-item">
+              <div class="guarantee-icon">✅</div>
+              <div class="guarantee-text">7天无理由退换</div>
+            </div>
+            <div class="guarantee-item">
+              <div class="guarantee-icon">💯</div>
+              <div class="guarantee-text">假一赔十</div>
+            </div>
+            <div class="guarantee-item">
+              <div class="guarantee-icon">🚚</div>
+              <div class="guarantee-text">全国包邮</div>
+            </div>
+            <div class="guarantee-item">
+              <div class="guarantee-icon">💬</div>
+              <div class="guarantee-text">专属客服</div>
+            </div>
+            <div class="guarantee-item">
+              <div class="guarantee-icon">🎁</div>
+              <div class="guarantee-text">积分返利</div>
+            </div>
+            <div class="guarantee-item">
+              <div class="guarantee-icon">⚡</div>
+              <div class="guarantee-text">48小时发货</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 限时活动 -->
+        <div style="background:linear-gradient(135deg, #FF8300 0%, #FFB300 100%);border-radius:20px;padding:40px;text-align:center;margin-top:30px;color:#fff;">
+          <h3 style="font-size:2em;margin-bottom:15px;">⏰ 限时秒杀 · 每日10点</h3>
+          <p style="font-size:1.2em;margin-bottom:25px;opacity:0.95;">全场5折起，社区会员专享额外9折</p>
+          <a href="#" style="background:#fff;color:#FF8300;padding:15px 50px;border-radius:30px;text-decoration:none;font-size:1.2em;font-weight:bold;display:inline-block;">前往商城抢购</a>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-links">
+      <a href="index.html">返回首页</a>
+      <a href="#media-business">商务合作</a>
+      <a href="#gamification">积分体系</a>
+      <a href="#community">社区创作</a>
+      <a href="#ecommerce">精选商城</a>
+      <a href="#">关于我们</a>
+      <a href="#">联系我们</a>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 宠游伴 Petogether | 让每只宠物都能看世界</p>
+      <p style="margin-top:10px;">ICP备案号: 京ICP备2025xxxxx号 | 经营许可证: 京B2-20250001</p>
+    </div>
+  </footer>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // 表单提交
+    document.querySelector('.submit-btn')?.addEventListener('click', function(e) {
+      e.preventDefault();
+      alert('感谢您的合作申请!我们将在1-3个工作日内与您联系 📞');
+    });
+
+    // 商品购买
+    document.querySelectorAll('.product-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        alert('商品已加入购物车! 🛒');
+      })
