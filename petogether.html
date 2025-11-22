@@ -2,1592 +2,698 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>宠游伴 Petogether - 让每只宠物都能看世界</title>
+  <title>宠游伴 Petogether - 新一代宠物旅行生活方式</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
   <style>
+    :root {
+      /* --- 核心色盘 --- */
+      --primary: #FF6B35; /* 更有活力的活力橙 */
+      --primary-light: #FF9F43;
+      --primary-fade: rgba(255, 107, 53, 0.08);
+      --secondary: #2D3748; /* 深岩灰，用于标题 */
+      --text: #718096; /* 冷却灰，用于正文 */
+      --bg-body: #F7FAFC; /* 极淡的冷灰背景 */
+      --white: #FFFFFF;
+      --glass: rgba(255, 255, 255, 0.85);
+      
+      /* --- 尺寸与圆角 --- */
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      --container-width: 1200px;
+    }
+
+    /* --- 基础重置 --- */
     * {margin:0;padding:0;box-sizing:border-box;}
-    
-    /* 移动端优化基础设置 */
-    html {
-      -webkit-text-size-adjust:100%;
-      -webkit-tap-highlight-color:transparent;
-    }
-    
+    html {scroll-behavior:smooth;}
     body {
-      font-family:'Helvetica Neue',Arial,'PingFang SC','Microsoft YaHei',sans-serif;
-      background:#FFF9E4;
-      color:#262626;
-      line-height:1.6;
-      overflow-x:hidden;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background-color: var(--bg-body);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
     }
+
+    /* --- 工具类 --- */
+    a {text-decoration:none; color:inherit; transition:0.3s;}
+    img {max-width:100%; height:auto; display:block; border-radius: var(--radius-md);}
+    .container {max-width: var(--container-width); margin: 0 auto; padding: 0 20px;}
     
-    /* 图片响应式 */
-    img {
-      max-width:100%;
-      height:auto;
-      display:block;
+    /* 渐变文字效果 */
+    .text-gradient {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
-    
-    /* 按钮触摸优化 */
-    button, a.cta-primary, a.cta-secondary, a.cta-nav {
-      -webkit-tap-highlight-color:rgba(0,0,0,0);
-      touch-action:manipulation;
-    }
-    
-    /* 导航栏 */
+
+    /* --- 导航栏 (玻璃拟态) --- */
     nav {
-      position:fixed;
-      top:0;
-      left:0;
-      right:0;
-      z-index:999;
-      background:#fff;
-      padding:15px 5%;
-      box-shadow:0 2px 10px rgba(0,0,0,0.05);
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 80px;
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255,255,255,0.5);
+      display: flex;
+      align-items: center;
     }
-    nav .logo {
-      font-weight:bold;
-      font-size:1.6em;
-      color:#FF8300;
-      z-index:1001;
+    nav .container {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--secondary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .logo i { color: var(--primary); font-size: 1.8rem; }
     
-    /* 汉堡菜单图标 */
-    .menu-toggle {
-      display:none;
-      flex-direction:column;
-      gap:5px;
-      cursor:pointer;
-      z-index:1001;
-      padding:5px;
+    .nav-links { display: flex; gap: 40px; align-items: center; list-style: none; }
+    .nav-links a { 
+      font-weight: 500; 
+      color: var(--secondary); 
+      font-size: 0.95rem;
+      position: relative;
     }
-    .menu-toggle span {
-      width:28px;
-      height:3px;
-      background:#FF8300;
-      border-radius:2px;
-      transition:all 0.3s;
+    .nav-links a:hover { color: var(--primary); }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px;
+      background: var(--primary); transition: 0.3s;
     }
-    .menu-toggle.active span:nth-child(1) {
-      transform:rotate(45deg) translate(8px, 8px);
+    .nav-links a:hover::after { width: 100%; }
+
+    .btn-nav {
+      background: var(--secondary);
+      color: #fff !important;
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-size: 0.9rem;
     }
-    .menu-toggle.active span:nth-child(2) {
-      opacity:0;
+    .btn-nav:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(45, 55, 72, 0.3);
     }
-    .menu-toggle.active span:nth-child(3) {
-      transform:rotate(-45deg) translate(7px, -7px);
-    }
-    
-    /* 桌面端导航菜单 */
-    nav ul {
-      list-style:none;
-      display:flex;
-      gap:35px;
-      align-items:center;
-    }
-    nav ul li a {
-      text-decoration:none;
-      color:#444;
-      font-weight:500;
-      font-size:1em;
-      transition:color 0.3s;
-    }
-    nav ul li a:hover {
-      color:#FF8300;
-    }
-    nav .cta-nav {
-      background:#FF8300;
-      color:#fff;
-      padding:8px 22px;
-      border-radius:25px;
-      transition:all 0.3s;
-    }
-    nav .cta-nav:hover {
-      background:#FFB300;
-      transform:translateY(-2px);
-    }
-    
-    .container {
-      max-width:1200px;
-      margin:0 auto;
-      padding:0 5%;
-    }
-    
-    /* Hero区 */
+    .btn-nav::after { display: none; }
+
+    /* --- Hero 区域 --- */
     .hero {
-      margin-top:80px;
-      padding:60px 0;
-      display:flex;
-      align-items:center;
-      gap:50px;
-      min-height:500px;
+      padding: 180px 0 100px;
+      position: relative;
+      overflow: hidden;
     }
-    .hero-text {
-      flex:1;
+    /* 背景装饰球 */
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.4;
+      z-index: -1;
     }
-    .hero-text h1 {
-      font-size:3.2em;
-      margin-bottom:20px;
-      color:#FF8300;
-      line-height:1.2;
+    .blob-1 { width: 400px; height: 400px; background: #FFD6A5; top: -100px; right: -100px; }
+    .blob-2 { width: 300px; height: 300px; background: #CAE5FF; bottom: 0; left: -100px; }
+
+    .hero-wrapper {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 60px;
+      align-items: center;
     }
-    .hero-text p {
-      font-size:1.3em;
-      margin-bottom:15px;
-      color:#665200;
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #FFF5F0;
+      color: var(--primary);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 24px;
     }
-    .hero-text .highlight {
-      display:inline-block;
-      background:#FFD450;
-      padding:5px 12px;
-      border-radius:5px;
-      font-size:1em;
-      margin:10px 0 25px;
-      color:#665200;
-      font-weight:500;
+    .hero h1 {
+      font-size: 3.8rem;
+      line-height: 1.1;
+      color: var(--secondary);
+      margin-bottom: 24px;
+      letter-spacing: -1px;
     }
-    .hero-ctas {
-      display:flex;
-      gap:20px;
-      margin-top:30px;
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 40px;
+      max-width: 540px;
     }
-    .cta-primary {
-      background:#FF8300;
-      color:#fff;
-      padding:15px 40px;
-      border-radius:30px;
-      text-decoration:none;
-      font-size:1.2em;
-      font-weight:bold;
-      transition:all 0.3s;
-      display:inline-block;
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      color: #fff;
+      padding: 16px 40px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      box-shadow: 0 10px 20px rgba(255, 107, 53, 0.3);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .cta-primary:hover {
-      background:#FFB300;
-      transform:translateY(-3px);
-      box-shadow:0 10px 25px rgba(255,131,0,0.3);
+    .btn-primary:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 20px 30px rgba(255, 107, 53, 0.4);
     }
-    .cta-secondary {
-      background:#fff;
-      color:#FF8300;
-      border:2px solid #FF8300;
-      padding:15px 40px;
-      border-radius:30px;
-      text-decoration:none;
-      font-size:1.2em;
-      font-weight:bold;
-      transition:all 0.3s;
-      display:inline-block;
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: transparent;
+      color: var(--secondary);
+      border: 2px solid #E2E8F0;
+      padding: 14px 38px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-left: 16px;
     }
-    .cta-secondary:hover {
-      background:#FFD450;
-      border-color:#FFD450;
-      transform:translateY(-3px);
+    .btn-outline:hover {
+      border-color: var(--secondary);
+      background: #fff;
     }
-    .hero-img {
-      flex:1;
-      position:relative;
+
+    /* Hero 图片区的层叠效果 */
+    .hero-image-box {
+      position: relative;
     }
-    .hero-img img {
-      width:100%;
-      border-radius:20px;
-      box-shadow:0 15px 50px rgba(0,0,0,0.15);
+    .hero-main-img {
+      border-radius: 30px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+      z-index: 2;
+      position: relative;
+    }
+    /* 悬浮卡片装饰 */
+    .float-card {
+      position: absolute;
+      background: var(--glass);
+      backdrop-filter: blur(10px);
+      padding: 15px 20px;
+      border-radius: 16px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 3;
+      animation: float 6s ease-in-out infinite;
+    }
+    .float-card i {
+      font-size: 24px;
+      color: var(--primary);
+      background: #FFF5F0;
+      padding: 8px;
+      border-radius: 10px;
+    }
+    .float-card div h4 { font-size: 0.9rem; color: var(--secondary); line-height: 1.2; }
+    .float-card div span { font-size: 0.75rem; color: #718096; }
+    
+    .fc-1 { top: 10%; left: -30px; animation-delay: 0s; }
+    .fc-2 { bottom: 15%; right: -20px; animation-delay: 2s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    /* --- 通用 Section --- */
+    section { padding: 100px 0; }
+    .section-header { text-align: center; margin-bottom: 70px; }
+    .section-header h2 {
+      font-size: 2.5rem;
+      color: var(--secondary);
+      margin-bottom: 16px;
+      letter-spacing: -0.5px;
+    }
+    .section-header p {
+      font-size: 1.1rem;
+      color: #A0AEC0;
+    }
+
+    /* --- Bento Grid 数据看板 (核心商务感体现) --- */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(2, 220px);
+      gap: 24px;
+    }
+    .bento-item {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(255,255,255,0.8);
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .bento-item:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+    }
+    .bento-large {
+      grid-column: span 2;
+      grid-row: span 2;
+      background: linear-gradient(135deg, #FFF5F0 0%, #FFFFFF 100%);
     }
     
-    /* 通用section样式 */
-    section {
-      margin:70px 0;
+    .data-val { font-size: 3rem; font-weight: 800; color: var(--primary); line-height: 1; margin: 10px 0; }
+    .data-label { font-weight: 600; color: var(--secondary); font-size: 1.1rem; }
+    .data-sub { font-size: 0.9rem; color: #A0AEC0; }
+    .icon-box {
+      width: 50px; height: 50px;
+      background: #FFF5F0;
+      color: var(--primary);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px;
+      margin-bottom: 15px;
     }
-    .section-title {
-      font-size:2.5em;
-      color:#FF8300;
-      text-align:center;
-      margin-bottom:15px;
-      position:relative;
-      padding-bottom:15px;
-    }
-    .section-title:after {
-      content:'';
-      position:absolute;
-      bottom:0;
-      left:50%;
-      transform:translateX(-50%);
-      width:80px;
-      height:4px;
-      background:linear-gradient(90deg, #FF8300, #FFD450);
-      border-radius:2px;
-    }
-    .section-subtitle {
-      text-align:center;
-      font-size:1.2em;
-      color:#665200;
-      margin-bottom:40px;
-    }
-    
-    /* 数据可视化仪表盘 */
-    .data-dashboard {
-      background:linear-gradient(135deg, #FFF7EE 0%, #FFE5D9 100%);
-      border-radius:20px;
-      padding:50px 40px;
-      box-shadow:0 10px 40px rgba(255,131,0,0.1);
-    }
-    .data-grid {
-      display:grid;
-      gap:30px;
-    }
-    .data-card {
-      background:#fff;
-      border-radius:15px;
-      padding:25px 20px;
-      text-align:center;
-      box-shadow:0 5px 20px rgba(0,0,0,0.05);
-      transition:all 0.3s;
-    }
-    .data-card:hover {
-      transform:translateY(-5px);
-      box-shadow:0 15px 35px rgba(255,131,0,0.15);
-    }
-    .data-number {
-      font-size:2.5em;
-      font-weight:bold;
-      color:#FF8300;
-      margin:15px 0 10px;
-    }
-    .data-label {
-      font-size:0.95em;
-      color:#665200;
-      font-weight:500;
-      line-height:1.4;
-    }
-    .data-icon {
-      font-size:2.2em;
-      margin-bottom:10px;
-    }
-    .data-chart {
-      background:#fff;
-      border-radius:15px;
-      padding:30px 25px;
-    }
-    .chart-title {
-      font-size:1.3em;
-      color:#FF8300;
-      margin-bottom:25px;
-      text-align:center;
-      line-height:1.5;
-    }
-    .progress-bar {
-      margin:15px 0;
-    }
-    .progress-label {
-      display:flex;
-      justify-content:space-between;
-      margin-bottom:8px;
-      font-size:1em;
-    }
-    .progress-track {
-      background:#f0f0f0;
-      height:12px;
-      border-radius:10px;
-      overflow:hidden;
-    }
-    .progress-fill {
-      height:100%;
-      background:linear-gradient(90deg, #FF8300, #FFD450);
-      border-radius:10px;
-      transition:width 1s ease;
-    }
-    .data-source {
-      text-align:center;
-      color:#999;
-      font-size:0.95em;
-      margin-top:25px;
-    }
-    
-    /* 市场机遇 */
-    .market-opportunity {
-      background:#fff;
-      border-radius:20px;
-      padding:50px 40px;
-      box-shadow:0 5px 25px rgba(0,0,0,0.05);
-    }
-    .market-stats {
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
-      gap:20px;
-      margin:30px 0;
-    }
-    .market-stat {
-      text-align:center;
-      padding:20px;
-      background:#FFF7EE;
-      border-radius:10px;
-    }
-    .market-stat .number {
-      font-size:2em;
-      font-weight:bold;
-      color:#FF8300;
-    }
-    .pain-points {
-      display:grid;
-      gap:20px;
-      margin-top:30px;
-    }
-    .pain-point {
-      background:#FFF2C2;
-      padding:25px;
-      border-radius:12px;
-      border-left:4px solid #FF8300;
-      transition:all 0.3s;
-    }
-    .pain-point:hover {
-      transform:translateX(5px);
-      box-shadow:0 5px 15px rgba(255,131,0,0.1);
-    }
-    .pain-point h4 {
-      color:#FF8300;
-      margin-bottom:10px;
-      font-size:1.15em;
-    }
-    
-    /* 产品功能卡片 */
+
+    /* 模拟图表条 */
+    .chart-bar { margin-top: 25px; }
+    .chart-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: 600; color: var(--secondary); }
+    .progress-bg { background: #EDF2F7; height: 10px; border-radius: 10px; overflow: hidden; margin-bottom: 20px; }
+    .progress-fill { height: 100%; border-radius: 10px; background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%); }
+
+    /* --- 功能特性 (Features) --- */
     .features-grid {
-      display:grid;
-      gap:30px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
     }
     .feature-card {
-      background:#fff;
-      border-radius:15px;
-      padding:30px 25px;
-      box-shadow:0 5px 20px rgba(0,0,0,0.05);
-      transition:all 0.3s;
-      text-align:center;
+      background: var(--white);
+      padding: 40px 30px;
+      border-radius: var(--radius-lg);
+      border: 1px solid #F1F5F9;
+      transition: 0.4s;
     }
     .feature-card:hover {
-      transform:translateY(-8px);
-      box-shadow:0 15px 40px rgba(255,131,0,0.15);
+      border-color: var(--primary-fade);
+      box-shadow: var(--shadow-hover);
     }
-    .feature-icon {
-      font-size:3em;
-      margin-bottom:20px;
+    .feature-icon-lg {
+      font-size: 40px;
+      color: var(--primary);
+      margin-bottom: 24px;
+      display: inline-block;
+      transition: 0.3s;
     }
-    .feature-card h3 {
-      font-size:1.4em;
-      color:#FF8300;
-      margin-bottom:15px;
+    .feature-card:hover .feature-icon-lg { transform: scale(1.1) rotate(5deg); }
+    .feature-card h3 { font-size: 1.4rem; color: var(--secondary); margin-bottom: 12px; }
+    .feature-card p { font-size: 1rem; color: #718096; line-height: 1.6; }
+
+    /* --- 痛点切换 (Journey) --- */
+    .pain-container {
+      background: var(--white);
+      border-radius: 30px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      display: flex;
     }
-    .feature-card p {
-      color:#666;
-      line-height:1.7;
+    .pain-visual {
+      flex: 1;
+      background: #EDF2F7;
+      min-height: 400px;
+      position: relative;
     }
-    .feature-card img {
-      width:100%;
-      border-radius:10px;
-      margin-top:15px;
+    .pain-visual img { width: 100%; height: 100%; object-fit: cover; }
+    .pain-content {
+      flex: 1;
+      padding: 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
-    
-    /* 用户旅程场景 */
-    .journey-scenarios {
-      background:#fff;
-      border-radius:20px;
-      padding:50px 40px;
+    .pain-item {
+      margin-bottom: 30px;
+      padding-left: 20px;
+      border-left: 3px solid #E2E8F0;
+      transition: 0.3s;
     }
-    .scenario {
-      display:flex;
-      gap:40px;
-      margin-bottom:50px;
-      align-items:center;
+    .pain-item:hover, .pain-item.active {
+      border-left-color: var(--primary);
     }
-    .scenario:nth-child(even) {
-      flex-direction:row-reverse;
+    .pain-item h4 { font-size: 1.2rem; color: var(--secondary); margin-bottom: 5px; }
+    .pain-item p { font-size: 0.95rem; }
+
+    /* --- 生态系统 (Platform) --- */
+    .eco-section {
+      background: var(--secondary);
+      color: var(--white);
+      border-radius: 40px;
+      padding: 80px 60px;
+      position: relative;
+      overflow: hidden;
+      margin: 40px 0;
     }
-    .scenario-img {
-      flex:1;
+    .eco-bg-icon {
+      position: absolute;
+      right: -50px; bottom: -50px;
+      font-size: 300px;
+      opacity: 0.05;
+      color: var(--white);
     }
-    .scenario-img img {
-      width:100%;
-      border-radius:15px;
-      box-shadow:0 10px 30px rgba(0,0,0,0.1);
+    .eco-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+      margin-top: 50px;
     }
-    .scenario-content {
-      flex:1;
+    .eco-card {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(5px);
+      padding: 25px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.1);
+      text-align: center;
+      transition: 0.3s;
     }
-    .scenario-badge {
-      display:inline-block;
-      background:#FFD450;
-      color:#665200;
-      padding:5px 15px;
-      border-radius:20px;
-      font-size:0.9em;
-      font-weight:600;
-      margin-bottom:15px;
-    }
-    .scenario-content h3 {
-      font-size:1.8em;
-      color:#FF8300;
-      margin-bottom:15px;
-    }
-    .scenario-item {
-      margin:12px 0;
-      padding-left:25px;
-      position:relative;
-    }
-    .scenario-item:before {
-      content:'•';
-      position:absolute;
-      left:0;
-      color:#FF8300;
-      font-size:1.5em;
-    }
-    .scenario-item strong {
-      color:#FF8300;
-    }
-    
-    /* 内容来源 */
-    .content-source {
-      background:linear-gradient(135deg, #FFF7EE 0%, #FFE5D9 100%);
-      border-radius:20px;
-      padding:50px 40px;
-    }
-    .content-grid {
-      display:grid;
-      grid-template-columns:repeat(3, 1fr);
-      gap:30px;
-      margin-top:30px;
-    }
-    .content-card {
-      background:#fff;
-      border-radius:15px;
-      padding:30px 20px;
-      text-align:center;
-      box-shadow:0 5px 20px rgba(0,0,0,0.05);
-    }
-    .content-percentage {
-      font-size:3em;
-      font-weight:bold;
-      color:#FF8300;
-      margin:15px 0;
-    }
-    .content-card h4 {
-      font-size:1.3em;
-      color:#262626;
-      margin-bottom:10px;
-    }
-    .content-card img {
-      width:100%;
-      border-radius:10px;
-      margin-top:15px;
-    }
-    
-    /* 热门目的地 */
-    .destinations-grid {
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));
-      gap:30px;
-    }
-    .destination-card {
-      background:#fff;
-      border-radius:15px;
-      overflow:hidden;
-      box-shadow:0 5px 25px rgba(0,0,0,0.08);
-      transition:all 0.3s;
-    }
-    .destination-card:hover {
-      transform:translateY(-8px);
-      box-shadow:0 15px 40px rgba(255,131,0,0.2);
-    }
-    .destination-card img {
-      width:100%;
-      height:220px;
-      object-fit:cover;
-    }
-    .destination-content {
-      padding:25px;
-    }
-    .destination-content h3 {
-      font-size:1.5em;
-      color:#FF8300;
-      margin-bottom:10px;
-    }
-    .rating {
-      color:#FFD450;
-      margin-bottom:10px;
-    }
-    
-    /* UGC故事卡片 */
-    .ugc-grid {
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
-      gap:30px;
-    }
-    .ugc-card {
-      background:#fff;
-      border-radius:15px;
-      overflow:hidden;
-      box-shadow:0 5px 20px rgba(0,0,0,0.05);
-      transition:all 0.3s;
-    }
-    .ugc-card:hover {
-      transform:translateY(-5px);
-      box-shadow:0 15px 35px rgba(0,0,0,0.1);
-    }
-    .ugc-card img {
-      width:100%;
-      height:200px;
-      object-fit:cover;
-    }
-    .ugc-content {
-      padding:20px;
-    }
-    .ugc-content h4 {
-      font-size:1.2em;
-      color:#262626;
-      margin-bottom:10px;
-    }
-    .ugc-author {
-      color:#999;
-      font-size:0.9em;
-      margin-top:10px;
-    }
-    
-    /* Tips卡片 */
-    .tips-grid {
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
-      gap:25px;
-    }
-    .tip-card {
-      background:#FFF7EE;
-      border-radius:15px;
-      padding:25px;
-      border-left:4px solid #FF8300;
-      transition:all 0.3s;
-    }
-    .tip-card:hover {
-      background:#FFE5D9;
-      transform:translateX(5px);
-    }
-    .tip-card h4 {
-      font-size:1.3em;
-      color:#FF8300;
-      margin-bottom:12px;
-    }
-    
-    /* 合伙人招募 */
-    .partner-section {
-      background:linear-gradient(135deg, #FFD450 0%, #FF8300 100%);
-      border-radius:20px;
-      padding:50px 40px;
-      color:#fff;
-    }
-    .partner-content {
-      text-align:center;
-    }
-    .partner-content h3 {
-      font-size:2.2em;
-      margin-bottom:20px;
-    }
-    .partner-benefits {
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
-      gap:20px;
-      margin:30px 0;
-    }
-    .benefit-item {
-      background:rgba(255,255,255,0.2);
-      padding:20px;
-      border-radius:10px;
-      backdrop-filter:blur(10px);
-    }
-    
-    /* 双CTA转化区 */
-    .cta-section {
-      background:#fff;
-      border-radius:20px;
-      padding:60px 40px;
-      text-align:center;
-      box-shadow:0 10px 40px rgba(255,131,0,0.1);
-    }
-    .cta-section h2 {
-      font-size:2.5em;
-      color:#FF8300;
-      margin-bottom:40px;
-    }
-    .cta-grid {
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));
-      gap:40px;
-      max-width:900px;
-      margin:0 auto;
-    }
+    .eco-card:hover { background: rgba(255,255,255,0.2); transform: translateY(-5px); }
+    .eco-card i { font-size: 32px; color: var(--primary); margin-bottom: 15px; display: block; }
+    .eco-card h4 { font-size: 1.1rem; margin-bottom: 5px; }
+    .eco-card p { font-size: 0.85rem; opacity: 0.7; }
+
+    /* --- CTA 转化 --- */
     .cta-box {
-      background:#FFF7EE;
-      padding:40px 30px;
-      border-radius:15px;
-      transition:all 0.3s;
+      background: linear-gradient(135deg, #FFF5F0 0%, #FFFFFF 100%);
+      border: 2px solid var(--primary);
+      border-radius: 30px;
+      padding: 60px;
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+      box-shadow: 0 30px 60px rgba(255, 107, 53, 0.15);
     }
-    .cta-box:hover {
-      transform:translateY(-5px);
-      box-shadow:0 15px 35px rgba(0,0,0,0.1);
-    }
-    .cta-box h3 {
-      font-size:1.8em;
-      color:#FF8300;
-      margin-bottom:20px;
-    }
-    
-    /* Footer */
+
+    /* --- Footer --- */
     footer {
-      background:#262626;
-      color:#fff;
-      padding:50px 5%;
-      margin-top:80px;
+      background: #1A202C;
+      color: #CBD5E0;
+      padding: 80px 0 40px;
+      margin-top: 100px;
     }
-    .footer-content {
-      max-width:1200px;
-      margin:0 auto;
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
-      gap:40px;
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 60px;
     }
-    .footer-section h4 {
-      color:#FFD450;
-      margin-bottom:15px;
-      font-size:1.2em;
+    .footer-brand h4 { color: #fff; font-size: 1.5rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+    .footer-col h5 { color: #fff; margin-bottom: 24px; font-size: 1.1rem; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 12px; }
+    .footer-col a:hover { color: var(--primary); }
+    .copyright {
+      border-top: 1px solid #2D3748;
+      padding-top: 30px;
+      text-align: center;
+      font-size: 0.9rem;
     }
-    .footer-section ul {
-      list-style:none;
-    }
-    .footer-section ul li {
-      margin:8px 0;
-    }
-    .footer-section ul li a {
-      color:#ccc;
-      text-decoration:none;
-      transition:color 0.3s;
-    }
-    .footer-section ul li a:hover {
-      color:#FFD450;
-    }
-    .footer-bottom {
-      text-align:center;
-      margin-top:40px;
-      padding-top:30px;
-      border-top:1px solid #444;
-      color:#999;
-    }
-    
-    /* 响应式设计 */
-    @media(max-width:900px){
-      /* 导航栏适配 - 汉堡菜单 */
-      nav {
-        padding:15px 5%;
-      }
-      
-      /* 显示汉堡菜单图标 */
-      .menu-toggle {
-        display:flex;
-      }
-      
-      /* 手机端菜单样式 */
-      nav ul {
-        position:fixed;
-        top:0;
-        right:-100%;
-        width:280px;
-        height:100vh;
-        background:#fff;
-        flex-direction:column;
-        justify-content:flex-start;
-        padding:80px 30px 30px;
-        gap:20px;
-        box-shadow:-5px 0 15px rgba(0,0,0,0.1);
-        transition:right 0.3s ease;
-        z-index:1000;
-      }
-      
-      /* 菜单展开状态 */
-      nav ul.active {
-        right:0;
-      }
-      
-      /* 菜单项样式 */
-      nav ul li {
-        width:100%;
-        text-align:left;
-        border-bottom:1px solid #f0f0f0;
-        padding-bottom:15px;
-      }
-      nav ul li:last-child {
-        border-bottom:none;
-      }
-      nav ul li a {
-        display:block;
-        padding:10px 0;
-        font-size:1.1em;
-      }
-      
-      /* 遮罩层 */
-      .menu-overlay {
-        display:none;
-        position:fixed;
-        top:0;
-        left:0;
-        width:100%;
-        height:100vh;
-        background:rgba(0,0,0,0.5);
-        z-index:999;
-      }
-      .menu-overlay.active {
-        display:block;
-      }
-      
-      /* Hero区适配 */
-      .hero {
-        flex-direction:column;
-        text-align:center;
-        padding:40px 0;
-        margin-top:80px;
-      }
-      .hero-text h1 {
-        font-size:2em;
-        line-height:1.3;
-      }
-      .hero-text p {
-        font-size:1.1em;
-      }
-      .hero-ctas {
-        flex-direction:column;
-        gap:15px;
-      }
-      .cta-primary, .cta-secondary {
-        width:100%;
-        padding:12px 30px;
-        font-size:1.1em;
-      }
-      
-      /* Section标题适配 */
-      .section-title {
-        font-size:1.8em;
-      }
-      .section-subtitle {
-        font-size:1em;
-        padding:0 10px;
-      }
-      
-      /* 数据仪表盘适配 */
-      .data-dashboard {
-        padding:30px 20px;
-      }
-      .data-dashboard > div:first-child {
-        grid-template-columns:1fr !important;
-        gap:30px !important;
-      }
-      .data-grid {
-        grid-template-columns:1fr !important;
-        gap:20px;
-      }
-      .data-number {
-        font-size:2.2em;
-      }
-      .data-chart {
-        padding:20px 15px;
-      }
-      .chart-title {
-        font-size:1.1em;
-      }
-      
-      /* 市场机遇适配 */
-      .market-opportunity {
-        padding:30px 20px;
-      }
-      .market-stats {
-        grid-template-columns:1fr;
-      }
-      .pain-points {
-        grid-template-columns:1fr !important;
-      }
-      
-      /* 功能卡片适配 */
-      .features-grid {
-        grid-template-columns:1fr !important;
-        gap:20px;
-      }
-      .feature-card {
-        padding:25px 20px;
-      }
-      
-      /* 市场痛点场景适配 - 重要! */
-      .journey-scenarios {
-        padding:30px 15px;
-      }
-      .scenario {
-        flex-direction:column !important;
-        margin-bottom:30px;
-        gap:20px;
-      }
-      .scenario-img, .scenario-content {
-        width:100%;
-      }
-      .scenario-content h3 {
-        font-size:1.4em;
-      }
-      .scenario-item {
-        font-size:0.95em;
-        padding-left:20px;
-      }
-      
-      /* 内容来源适配 */
-      .content-source {
-        padding:30px 20px;
-      }
-      .content-grid {
-        grid-template-columns:1fr;
-        gap:20px;
-      }
-      .content-percentage {
-        font-size:2.5em;
-      }
-      
-      /* 目的地卡片适配 */
-      .destinations-grid {
-        grid-template-columns:1fr;
-      }
-      
-      /* UGC卡片适配 */
-      .ugc-grid {
-        grid-template-columns:1fr;
-      }
-      
-      /* Tips卡片适配 */
-      .tips-grid {
-        grid-template-columns:1fr;
-      }
-      
-      /* 合伙人区适配 */
-      .partner-section {
-        padding:30px 20px;
-      }
-      .partner-benefits {
-        grid-template-columns:1fr;
-      }
-      
-      /* CTA转化区适配 */
-      .cta-section {
-        padding:40px 20px;
-      }
-      .cta-section h2 {
-        font-size:1.8em;
-      }
-      .cta-grid {
-        grid-template-columns:1fr;
-        gap:30px;
-      }
-      
-      /* Footer适配 */
-      .footer-content {
-        grid-template-columns:1fr;
-        gap:30px;
-      }
-    }
-    
-    /* 超小屏幕优化 (手机竖屏) */
-    @media(max-width:480px){
-      .hero-text h1 {
-        font-size:1.6em;
-      }
-      .data-number {
-        font-size:1.8em;
-      }
-      .section-title {
-        font-size:1.5em;
-      }
-      .scenario-content h3 {
-        font-size:1.2em;
-      }
-      .cta-primary, .cta-secondary {
-        font-size:1em;
-        padding:10px 25px;
-      }
+
+    /* --- 移动端适配 (简单示例) --- */
+    @media (max-width: 768px) {
+      .hero-wrapper { grid-template-columns: 1fr; text-align: center; }
+      .hero h1 { font-size: 2.5rem; }
+      .hero p { margin: 0 auto 30px; }
+      .bento-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+      .bento-large { grid-column: span 1; grid-row: auto; }
+      .nav-links { display: none; } /* 暂略：移动端需配合JS写汉堡菜单 */
+      .pain-container { flex-direction: column; }
+      .eco-grid { grid-template-columns: 1fr 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 30px; }
     }
   </style>
 </head>
 <body>
-  <!-- 导航栏 -->
+
   <nav>
-    <div class="logo">🐾 宠游伴</div>
-    
-    <!-- 汉堡菜单图标(手机端显示) -->
-    <div class="menu-toggle" onclick="toggleMenu()">
-      <span></span>
-      <span></span>
-      <span></span>
+    <div class="container">
+      <div class="logo">
+        <i class="ri-paw-heart-fill"></i> 宠游伴
+      </div>
+      <ul class="nav-links">
+        <li><a href="#hero">首页</a></li>
+        <li><a href="#features">功能</a></li>
+        <li><a href="#ecosystem">平台生态</a></li>
+        <li><a href="#download" class="btn-nav">下载 APP</a></li>
+      </ul>
     </div>
-    
-    <!-- 导航菜单 -->
-    <ul id="navMenu">
-      <li><a href="#hero" onclick="closeMenu()">首页</a></li>
-      <li><a href="#data" onclick="closeMenu()">数据验证</a></li>
-      <li><a href="#features" onclick="closeMenu()">产品功能</a></li>
-      <li><a href="#journey" onclick="closeMenu()">用户故事</a></li>
-      <li><a href="petogether-platform.html" onclick="closeMenu()" style="color:#FF8300;font-weight:600;">🌟 平台生态</a></li>
-      <li><a href="#partner" onclick="closeMenu()">合作</a></li>
-      <li><a href="#download" class="cta-nav" onclick="closeMenu()">下载App</a></li>
-    </ul>
   </nav>
-  
-  <!-- 菜单遮罩层(手机端) -->
-  <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
 
-  <div class="container">
-    
-    <!-- Hero区 -->
-    <section class="hero" id="hero">
-      <div class="hero-text">
-        <h1>让每只宠物<br>都能看世界</h1>
-        <p>3分钟找到宠物友好目的地与同行伙伴</p>
-        <p>中国首个短视频驱动的宠物旅行社区</p>
-        <span class="highlight">✨ 已服务10,000+宠物家庭</span>
-        <div class="hero-ctas">
-          <a href="#download" class="cta-primary">📱 下载App</a>
-          <a href="petogether-platform.html" class="cta-secondary" style="background:linear-gradient(135deg, #FF8300, #FFB300);color:#fff;border:none;">🌟 探索平台生态</a>
+  <section class="hero" id="hero">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="container">
+      <div class="hero-wrapper">
+        <div class="hero-text">
+          <div class="hero-tag"><i class="ri-sparkling-fill"></i> 2025年宠物旅行首选 App</div>
+          <h1>让每只宠物<br><span class="text-gradient">都能看世界</span></h1>
+          <p>告别繁琐攻略，3分钟智能规划。中国首个短视频驱动的宠物旅行社区，连接 1.16亿 养宠家庭。</p>
+          <div class="hero-btns">
+            <a href="#download" class="btn-primary"><i class="ri-apple-fill"></i> 下载 App</a>
+            <a href="#features" class="btn-outline"><i class="ri-play-circle-line"></i> 观看视频</a>
+          </div>
         </div>
-      </div>
-      <div class="hero-img">
-        <img src="pets/hero-main.png" alt="宠游伴产品展示">
-      </div>
-    </section>
-
-    <!-- 数据可视化仪表盘 -->
-    <section id="data">
-      <h2 class="section-title">📊 真实数据 · 市场验证</h2>
-      <p class="section-subtitle">基于313份问卷调研 · 权威数据背书</p>
-      
-      <div class="data-dashboard">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;">
+        <div class="hero-image-box">
+          <img src="pets/hero-main.png" alt="App界面展示" class="hero-main-img" onerror="this.src='https://placehold.co/600x800/FF6B35/FFFFFF?text=App+UI+Preview'">
           
-          <!-- 左侧:4个数据卡片 -->
-          <div class="data-grid" style="grid-template-columns:repeat(2, 1fr);gap:20px;">
-            <div class="data-card">
-              <div class="data-icon">💰</div>
-              <div class="data-number">¥5175亿</div>
-              <div class="data-label">2024中国宠物市场规模</div>
-            </div>
-            <div class="data-card">
-              <div class="data-icon">🏠</div>
-              <div class="data-number">1.16亿户</div>
-              <div class="data-label">全国养宠家庭数量</div>
-            </div>
-            <div class="data-card">
-              <div class="data-icon">📈</div>
-              <div class="data-number">8.5%</div>
-              <div class="data-label">市场年增长率</div>
-            </div>
-            <div class="data-card">
-              <div class="data-icon">🎯</div>
-              <div class="data-number">20%+</div>
-              <div class="data-label">养宠家庭渗透率</div>
+          <div class="float-card fc-1">
+            <i class="ri-user-smile-line"></i>
+            <div>
+              <h4>同行匹配成功</h4>
+              <span>距离 2.5km · 金毛</span>
             </div>
           </div>
-
-          <!-- 右侧:用户需求图表 -->
-          <div class="data-chart">
-            <h3 class="chart-title">用户核心需求优先级<br><small style="font-size:0.8em;color:#999;">(基于313份问卷)</small></h3>
-            
-            <div class="progress-bar">
-              <div class="progress-label">
-                <span>🤖 一键生成行程</span>
-                <strong>86.2%</strong>
-              </div>
-              <div class="progress-track">
-                <div class="progress-fill" style="width:86.2%"></div>
-              </div>
-            </div>
-
-            <div class="progress-bar">
-              <div class="progress-label">
-                <span>👥 组团约伴同行</span>
-                <strong>77.3%</strong>
-              </div>
-              <div class="progress-track">
-                <div class="progress-fill" style="width:77.3%"></div>
-              </div>
-            </div>
-
-            <div class="progress-bar">
-              <div class="progress-label">
-                <span>📱 短视频攻略</span>
-                <strong>59.4%</strong>
-              </div>
-              <div class="progress-track">
-                <div class="progress-fill" style="width:59.4%"></div>
-              </div>
-            </div>
-
-            <div class="progress-bar">
-              <div class="progress-label">
-                <span>📝 行程分享社区</span>
-                <strong>52.7%</strong>
-              </div>
-              <div class="progress-track">
-                <div class="progress-fill" style="width:52.7%"></div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <p class="data-source">*数据来源: 313份用户问卷 + 艾瑞咨询《2024中国宠物行业白皮书》</p>
-      </div>
-    </section>
-
-    <!-- 市场机遇 -->
-    <section id="market">
-      <h2 class="section-title">🎯 万亿宠物经济中的蓝海机遇</h2>
-      
-      <div class="market-opportunity">
-        <div class="market-stats">
-          <div class="market-stat">
-            <div class="number">¥5175亿</div>
-            <div>市场规模</div>
-          </div>
-          <div class="market-stat">
-            <div class="number">1.16亿户</div>
-            <div>养宠家庭</div>
-          </div>
-          <div class="market-stat">
-            <div class="number">8.5%</div>
-            <div>年增长率</div>
-          </div>
-        </div>
-
-        <h3 style="color:#FF8300;font-size:1.6em;margin:30px 0 20px;text-align:center;">
-          四大行业痛点
-        </h3>
-
-        <div class="pain-points" style="grid-template-columns:repeat(2, 1fr);">
-          <div class="pain-point">
-            <h4>⚠️ 信息碎片化</h4>
-            <p>用户需在小红书、抖音、点评等多个平台反复切换,收集信息效率低</p>
-          </div>
-          <div class="pain-point">
-            <h4>⚠️ 规划低效</h4>
-            <p>手工整理一份完整攻略需要3-5小时,门槛高、耗时长</p>
-          </div>
-          <div class="pain-point">
-            <h4>⚠️ 孤独出行</h4>
-            <p>宠物主人希望找到同伴一起旅行,但缺乏有效社交渠道</p>
-          </div>
-          <div class="pain-point">
-            <h4>⚠️ 信任缺失</h4>
-            <p>市场上宠物友好商家服务质量参差不齐,用户难以判断</p>
-          </div>
-        </div>
-
-        <p style="text-align:center;margin-top:30px;font-size:1.2em;color:#FF8300;">
-          → <strong>宠游伴如何解决这些问题?</strong> 👇
-        </p>
-      </div>
-    </section>
-
-    <!-- 产品核心功能 -->
-    <section id="features">
-      <h2 class="section-title">🎯 产品核心功能</h2>
-      <p class="section-subtitle">一站式解决宠物旅行难题</p>
-      
-      <div class="features-grid" style="grid-template-columns:repeat(2, 1fr);gap:30px;max-width:1000px;margin:0 auto;">
-        <div class="feature-card">
-          <h3>AI智能行程规划</h3>
-          <p>3分钟输入宠物信息,一键生成专属旅行方案,科学避坑,轻松省心。解决用户"规划低效"痛点。</p>
-          <img src="pets/feature-ai.png" alt="AI行程功能">
-        </div>
-
-        <div class="feature-card">
-          <h3>宠友组团社交</h3>
-          <p>同城宠友结伴出游,拼团优惠,分担看护压力,让旅行不再孤单。解决用户"孤独出行"痛点。</p>
-          <img src="pets/feature-social.png" alt="组团社交">
-        </div>
-
-        <div class="feature-card">
-          <h3>宠物友好地图</h3>
-          <p>整合全国真实用户验证的宠物友好酒店、餐厅、景点,放心预订。解决用户"信任缺失"痛点。</p>
-          <img src="pets/feature-map.png" alt="友好地图">
-        </div>
-
-        <div class="feature-card">
-          <h3>短视频内容社区</h3>
-          <p>59.4%用户偏好短视频!3-5分钟旅行Vlog,真实体验分享,实用攻略一刷即得。解决"信息碎片化"痛点。</p>
-          <img src="pets/feature-video.png" alt="短视频社区">
-        </div>
-      </div>
-    </section>
-
-    <!-- 市场痛点分析 -->
-    <section id="journey">
-      <h2 class="section-title">⚠️ 市场痛点分析</h2>
-      <p class="section-subtitle">用户在宠物旅行中遇到的核心问题</p>
-      
-      <div class="journey-scenarios">
-        <div class="scenario">
-          <div class="scenario-img">
-            <img src="pets/pain-fragment.png" alt="信息碎片化问题">
-          </div>
-          <div class="scenario-content">
-            <span class="scenario-badge">痛点1</span>
-            <h3>信息碎片化 - 多平台反复切换</h3>
-            <div class="scenario-item">
-              <strong>用户困境:</strong> 张女士想带金毛去三亚,需要在小红书、抖音、大众点评、携程等多个平台之间反复切换查找信息
-            </div>
-            <div class="scenario-item">
-              <strong>时间成本:</strong> 手工整理一份完整攻略需要3-5小时,仍难以保证信息准确性和完整性
-            </div>
-            <div class="scenario-item">
-              <strong>信任问题:</strong> 无法判断哪些是真实用户评价,哪些是商家刷单,信息真实性存疑
+          <div class="float-card fc-2">
+            <i class="ri-check-double-line"></i>
+            <div>
+              <h4>行程已生成</h4>
+              <span>避坑指数 ⭐⭐⭐⭐⭐</span>
             </div>
           </div>
         </div>
-
-        <div class="scenario">
-          <div class="scenario-img">
-            <img src="pets/pain-alone.png" alt="孤独出行问题">
-          </div>
-          <div class="scenario-content">
-            <span class="scenario-badge">痛点2</span>
-            <h3>孤独出行 - 缺乏社交渠道</h3>
-            <div class="scenario-item">
-              <strong>用户困境:</strong> 李先生想长途自驾去云南,一个人带宠物照顾压力大,希望找同伴分担
-            </div>
-            <div class="scenario-item">
-              <strong>社交障碍:</strong> 不知道去哪里找志同道合的宠友,微信群、QQ群质量参差不齐
-            </div>
-            <div class="scenario-item">
-              <strong>安全顾虑:</strong> 担心陌生人约伴的安全性和可靠性,缺乏有效的审核机制
-            </div>
-          </div>
-        </div>
-
-        <div class="scenario">
-          <div class="scenario-img">
-            <img src="pets/pain-trust.png" alt="信任缺失问题">
-          </div>
-          <div class="scenario-content">
-            <span class="scenario-badge">痛点3</span>
-            <h3>信任缺失 - 服务参差不齐</h3>
-            <div class="scenario-item">
-              <strong>用户困境:</strong> 新手宠物主王小姐第一次带猫旅行,不知道哪些酒店真正宠物友好
-            </div>
-            <div class="scenario-item">
-              <strong>标准模糊:</strong> 很多酒店标注"宠物友好",但实际政策和服务差异巨大,容易踩坑
-            </div>
-            <div class="scenario-item">
-              <strong>应急困难:</strong> 缺乏目的地宠物医院、应急求助等关键信息,遇到突发情况手足无措
-            </div>
-          </div>
-        </div>
-
-        <div class="scenario">
-          <div class="scenario-img">
-            <img src="pets/pain-plan.png" alt="规划低效问题">
-          </div>
-          <div class="scenario-content">
-            <span class="scenario-badge">痛点4</span>
-            <h3>规划低效 - 决策成本高</h3>
-            <div class="scenario-item">
-              <strong>用户困境:</strong> 需要同时考虑宠物的体型、性格、健康状况、目的地限制、交通方式等多个因素
-            </div>
-            <div class="scenario-item">
-              <strong>专业门槛:</strong> 新手不知道要准备什么物品、办理什么手续、注意什么事项
-            </div>
-            <div class="scenario-item">
-              <strong>试错成本:</strong> 一旦规划失误,不仅浪费金钱,还可能影响宠物健康和旅行体验
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div style="background:#FFF7EE;border-radius:15px;padding:40px;margin-top:40px;text-align:center;">
-        <h3 style="color:#FF8300;font-size:1.8em;margin-bottom:20px;">
-          ✨ 宠游伴如何解决这些痛点?
-        </h3>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;text-align:left;">
-          <div style="background:#fff;padding:20px;border-radius:10px;">
-            <strong style="color:#FF8300;">→ 信息整合</strong><br>
-            一站式平台,无需多平台切换
-          </div>
-          <div style="background:#fff;padding:20px;border-radius:10px;">
-            <strong style="color:#FF8300;">→ 社交连接</strong><br>
-            组团约伴功能,匹配同路宠友
-          </div>
-          <div style="background:#fff;padding:20px;border-radius:10px;">
-            <strong style="color:#FF8300;">→ 质量保证</strong><br>
-            真实用户验证+评价体系
-          </div>
-          <div style="background:#fff;padding:20px;border-radius:10px;">
-            <strong style="color:#FF8300;">→ AI助手</strong><br>
-            3分钟生成个性化行程规划
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 内容来源说明 -->
-    <section id="content">
-      <h2 class="section-title">📱 平台内容从哪里来?</h2>
-      <p class="section-subtitle">不只是攻略平台,更是内容社区</p>
-      
-      <div class="content-source">
-        <div class="content-grid">
-          <div class="content-card">
-            <div class="content-percentage">60%</div>
-            <h4>👥 用户真实分享</h4>
-            <p>真实宠友的旅行Vlog、体验分享、实用测评,可信度高,接地气</p>
-            <img src="pets/content-ugc.png" alt="用户内容示例">
-          </div>
-
-          <div class="content-card">
-            <div class="content-percentage">30%</div>
-            <h4>✨ 平台精选内容</h4>
-            <p>专业团队制作的高质量攻略、目的地指南、出行知识,保证内容质量天花板</p>
-            <img src="pets/content-pgc.png" alt="精选内容示例">
-          </div>
-
-          <div class="content-card">
-            <div class="content-percentage">10%</div>
-            <h4>🌟 达人合作内容</h4>
-            <p>与宠物博主、旅行达人联合出品,扩大影响力,精准触达圈层用户</p>
-            <img src="pets/content-koc.png" alt="达人内容示例">
-          </div>
-        </div>
-
-        <p style="text-align:center;margin-top:30px;font-size:1.2em;color:#665200;">
-          <strong>为什么59.4%用户偏好短视频?</strong><br>
-          因为短视频更真实、更直观、更可信 🎬
-        </p>
-      </div>
-    </section>
-
-    <!-- 热门目的地 -->
-    <section id="destinations">
-      <h2 class="section-title">🗺️ 热门宠物友好目的地</h2>
-      <p class="section-subtitle">已覆盖全国360+城市</p>
-      
-      <div class="destinations-grid">
-        <div class="destination-card">
-          <img src="pets/dest-sanya.png" alt="三亚">
-          <div class="destination-content">
-            <h3>三亚亚龙湾</h3>
-            <div class="rating">⭐⭐⭐⭐⭐</div>
-            <p><strong>146家</strong>宠物友好酒店</p>
-            <p>"宠物沙滩乐园,民宿超多,猫狗都能玩水,海景房配套完善"</p>
-          </div>
-        </div>
-
-        <div class="destination-card">
-          <img src="pets/dest-yunnan.png" alt="云南">
-          <div class="destination-content">
-            <h3>云南大理洱海</h3>
-            <div class="rating">⭐⭐⭐⭐⭐</div>
-            <p><strong>400+家</strong>酒店资源池</p>
-            <p>"环海民宿宠物友好,风景绝美,适合自驾,中端市场首选"</p>
-          </div>
-        </div>
-
-        <div class="destination-card">
-          <img src="pets/dest-nanchang.png" alt="江西南昌">
-          <div class="destination-content">
-            <h3>江西南昌</h3>
-            <div class="rating">⭐⭐⭐</div>
-            <p><strong>蓝海市场</strong>待开发</p>
-            <p>"中端市场潜力巨大,竞争少,政策友好,适合早期布局,性价比高"</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- UGC用户故事 -->
-    <section id="ugc">
-      <h2 class="section-title">💬 用户真实故事</h2>
-      <p class="section-subtitle">他们在宠游伴找到了旅行的意义</p>
-      
-      <div class="ugc-grid">
-        <div class="ugc-card">
-          <img src="pets/story-1.png" alt="UGC故事1">
-          <div class="ugc-content">
-            <h4>拉布拉多自驾西藏——高原冒险记</h4>
-            <p>第一次带狗狗冲上5000米雪山,一路美景和困难相伴,但看到它开心的样子,一切都值了!</p>
-            <p class="ugc-author">by @小北</p>
-          </div>
-        </div>
-
-        <div class="ugc-card">
-          <img src="pets/story-2.png" alt="UGC故事2">
-          <div class="ugc-content">
-            <h4>上海十大宠物友好咖啡馆测评</h4>
-            <p>全部实地踩点,每家真实环境&政策详评,帮你避坑!</p>
-            <p class="ugc-author">by @苏苏</p>
-          </div>
-        </div>
-
-        <div class="ugc-card">
-          <img src="pets/story-3.png" alt="UGC故事3">
-          <div class="ugc-content">
-            <h4>短视频 · 苏州最美宠物民宿</h4>
-            <p>Vlog沉浸体验宠物友好住宿,真实评价不踩雷,种草了!</p>
-            <p class="ugc-author">by @旅行菌</p>
-          </div>
-        </div>
-
-        <div class="ugc-card">
-          <img src="pets/story-4.png" alt="UGC故事4">
-          <div class="ugc-content">
-            <h4>十城联动 · 宠友组团出发</h4>
-            <p>"最难忘的不是目的地,而是路上遇见的宠友伙伴,感谢宠游伴!"</p>
-            <p class="ugc-author">by @小团子</p>
-          </div>
-        </div>
-      </div>
-
-      <p style="text-align:center;margin-top:30px;color:#FF8300;font-size:1.1em;">
-        更多精彩内容,尽在宠游伴App 📱
-      </p>
-    </section>
-
-    <!-- 出行知识Tips -->
-    <section id="tips">
-      <h2 class="section-title">💡 出行知识 · 新手必看</h2>
-      
-      <div class="tips-grid">
-        <div class="tip-card">
-          <h4>🚄 宠物乘高铁须知</h4>
-          <p>需提前办理检疫证明、预约专用车厢,部分线路不支持宠物。随时关注官方政策变化,建议提前1周准备。</p>
-        </div>
-
-        <div class="tip-card">
-          <h4>🚗 防晕车小技巧</h4>
-          <p>提前适应短途,多带安抚玩具,避免空腹或过饱,保持车内通风,适量饮水。必要时咨询宠物医生开晕车药。</p>
-        </div>
-
-        <div class="tip-card">
-          <h4>🏨 酒店预订避坑指南</h4>
-          <p>优先选择"已验证宠物友好"标签,查明宠物收费标准和体型限制,提前电话确认政策,查看平台真实点评。</p>
-        </div>
-
-        <div class="tip-card">
-          <h4>📋 出行必备清单</h4>
-          <p>宠物粮食、水碗、牵引绳、疫苗本、常用药品、清洁用品、玩具安抚物。AI行程助手可自动生成个性化清单。</p>
-        </div>
-
-        <div class="tip-card">
-          <h4>⚠️ 紧急情况应对</h4>
-          <p>提前查询目的地宠物医院位置,保存24小时急诊电话,携带宠物急救包。平台提供全国宠物医院地图。</p>
-        </div>
-
-        <div class="tip-card">
-          <h4>📸 旅拍技巧分享</h4>
-          <p>选择清晨或傍晚光线柔和时段,使用零食吸引注意力,低角度拍摄更生动。投稿到宠游伴社区还有机会获得流量奖励!</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- 合伙人招募 -->
-    <section id="partner">
-      <div class="partner-section">
-        <div class="partner-content">
-          <h3>🤝 内容合伙人 · 投稿有奖</h3>
-          <p style="font-size:1.2em;margin-bottom:30px;">
-            分享你的宠物旅行故事,赢现金与流量奖励!
-          </p>
-
-          <div class="partner-benefits">
-            <div class="benefit-item">
-              <h4>📹 投稿内容</h4>
-              <p>旅行Vlog、实用攻略、真实测评、图文游记</p>
-            </div>
-            <div class="benefit-item">
-              <h4>🎁 激励机制</h4>
-              <p>精选内容流量曝光、现金红包、达人认证</p>
-            </div>
-            <div class="benefit-item">
-              <h4>🌟 合作机会</h4>
-              <p>品牌合作、商务推广、优先体验新功能</p>
-            </div>
-          </div>
-
-          <div style="margin-top:30px;">
-            <a href="#" class="cta-primary">立即加入合伙人计划</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 平台生态入口 - 新增 -->
-    <section style="margin:60px 0;">
-      <div style="background:linear-gradient(135deg, #FF8300 0%, #FFB300 100%);border-radius:25px;padding:50px 5%;text-align:center;color:#fff;box-shadow:0 15px 40px rgba(255,131,0,0.3);">
-        <h2 style="font-size:2.5em;margin-bottom:20px;text-shadow:2px 2px 4px rgba(0,0,0,0.1);">🌟 探索宠游伴平台生态</h2>
-        <p style="font-size:1.3em;margin-bottom:30px;opacity:0.95;max-width:800px;margin-left:auto;margin-right:auto;">
-          💼 商务合作 · 🎮 积分体系 · ✍️ 社区创作 · 🛍️ 精选商城<br>
-          四大核心模块，构建宠物旅行生态闭环
-        </p>
-        <div style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-top:35px;">
-          <a href="petogether-platform.html" style="background:#fff;color:#FF8300;padding:18px 45px;border-radius:30px;text-decoration:none;font-size:1.3em;font-weight:bold;transition:all 0.3s;display:inline-block;box-shadow:0 8px 20px rgba(0,0,0,0.15);" onmouseover="this.style.transform='translateY(-5px) scale(1.05)';this.style.boxShadow='0 15px 35px rgba(0,0,0,0.25)'" onmouseout="this.style.transform='translateY(0) scale(1)';this.style.boxShadow='0 8px 20px rgba(0,0,0,0.15)'">
-            立即探索 →
-          </a>
-        </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-top:40px;max-width:900px;margin-left:auto;margin-right:auto;">
-          <div style="background:rgba(255,255,255,0.15);padding:20px;border-radius:15px;backdrop-filter:blur(10px);">
-            <div style="font-size:2em;margin-bottom:10px;">💼</div>
-            <div style="font-weight:bold;font-size:1.1em;">媒体商务</div>
-            <div style="font-size:0.9em;opacity:0.9;margin-top:5px;">B端合作方案</div>
-          </div>
-          <div style="background:rgba(255,255,255,0.15);padding:20px;border-radius:15px;backdrop-filter:blur(10px);">
-            <div style="font-size:2em;margin-bottom:10px;">🎮</div>
-            <div style="font-weight:bold;font-size:1.1em;">游戏积分</div>
-            <div style="font-size:0.9em;opacity:0.9;margin-top:5px;">用户激励系统</div>
-          </div>
-          <div style="background:rgba(255,255,255,0.15);padding:20px;border-radius:15px;backdrop-filter:blur(10px);">
-            <div style="font-size:2em;margin-bottom:10px;">✍️</div>
-            <div style="font-weight:bold;font-size:1.1em;">社区生态</div>
-            <div style="font-size:0.9em;opacity:0.9;margin-top:5px;">创作者扶持</div>
-          </div>
-          <div style="background:rgba(255,255,255,0.15);padding:20px;border-radius:15px;backdrop-filter:blur(10px);">
-            <div style="font-size:2em;margin-bottom:10px;">🛍️</div>
-            <div style="font-weight:bold;font-size:1.1em;">好物商城</div>
-            <div style="font-size:0.9em;opacity:0.9;margin-top:5px;">旅行装备精选</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 双CTA转化区 -->
-    <section class="cta-section" id="download">
-      <h2>🚀 开始你的宠物旅行之旅</h2>
-      
-      <div class="cta-grid">
-        <div class="cta-box">
-          <h3>📱 用户入口</h3>
-          <p style="margin:20px 0;">扫码下载宠游伴App<br>3分钟规划专属行程</p>
-          <div style="background:#fff;padding:20px;border-radius:10px;display:inline-block;">
-            <img src="pets/qrcode.png" alt="App下载二维码" style="width:150px;">
-          </div>
-          <p style="margin-top:15px;">
-            <a href="#" class="cta-primary">iOS下载</a>
-            <a href="#" class="cta-primary" style="margin-left:10px;">Android下载</a>
-          </p>
-        </div>
-
-        <div class="cta-box">
-          <h3>🤝 商家入口</h3>
-          <p style="margin:20px 0;">商务合作、内容营销<br>资源置换、品牌共建</p>
-          <div style="background:#fff;padding:30px 20px;border-radius:10px;margin:20px 0;">
-            <p><strong>商务合作联系方式:</strong></p>
-            <p>📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ee8c9b9d87808b9d9dae9e8b9a81898b9a868b9cc08d8183">[email&#160;protected]</a></p>
-            <p>📱 400-888-8888</p>
-          </div>
-          <p>
-            <a href="#" class="cta-secondary">提交合作意向</a>
-          </p>
-        </div>
-      </div>
-    </section>
-
-  </div>
-
-  <!-- Footer -->
-  <footer>
-    <div class="footer-content">
-      <div class="footer-section">
-        <h4>🐾 宠游伴</h4>
-        <p>让每只宠物都能看世界</p>
-        <p style="margin-top:15px;color:#999;">
-          中国首个短视频驱动的<br>宠物旅行社区平台
-        </p>
-      </div>
-
-      <div class="footer-section">
-        <h4>产品</h4>
-        <ul>
-          <li><a href="#features">功能介绍</a></li>
-          <li><a href="#download">下载App</a></li>
-          <li><a href="#">帮助中心</a></li>
-          <li><a href="#">用户协议</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-section">
-        <h4>公司</h4>
-        <ul>
-          <li><a href="#">关于我们</a></li>
-          <li><a href="#partner">加入我们</a></li>
-          <li><a href="#">媒体报道</a></li>
-          <li><a href="#">联系我们</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-section">
-        <h4>资源</h4>
-        <ul>
-          <li><a href="#tips">出行知识</a></li>
-          <li><a href="#destinations">目的地</a></li>
-          <li><a href="#">隐私政策</a></li>
-          <li><a href="#">备案信息</a></li>
-        </ul>
       </div>
     </div>
+  </section>
 
-    <div class="footer-bottom">
-      <p>© 2025 宠游伴 Petogether | 让每只宠物都能看世界</p>
-      <p style="margin-top:10px;font-size:0.9em;">
-           ICP备案号: 京ICP备2025xxxxx号 | 经营许可证: 京B2-20250001
-      </p>
+  <section id="data">
+    <div class="container">
+      <div class="section-header">
+        <h2>📊 真实数据驱动市场</h2>
+        <p>基于 313 份深度调研与权威行业白皮书</p>
+      </div>
+
+      <div class="bento-grid">
+        <div class="bento-item bento-large">
+          <div class="icon-box"><i class="ri-pie-chart-2-fill"></i></div>
+          <h3 class="data-label" style="font-size: 1.5rem; margin-bottom: 20px;">用户核心需求分布</h3>
+          
+          <div class="chart-bar">
+            <div class="chart-row"><span>🤖 AI智能行程</span> <span>86.2%</span></div>
+            <div class="progress-bg"><div class="progress-fill" style="width: 86.2%"></div></div>
+          </div>
+          <div class="chart-bar" style="margin-top: 10px;">
+            <div class="chart-row"><span>👥 组团约伴</span> <span>77.3%</span></div>
+            <div class="progress-bg"><div class="progress-fill" style="width: 77.3%; opacity: 0.8"></div></div>
+          </div>
+        </div>
+
+        <div class="bento-item">
+          <div class="icon-box"><i class="ri-money-cny-box-line"></i></div>
+          <div class="data-val">5175<span style="font-size:1rem">亿</span></div>
+          <div class="data-label">市场规模</div>
+          <div class="data-sub">2024年中国宠物市场</div>
+        </div>
+
+        <div class="bento-item">
+          <div class="icon-box"><i class="ri-home-heart-line"></i></div>
+          <div class="data-val">1.16<span style="font-size:1rem">亿</span></div>
+          <div class="data-label">养宠家庭</div>
+          <div class="data-sub">潜在用户基数庞大</div>
+        </div>
+
+        <div class="bento-item">
+          <div class="icon-box"><i class="ri-rocket-line"></i></div>
+          <div class="data-val">8.5<span style="font-size:1rem">%</span></div>
+          <div class="data-label">年增长率</div>
+          <div class="data-sub">持续上升的蓝海市场</div>
+        </div>
+
+        <div class="bento-item" style="background: var(--secondary); color: white;">
+          <div class="icon-box" style="background: rgba(255,255,255,0.1); color: white;"><i class="ri-video-add-line"></i></div>
+          <div class="data-val" style="color: #FFD450;">59.4<span style="font-size:1rem">%</span></div>
+          <div class="data-label" style="color: white;">短视频偏好</div>
+          <div class="data-sub" style="color: rgba(255,255,255,0.6);">攻略视频化趋势</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="features">
+    <div class="container">
+      <div class="section-header">
+        <h2>🛠️ 直击痛点的一站式方案</h2>
+        <p>从规划到出行，全程无忧体验</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <i class="ri-robot-2-line feature-icon-lg"></i>
+          <h3>AI 智能规划</h3>
+          <p>输入宠物信息，3秒生成避坑路线。解决传统攻略查找耗时 3-5 小时的低效问题。</p>
+        </div>
+        <div class="feature-card">
+          <i class="ri-group-line feature-icon-lg"></i>
+          <h3>宠友组团社交</h3>
+          <p>基于地理位置的同城约伴。拼车、拼房、互相照应，让孤独的单人出行变有趣。</p>
+        </div>
+        <div class="feature-card">
+          <i class="ri-map-pin-user-line feature-icon-lg"></i>
+          <h3>真实友好地图</h3>
+          <p>独家“宠物友好”认证体系。拒绝虚假宣传，确保酒店、景区真正接纳毛孩子。</p>
+        </div>
+        <div class="feature-card">
+          <i class="ri-movie-line feature-icon-lg"></i>
+          <h3>沉浸式视频攻略</h3>
+          <p>像刷抖音一样看攻略。真实 POV 视角，所见即所得，彻底解决“照骗”烦恼。</p>
+        </div>
+      </div>
+      
+      <div class="pain-container" style="margin-top: 60px;">
+        <div class="pain-visual">
+          <img src="pets/pain-fragment.png" onerror="this.src='https://placehold.co/600x600/EDF2F7/A0AEC0?text=Scenario+Image'" alt="场景">
+        </div>
+        <div class="pain-content">
+          <h3 style="font-size: 1.8rem; margin-bottom: 30px; color: var(--secondary);">为什么用户选择宠游伴？</h3>
+          
+          <div class="pain-item active">
+            <h4>🚫 拒绝信息碎片化</h4>
+            <p>不再需要在小红书、点评、OTA 之间来回跳转。</p>
+          </div>
+          <div class="pain-item">
+            <h4>🤝 建立信任连接</h4>
+            <p>真实用户评价 + 官方实地探店认证。</p>
+          </div>
+          <div class="pain-item">
+            <h4>🆘 应急响应机制</h4>
+            <p>一键查找附近 24h 宠物医院，出行更安心。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="ecosystem" style="padding-bottom: 0;">
+    <div class="container">
+      <div class="eco-section">
+        <i class="ri-earth-line eco-bg-icon"></i>
+        <div style="position: relative; z-index: 2; text-align: center;">
+          <h2 style="font-size: 2.2rem; margin-bottom: 15px;">🌟 宠游伴平台生态</h2>
+          <p style="opacity: 0.8; max-width: 600px; margin: 0 auto;">构建 B 端与 C 端共赢的商业闭环</p>
+          
+          <div class="eco-grid">
+            <div class="eco-card">
+              <i class="ri-briefcase-4-line"></i>
+              <h4>品牌商务</h4>
+              <p>精准触达高净值人群</p>
+            </div>
+            <div class="eco-card">
+              <i class="ri-trophy-line"></i>
+              <h4>积分体系</h4>
+              <p>高粘性用户激励系统</p>
+            </div>
+            <div class="eco-card">
+              <i class="ri-quill-pen-line"></i>
+              <h4>创作者生态</h4>
+              <p>KOC/KOL 流量扶持</p>
+            </div>
+            <div class="eco-card">
+              <i class="ri-shopping-bag-3-line"></i>
+              <h4>精选商城</h4>
+              <p>场景化旅行装备导购</p>
+            </div>
+          </div>
+
+          <div style="margin-top: 40px;">
+            <a href="petogether-platform.html" class="btn-primary" style="background: white; color: var(--primary); box-shadow: none;">查看详细生态方案 →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="download">
+    <div class="container">
+      <div class="cta-box">
+        <h2 style="font-size: 2rem; color: var(--secondary); margin-bottom: 10px;">立即开启旅程</h2>
+        <p style="color: #718096; margin-bottom: 30px;">加入 10,000+ 宠物家庭的选择</p>
+        
+        <div style="background: #fff; padding: 15px; border-radius: 12px; display: inline-block; margin-bottom: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+            <img src="pets/qrcode.png" onerror="this.src='https://placehold.co/150x150?text=QR+Code'" alt="QR" style="width: 140px; height: 140px;">
+        </div>
+        
+        <div style="display: flex; justify-content: center; gap: 15px;">
+          <a href="#" class="btn-primary" style="padding: 12px 30px; font-size: 1rem;"><i class="ri-apple-fill"></i> iOS 下载</a>
+          <a href="#" class="btn-primary" style="padding: 12px 30px; font-size: 1rem; background: var(--secondary); box-shadow: 0 10px 20px rgba(45, 55, 72, 0.3);"><i class="ri-android-fill"></i> Android 下载</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h4><i class="ri-paw-heart-fill" style="color: var(--primary);"></i> 宠游伴</h4>
+          <p style="opacity: 0.6; font-size: 0.9rem;">中国首个短视频驱动的宠物旅行社区。<br>让每一次出发，都充满信任与爱。</p>
+        </div>
+        <div class="footer-col">
+          <h5>产品</h5>
+          <ul>
+            <li><a href="#">功能介绍</a></li>
+            <li><a href="#">下载 App</a></li>
+            <li><a href="#">版本更新</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>合作</h5>
+          <ul>
+            <li><a href="#">商家入驻</a></li>
+            <li><a href="#">媒体合作</a></li>
+            <li><a href="#">关于我们</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>联系</h5>
+          <ul>
+            <li><a href="#">帮助中心</a></li>
+            <li><a href="#">反馈建议</a></li>
+            <li><a href="#"><i class="ri-wechat-line"></i> 官方微信</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">
+        © 2025 宠游伴 Petogether | 京ICP备2025xxxxx号
+      </div>
     </div>
   </footer>
-
-  <!-- 汉堡菜单JavaScript -->
-  <script>
-    function toggleMenu() {
-      const menu = document.getElementById('navMenu');
-      const overlay = document.getElementById('menuOverlay');
-      const toggle = document.querySelector('.menu-toggle');
-      
-      menu.classList.toggle('active');
-      overlay.classList.toggle('active');
-      toggle.classList.toggle('active');
-      
-      // 防止背景滚动
-      if (menu.classList.contains('active')) {
-        document.body.style.overflow = 'hidden';
-      } else {
-        document.body.style.overflow = '';
-      }
-    }
-    
-    function closeMenu() {
-      const menu = document.getElementById('navMenu');
-      const overlay = document.getElementById('menuOverlay');
-      const toggle = document.querySelector('.menu-toggle');
-      
-      menu.classList.remove('active');
-      overlay.classList.remove('active');
-      toggle.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-    
-    // 点击链接后平滑滚动
-    document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-      });
-    });
-  </script>
 
 </body>
 </html>
