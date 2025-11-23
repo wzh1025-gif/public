@@ -160,8 +160,7 @@
       border: 1px solid rgba(0,0,0,0.03);
     }
     .accordion-header:hover {
-      box-shadow:0 12px 30px rgba(255,131,0,0.12);
-      transform:translateY(-3px);
+      box-shadow:0 8px 20px rgba(255,131,0,0.12);
       border-color: rgba(255, 131, 0, 0.2);
     }
     .accordion-header.active {
@@ -174,14 +173,21 @@
       display:flex;
       align-items:center;
       gap:20px;
+      flex: 1;
     }
     .accordion-icon {
       font-size:2.5em;
       color: var(--primary);
       transition:transform 0.3s;
+      flex-shrink: 0;
+      width: 60px;
+      text-align: center;
     }
     .accordion-header:hover .accordion-icon {
-      transform: scale(1.1) rotate(-5deg);
+      /* 移除transform防止跳动 */
+    }
+    .accordion-text {
+      flex: 1;
     }
     .accordion-text h3 {
       font-size:1.5em;
@@ -198,13 +204,14 @@
       font-size:1.5em;
       color: var(--primary);
       transition:transform 0.3s;
-      width: 40px;
-      height: 40px;
+      width: 50px;
+      height: 50px;
       display: flex;
       align-items: center;
       justify-content: center;
       background: rgba(255, 131, 0, 0.1);
       border-radius: 50%;
+      flex-shrink: 0;
     }
     .accordion-header.active .accordion-arrow {
       transform:rotate(180deg);
@@ -224,7 +231,7 @@
       border-top: none;
     }
     .accordion-content.active {
-      max-height:20000px;
+      max-height:30000px;
       padding:40px 35px;
     }
     
@@ -273,6 +280,75 @@
       left:0;
       color:var(--primary);
       font-size:1.2em;
+    }
+    
+    /* ========== 轮播容器系统 ========== */
+    .carousel-container {
+      position: relative;
+      margin: 25px -5%;
+      padding: 0 calc(5% + 55px);
+    }
+    
+    .carousel-wrapper {
+      display: flex;
+      gap: 25px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      padding-bottom: 15px;
+    }
+    
+    .carousel-wrapper::-webkit-scrollbar {
+      display: none;
+    }
+    
+    .carousel-nav {
+      position: absolute;
+      top: 40%;
+      transform: translateY(-50%);
+      width: 48px;
+      height: 48px;
+      background: var(--surface);
+      border: 2px solid var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10;
+      transition: all 0.3s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    
+    .carousel-nav:hover {
+      background: var(--primary);
+      box-shadow: 0 6px 16px rgba(255,131,0,0.3);
+    }
+    
+    .carousel-nav i {
+      font-size: 24px;
+      color: var(--primary);
+      transition: color 0.3s;
+    }
+    
+    .carousel-nav:hover i {
+      color: #fff;
+    }
+    
+    .carousel-nav.prev {left: 5%;}
+    .carousel-nav.next {right: 5%;}
+    
+    /* 轮播模式下的卡片固定宽度 */
+    .carousel-wrapper .coop-card {
+      flex: 0 0 360px;
+    }
+    
+    .carousel-wrapper .case-card {
+      flex: 0 0 390px;
+    }
+    
+    .carousel-wrapper .creator-card {
+      flex: 0 0 250px;
     }
     
     /* 案例展示卡片 */
@@ -907,7 +983,11 @@
       <div class="accordion-content">
         
         <h4 style="font-size:1.5em;color:var(--primary);margin-bottom:20px;">四大合作模式</h4>
-        <div class="cooperation-grid">
+        <div class="carousel-container">
+          <div class="carousel-nav prev" onclick="scrollCarousel('coop-carousel', -1)">
+            <i class="ri-arrow-left-s-line"></i>
+          </div>
+          <div class="carousel-wrapper" id="coop-carousel">
           <div class="coop-card">
             <h4>酒店民宿合作</h4>
             <p>打造宠物友好住宿生态，精准获客</p>
@@ -951,10 +1031,18 @@
               <li>软文深度植入，润物细无声传播</li>
             </ul>
           </div>
+          </div>
+          <div class="carousel-nav next" onclick="scrollCarousel('coop-carousel', 1)">
+            <i class="ri-arrow-right-s-line"></i>
+          </div>
         </div>
 
         <h4 style="font-size:1.5em;color:var(--primary);margin:35px 0 20px;">合作案例展示</h4>
-        <div class="case-grid">
+        <div class="carousel-container">
+          <div class="carousel-nav prev" onclick="scrollCarousel('case-carousel', -1)">
+            <i class="ri-arrow-left-s-line"></i>
+          </div>
+          <div class="carousel-wrapper" id="case-carousel">
           <div class="case-card">
             <div class="case-image">
               <span class="image-label">case-hotel.jpg</span>
@@ -984,73 +1072,52 @@
               <p>目的地营销与话题引爆结合，成功推广宠物友好旅游目的地，带动当地旅游经济。</p>
             </div>
           </div>
+          </div>
+          <div class="carousel-nav next" onclick="scrollCarousel('case-carousel', 1)">
+            <i class="ri-arrow-right-s-line"></i>
+          </div>
         </div>
 
         <h4 style="font-size:1.5em;color:var(--primary);margin:35px 0 20px;">合作流程</h4>
-        <div style="background:#F7F9FC;border-radius:15px;padding:25px;margin:20px 0;">
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:15px;text-align:center;">
-            <div>
-              <div style="font-size:2em;margin-bottom:10px;">📝</div>
-              <div style="font-weight:bold;color:var(--primary);margin-bottom:5px;">提交意向</div>
-              <div style="font-size:0.85em;color:var(--text-sub);">填写合作表单</div>
+        <div style="background:linear-gradient(135deg, #F7F9FC, #EDF2F7);border-radius:var(--radius-xl);padding:40px;margin:20px 0;border:1px solid rgba(0,0,0,0.05);">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:30px;text-align:center;">
+            <div style="position:relative;">
+              <div style="width:60px;height:60px;background:var(--primary);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8em;font-weight:800;margin:0 auto 15px;">1</div>
+              <div style="font-weight:700;font-size:1.1em;color:var(--secondary);margin-bottom:8px;">提交意向</div>
+              <div style="font-size:0.9em;color:var(--text-sub);">填写合作表单或联系商务</div>
             </div>
-            <div>
-              <div style="font-size:2em;margin-bottom:10px;">💬</div>
-              <div style="font-weight:bold;color:var(--primary);margin-bottom:5px;">需求沟通</div>
-              <div style="font-size:0.85em;color:var(--text-sub);">1-3工作日对接</div>
+            <div style="position:relative;">
+              <div style="width:60px;height:60px;background:var(--primary);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8em;font-weight:800;margin:0 auto 15px;">2</div>
+              <div style="font-weight:700;font-size:1.1em;color:var(--secondary);margin-bottom:8px;">需求沟通</div>
+              <div style="font-size:0.9em;color:var(--text-sub);">1-3工作日商务对接</div>
             </div>
-            <div>
-              <div style="font-size:2em;margin-bottom:10px;">📋</div>
-              <div style="font-weight:bold;color:var(--primary);margin-bottom:5px;">方案定制</div>
-              <div style="font-size:0.85em;color:var(--text-sub);">专属营销方案</div>
+            <div style="position:relative;">
+              <div style="width:60px;height:60px;background:var(--primary);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8em;font-weight:800;margin:0 auto 15px;">3</div>
+              <div style="font-weight:700;font-size:1.1em;color:var(--secondary);margin-bottom:8px;">方案定制</div>
+              <div style="font-size:0.9em;color:var(--text-sub);">专属营销方案定制</div>
             </div>
-            <div>
-              <div style="font-size:2em;margin-bottom:10px;"></div>
-              <div style="font-weight:bold;color:var(--primary);margin-bottom:5px;">项目执行</div>
-              <div style="font-size:0.85em;color:var(--text-sub);">专人跟进服务</div>
+            <div style="position:relative;">
+              <div style="width:60px;height:60px;background:var(--primary);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8em;font-weight:800;margin:0 auto 15px;">4</div>
+              <div style="font-weight:700;font-size:1.1em;color:var(--secondary);margin-bottom:8px;">项目执行</div>
+              <div style="font-size:0.9em;color:var(--text-sub);">专人跟进落地服务</div>
             </div>
-            <div>
-              <div style="font-size:2em;margin-bottom:10px;">📊</div>
-              <div style="font-weight:bold;color:var(--primary);margin-bottom:5px;">数据复盘</div>
-              <div style="font-size:0.85em;color:var(--text-sub);">效果报告</div>
+            <div style="position:relative;">
+              <div style="width:60px;height:60px;background:var(--primary);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8em;font-weight:800;margin:0 auto 15px;">5</div>
+              <div style="font-weight:700;font-size:1.1em;color:var(--secondary);margin-bottom:8px;">数据复盘</div>
+              <div style="font-size:0.9em;color:var(--text-sub);">效果报告与优化建议</div>
             </div>
           </div>
-        </div>
-
-        <h4 style="font-size:1.5em;color:var(--primary);margin:35px 0 20px;">商务合作咨询</h4>
-        <div class="contact-form" style="background:linear-gradient(135deg, #F7F9FC 0%, #EDF2F7 100%);padding:40px;border-radius:var(--radius-xl);border:1px solid rgba(0,0,0,0.05);">
-          <div class="form-group">
-            <label>您的姓名 *</label>
-            <input type="text" placeholder="请输入您的姓名" required>
+          <div style="margin-top:40px;padding-top:30px;border-top:2px dashed rgba(255,131,0,0.2);text-align:center;">
+            <p style="font-size:1.1em;color:var(--text-sub);margin-bottom:15px;">联系我们</p>
+            <p style="font-size:1.05em;color:var(--secondary);margin-bottom:8px;">
+              <i class="ri-mail-line" style="color:var(--primary);margin-right:8px;"></i>
+              <strong>business@petogether.com</strong>
+            </p>
+            <p style="font-size:1.05em;color:var(--secondary);">
+              <i class="ri-phone-line" style="color:var(--primary);margin-right:8px;"></i>
+              <strong>400-888-8888</strong>
+            </p>
           </div>
-          <div class="form-group">
-            <label>公司名称 *</label>
-            <input type="text" placeholder="请输入公司名称" required>
-          </div>
-          <div class="form-group">
-            <label>联系电话 *</label>
-            <input type="tel" placeholder="请输入联系电话" required>
-          </div>
-          <div class="form-group">
-            <label>合作类型 *</label>
-            <select required>
-              <option value="">请选择合作类型</option>
-              <option>酒店民宿合作</option>
-              <option>短视频营销</option>
-              <option>电商带货合作</option>
-              <option>品牌内容共创</option>
-              <option>其他合作</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>合作需求描述</label>
-            <textarea rows="4" placeholder="请简要描述您的合作需求和预期目标"></textarea>
-          </div>
-          <button type="submit" class="submit-btn"><i class="ri-send-plane-fill"></i> 提交合作申请</button>
-          <p style="text-align:center;margin-top:20px;color:var(--text-sub);font-size:0.9em;">
-             商务合作邮箱: <strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="cfadbabca6a1aabcbc8fbfaabba0a8aabba7aabde1aca0a2">[email&#160;protected]</a></strong><br>
-             商务合作热线: <strong>400-888-8888</strong>
-          </p>
         </div>
 
       </div>
@@ -1324,11 +1391,15 @@
           </div>
         </div>
 
-        <h4 style="font-size:1.5em;color:var(--primary);margin:35px 0 20px;">📸 优秀创作者</h4>
-        <p style="color:var(--text-sub);margin-bottom:15px;">加入我们的创作者行列，展示你的独特视角</p>
+        <h4 style="font-size:1.5em;color:var(--primary);margin:35px 0 20px;">优秀创作者</h4>
+        <p style="color:var(--text-sub);margin-bottom:15px;">加入我们的创作者行列,展示你的独特视角</p>
         
-        <div class="creator-grid">
-          <div class="creator-item">
+        <div class="carousel-container">
+          <div class="carousel-nav prev" onclick="scrollCarousel('creator-carousel', -1)">
+            <i class="ri-arrow-left-s-line"></i>
+          </div>
+          <div class="carousel-wrapper" id="creator-carousel">
+          <div class="creator-item creator-card">
             <div class="creator-avatar">
               <!-- 图片将替换此处 -->
             </div>
@@ -1336,7 +1407,7 @@
             <div class="image-placeholder">creator-1.jpg</div>
           </div>
 
-          <div class="creator-item">
+          <div class="creator-item creator-card">
             <div class="creator-avatar">
               <!-- 图片将替换此处 -->
             </div>
@@ -1344,7 +1415,7 @@
             <div class="image-placeholder">creator-2.jpg</div>
           </div>
 
-          <div class="creator-item">
+          <div class="creator-item creator-card">
             <div class="creator-avatar">
               <!-- 图片将替换此处 -->
             </div>
@@ -1352,7 +1423,7 @@
             <div class="image-placeholder">creator-3.jpg</div>
           </div>
 
-          <div class="creator-item">
+          <div class="creator-item creator-card">
             <div class="creator-avatar">
               <!-- 图片将替换此处 -->
             </div>
@@ -1360,7 +1431,7 @@
             <div class="image-placeholder">creator-4.jpg</div>
           </div>
 
-          <div class="creator-item">
+          <div class="creator-item creator-card">
             <div class="creator-avatar">
               <!-- 图片将替换此处 -->
             </div>
@@ -1368,7 +1439,7 @@
             <div class="image-placeholder">creator-5.jpg</div>
           </div>
 
-          <div class="creator-item">
+          <div class="creator-item creator-card">
             <div class="creator-avatar">
               <!-- 图片将替换此处 -->
             </div>
@@ -1376,7 +1447,7 @@
             <div class="image-placeholder">creator-6.jpg</div>
           </div>
 
-          <div class="creator-item">
+          <div class="creator-item creator-card">
             <div class="creator-avatar">
               <!-- 图片将替换此处 -->
             </div>
@@ -1384,19 +1455,23 @@
             <div class="image-placeholder">creator-7.jpg</div>
           </div>
 
-          <div class="creator-item">
+          <div class="creator-item creator-card">
             <div class="creator-avatar">
               <!-- 图片将替换此处 -->
             </div>
             <div class="creator-name">@萌宠出行</div>
             <div class="image-placeholder">creator-8.jpg</div>
           </div>
+          </div>
+          <div class="carousel-nav next" onclick="scrollCarousel('creator-carousel', 1)">
+            <i class="ri-arrow-right-s-line"></i>
+          </div>
         </div>
 
-        <div style="background:linear-gradient(135deg, #FF8300 0%, #FFB300 100%);border-radius:20px;padding:35px;text-align:center;margin-top:35px;color:#fff;">
-          <h3 style="font-size:1.8em;margin-bottom:15px;">🎉 立即开启创作之旅</h3>
-          <p style="font-size:1.1em;margin-bottom:25px;opacity:0.95;">分享你的宠物旅行故事，获得流量奖励+现金收益</p>
-          <a href="#" style="background:#fff;color:var(--primary);padding:12px 40px;border-radius:25px;text-decoration:none;font-size:1.1em;font-weight:bold;display:inline-block;transition:all 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">马上发布内容</a>
+        <div style="background:linear-gradient(135deg, #FF8300 0%, #FFB300 100%);border-radius:var(--radius-xl);padding:45px;text-align:center;margin-top:40px;color:#fff;box-shadow:0 15px 40px rgba(255,131,0,0.3);">
+          <h3 style="font-size:2em;margin-bottom:15px;"><i class="ri-quill-pen-line" style="margin-right:10px;"></i>立即开启创作之旅</h3>
+          <p style="font-size:1.15em;margin-bottom:28px;opacity:0.95;">分享你的宠物旅行故事,获得流量奖励+现金收益</p>
+          <a href="#" style="background:#fff;color:var(--primary);padding:14px 45px;border-radius:50px;text-decoration:none;font-size:1.1em;font-weight:700;display:inline-flex;align-items:center;gap:8px;transition:all 0.3s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 20px rgba(0,0,0,0.2)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'"><i class="ri-send-plane-fill"></i> 马上发布内容</a>
         </div>
 
       </div>
@@ -1590,6 +1665,20 @@
   </footer>
 
   <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    // 轮播滚动函数
+    function scrollCarousel(carouselId, direction) {
+      const carousel = document.getElementById(carouselId);
+      if (!carousel) return;
+      
+      const cardWidth = carousel.querySelector('.coop-card, .case-card, .creator-card').offsetWidth;
+      const scrollAmount = (cardWidth + 25) * direction; // 25px是gap
+      
+      carousel.scrollBy({
+        left: scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+
     // 折叠功能
     function toggleAccordion(element) {
       const content = element.nextElementSibling;
