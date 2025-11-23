@@ -143,8 +143,8 @@
     /* ========== 轮播容器系统 ========== */
     .carousel-container {
       position: relative;
-      margin: 30px -5%;
-      padding: 10px calc(5% + 60px);
+      margin: 30px 0;
+      padding: 10px 55px;
     }
     
     .carousel-wrapper {
@@ -193,8 +193,8 @@
       color: #fff;
     }
     
-    .carousel-nav.prev {left: 5%;}
-    .carousel-nav.next {right: 5%;}
+    .carousel-nav.prev {left: 0;}
+    .carousel-nav.next {right: 0;}
     
     /* 轮播模式下的卡片固定宽度 */
     .carousel-wrapper .coop-card {
@@ -875,7 +875,7 @@
 
     <!-- 平台生态总述 -->
     <section style="margin:50px 0;">
-      <div style="background:#fff;border-radius:25px;padding:45px 5%;box-shadow:0 10px 30px rgba(0,0,0,0.08);">
+      <div style="background:#fff;border-radius:25px;padding:45px;box-shadow:0 10px 30px rgba(0,0,0,0.08);">
         <div style="text-align:center;margin-bottom:35px;">
           <h2 style="font-size:2em;color:var(--primary);margin-bottom:15px;">构建宠物旅行生态闭环</h2>
           <p style="font-size:1.15em;color:var(--text-sub);line-height:1.8;max-width:900px;margin:0 auto;">
@@ -906,7 +906,7 @@
     <!-- 折叠模块1: 媒体商务合作 -->
     <section style="margin:60px 0;">
       <!-- 引导文字 -->
-      <div style="margin-bottom:20px;padding:0 10px;">
+      <div style="margin-bottom:20px;">
         <h3 style="font-size:1.3em;color:#262626;margin-bottom:12px;">为商家和品牌赋能</h3>
         <p style="color:var(--text-sub);line-height:1.7;font-size:1.05em;">
           我们为酒店民宿、宠物品牌、旅游局等合作伙伴提供精准的宠物家庭触达渠道。通过短视频营销、达人探店、电商带货、内容共创四大模式，帮助商家在宠物旅行市场中建立品牌影响力，实现商业增长。
@@ -914,7 +914,7 @@
       </div>
       
       <div style="margin-bottom:30px;"><h2 style="font-size:2em;color:var(--primary);margin-bottom:20px;border-bottom:3px solid var(--primary);padding-bottom:15px;display:inline-block;">媒体商务合作</h2></div>
-      </div>
+      
       <div style="padding:0;"><h4 style="font-size:1.5em;color:var(--primary);margin-bottom:20px;"><i class="ri-links-line" style="margin-right:10px;"></i>四大合作模式</h4>
         <div class="carousel-container">
           <div class="carousel-nav prev" onclick="scrollCarousel('coop-carousel', -1)">
@@ -1013,8 +1013,9 @@
         </div>
 
         <h4 style="font-size:1.5em;color:var(--primary);margin:35px 0 20px;"><i class="ri-flow-chart" style="margin-right:10px;"></i>合作流程</h4>
-        <div style="background:linear-gradient(135deg, #F7F9FC, #EDF2F7);border-radius:var(--radius-xl);padding:40px;margin:20px 0;border:1px solid rgba(0,0,0,0.05);">
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:30px;text-align:center;">
+        <div style="background:linear-gradient(135deg, #F7F9FC, #EDF2F7);border-radius:var(--radius-xl);padding:40px 0;margin:20px 0;border:1px solid rgba(0,0,0,0.05);">
+          <div style="padding:0 40px;">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:30px;text-align:center;">
             <div style="position:relative;">
               <div style="width:60px;height:60px;background:var(--primary);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8em;font-weight:800;margin:0 auto 15px;">1</div>
               <div style="font-weight:700;font-size:1.1em;color:var(--secondary);margin-bottom:8px;">提交意向</div>
@@ -1041,7 +1042,7 @@
               <div style="font-size:0.9em;color:var(--text-sub);">效果报告与优化建议</div>
             </div>
           </div>
-          <div style="margin-top:40px;padding-top:30px;border-top:2px dashed rgba(255,131,0,0.2);text-align:center;">
+          <div style="margin-top:40px;padding-top:30px;border-top:2px dashed rgba(255,131,0,0.2);text-align:center;padding:0 40px;">
             <p style="font-size:1.1em;color:var(--text-sub);margin-bottom:15px;">联系我们</p>
             <p style="font-size:1.05em;color:var(--secondary);margin-bottom:8px;">
               <i class="ri-mail-line" style="color:var(--primary);margin-right:8px;"></i>
@@ -1051,6 +1052,7 @@
               <i class="ri-phone-line" style="color:var(--primary);margin-right:8px;"></i>
               <strong>400-888-8888</strong>
             </p>
+          </div>
           </div>
         </div>
 
@@ -1068,7 +1070,7 @@
     <!-- 折叠模块2: 游戏化积分体系 -->
     <section style="margin:60px 0;">
       <!-- 引导文字 -->
-      <div style="margin-bottom:20px;padding:0 10px;">
+      <div style="margin-bottom:20px;">
         <h3 style="font-size:1.3em;color:#262626;margin-bottom:12px;">让每次互动都有价值</h3>
         <p style="color:var(--text-sub);line-height:1.7;font-size:1.05em;">
           发布内容、参与互动、邀请好友都能获得积分奖励。积分不仅可以兑换现金红包、优惠券、实物好礼，更能解锁专属特权，享受VIP服务。我们相信，优质的贡献值得被看见、被奖励。
@@ -1076,7 +1078,7 @@
       </div>
       
       <div style="margin-bottom:30px;"><h2 style="font-size:2em;color:var(--primary);margin-bottom:20px;border-bottom:3px solid var(--primary);padding-bottom:15px;display:inline-block;">游戏化积分体系</h2></div>
-      </div>
+      
       <div style="padding:0;"><h4 style="font-size:1.5em;color:var(--primary);margin-bottom:20px;"><i class="ri-coin-line" style="margin-right:10px;"></i>积分获取方式</h4>
         <p style="color:var(--text-sub);margin-bottom:15px;">横向滑动查看更多获取途径 →</p>
         
@@ -1254,7 +1256,7 @@
     <!-- 折叠模块3: 社区内容生态 -->
     <section style="margin:60px 0;">
       <!-- 引导文字 -->
-      <div style="margin-bottom:20px;padding:0 10px;">
+      <div style="margin-bottom:20px;">
         <h3 style="font-size:1.3em;color:#262626;margin-bottom:12px;">你的故事值得被看见</h3>
         <p style="color:var(--text-sub);line-height:1.7;font-size:1.05em;">
           众多创作者在这里分享宠物旅行的点点滴滴。无论你是新手还是大V，我们都提供从流量扶持、现金奖励到商业合作的全方位支持。在这里，每一个真实的故事都能找到它的听众，每一份用心的内容都能获得应有的回报。
@@ -1262,7 +1264,7 @@
       </div>
       
       <div style="margin-bottom:30px;"><h2 style="font-size:2em;color:var(--primary);margin-bottom:20px;border-bottom:3px solid var(--primary);padding-bottom:15px;display:inline-block;">社区内容生态</h2></div>
-      </div>
+      
       <div style="padding:0;">
         <h4 style="font-size:1.5em;color:var(--primary);margin-bottom:20px;">
           <i class="ri-star-line" style="margin-right:10px;"></i>创作者激励计划
@@ -1399,10 +1401,12 @@
           </div>
         </div>
 
-        <div style="background:linear-gradient(135deg, #FF8300 0%, #FFB300 100%);border-radius:var(--radius-xl);padding:45px;text-align:center;margin-top:40px;color:#fff;box-shadow:0 15px 40px rgba(255,131,0,0.3);">
-          <h3 style="font-size:2em;margin-bottom:15px;"><i class="ri-quill-pen-line" style="margin-right:10px;"></i>立即开启创作之旅</h3>
-          <p style="font-size:1.15em;margin-bottom:28px;opacity:0.95;">分享你的宠物旅行故事,获得流量奖励+现金收益</p>
-          <a href="#" style="background:#fff;color:var(--primary);padding:14px 45px;border-radius:50px;text-decoration:none;font-size:1.1em;font-weight:700;display:inline-flex;align-items:center;gap:8px;transition:all 0.3s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 20px rgba(0,0,0,0.2)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'"><i class="ri-send-plane-fill"></i> 马上发布内容</a>
+        <div style="background:linear-gradient(135deg, #FF8300 0%, #FFB300 100%);border-radius:var(--radius-xl);padding:45px 0;text-align:center;margin-top:40px;color:#fff;box-shadow:0 15px 40px rgba(255,131,0,0.3);">
+          <div style="padding:0 45px;">
+            <h3 style="font-size:2em;margin-bottom:15px;"><i class="ri-quill-pen-line" style="margin-right:10px;"></i>立即开启创作之旅</h3>
+            <p style="font-size:1.15em;margin-bottom:28px;opacity:0.95;">分享你的宠物旅行故事,获得流量奖励+现金收益</p>
+            <a href="#" style="background:#fff;color:var(--primary);padding:14px 45px;border-radius:50px;text-decoration:none;font-size:1.1em;font-weight:700;display:inline-flex;align-items:center;gap:8px;transition:all 0.3s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 20px rgba(0,0,0,0.2)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'"><i class="ri-send-plane-fill"></i> 马上发布内容</a>
+          </div>
         </div>
 
       </div>
@@ -1419,7 +1423,7 @@
     <!-- 折叠模块4: 电商产品展示 -->
     <section style="margin:60px 0;">
       <!-- 引导文字 -->
-      <div style="margin-bottom:20px;padding:0 10px;">
+      <div style="margin-bottom:20px;">
         <h3 style="font-size:1.3em;color:#262626;margin-bottom:12px;">一站购齐出行装备</h3>
         <p style="color:var(--text-sub);line-height:1.7;font-size:1.05em;">
           精选100+款旅行好物，每一件都经过社区达人的真实测评。从航空箱、车载垫到零食、急救包，我们帮你把控质量关，让你的每一次出行都有备而来。真实评价、假一赔十、7天无理由退换，让购物更放心。
@@ -1427,7 +1431,7 @@
       </div>
       
       <div style="margin-bottom:30px;"><h2 style="font-size:2em;color:var(--primary);margin-bottom:20px;border-bottom:3px solid var(--primary);padding-bottom:15px;display:inline-block;">旅行好物商城</h2></div>
-      </div>
+      
       <div style="padding:0;">
         <h4 style="font-size:1.5em;color:var(--primary);margin-bottom:20px;">
           <i class="ri-shopping-cart-line" style="margin-right:10px;"></i>热销商品推荐
@@ -1552,8 +1556,8 @@
         <h4 style="font-size:1.5em;color:var(--primary);margin:35px 0 20px;">
           <i class="ri-shield-check-line" style="margin-right:10px;"></i>购物保障
         </h4>
-        <div style="background:#F7F9FC;border-radius:15px;padding:30px;">
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:20px;text-align:center;">
+        <div style="background:#F7F9FC;border-radius:15px;padding:30px 0;">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:20px;text-align:center;padding:0 30px;">
             <div>
               <div style="font-size:2.5em;margin-bottom:10px;"><i class="ri-check-double-line" style="color:var(--success);"></i></div>
               <div style="color:var(--text-sub);font-weight:500;">7天无理由退换</div>
