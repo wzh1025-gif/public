@@ -176,17 +176,17 @@
     }
     
     .hero-content h1 {
-      font-size: 3.5rem; 
+      font-size: 3.2rem; 
       line-height: 1.15; 
-      margin-bottom: 24px; 
+      margin-bottom: 20px; 
       color: var(--secondary);
       letter-spacing: -1px;
     }
     
     .hero-content p { 
-      font-size: 1.3rem; 
+      font-size: 1.15rem; 
       color: var(--text-sub); 
-      margin-bottom: 15px;
+      margin-bottom: 12px;
     }
     
     .hero-content .highlight {
@@ -208,12 +208,12 @@
     }
     
     .btn-primary {
-      padding: 15px 40px; 
+      padding: 14px 35px; 
       background: linear-gradient(135deg, var(--primary), var(--primary-light));
       color: #fff; 
       border-radius: 50px; 
       font-weight: 700; 
-      font-size: 1.2em;
+      font-size: 1.05em;
       box-shadow: 0 10px 25px rgba(255, 131, 0, 0.3); 
       display: inline-flex; 
       align-items: center; 
@@ -227,13 +227,13 @@
     }
     
     .btn-secondary {
-      padding: 15px 40px; 
+      padding: 14px 35px; 
       background: #fff; 
       border: 2px solid var(--primary);
       color: var(--primary); 
       border-radius: 50px; 
       font-weight: 700;
-      font-size: 1.2em;
+      font-size: 1.05em;
       display: inline-flex; 
       align-items: center; 
       gap: 8px;
@@ -292,20 +292,20 @@
 
     /* --- Section 通用 --- */
     section { 
-      padding: 80px 0; 
+      padding: 70px 0; 
     }
     
     .section-title { 
       text-align: center; 
-      margin-bottom: 60px; 
+      margin-bottom: 50px; 
       max-width: 700px; 
       margin-left: auto; 
       margin-right: auto; 
     }
     .section-title h2 { 
-      font-size: 2.5em; 
+      font-size: 2.2em; 
       color: var(--secondary); 
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       position: relative;
       display: inline-block;
     }
@@ -322,8 +322,8 @@
     }
     .section-title p { 
       color: var(--text-sub); 
-      font-size: 1.2em;
-      margin-top: 20px;
+      font-size: 1.05em;
+      margin-top: 18px;
     }
 
     /* --- Bento Grid 数据可视化 --- */
@@ -490,16 +490,29 @@
       font-weight: 600;
     }
 
-    /* --- 核心功能 --- */
+    /* --- 核心功能轮播 --- */
+    .feature-container {
+      position: relative;
+      overflow: hidden;
+      padding: 0 50px;
+    }
+    
     .feature-grid { 
-      display: grid; 
-      grid-template-columns: repeat(2, 1fr); 
+      display: flex;
       gap: 30px;
-      max-width: 1000px;
-      margin: 0 auto;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      padding-bottom: 20px;
+    }
+    
+    .feature-grid::-webkit-scrollbar {
+      display: none;
     }
     
     .feature-item { 
+      flex: 0 0 420px;
       background: var(--surface); 
       padding: 30px; 
       border-radius: var(--radius-xl);
@@ -531,14 +544,14 @@
     }
     
     .feature-item h3 { 
-      font-size: 1.3rem; 
+      font-size: 1.2rem; 
       margin-bottom: 12px; 
       color: var(--secondary); 
     }
     .feature-item p { 
-      font-size: 0.95rem; 
+      font-size: 0.9rem; 
       color: var(--text-sub);
-      line-height: 1.7;
+      line-height: 1.6;
       margin-bottom: 15px;
     }
     .feature-item img {
@@ -1273,10 +1286,10 @@
         gap: 40px;
       }
       .hero-content h1 { 
-        font-size: 2.5rem; 
+        font-size: 2.2rem; 
       }
       .hero-content p {
-        font-size: 1.1rem;
+        font-size: 1rem;
       }
       .btn-group { 
         justify-content: center; 
@@ -1307,6 +1320,14 @@
       }
       
       /* 移动端轮播调整 */
+      .feature-container {
+        padding: 0 10px;
+      }
+      
+      .feature-item {
+        flex: 0 0 300px;
+      }
+      
       .ugc-container {
         padding: 0 10px;
       }
@@ -1481,7 +1502,7 @@
   <section id="data">
     <div class="container">
       <div class="section-title">
-        <h2>📊 市场洞察:为什么选择宠游伴?</h2>
+        <h2>市场洞察:为什么选择宠游伴?</h2>
         <p>基于 313 份深度问卷与 2024 宠物白皮书的数据洞察</p>
       </div>
       
@@ -1549,13 +1570,13 @@
           <div class="stat-desc">攻略形式正在变革</div>
         </div>
 
-        <div class="bento-card" style="background: var(--secondary); color: #fff;">
-          <div class="bento-icon" style="background: rgba(255,255,255,0.15); color: #fff;">
+        <div class="bento-card">
+          <div class="bento-icon">
             <i class="ri-rocket-2-fill"></i>
           </div>
-          <div class="stat-num" style="color: var(--primary-light);">8.5<span style="color: rgba(255,255,255,0.7);">%</span></div>
-          <div class="stat-label" style="color: #fff;">年复合增长率</div>
-          <div class="stat-desc" style="opacity: 0.7; color: #fff;">行业上升期</div>
+          <div class="stat-num">8.5<span>%</span></div>
+          <div class="stat-label">年复合增长率</div>
+          <div class="stat-desc">行业上升期</div>
         </div>
 
         <div class="bento-card">
@@ -1579,7 +1600,7 @@
   <section id="destinations" style="background: #FFFFFF; padding: 80px 0;">
     <div class="container">
       <div class="section-title">
-        <h2>🗺️ 热门宠物友好目的地</h2>
+        <h2>热门宠物友好目的地</h2>
         <p>已覆盖全国360+城市</p>
       </div>
 
@@ -1587,7 +1608,7 @@
         <div class="dest-card">
           <img src="pets/dest-sanya.png" alt="三亚">
           <div class="dest-info">
-            <h3>🏖️ 三亚亚龙湾</h3>
+            <h3>三亚亚龙湾</h3>
             <div style="color: var(--warning); margin-bottom: 10px; font-size: 1.1em;">⭐⭐⭐⭐⭐</div>
             <p style="margin-bottom: 8px;"><strong>146家</strong>宠物友好酒店</p>
             <p style="font-size: 0.95rem; color: var(--text-sub);">"宠物沙滩乐园,民宿超多,猫狗都能玩水,海景房配套完善"</p>
@@ -1597,7 +1618,7 @@
         <div class="dest-card">
           <img src="pets/dest-yunnan.png" alt="云南">
           <div class="dest-info">
-            <h3>🌄 云南大理洱海</h3>
+            <h3>云南大理洱海</h3>
             <div style="color: var(--warning); margin-bottom: 10px; font-size: 1.1em;">⭐⭐⭐⭐⭐</div>
             <p style="margin-bottom: 8px;"><strong>400+家</strong>酒店资源池</p>
             <p style="font-size: 0.95rem; color: var(--text-sub);">"环海民宿宠物友好,风景绝美,适合自驾,中端市场首选"</p>
@@ -1607,7 +1628,7 @@
         <div class="dest-card">
           <img src="pets/dest-nanchang.png" alt="江西南昌">
           <div class="dest-info">
-            <h3>🏙️ 江西南昌</h3>
+            <h3>江西南昌</h3>
             <div style="color: var(--warning); margin-bottom: 10px; font-size: 1.1em;">⭐⭐⭐</div>
             <p style="margin-bottom: 8px;"><strong>蓝海市场</strong>待开发</p>
             <p style="font-size: 0.95rem; color: var(--text-sub);">"中端市场潜力巨大,竞争少,政策友好,适合早期布局,性价比高"</p>
@@ -1621,34 +1642,51 @@
   <section id="features">
     <div class="container">
       <div class="section-title">
-        <h2>🎯 产品核心功能</h2>
+        <h2>产品核心功能</h2>
         <p>一站式解决宠物旅行难题</p>
       </div>
 
-      <div class="feature-grid">
-        <div class="feature-item">
-          <h3>AI智能行程规划</h3>
-          <p>3分钟输入宠物信息,一键生成专属旅行方案,科学避坑,轻松省心。解决用户"规划低效"痛点。</p>
-          <img src="pets/feature-ai.png" alt="AI行程功能">
+      <div class="feature-container">
+        <div class="carousel-nav prev" onclick="scrollFeatures('prev')">
+          <i class="ri-arrow-left-s-line"></i>
+        </div>
+        
+        <div class="feature-grid" id="featureCarousel">
+          <div class="feature-item">
+            <h3>AI智能行程规划</h3>
+            <p>3分钟输入宠物信息,一键生成专属旅行方案,科学避坑,轻松省心。解决用户"规划低效"痛点。</p>
+            <img src="pets/feature-ai.png" alt="AI行程功能">
+          </div>
+
+          <div class="feature-item">
+            <h3>宠友组团社交</h3>
+            <p>同城宠友结伴出游,拼团优惠,分担看护压力,让旅行不再孤单。解决用户"孤独出行"痛点。</p>
+            <img src="pets/feature-social.png" alt="组团社交">
+          </div>
+
+          <div class="feature-item">
+            <h3>宠物友好地图</h3>
+            <p>整合全国真实用户验证的宠物友好酒店、餐厅、景点,放心预订。解决用户"信任缺失"痛点。</p>
+            <img src="pets/feature-map.png" alt="友好地图">
+          </div>
+
+          <div class="feature-item">
+            <h3>短视频内容社区</h3>
+            <p>59.4%用户偏好短视频!3-5分钟旅行Vlog,真实体验分享,实用攻略一刷即得。解决"信息碎片化"痛点。</p>
+            <img src="pets/feature-video.png" alt="短视频社区">
+          </div>
         </div>
 
-        <div class="feature-item">
-          <h3>宠友组团社交</h3>
-          <p>同城宠友结伴出游,拼团优惠,分担看护压力,让旅行不再孤单。解决用户"孤独出行"痛点。</p>
-          <img src="pets/feature-social.png" alt="组团社交">
+        <div class="carousel-nav next" onclick="scrollFeatures('next')">
+          <i class="ri-arrow-right-s-line"></i>
         </div>
+      </div>
 
-        <div class="feature-item">
-          <h3>宠物友好地图</h3>
-          <p>整合全国真实用户验证的宠物友好酒店、餐厅、景点,放心预订。解决用户"信任缺失"痛点。</p>
-          <img src="pets/feature-map.png" alt="友好地图">
-        </div>
-
-        <div class="feature-item">
-          <h3>短视频内容社区</h3>
-          <p>59.4%用户偏好短视频!3-5分钟旅行Vlog,真实体验分享,实用攻略一刷即得。解决"信息碎片化"痛点。</p>
-          <img src="pets/feature-video.png" alt="短视频社区">
-        </div>
+      <div class="scroll-indicator" style="margin-top: 30px;">
+        <div class="scroll-dot active" id="feature-dot-0"></div>
+        <div class="scroll-dot" id="feature-dot-1"></div>
+        <div class="scroll-dot" id="feature-dot-2"></div>
+        <div class="scroll-dot" id="feature-dot-3"></div>
       </div>
     </div>
   </section>
@@ -1657,7 +1695,7 @@
   <section id="painpoints" style="background: #FFFBF7; padding: 80px 0;">
     <div class="container">
       <div class="section-title">
-        <h2>⚠️ 市场痛点分析</h2>
+        <h2>市场痛点分析</h2>
         <p>用户在宠物旅行中遇到的核心问题</p>
       </div>
       
@@ -1769,7 +1807,7 @@
   <section id="content">
     <div class="container">
       <div class="section-title">
-        <h2>📱 平台内容从哪里来?</h2>
+        <h2>平台内容从哪里来?</h2>
         <p>不只是攻略平台,更是内容社区</p>
       </div>
       
@@ -1777,21 +1815,21 @@
         <div class="content-grid">
           <div class="content-card">
             <div class="content-percentage">60%</div>
-            <h4>👥 用户真实分享</h4>
+            <h4>用户真实分享</h4>
             <p>真实宠友的旅行Vlog、体验分享、实用测评,可信度高,接地气</p>
             <img src="pets/content-ugc.png" alt="用户内容示例">
           </div>
 
           <div class="content-card">
             <div class="content-percentage">30%</div>
-            <h4>✨ 平台精选内容</h4>
+            <h4>平台精选内容</h4>
             <p>专业团队制作的高质量攻略、目的地指南、出行知识,保证内容质量天花板</p>
             <img src="pets/content-pgc.png" alt="精选内容示例">
           </div>
 
           <div class="content-card">
             <div class="content-percentage">10%</div>
-            <h4>🌟 达人合作内容</h4>
+            <h4>达人合作内容</h4>
             <p>与宠物博主、旅行达人联合出品,扩大影响力,精准触达圈层用户</p>
             <img src="pets/content-koc.png" alt="达人内容示例">
           </div>
@@ -1799,7 +1837,7 @@
 
         <p style="text-align:center; margin-top:30px; font-size:1.2em; color:#665200;">
           <strong>为什么59.4%用户偏好短视频?</strong><br>
-          因为短视频更真实、更直观、更可信 🎬
+          因为短视频更真实、更直观、更可信
         </p>
       </div>
     </div>
@@ -1809,7 +1847,7 @@
   <section id="stories" style="background: #FFFBF7; padding: 80px 0;">
     <div class="container">
       <div class="section-title">
-        <h2>💝 用户真实故事</h2>
+        <h2>用户真实故事</h2>
         <p>每一次出发,都是爱的记录</p>
       </div>
 
@@ -1869,7 +1907,7 @@
       </div>
 
       <p style="text-align:center; margin-top:40px; color:var(--primary); font-size:1.2em; font-weight: 600;">
-        更多精彩内容,尽在宠游伴App 📱
+        更多精彩内容,尽在宠游伴App
       </p>
     </div>
   </section>
@@ -1878,7 +1916,7 @@
   <section id="tips">
     <div class="container">
       <div class="section-title">
-        <h2>💡 出行知识 · 新手必看</h2>
+        <h2>出行知识 · 新手必看</h2>
         <p>干货满满的宠物旅行实用指南</p>
       </div>
 
@@ -1891,32 +1929,32 @@
 
       <div class="tips-grid" id="tipsGrid">
         <div class="tip-card">
-          <h4>🚄 宠物乘高铁须知</h4>
+          <h4>宠物乘高铁须知</h4>
           <p>需提前办理检疫证明、预约专用车厢,部分线路不支持宠物。随时关注官方政策变化,建议提前1周准备。</p>
         </div>
 
         <div class="tip-card">
-          <h4>🚗 防晕车小技巧</h4>
+          <h4>防晕车小技巧</h4>
           <p>提前适应短途,多带安抚玩具,避免空腹或过饱,保持车内通风,适量饮水。必要时咨询宠物医生开晕车药。</p>
         </div>
 
         <div class="tip-card">
-          <h4>🏨 酒店预订避坑指南</h4>
+          <h4>酒店预订避坑指南</h4>
           <p>优先选择"已验证宠物友好"标签,查明宠物收费标准和体型限制,提前电话确认政策,查看平台真实点评。</p>
         </div>
 
         <div class="tip-card">
-          <h4>📋 出行必备清单</h4>
+          <h4>出行必备清单</h4>
           <p>宠物粮食、水碗、牵引绳、疫苗本、常用药品、清洁用品、玩具安抚物。AI行程助手可自动生成个性化清单。</p>
         </div>
 
         <div class="tip-card">
-          <h4>⚠️ 紧急情况应对</h4>
+          <h4>紧急情况应对</h4>
           <p>提前查询目的地宠物医院位置,保存24小时急诊电话,携带宠物急救包。平台提供全国宠物医院地图。</p>
         </div>
 
         <div class="tip-card">
-          <h4>📸 旅拍技巧分享</h4>
+          <h4>旅拍技巧分享</h4>
           <p>选择清晨或傍晚光线柔和时段,使用零食吸引注意力,低角度拍摄更生动。投稿到宠游伴社区还有机会获得流量奖励!</p>
         </div>
       </div>
@@ -1928,22 +1966,22 @@
     <div class="container">
       <div class="partner-section">
         <div class="partner-content">
-          <h3>🤝 内容合伙人 · 投稿有奖</h3>
+          <h3>内容合伙人 · 投稿有奖</h3>
           <p style="font-size:1.2em; margin-bottom:30px; color: var(--text-sub);">
             分享你的宠物旅行故事,赢现金与流量奖励!
           </p>
 
           <div class="partner-benefits">
             <div class="benefit-item">
-              <h4>📹 投稿内容</h4>
+              <h4>投稿内容</h4>
               <p>旅行Vlog、实用攻略、真实测评、图文游记</p>
             </div>
             <div class="benefit-item">
-              <h4>🎁 激励机制</h4>
+              <h4>激励机制</h4>
               <p>精选内容流量曝光、现金红包、达人认证</p>
             </div>
             <div class="benefit-item">
-              <h4>🌟 合作机会</h4>
+              <h4>合作机会</h4>
               <p>品牌合作、商务推广、优先体验新功能</p>
             </div>
           </div>
@@ -2004,31 +2042,26 @@
   <section class="cta-section" id="download">
     <div class="container" style="text-align: center;">
       <h2 style="font-size: 2.5rem; color: var(--secondary); margin-bottom: 50px;">
-        🚀 开始你的宠物旅行之旅
+        开始你的宠物旅行之旅
       </h2>
       
       <div class="cta-grid">
         <div class="cta-box">
-          <div style="font-size: 3.5rem; margin-bottom: 20px;">📱</div>
+          <div style="font-size: 3.5rem; margin-bottom: 20px;"><i class="ri-smartphone-line" style="color: var(--primary);"></i></div>
           <h3>用户入口</h3>
           <p style="margin:20px 0; color: var(--text-sub); font-size: 1.1rem;">
             扫码下载宠游伴App<br>3分钟规划专属行程
           </p>
-          <div style="background:#FFF5F0; padding:20px; border-radius:15px; display:inline-block; margin: 20px 0;">
-            <img src="pets/qrcode.png" alt="App下载二维码" style="width:150px;">
-          </div>
-          <div style="margin-top: 20px;">
-            <a href="#hero" class="btn-primary" style="margin-right: 10px;">
-              <i class="ri-apple-fill"></i> iOS下载
-            </a>
-            <a href="#hero" class="btn-primary">
-              <i class="ri-android-fill"></i> Android下载
-            </a>
+          <div style="background:#FFF5F0; padding:30px; border-radius:15px; display:inline-block; margin: 20px 0;">
+            <img src="pets/qrcode.png" alt="App下载二维码" style="width:180px;">
+            <p style="margin-top: 15px; color: var(--text-sub); font-size: 0.9rem;">
+              扫码下载 · 支持iOS和Android
+            </p>
           </div>
         </div>
 
         <div class="cta-box">
-          <div style="font-size: 3.5rem; margin-bottom: 20px;">🤝</div>
+          <div style="font-size: 3.5rem; margin-bottom: 20px;"><i class="ri-hand-coin-line" style="color: var(--secondary);"></i></div>
           <h3>商家入口</h3>
           <p style="margin:20px 0; color: var(--text-sub); font-size: 1.1rem;">
             商务合作、内容营销<br>资源置换、品牌共建
@@ -2176,6 +2209,43 @@
     const dataSection = document.querySelector('#data');
     if (dataSection) {
       observer.observe(dataSection);
+    }
+
+    // 核心功能轮播
+    function scrollFeatures(direction) {
+      const carousel = document.getElementById('featureCarousel');
+      const cardWidth = 450; // 420px卡片 + 30px间距
+      
+      if (direction === 'prev') {
+        carousel.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+      } else {
+        carousel.scrollBy({ left: cardWidth, behavior: 'smooth' });
+      }
+      
+      updateFeatureIndicator();
+    }
+
+    function updateFeatureIndicator() {
+      const carousel = document.getElementById('featureCarousel');
+      const scrollPosition = carousel.scrollLeft;
+      const cardWidth = 450;
+      const currentIndex = Math.round(scrollPosition / cardWidth);
+      
+      for (let i = 0; i < 4; i++) {
+        const dot = document.getElementById(`feature-dot-${i}`);
+        if (dot) {
+          if (i === currentIndex) {
+            dot.classList.add('active');
+          } else {
+            dot.classList.remove('active');
+          }
+        }
+      }
+    }
+
+    const featureCarousel = document.getElementById('featureCarousel');
+    if (featureCarousel) {
+      featureCarousel.addEventListener('scroll', updateFeatureIndicator);
     }
 
     // 用户故事轮播功能
