@@ -67,6 +67,8 @@
     .nav-links { display: flex; gap: 30px; align-items: center; }
     .nav-links a { font-weight: 500; font-size: 0.95rem; color: var(--text-main); position: relative; }
     .nav-links a:hover { color: var(--primary); }
+    /* 高亮生态入口 */
+    .link-highlight { color: var(--primary) !important; font-weight: 600; }
     
     .btn-nav {
       background: var(--primary); color: #fff !important;
@@ -101,6 +103,7 @@
     .btn-secondary {
       padding: 14px 36px; background: #fff; border: 1px solid #E2E8F0;
       color: var(--secondary); border-radius: 50px; font-weight: 700;
+      display: flex; align-items: center; gap: 8px;
     }
     .btn-secondary:hover { border-color: var(--secondary); background: #f8fafc; }
 
@@ -197,11 +200,17 @@
       background: var(--secondary); color: #fff; border-radius: 30px; padding: 60px;
       display: flex; justify-content: space-between; align-items: center;
       background-image: url('data:image/svg+xml;base64,...'); /* 可以加个底纹 */
+      position: relative; overflow: hidden;
     }
-    .eco-text { max-width: 600px; }
+    .eco-text { max-width: 600px; z-index: 2; }
     .eco-list { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 30px; }
     .eco-list div { display: flex; gap: 10px; align-items: center; font-size: 0.95rem; opacity: 0.9; }
     .eco-list i { color: var(--primary); }
+    
+    /* 生态背景装饰 */
+    .eco-bg-deco {
+        position: absolute; right: -50px; bottom: -50px; font-size: 200px; color: rgba(255,255,255,0.03); transform: rotate(-15deg);
+    }
 
     /* --- Footer --- */
     footer { background: #171923; color: #A0AEC0; padding: 80px 0 30px; margin-top: 80px; }
@@ -238,6 +247,7 @@
         display: none; /* JS控制 */
       }
       .nav-links.active { display: flex; }
+      .nav-links li { width: 100%; text-align: center; padding: 10px 0; border-bottom: 1px solid #f7f7f7; }
     }
   </style>
 </head>
@@ -257,7 +267,8 @@
         <li><a href="#compare">痛点对比</a></li>
         <li><a href="#features">核心功能</a></li>
         <li><a href="#story">用户故事</a></li>
-        <li><a href="#" class="btn-nav">下载 APP</a></li>
+        <li><a href="petogether-platform.html" class="link-highlight"><i class="ri-earth-line"></i> 平台生态</a></li>
+        <li><a href="#download" class="btn-nav">下载 APP</a></li>
       </ul>
     </div>
   </nav>
@@ -272,8 +283,8 @@
           <h1>让每只宠物<br><span class="text-gradient">都能看世界</span></h1>
           <p>不再为“带狗住哪”发愁。中国首个短视频驱动的宠物旅行社区，3秒生成你的专属避坑路书。</p>
           <div class="btn-group">
-            <a href="#" class="btn-primary"><i class="ri-download-cloud-2-line"></i> 立即下载 App</a>
-            <a href="#video" class="btn-secondary"><i class="ri-play-circle-line"></i> 观看演示</a>
+            <a href="#download" class="btn-primary"><i class="ri-download-cloud-2-line"></i> 立即下载 App</a>
+            <a href="petogether-platform.html" class="btn-secondary"><i class="ri-briefcase-4-line"></i> 探索平台生态</a>
           </div>
         </div>
         <div class="hero-img-box">
@@ -437,6 +448,7 @@
   <section id="ecosystem">
     <div class="container">
       <div class="eco-banner">
+        <i class="ri-earth-line eco-bg-deco"></i>
         <div class="eco-text">
           <h2 style="font-size:2rem; margin-bottom:15px; color:#fff;">🔗 打造全方位商业生态</h2>
           <p style="color:rgba(255,255,255,0.8); margin-bottom:30px;">不仅是工具，更是连接 B 端商户与 C 端用户的价值平台。</p>
@@ -447,9 +459,45 @@
             <div><i class="ri-check-double-line"></i> <strong>选品商城：</strong> 场景化种草与拔草闭环</div>
           </div>
         </div>
-        <div class="eco-img">
-          <i class="ri-exchange-funds-line" style="font-size:150px; opacity:0.2;"></i>
+        <div style="z-index: 2;">
+          <a href="petogether-platform.html" class="btn-primary" style="background: white; color: var(--primary); box-shadow: 0 10px 20px rgba(0,0,0,0.2);">
+            <i class="ri-arrow-right-circle-line"></i> 探索生态闭环
+          </a>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section" id="download" style="padding: 100px 0;">
+    <div class="container" style="text-align: center;">
+      <h2 style="font-size: 2.2rem; color: var(--secondary); margin-bottom: 50px;">🚀 开始你的宠物旅行之旅</h2>
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; max-width: 900px; margin: 0 auto;">
+        
+        <div style="background: #FFF7EE; padding: 40px; border-radius: 20px; transition: 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+          <div style="font-size: 3rem; margin-bottom: 10px;">📱</div>
+          <h3 style="color: var(--primary); margin-bottom: 15px;">用户下载入口</h3>
+          <p style="color: #718096; margin-bottom: 20px;">扫码下载 App，3分钟规划行程</p>
+          <div style="background: #fff; padding: 10px; border-radius: 10px; display: inline-block; margin-bottom: 20px;">
+            <img src="pets/qrcode.png" alt="QR" style="width: 120px;" onerror="this.src='https://placehold.co/120x120?text=QR'">
+          </div>
+          <div>
+            <a href="#" style="color: var(--primary); font-weight: 600;">iOS 下载</a> &nbsp;|&nbsp; 
+            <a href="#" style="color: var(--primary); font-weight: 600;">Android 下载</a>
+          </div>
+        </div>
+
+        <div style="background: #EDF2F7; padding: 40px; border-radius: 20px; transition: 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+          <div style="font-size: 3rem; margin-bottom: 10px;">🤝</div>
+          <h3 style="color: var(--secondary); margin-bottom: 15px;">商家合作入口</h3>
+          <p style="color: #718096; margin-bottom: 20px;">资源置换 · 品牌共建 · 内容营销</p>
+          <div style="text-align: left; background: rgba(255,255,255,0.5); padding: 20px; border-radius: 10px; margin-bottom: 20px; font-size: 0.9rem;">
+            <p>📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6c0e191f0502091f1f2c1c0918030b091804091e420f0301">[email&#160;protected]</a></p>
+            <p style="margin-top: 5px;">📱 400-888-8888</p>
+          </div>
+          <a href="#" class="btn-secondary" style="background: var(--secondary); color: #fff; border: none; padding: 10px 30px;">提交合作意向</a>
+        </div>
+
       </div>
     </div>
   </section>
@@ -464,9 +512,9 @@
         <div class="footer-links">
           <h4>产品</h4>
           <ul>
-            <li><a href="#">功能介绍</a></li>
-            <li><a href="#">下载 iOS</a></li>
-            <li><a href="#">下载 Android</a></li>
+            <li><a href="#features">功能介绍</a></li>
+            <li><a href="#download">下载 App</a></li>
+            <li><a href="petogether-platform.html">平台生态</a></li>
           </ul>
         </div>
         <div class="footer-links">
@@ -498,9 +546,6 @@
       const navLinks = document.getElementById('navLinks');
       navLinks.classList.toggle('active');
     }
-
-    // 简单的数字增长动画 (当滚动到数据区域时触发)
-    // 实际项目中可以使用 IntersectionObserver
   </script>
 </body>
 </html>
