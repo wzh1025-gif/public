@@ -658,13 +658,28 @@
     }
 
     /* --- UGC用户故事 --- */
+    .ugc-container {
+      position: relative;
+      overflow: hidden;
+      padding: 0 50px;
+    }
+    
     .ugc-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      display: flex;
       gap: 30px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      padding-bottom: 20px;
+    }
+    
+    .ugc-grid::-webkit-scrollbar {
+      display: none;
     }
     
     .ugc-card {
+      flex: 0 0 320px;
       background: var(--surface);
       border-radius: var(--radius-xl);
       overflow: hidden;
@@ -705,12 +720,121 @@
       font-weight: 600;
       font-size: 0.85rem !important;
     }
+    
+    /* 轮播导航按钮 */
+    .carousel-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 45px;
+      height: 45px;
+      background: rgba(255,255,255,0.95);
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10;
+      transition: all 0.3s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .carousel-nav:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+      transform: translateY(-50%) scale(1.1);
+    }
+    
+    .carousel-nav:hover i {
+      color: #fff;
+    }
+    
+    .carousel-nav i {
+      font-size: 20px;
+      color: var(--secondary);
+      transition: color 0.3s;
+    }
+    
+    .carousel-nav.prev {
+      left: 0;
+    }
+    
+    .carousel-nav.next {
+      right: 0;
+    }
+    
+    /* 滚动指示器 */
+    .scroll-indicator {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 25px;
+    }
+    
+    .scroll-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #D1D5DB;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    
+    .scroll-dot.active {
+      background: var(--primary);
+      width: 24px;
+      border-radius: 4px;
+    }
 
     /* --- 出行知识Tips --- */
+    .tips-toggle {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    .tips-toggle-btn {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 25px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .tips-toggle-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(255, 131, 0, 0.3);
+    }
+    
+    .tips-toggle-btn i {
+      transition: transform 0.3s;
+    }
+    
+    .tips-toggle-btn.active i {
+      transform: rotate(180deg);
+    }
+    
     .tips-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 25px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease-out, opacity 0.3s;
+      opacity: 0;
+    }
+    
+    .tips-grid.show {
+      max-height: 2000px;
+      opacity: 1;
     }
     
     .tip-card {
@@ -774,93 +898,108 @@
       font-size: 0.95rem;
     }
 
+    /* --- 回到顶部按钮 --- */
+    .back-to-top {
+      position: fixed;
+      right: 30px;
+      bottom: 30px;
+      width: 50px;
+      height: 50px;
+      background: var(--surface);
+      border: 2px solid var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+      z-index: 998;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .back-to-top:hover {
+      background: var(--primary);
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(255, 131, 0, 0.3);
+    }
+    
+    .back-to-top i {
+      font-size: 24px;
+      color: var(--primary);
+      transition: color 0.3s;
+    }
+    
+    .back-to-top:hover i {
+      color: #fff;
+    }
+    
+    @media (max-width: 768px) {
+      .back-to-top {
+        right: 20px;
+        bottom: 20px;
+        width: 45px;
+        height: 45px;
+      }
+      .back-to-top i {
+        font-size: 20px;
+      }
+    }
+
     /* --- 浮动生态入口按钮 --- */
     .floating-eco-btn {
       position: fixed;
       right: 30px;
       bottom: 100px;
       z-index: 999;
-      width: 70px;
-      height: 70px;
       background: linear-gradient(135deg, var(--primary), var(--primary-light));
-      border-radius: 50%;
+      border-radius: 30px;
+      padding: 12px 24px;
       box-shadow: 0 8px 25px rgba(255, 131, 0, 0.4);
       display: flex;
       align-items: center;
-      justify-content: center;
+      gap: 8px;
       cursor: pointer;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       animation: floatPulse 3s ease-in-out infinite;
       text-decoration: none;
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.95rem;
     }
     
     .floating-eco-btn:hover {
-      transform: scale(1.1) translateY(-5px);
-      box-shadow: 0 15px 40px rgba(255, 131, 0, 0.5);
+      transform: scale(1.05) translateY(-3px);
+      box-shadow: 0 12px 35px rgba(255, 131, 0, 0.5);
+      color: #fff;
     }
     
     .floating-eco-btn i {
-      font-size: 32px;
+      font-size: 20px;
       color: #fff;
-    }
-    
-    /* 提示气泡 */
-    .floating-eco-btn::before {
-      content: '探索平台生态';
-      position: absolute;
-      right: 80px;
-      background: var(--secondary);
-      color: #fff;
-      padding: 10px 18px;
-      border-radius: 25px;
-      white-space: nowrap;
-      font-size: 0.9rem;
-      font-weight: 600;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-      opacity: 0;
-      transform: translateX(10px);
-      transition: all 0.3s;
-      pointer-events: none;
-    }
-    
-    .floating-eco-btn:hover::before {
-      opacity: 1;
-      transform: translateX(0);
-    }
-    
-    /* 小箭头 */
-    .floating-eco-btn::after {
-      content: '';
-      position: absolute;
-      right: 70px;
-      width: 0;
-      height: 0;
-      border-left: 8px solid var(--secondary);
-      border-top: 6px solid transparent;
-      border-bottom: 6px solid transparent;
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-    
-    .floating-eco-btn:hover::after {
-      opacity: 1;
     }
     
     /* 脉冲动画 */
     @keyframes floatPulse {
       0%, 100% {
-        transform: translateY(0) scale(1);
+        transform: translateY(0);
       }
       50% {
-        transform: translateY(-10px) scale(1.05);
+        transform: translateY(-8px);
       }
     }
     
     /* 小红点提示 */
     .floating-eco-btn .badge-dot {
       position: absolute;
-      top: 8px;
-      right: 8px;
+      top: -4px;
+      right: -4px;
       width: 12px;
       height: 12px;
       background: #FF3B30;
@@ -884,17 +1023,12 @@
     @media (max-width: 768px) {
       .floating-eco-btn {
         right: 20px;
-        bottom: 80px;
-        width: 60px;
-        height: 60px;
+        bottom: 90px;
+        padding: 10px 18px;
+        font-size: 0.85rem;
       }
       .floating-eco-btn i {
-        font-size: 28px;
-      }
-      .floating-eco-btn::before {
-        right: 70px;
-        font-size: 0.85rem;
-        padding: 8px 14px;
+        font-size: 18px;
       }
     }
 
@@ -1170,6 +1304,24 @@
       .ugc-grid,
       .tips-grid {
         grid-template-columns: 1fr;
+      }
+      
+      /* 移动端轮播调整 */
+      .ugc-container {
+        padding: 0 10px;
+      }
+      
+      .ugc-card {
+        flex: 0 0 280px;
+      }
+      
+      .carousel-nav {
+        width: 40px;
+        height: 40px;
+      }
+      
+      .carousel-nav i {
+        font-size: 18px;
       }
       
       .feature-grid {
@@ -1661,42 +1813,59 @@
         <p>每一次出发,都是爱的记录</p>
       </div>
 
-      <div class="ugc-grid">
-        <div class="ugc-card">
-          <img src="pets/story-1.png" alt="西藏之旅">
-          <div class="ugc-content">
-            <h4>拉布拉多自驾西藏——高原冒险记</h4>
-            <p>第一次带狗狗冲上5000米雪山,一路美景和困难相伴,但看到它开心的样子,一切都值了!</p>
-            <p class="ugc-author">by @小北</p>
+      <div class="ugc-container">
+        <div class="carousel-nav prev" onclick="scrollCarousel('prev')">
+          <i class="ri-arrow-left-s-line"></i>
+        </div>
+        
+        <div class="ugc-grid" id="storyCarousel">
+          <div class="ugc-card">
+            <img src="pets/story-1.png" alt="西藏之旅">
+            <div class="ugc-content">
+              <h4>拉布拉多自驾西藏——高原冒险记</h4>
+              <p>第一次带狗狗冲上5000米雪山,一路美景和困难相伴,但看到它开心的样子,一切都值了!</p>
+              <p class="ugc-author">by @小北</p>
+            </div>
+          </div>
+
+          <div class="ugc-card">
+            <img src="pets/story-2.png" alt="咖啡馆测评">
+            <div class="ugc-content">
+              <h4>上海十大宠物友好咖啡馆测评</h4>
+              <p>全部实地踩点,每家真实环境&政策详评,帮你避坑!</p>
+              <p class="ugc-author">by @苏苏</p>
+            </div>
+          </div>
+
+          <div class="ugc-card">
+            <img src="pets/story-3.png" alt="苏州民宿">
+            <div class="ugc-content">
+              <h4>短视频 · 苏州最美宠物民宿</h4>
+              <p>Vlog沉浸体验宠物友好住宿,真实评价不踩雷,种草了!</p>
+              <p class="ugc-author">by @旅行菌</p>
+            </div>
+          </div>
+
+          <div class="ugc-card">
+            <img src="pets/story-4.png" alt="十城联动">
+            <div class="ugc-content">
+              <h4>十城联动 · 宠友组团出发</h4>
+              <p>"最难忘的不是目的地,而是路上遇见的宠友伙伴,感谢宠游伴!"</p>
+              <p class="ugc-author">by @小团子</p>
+            </div>
           </div>
         </div>
 
-        <div class="ugc-card">
-          <img src="pets/story-2.png" alt="咖啡馆测评">
-          <div class="ugc-content">
-            <h4>上海十大宠物友好咖啡馆测评</h4>
-            <p>全部实地踩点,每家真实环境&政策详评,帮你避坑!</p>
-            <p class="ugc-author">by @苏苏</p>
-          </div>
+        <div class="carousel-nav next" onclick="scrollCarousel('next')">
+          <i class="ri-arrow-right-s-line"></i>
         </div>
+      </div>
 
-        <div class="ugc-card">
-          <img src="pets/story-3.png" alt="苏州民宿">
-          <div class="ugc-content">
-            <h4>短视频 · 苏州最美宠物民宿</h4>
-            <p>Vlog沉浸体验宠物友好住宿,真实评价不踩雷,种草了!</p>
-            <p class="ugc-author">by @旅行菌</p>
-          </div>
-        </div>
-
-        <div class="ugc-card">
-          <img src="pets/story-4.png" alt="十城联动">
-          <div class="ugc-content">
-            <h4>十城联动 · 宠友组团出发</h4>
-            <p>"最难忘的不是目的地,而是路上遇见的宠友伙伴,感谢宠游伴!"</p>
-            <p class="ugc-author">by @小团子</p>
-          </div>
-        </div>
+      <div class="scroll-indicator">
+        <div class="scroll-dot active"></div>
+        <div class="scroll-dot"></div>
+        <div class="scroll-dot"></div>
+        <div class="scroll-dot"></div>
       </div>
 
       <p style="text-align:center; margin-top:40px; color:var(--primary); font-size:1.2em; font-weight: 600;">
@@ -1713,7 +1882,14 @@
         <p>干货满满的宠物旅行实用指南</p>
       </div>
 
-      <div class="tips-grid">
+      <div class="tips-toggle">
+        <button class="tips-toggle-btn" onclick="toggleTips()">
+          <span id="tipsText">展开查看全部</span>
+          <i class="ri-arrow-down-s-line" id="tipsIcon"></i>
+        </button>
+      </div>
+
+      <div class="tips-grid" id="tipsGrid">
         <div class="tip-card">
           <h4>🚄 宠物乘高铁须知</h4>
           <p>需提前办理检疫证明、预约专用车厢,部分线路不支持宠物。随时关注官方政策变化,建议提前1周准备。</p>
@@ -1773,7 +1949,7 @@
           </div>
 
           <div style="margin-top:30px;">
-            <a href="#" class="btn-primary">
+            <a href="petogether-platform.html" class="btn-primary">
               <i class="ri-user-add-line"></i> 立即加入合伙人计划
             </a>
           </div>
@@ -1842,10 +2018,10 @@
             <img src="pets/qrcode.png" alt="App下载二维码" style="width:150px;">
           </div>
           <div style="margin-top: 20px;">
-            <a href="#" class="btn-primary" style="margin-right: 10px;">
+            <a href="#hero" class="btn-primary" style="margin-right: 10px;">
               <i class="ri-apple-fill"></i> iOS下载
             </a>
-            <a href="#" class="btn-primary">
+            <a href="#hero" class="btn-primary">
               <i class="ri-android-fill"></i> Android下载
             </a>
           </div>
@@ -1925,8 +2101,14 @@
   <!-- 浮动生态入口按钮 -->
   <a href="petogether-platform.html" class="floating-eco-btn" title="探索平台生态">
     <i class="ri-earth-line"></i>
+    <span>平台生态</span>
     <span class="badge-dot"></span>
   </a>
+
+  <!-- 回到顶部按钮 -->
+  <div class="back-to-top" id="backToTop" onclick="scrollToTop()">
+    <i class="ri-arrow-up-line"></i>
+  </div>
 
   <!-- JavaScript -->
   <script>
@@ -1995,6 +2177,81 @@
     if (dataSection) {
       observer.observe(dataSection);
     }
+
+    // 用户故事轮播功能
+    function scrollCarousel(direction) {
+      const carousel = document.getElementById('storyCarousel');
+      const cardWidth = 350; // 320px卡片 + 30px间距
+      
+      if (direction === 'prev') {
+        carousel.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+      } else {
+        carousel.scrollBy({ left: cardWidth, behavior: 'smooth' });
+      }
+      
+      // 更新指示器
+      updateScrollIndicator();
+    }
+
+    // 更新滚动指示器
+    function updateScrollIndicator() {
+      const carousel = document.getElementById('storyCarousel');
+      const dots = document.querySelectorAll('.scroll-dot');
+      const scrollPosition = carousel.scrollLeft;
+      const cardWidth = 350;
+      const currentIndex = Math.round(scrollPosition / cardWidth);
+      
+      dots.forEach((dot, index) => {
+        if (index === currentIndex) {
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('active');
+        }
+      });
+    }
+
+    // 监听滚动更新指示器
+    const storyCarousel = document.getElementById('storyCarousel');
+    if (storyCarousel) {
+      storyCarousel.addEventListener('scroll', updateScrollIndicator);
+    }
+
+    // 出行知识折叠功能
+    function toggleTips() {
+      const tipsGrid = document.getElementById('tipsGrid');
+      const tipsText = document.getElementById('tipsText');
+      const tipsIcon = document.getElementById('tipsIcon');
+      const btn = document.querySelector('.tips-toggle-btn');
+      
+      if (tipsGrid.classList.contains('show')) {
+        tipsGrid.classList.remove('show');
+        tipsText.textContent = '展开查看全部';
+        btn.classList.remove('active');
+      } else {
+        tipsGrid.classList.add('show');
+        tipsText.textContent = '收起内容';
+        btn.classList.add('active');
+      }
+    }
+
+    // 回到顶部功能
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+
+    // 显示/隐藏回到顶部按钮
+    window.addEventListener('scroll', function() {
+      const backToTop = document.getElementById('backToTop');
+      
+      if (window.scrollY > 300) {
+        backToTop.classList.add('show');
+      } else {
+        backToTop.classList.remove('show');
+      }
+    });
   </script>
 
 </body>
