@@ -113,7 +113,7 @@
     /* Hero区 */
     .hero {
       margin-top:70px;
-      padding:60px 0;
+      padding:80px 0;
       text-align:center;
       background: linear-gradient(135deg, #F7F9FC 0%, #EDF2F7 100%);
       position: relative;
@@ -127,6 +127,16 @@
       width: 400px;
       height: 400px;
       background: radial-gradient(circle, rgba(255, 131, 0, 0.08) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -15%;
+      left: -5%;
+      width: 350px;
+      height: 350px;
+      background: radial-gradient(circle, rgba(255, 179, 0, 0.06) 0%, transparent 70%);
       border-radius: 50%;
     }
     .hero h1 {
@@ -146,6 +156,66 @@
       color: var(--text-sub);
       position: relative;
       z-index: 1;
+    }
+    
+    /* 悬浮图标装饰 */
+    .floating-icon {
+      position: absolute;
+      font-size: 2.5em;
+      opacity: 0.15;
+      animation: float 6s ease-in-out infinite;
+      z-index: 0;
+    }
+    
+    .floating-icon:nth-child(1) {
+      top: 15%;
+      left: 8%;
+      animation-delay: 0s;
+      animation-duration: 5s;
+    }
+    
+    .floating-icon:nth-child(2) {
+      top: 25%;
+      right: 12%;
+      animation-delay: 1s;
+      animation-duration: 6s;
+    }
+    
+    .floating-icon:nth-child(3) {
+      bottom: 20%;
+      left: 15%;
+      animation-delay: 2s;
+      animation-duration: 7s;
+    }
+    
+    .floating-icon:nth-child(4) {
+      bottom: 15%;
+      right: 10%;
+      animation-delay: 1.5s;
+      animation-duration: 5.5s;
+    }
+    
+    .floating-icon:nth-child(5) {
+      top: 40%;
+      left: 5%;
+      animation-delay: 0.5s;
+      animation-duration: 6.5s;
+    }
+    
+    .floating-icon:nth-child(6) {
+      top: 35%;
+      right: 8%;
+      animation-delay: 2.5s;
+      animation-duration: 6s;
+    }
+    
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-20px) rotate(5deg);
+      }
     }
     
     /* ========== 轮播容器系统 ========== */
@@ -823,11 +893,18 @@
     
     /* 响应式 */
     @media (max-width: 768px) {
+      .hero {
+        padding: 60px 0;
+      }
       .hero h1 {
         font-size: 2em;
       }
       .hero p {
         font-size: 1.05em;
+      }
+      .floating-icon {
+        font-size: 2em;
+        opacity: 0.1;
       }
       nav .logo {
         font-size: 1.3em;
@@ -838,6 +915,11 @@
       }
       .carousel-nav.prev {left: 5px;}
       .carousel-nav.next {right: 5px;}
+      
+      /* 购物保障在小屏幕改为单列 */
+      .shopping-guarantee-grid {
+        grid-template-columns: 1fr !important;
+      }
     }
   </style>
 </head>
@@ -853,6 +935,14 @@
 
   <!-- Hero区 -->
   <div class="hero">
+    <!-- 悬浮装饰图标 -->
+    <i class="floating-icon ri-hotel-line" style="color: var(--primary);"></i>
+    <i class="floating-icon ri-map-pin-2-line" style="color: var(--success);"></i>
+    <i class="floating-icon ri-shopping-bag-3-line" style="color: var(--primary-light);"></i>
+    <i class="floating-icon ri-user-heart-line" style="color: var(--primary);"></i>
+    <i class="floating-icon ri-compass-3-line" style="color: var(--success);"></i>
+    <i class="floating-icon ri-gift-2-line" style="color: var(--primary-light);"></i>
+    
     <div class="page-width">
       <h1><i class="ri-earth-line"></i> 宠游伴平台生态</h1>
       <p>商务合作 · 游戏化积分 · 社区创作 · 精选商城</p>
@@ -1045,8 +1135,13 @@
           <i class="ri-trophy-line" style="margin-right:10px;"></i>积分获取途径
         </h4>
         
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-bottom:30px;">
-          <div class="points-card">
+        <div class="carousel-container">
+          <div class="carousel-nav prev" onclick="scrollCarousel('points-carousel', -1)">
+            <i class="ri-arrow-left-s-line"></i>
+          </div>
+          <div class="carousel-wrapper" id="points-carousel">
+          
+          <div class="points-card" style="flex: 0 0 280px;">
             <div class="points-header">
               <div class="points-title"><i class="ri-quill-pen-line"></i> 发布游记</div>
               <div class="points-value">+50</div>
@@ -1054,7 +1149,7 @@
             <div class="points-desc">分享你的旅行故事,优质内容可获额外奖励</div>
           </div>
 
-          <div class="points-card">
+          <div class="points-card" style="flex: 0 0 280px;">
             <div class="points-header">
               <div class="points-title"><i class="ri-star-line"></i> 景点评价</div>
               <div class="points-value">+20</div>
@@ -1062,7 +1157,7 @@
             <div class="points-desc">真实评价帮助更多宠物主人做出选择</div>
           </div>
 
-          <div class="points-card">
+          <div class="points-card" style="flex: 0 0 280px;">
             <div class="points-header">
               <div class="points-title"><i class="ri-heart-line"></i> 每日签到</div>
               <div class="points-value">+5</div>
@@ -1070,7 +1165,7 @@
             <div class="points-desc">连续签到天数越多,奖励越丰厚</div>
           </div>
 
-          <div class="points-card">
+          <div class="points-card" style="flex: 0 0 280px;">
             <div class="points-header">
               <div class="points-title"><i class="ri-share-line"></i> 邀请好友</div>
               <div class="points-value">+100</div>
@@ -1078,7 +1173,7 @@
             <div class="points-desc">成功邀请好友注册,双方均可获得积分</div>
           </div>
 
-          <div class="points-card">
+          <div class="points-card" style="flex: 0 0 280px;">
             <div class="points-header">
               <div class="points-title"><i class="ri-question-answer-line"></i> 社区互动</div>
               <div class="points-value">+10</div>
@@ -1086,12 +1181,17 @@
             <div class="points-desc">回答其他用户的问题,分享经验</div>
           </div>
 
-          <div class="points-card">
+          <div class="points-card" style="flex: 0 0 280px;">
             <div class="points-header">
               <div class="points-title"><i class="ri-calendar-check-line"></i> 完成任务</div>
               <div class="points-value">+30</div>
             </div>
             <div class="points-desc">每周任务、节日活动,玩法多样</div>
+          </div>
+          
+          </div>
+          <div class="carousel-nav next" onclick="scrollCarousel('points-carousel', 1)">
+            <i class="ri-arrow-right-s-line"></i>
           </div>
         </div>
 
@@ -1502,7 +1602,7 @@
           <i class="ri-shield-check-line" style="margin-right:10px;"></i>购物保障
         </h4>
         <div style="background:#F7F9FC;border-radius:15px;padding:30px;">
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:20px;text-align:center;">
+          <div class="shopping-guarantee-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:30px;text-align:center;">
             <div>
               <div style="font-size:2.5em;margin-bottom:10px;"><i class="ri-check-double-line" style="color:var(--success);"></i></div>
               <div style="color:var(--text-sub);font-weight:500;">7天无理由退换</div>
