@@ -273,6 +273,25 @@
     .carousel-nav.prev {left: -60px;}
     .carousel-nav.next {right: -60px;}
     
+    /* 进度条指示器 */
+    .carousel-progress {
+      display: none;
+      height: 4px;
+      background: #E2E8F0;
+      border-radius: 2px;
+      margin-top: 15px;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .carousel-progress-bar {
+      height: 100%;
+      background: var(--primary);
+      border-radius: 2px;
+      transition: width 0.3s ease;
+      width: 33.33%;
+    }
+    
     /* 合作卡片 */
     .coop-card {
       flex: 0 0 420px;
@@ -394,6 +413,11 @@
       flex: 0 0 220px;
       padding: 30px 20px;
       text-align: center;
+    }
+    
+    /* 创作者轮播特殊间距 */
+    #creator-carousel {
+      gap: 15px;
     }
     
     .creator-avatar {
@@ -913,8 +937,16 @@
         padding: 6px 15px;
         font-size: 0.85em;
       }
-      .carousel-nav.prev {left: 5px;}
-      .carousel-nav.next {right: 5px;}
+      
+      /* 移动端隐藏左右按钮 */
+      .carousel-nav {
+        display: none !important;
+      }
+      
+      /* 移动端显示进度条 */
+      .carousel-progress {
+        display: block !important;
+      }
       
       /* 购物保障在小屏幕改为单列 */
       .shopping-guarantee-grid {
@@ -1051,6 +1083,9 @@
           <div class="carousel-nav next" onclick="scrollCarousel('cooperation-carousel', 1)">
             <i class="ri-arrow-right-s-line"></i>
           </div>
+          <div class="carousel-progress">
+            <div class="carousel-progress-bar" id="cooperation-carousel-progress"></div>
+          </div>
         </div>
 
         <h4 style="font-size:1.5em;color:var(--primary);margin:35px 0 20px;">
@@ -1104,6 +1139,9 @@
           </div>
           <div class="carousel-nav next" onclick="scrollCarousel('cases-carousel', 1)">
             <i class="ri-arrow-right-s-line"></i>
+          </div>
+          <div class="carousel-progress">
+            <div class="carousel-progress-bar" id="cases-carousel-progress"></div>
           </div>
         </div>
 
@@ -1186,6 +1224,9 @@
           </div>
           <div class="carousel-nav next" onclick="scrollCarousel('points-carousel', 1)">
             <i class="ri-arrow-right-s-line"></i>
+          </div>
+          <div class="carousel-progress">
+            <div class="carousel-progress-bar" id="points-carousel-progress"></div>
           </div>
         </div>
 
@@ -1367,6 +1408,9 @@
           <div class="carousel-nav next" onclick="scrollCarousel('incentive-carousel', 1)">
             <i class="ri-arrow-right-s-line"></i>
           </div>
+          <div class="carousel-progress">
+            <div class="carousel-progress-bar" id="incentive-carousel-progress"></div>
+          </div>
         </div>
 
         <h4 style="font-size:1.5em;color:var(--primary);margin:35px 0 20px;">
@@ -1437,6 +1481,9 @@
           </div>
           <div class="carousel-nav next" onclick="scrollCarousel('creator-carousel', 1)">
             <i class="ri-arrow-right-s-line"></i>
+          </div>
+          <div class="carousel-progress">
+            <div class="carousel-progress-bar" id="creator-carousel-progress"></div>
           </div>
         </div>
 
@@ -1576,6 +1623,9 @@
           <div class="carousel-nav next" onclick="scrollCarousel('product-carousel', 1)">
             <i class="ri-arrow-right-s-line"></i>
           </div>
+          <div class="carousel-progress">
+            <div class="carousel-progress-bar" id="product-carousel-progress"></div>
+          </div>
         </div>
 
         <h4 style="font-size:1.5em;color:var(--primary);margin:35px 0 20px;">
@@ -1638,6 +1688,20 @@
     // 调试信息
     console.log('Script loaded successfully');
     
+    // 更新进度条
+    function updateProgress(carouselId) {
+      const carousel = document.getElementById(carouselId);
+      const progressBar = document.getElementById(carouselId + '-progress');
+      
+      if (!carousel || !progressBar) return;
+      
+      const scrollLeft = carousel.scrollLeft;
+      const scrollWidth = carousel.scrollWidth - carousel.clientWidth;
+      const progress = (scrollLeft / scrollWidth) * 100;
+      
+      progressBar.style.width = progress + '%';
+    }
+    
     // 轮播滚动函数
     function scrollCarousel(carouselId, direction) {
       const carousel = document.getElementById(carouselId);
@@ -1646,21 +1710,60 @@
         return;
       }
       
-      const card = carousel.querySelector('.coop-card, .case-card, .creator-card, .product-card');
+      const card = carousel.querySelector('.coop-card, .case-card, .creator-card, .product-card, .points-card');
       if (!card) {
         console.warn('No cards found in carousel:', carouselId);
         return;
       }
       
       const cardWidth = card.offsetWidth;
-      const gap = 30;
+      const gap = carouselId === 'creator-carousel' ? 15 : 30;
       const scrollAmount = (cardWidth + gap) * direction;
       
       carousel.scrollBy({
         left: scrollAmount,
         behavior: 'smooth'
       });
+      
+      // 等待滚动完成后更新进度条
+      setTimeout(() => updateProgress(carouselId), 300);
     }
+    
+    // 为所有轮播添加滚动监听，实时更新进度条
+    const carouselIds = [
+      'cooperation-carousel',
+      'cases-carousel', 
+      'points-carousel',
+      'incentive-carousel',
+      'creator-carousel',
+      'product-carousel'
+    ];
+    
+    carouselIds.forEach(id => {
+      const carousel = document.getElementById(id);
+      if (carousel) {
+        // 滚动时更新进度条
+        carousel.addEventListener('scroll', () => updateProgress(id));
+        
+        // 初始化进度条
+        updateProgress(id);
+        
+        // 添加触摸滑动支持
+        let startX = 0;
+        let scrollLeft = 0;
+        
+        carousel.addEventListener('touchstart', (e) => {
+          startX = e.touches[0].pageX - carousel.offsetLeft;
+          scrollLeft = carousel.scrollLeft;
+        });
+        
+        carousel.addEventListener('touchmove', (e) => {
+          const x = e.touches[0].pageX - carousel.offsetLeft;
+          const walk = (x - startX) * 2;
+          carousel.scrollLeft = scrollLeft - walk;
+        });
+      }
+    });
 
     // 表单提交
     document.querySelector('.submit-btn')?.addEventListener('click', function(e) {
