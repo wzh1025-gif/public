@@ -882,6 +882,318 @@
       color: #fff;
     }
     
+    /* ========== 创作者砌墙式布局 ========== */
+    .creators-masonry {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 200px;
+      gap: 15px;
+      margin: 25px 0;
+    }
+    
+    .creator-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+    
+    .creator-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(255, 131, 0, 0.2);
+      z-index: 10;
+    }
+    
+    /* 大卡片 - 2x2 */
+    .creator-item.large {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+    
+    /* 中卡片 - 2x1 */
+    .creator-item.medium {
+      grid-column: span 2;
+      grid-row: span 1;
+    }
+    
+    /* 小卡片 - 1x1 */
+    .creator-item.small {
+      grid-column: span 1;
+      grid-row: span 1;
+    }
+    
+    .creator-item-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    
+    .creator-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .creator-item:hover img {
+      transform: scale(1.1);
+    }
+    
+    .creator-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, transparent 100%);
+      padding: 20px;
+      transform: translateY(0);
+      transition: all 0.4s;
+    }
+    
+    .creator-item:hover .creator-overlay {
+      background: linear-gradient(to top, rgba(255,131,0,0.95) 0%, rgba(255,131,0,0.7) 50%, transparent 100%);
+    }
+    
+    .creator-info {
+      position: relative;
+      z-index: 1;
+    }
+    
+    .creator-name {
+      color: #fff;
+      font-size: 1.1em;
+      font-weight: 700;
+      margin-bottom: 8px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    .creator-item.large .creator-name {
+      font-size: 1.4em;
+    }
+    
+    .creator-stats {
+      display: flex;
+      gap: 15px;
+      font-size: 0.9em;
+      color: rgba(255,255,255,0.95);
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.4s;
+    }
+    
+    .creator-item:hover .creator-stats {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .creator-stats span {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .creator-stats i {
+      font-size: 1.1em;
+    }
+    
+    /* 响应式调整 */
+    @media (max-width: 900px) {
+      .creators-masonry {
+        grid-template-columns: repeat(3, 1fr);
+        grid-auto-rows: 180px;
+        gap: 12px;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      .creators-masonry {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 150px;
+        gap: 10px;
+      }
+      
+      .creator-item.large {
+        grid-column: span 2;
+        grid-row: span 1;
+      }
+      
+      .creator-item.medium {
+        grid-column: span 1;
+        grid-row: span 1;
+      }
+    }
+    
+    /* ========== 弹窗样式 ========== */
+    .popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(5px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .popup-overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .popup-content {
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      transform: scale(0.9) translateY(20px);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+    }
+    
+    .popup-overlay.show .popup-content {
+      transform: scale(1) translateY(0);
+    }
+    
+    .popup-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #f0f0f0;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+      font-size: 20px;
+      color: #666;
+    }
+    
+    .popup-close:hover {
+      background: var(--primary);
+      color: white;
+      transform: rotate(90deg);
+    }
+    
+    .popup-icon {
+      font-size: 3.5em;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .popup-title {
+      font-size: 1.8em;
+      color: var(--secondary);
+      margin-bottom: 15px;
+      text-align: center;
+      font-weight: 700;
+    }
+    
+    .popup-message {
+      color: var(--text-sub);
+      line-height: 1.8;
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 1.05em;
+    }
+    
+    .popup-benefits {
+      background: linear-gradient(135deg, #FFF5E6 0%, #FFECD1 100%);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    
+    .popup-benefits ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .popup-benefits li {
+      padding: 10px 0;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1em;
+    }
+    
+    .popup-benefits li i {
+      color: var(--primary);
+      font-size: 1.2em;
+    }
+    
+    .popup-buttons {
+      display: flex;
+      gap: 12px;
+      margin-top: 25px;
+    }
+    
+    .popup-btn {
+      flex: 1;
+      padding: 14px 20px;
+      border-radius: 50px;
+      border: none;
+      font-size: 1em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    
+    .popup-btn.primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 4px 15px rgba(255, 131, 0, 0.3);
+    }
+    
+    .popup-btn.primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 131, 0, 0.4);
+    }
+    
+    .popup-btn.secondary {
+      background: #f5f5f5;
+      color: var(--text-main);
+    }
+    
+    .popup-btn.secondary:hover {
+      background: #e8e8e8;
+    }
+    
+    @media (max-width: 600px) {
+      .popup-content {
+        padding: 30px 20px;
+      }
+      
+      .popup-title {
+        font-size: 1.5em;
+      }
+      
+      .popup-buttons {
+        flex-direction: column;
+      }
+    }
+    
     /* Footer */
     footer {
       background: #171923;
@@ -1341,7 +1653,7 @@
         <div style="background:linear-gradient(135deg, #FF8300 0%, #FFB300 100%);border-radius:var(--radius-xl);padding:45px 0;text-align:center;margin-top:40px;color:#fff;box-shadow:0 15px 40px rgba(255,131,0,0.3);">
           <h3 style="font-size:2em;margin-bottom:15px;"><i class="ri-gift-line" style="margin-right:10px;"></i>积分商城即将上线</h3>
           <p style="font-size:1.15em;margin-bottom:28px;opacity:0.95;">海量好礼等你兑换,敬请期待!</p>
-          <a href="#" style="background:#fff;color:var(--primary);padding:14px 45px;border-radius:50px;text-decoration:none;font-size:1.1em;font-weight:700;display:inline-flex;align-items:center;gap:8px;transition:all 0.3s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 20px rgba(0,0,0,0.2)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'"><i class="ri-notification-line"></i> 提醒我</a>
+          <a href="#" onclick="showRemindPopup(); return false;" style="background:#fff;color:var(--primary);padding:14px 45px;border-radius:50px;text-decoration:none;font-size:1.1em;font-weight:700;display:inline-flex;align-items:center;gap:8px;transition:all 0.3s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 20px rgba(0,0,0,0.2)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'"><i class="ri-notification-line"></i> 提醒我</a>
         </div>
 
       </div>
@@ -1424,81 +1736,125 @@
         <h4 style="font-size:1.5em;color:var(--primary);margin:35px 0 20px;">
           <i class="ri-user-star-line" style="margin-right:10px;"></i>优秀创作者
         </h4>
-        <p style="color:var(--text-sub);margin-bottom:15px;">加入我们的创作者行列,展示你的独特视角</p>
+        <p style="color:var(--text-sub);margin-bottom:25px;">加入我们的创作者行列,展示你的独特视角</p>
         
-        <div class="carousel-container">
-          <div class="carousel-nav prev" onclick="scrollCarousel('creator-carousel', -1)">
-            <i class="ri-arrow-left-s-line"></i>
-          </div>
-          <div class="carousel-wrapper" id="creator-carousel">
-          <div class="creator-card">
-            <div class="creator-avatar">
-              <img src="pets/creator-1.png" alt="旅行柴犬" style="width:100%;height:100%;object-fit:cover;">
+        <!-- 不规则网格布局 -->
+        <div class="creators-masonry">
+          <!-- 大卡片 -->
+          <div class="creator-item large">
+            <div class="creator-item-inner">
+              <img src="pets/creator-1.png" alt="旅行柴犬">
+              <div class="creator-overlay">
+                <div class="creator-info">
+                  <div class="creator-name">@旅行柴犬</div>
+                  <div class="creator-stats">
+                    <span><i class="ri-eye-line"></i> 125万</span>
+                    <span><i class="ri-heart-3-line"></i> 8.7万</span>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="creator-name">@旅行柴犬</div>
           </div>
 
-          <div class="creator-card">
-            <div class="creator-avatar">
-              <img src="pets/creator-2.png" alt="猫咪环球" style="width:100%;height:100%;object-fit:cover;">
+          <!-- 小卡片 -->
+          <div class="creator-item small">
+            <div class="creator-item-inner">
+              <img src="pets/creator-2.png" alt="猫咪环球">
+              <div class="creator-overlay">
+                <div class="creator-info">
+                  <div class="creator-name">@猫咪环球</div>
+                </div>
+              </div>
             </div>
-            <div class="creator-name">@猫咪环球</div>
           </div>
 
-          <div class="creator-card">
-            <div class="creator-avatar">
-              <img src="pets/creator-3.png" alt="小北旅行" style="width:100%;height:100%;object-fit:cover;">
+          <!-- 中卡片 -->
+          <div class="creator-item medium">
+            <div class="creator-item-inner">
+              <img src="pets/creator-3.png" alt="小北旅行">
+              <div class="creator-overlay">
+                <div class="creator-info">
+                  <div class="creator-name">@小北旅行</div>
+                  <div class="creator-stats">
+                    <span><i class="ri-eye-line"></i> 89万</span>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="creator-name">@小北旅行</div>
           </div>
 
-          <div class="creator-card">
-            <div class="creator-avatar">
-              <img src="pets/creator-4.png" alt="金毛探险" style="width:100%;height:100%;object-fit:cover;">
+          <!-- 小卡片 -->
+          <div class="creator-item small">
+            <div class="creator-item-inner">
+              <img src="pets/creator-4.png" alt="金毛探险">
+              <div class="creator-overlay">
+                <div class="creator-info">
+                  <div class="creator-name">@金毛探险</div>
+                </div>
+              </div>
             </div>
-            <div class="creator-name">@金毛探险</div>
           </div>
 
-          <div class="creator-card">
-            <div class="creator-avatar">
-              <img src="pets/creator-5.png" alt="民宿测评" style="width:100%;height:100%;object-fit:cover;">
+          <!-- 大卡片 -->
+          <div class="creator-item large">
+            <div class="creator-item-inner">
+              <img src="pets/creator-5.png" alt="民宿测评">
+              <div class="creator-overlay">
+                <div class="creator-info">
+                  <div class="creator-name">@民宿测评</div>
+                  <div class="creator-stats">
+                    <span><i class="ri-eye-line"></i> 156万</span>
+                    <span><i class="ri-heart-3-line"></i> 12.3万</span>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="creator-name">@民宿测评</div>
           </div>
 
-          <div class="creator-card">
-            <div class="creator-avatar">
-              <img src="pets/creator-6.png" alt="云南攻略" style="width:100%;height:100%;object-fit:cover;">
+          <!-- 中卡片 -->
+          <div class="creator-item medium">
+            <div class="creator-item-inner">
+              <img src="pets/creator-6.png" alt="云南攻略">
+              <div class="creator-overlay">
+                <div class="creator-info">
+                  <div class="creator-name">@云南攻略</div>
+                  <div class="creator-stats">
+                    <span><i class="ri-eye-line"></i> 67万</span>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="creator-name">@云南攻略</div>
           </div>
 
-          <div class="creator-card">
-            <div class="creator-avatar">
-              <img src="pets/creator-7.png" alt="宠物摄影" style="width:100%;height:100%;object-fit:cover;">
+          <!-- 小卡片 -->
+          <div class="creator-item small">
+            <div class="creator-item-inner">
+              <img src="pets/creator-7.png" alt="宠物摄影">
+              <div class="creator-overlay">
+                <div class="creator-info">
+                  <div class="creator-name">@宠物摄影</div>
+                </div>
+              </div>
             </div>
-            <div class="creator-name">@宠物摄影</div>
           </div>
 
-          <div class="creator-card">
-            <div class="creator-avatar">
-              <img src="pets/creator-8.png" alt="萌宠出行" style="width:100%;height:100%;object-fit:cover;">
+          <!-- 小卡片 -->
+          <div class="creator-item small">
+            <div class="creator-item-inner">
+              <img src="pets/creator-8.png" alt="萌宠出行">
+              <div class="creator-overlay">
+                <div class="creator-info">
+                  <div class="creator-name">@萌宠出行</div>
+                </div>
+              </div>
             </div>
-            <div class="creator-name">@萌宠出行</div>
-          </div>
-          </div>
-          <div class="carousel-nav next" onclick="scrollCarousel('creator-carousel', 1)">
-            <i class="ri-arrow-right-s-line"></i>
-          </div>
-          <div class="carousel-progress">
-            <div class="carousel-progress-bar" id="creator-carousel-progress"></div>
           </div>
         </div>
 
         <div style="background:linear-gradient(135deg, #FF8300 0%, #FFB300 100%);border-radius:var(--radius-xl);padding:45px;text-align:center;margin-top:40px;color:#fff;box-shadow:0 15px 40px rgba(255,131,0,0.3);">
           <h3 style="font-size:2em;margin-bottom:15px;"><i class="ri-quill-pen-line" style="margin-right:10px;"></i>立即开启创作之旅</h3>
           <p style="font-size:1.15em;margin-bottom:28px;opacity:0.95;">分享你的宠物旅行故事,获得流量奖励+现金收益</p>
-          <a href="#" style="background:#fff;color:var(--primary);padding:14px 45px;border-radius:50px;text-decoration:none;font-size:1.1em;font-weight:700;display:inline-flex;align-items:center;gap:8px;transition:all 0.3s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 20px rgba(0,0,0,0.2)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'"><i class="ri-send-plane-fill"></i> 马上发布内容</a>
+          <a href="#" onclick="showCreatePopup(); return false;" style="background:#fff;color:var(--primary);padding:14px 45px;border-radius:50px;text-decoration:none;font-size:1.1em;font-weight:700;display:inline-flex;align-items:center;gap:8px;transition:all 0.3s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 20px rgba(0,0,0,0.2)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'"><i class="ri-send-plane-fill"></i> 马上发布内容</a>
         </div>
 
       </div>
@@ -1692,6 +2048,60 @@
     <i class="ri-arrow-up-line"></i>
   </div>
 
+  <!-- 提醒我弹窗 -->
+  <div class="popup-overlay" id="remindPopup">
+    <div class="popup-content">
+      <button class="popup-close" onclick="closePopup('remindPopup')">
+        <i class="ri-close-line"></i>
+      </button>
+      <div class="popup-icon">🎉</div>
+      <h3 class="popup-title">提醒设置成功！</h3>
+      <p class="popup-message">作为早鸟用户，积分商城上线时您将额外获得：</p>
+      <div class="popup-benefits">
+        <ul>
+          <li><i class="ri-gift-line"></i> 200积分新人礼包</li>
+          <li><i class="ri-coupon-3-line"></i> 首单8折优惠券</li>
+          <li><i class="ri-vip-crown-line"></i> 优先抢购资格</li>
+        </ul>
+      </div>
+      <p style="color: var(--text-sub); font-size: 0.9em; text-align: center; margin-top: 15px;">
+        我们会通过站内信和邮件通知您~
+      </p>
+      <div class="popup-buttons">
+        <button class="popup-btn primary" onclick="closePopup('remindPopup')">
+          <i class="ri-check-line"></i> 太好了
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 马上发布内容弹窗 -->
+  <div class="popup-overlay" id="createPopup">
+    <div class="popup-content">
+      <button class="popup-close" onclick="closePopup('createPopup')">
+        <i class="ri-close-line"></i>
+      </button>
+      <div class="popup-icon">🚀</div>
+      <h3 class="popup-title">创作之旅即将开启！</h3>
+      <p class="popup-message">新手创作者可获得：</p>
+      <div class="popup-benefits">
+        <ul>
+          <li><i class="ri-flashlight-line"></i> 前3篇内容流量加权</li>
+          <li><i class="ri-coin-line"></i> 单篇最高可获50积分</li>
+          <li><i class="ri-gift-2-line"></i> 完成新手任务额外送200积分</li>
+        </ul>
+      </div>
+      <div class="popup-buttons">
+        <button class="popup-btn primary" onclick="handleRegister()">
+          <i class="ri-user-add-line"></i> 立即注册
+        </button>
+        <button class="popup-btn secondary" onclick="handleTutorial()">
+          <i class="ri-book-open-line"></i> 先看看教程
+        </button>
+      </div>
+    </div>
+  </div>
+
   <script>
     // 调试信息
     console.log('Script loaded successfully');
@@ -1799,6 +2209,66 @@
         alert('商品已加入购物车! 🛒');
       });
     });
+    
+    // ========== 弹窗控制函数 ==========
+    function showRemindPopup() {
+      const popup = document.getElementById('remindPopup');
+      if (popup) {
+        popup.classList.add('show');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+    
+    function showCreatePopup() {
+      const popup = document.getElementById('createPopup');
+      if (popup) {
+        popup.classList.add('show');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+    
+    function closePopup(popupId) {
+      const popup = document.getElementById(popupId);
+      if (popup) {
+        popup.classList.remove('show');
+        document.body.style.overflow = '';
+      }
+    }
+    
+    function handleRegister() {
+      closePopup('createPopup');
+      alert('正在跳转至注册页面... 📝');
+    }
+    
+    function handleTutorial() {
+      closePopup('createPopup');
+      alert('正在加载创作教程... 📚');
+    }
+    
+    // 点击弹窗背景关闭
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('popup-overlay')) {
+        e.target.classList.remove('show');
+        document.body.style.overflow = '';
+      }
+    });
+    
+    // ESC键关闭弹窗
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.popup-overlay.show').forEach(popup => {
+          popup.classList.remove('show');
+          document.body.style.overflow = '';
+        });
+      }
+    });
+    
+    // 确保函数可全局访问
+    window.showRemindPopup = showRemindPopup;
+    window.showCreatePopup = showCreatePopup;
+    window.closePopup = closePopup;
+    window.handleRegister = handleRegister;
+    window.handleTutorial = handleTutorial;
 
     // 回到顶部
     function scrollToTop() {
