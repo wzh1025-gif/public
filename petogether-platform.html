@@ -978,6 +978,14 @@
     <div class="page-width">
       <h1><i class="ri-earth-line"></i> 宠游伴平台生态</h1>
       <p>商务合作 · 游戏化积分 · 社区创作 · 精选商城</p>
+      
+      <!-- 免责声明 -->
+      <div style="margin-top: 35px; padding: 16px 28px; background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(8px); border-radius: 12px; border: 1px solid rgba(0, 0, 0, 0.06); max-width: 800px; margin-left: auto; margin-right: auto; position: relative; z-index: 1;">
+        <p style="font-size: 0.82em; color: #718096; line-height: 1.7; margin: 0; text-align: center; letter-spacing: 0.3px;">
+          <i class="ri-information-line" style="font-size: 1.1em; vertical-align: middle; margin-right: 6px; opacity: 0.7;"></i>
+          <span style="font-weight: 500;">免责声明：</span>本页面内容为团队内部概念展示，涉及的功能、数据、案例与用户名称均为模拟示例，不作为实际商业指标
+        </p>
+      </div>
     </div>
   </div>
 
@@ -1688,6 +1696,20 @@
     // 调试信息
     console.log('Script loaded successfully');
     
+    // 节流函数 - 优化滚动性能
+    function throttle(func, limit) {
+      let inThrottle;
+      return function() {
+        const args = arguments;
+        const context = this;
+        if (!inThrottle) {
+          func.apply(context, args);
+          inThrottle = true;
+          setTimeout(() => inThrottle = false, limit);
+        }
+      }
+    }
+    
     // 更新进度条
     function updateProgress(carouselId) {
       const carousel = document.getElementById(carouselId);
@@ -1742,8 +1764,8 @@
     carouselIds.forEach(id => {
       const carousel = document.getElementById(id);
       if (carousel) {
-        // 滚动时更新进度条
-        carousel.addEventListener('scroll', () => updateProgress(id));
+        // 滚动时更新进度条 - 使用节流优化
+        carousel.addEventListener('scroll', throttle(() => updateProgress(id), 100));
         
         // 初始化进度条
         updateProgress(id);
@@ -1759,8 +1781,8 @@
         
         carousel.addEventListener('touchmove', (e) => {
           const x = e.touches[0].pageX - carousel.offsetLeft;
-          const walk = (x - startX) * 2;
-          carousel.scrollLeft = scrollLeft - walk;
+          const walk = startX - x; // 改为1:1比例,移除 * 2
+          carousel.scrollLeft = scrollLeft + walk;
         });
       }
     });
