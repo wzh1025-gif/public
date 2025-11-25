@@ -295,44 +295,35 @@
       margin-top: 80px;
       padding: 0;
       animation: fadeInUp 0.8s ease-out 0.5s both;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
     }
     
     .disclaimer-content {
-      background: linear-gradient(135deg, 
-        rgba(255, 255, 255, 0.95) 0%, 
-        rgba(255, 249, 228, 0.9) 100%);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 131, 0, 0.15);
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(0, 0, 0, 0.08);
       border-radius: 20px;
       padding: 20px 28px;
       display: flex;
       align-items: flex-start;
       gap: 15px;
       box-shadow: 
-        0 4px 20px rgba(255, 131, 0, 0.08),
-        0 1px 3px rgba(0, 0, 0, 0.05);
+        0 4px 20px rgba(0, 0, 0, 0.06),
+        0 1px 3px rgba(0, 0, 0, 0.03);
       position: relative;
       overflow: hidden;
-    }
-    
-    .disclaimer-content::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 4px;
-      height: 100%;
-      background: linear-gradient(180deg, var(--primary) 0%, var(--primary-light) 100%);
-      border-radius: 20px 0 0 20px;
+      flex: 1;
     }
     
     .disclaimer-content i {
       font-size: 1.5rem;
-      color: var(--primary);
+      color: var(--text-sub);
       flex-shrink: 0;
       margin-top: 2px;
-      opacity: 0.9;
+      opacity: 0.7;
     }
     
     .disclaimer-content p {
@@ -341,6 +332,88 @@
       color: var(--text-sub);
       margin: 0;
       letter-spacing: 0.2px;
+    }
+    
+    /* 调研报告下载卡片 */
+    .survey-download {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      border-radius: 20px;
+      padding: 20px 24px;
+      min-width: 240px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: 0 8px 25px rgba(255, 131, 0, 0.25);
+      transition: all 0.3s;
+      cursor: pointer;
+      text-decoration: none;
+      color: white;
+    }
+    
+    .survey-download:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(255, 131, 0, 0.35);
+    }
+    
+    .survey-download-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .survey-download-header i {
+      font-size: 1.8rem;
+      color: white;
+    }
+    
+    .survey-download-title {
+      font-weight: 700;
+      font-size: 1rem;
+      color: white;
+      margin: 0;
+    }
+    
+    .survey-download-subtitle {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.9);
+      margin: 0;
+      line-height: 1.4;
+    }
+    
+    .survey-download-stats {
+      display: flex;
+      gap: 15px;
+      margin-top: 5px;
+    }
+    
+    .survey-stat {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.95);
+    }
+    
+    .survey-stat i {
+      font-size: 0.9rem;
+    }
+    
+    .survey-download-action {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 8px;
+      padding: 8px 16px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+    
+    .survey-download:hover .survey-download-action {
+      background: rgba(255, 255, 255, 0.3);
     }
     
     @keyframes fadeInUp {
@@ -1481,9 +1554,11 @@
         border-bottom: none;
       }
       
-      /* 免责声明响应式 */
+      /* 免责声明与报告下载响应式 */
       .hero-disclaimer {
         margin-top: 50px;
+        flex-direction: column;
+        gap: 15px;
       }
       
       .disclaimer-content {
@@ -1498,6 +1573,23 @@
       .disclaimer-content p {
         font-size: 0.8rem;
         line-height: 1.6;
+      }
+      
+      .survey-download {
+        min-width: 100%;
+        padding: 18px 20px;
+      }
+      
+      .survey-download-header i {
+        font-size: 1.5rem;
+      }
+      
+      .survey-download-title {
+        font-size: 0.95rem;
+      }
+      
+      .survey-download-subtitle {
+        font-size: 0.75rem;
       }
     }
 
@@ -1579,12 +1671,34 @@
         </div>
       </div>
       
-      <!-- 免责声明 -->
+      <!-- 免责声明与调研报告 -->
       <div class="hero-disclaimer">
         <div class="disclaimer-content">
           <i class="ri-information-line"></i>
           <p>本页面部分功能示例、角色设定与场景内容为 Petogether 团队概念化呈现；数据依据《2025年中国宠物行业白皮书》《全球宠物旅行服务市场研究报告》等行业资料以及 313 份自有调研结果综合整理，仅用于方案展示。</p>
         </div>
+        
+        <a href="pets/survey-report.pdf" download="Petogether宠物友好旅行内容需求调查报告.pdf" class="survey-download">
+          <div class="survey-download-header">
+            <i class="ri-file-text-line"></i>
+            <div class="survey-download-title">调研报告</div>
+          </div>
+          <div class="survey-download-subtitle">313份深度问卷<br>完整数据分析</div>
+          <div class="survey-download-stats">
+            <div class="survey-stat">
+              <i class="ri-user-3-line"></i>
+              <span>313人</span>
+            </div>
+            <div class="survey-stat">
+              <i class="ri-file-pdf-line"></i>
+              <span>PDF</span>
+            </div>
+          </div>
+          <div class="survey-download-action">
+            <i class="ri-download-2-line"></i>
+            <span>下载完整报告</span>
+          </div>
+        </a>
       </div>
     </div>
   </section>
