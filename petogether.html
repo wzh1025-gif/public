@@ -290,6 +290,70 @@
       50%{transform:translateY(-15px);} 
     }
 
+    /* --- 免责声明样式 --- */
+    .hero-disclaimer {
+      margin-top: 80px;
+      padding: 0;
+      animation: fadeInUp 0.8s ease-out 0.5s both;
+    }
+    
+    .disclaimer-content {
+      background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.95) 0%, 
+        rgba(255, 249, 228, 0.9) 100%);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 131, 0, 0.15);
+      border-radius: 20px;
+      padding: 20px 28px;
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      box-shadow: 
+        0 4px 20px rgba(255, 131, 0, 0.08),
+        0 1px 3px rgba(0, 0, 0, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .disclaimer-content::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(180deg, var(--primary) 0%, var(--primary-light) 100%);
+      border-radius: 20px 0 0 20px;
+    }
+    
+    .disclaimer-content i {
+      font-size: 1.5rem;
+      color: var(--primary);
+      flex-shrink: 0;
+      margin-top: 2px;
+      opacity: 0.9;
+    }
+    
+    .disclaimer-content p {
+      font-size: 0.875rem;
+      line-height: 1.7;
+      color: var(--text-sub);
+      margin: 0;
+      letter-spacing: 0.2px;
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     /* --- Section 通用 --- */
     section { 
       padding: 70px 0; 
@@ -1416,6 +1480,25 @@
       .nav-links li:last-child {
         border-bottom: none;
       }
+      
+      /* 免责声明响应式 */
+      .hero-disclaimer {
+        margin-top: 50px;
+      }
+      
+      .disclaimer-content {
+        padding: 18px 20px;
+        gap: 12px;
+      }
+      
+      .disclaimer-content i {
+        font-size: 1.3rem;
+      }
+      
+      .disclaimer-content p {
+        font-size: 0.8rem;
+        line-height: 1.6;
+      }
     }
 
     /* 滚动动画 */
@@ -1493,6 +1576,14 @@
             <i class="ri-map-pin-user-fill" style="color: var(--success);"></i>
             <span>3秒生成路线</span>
           </div>
+        </div>
+      </div>
+      
+      <!-- 免责声明 -->
+      <div class="hero-disclaimer">
+        <div class="disclaimer-content">
+          <i class="ri-information-line"></i>
+          <p>本页面部分功能示例、角色设定与场景内容为 Petogether 团队概念化呈现；数据依据《2025年中国宠物行业白皮书》《全球宠物旅行服务市场研究报告》等行业资料以及 313 份自有调研结果综合整理，仅用于方案展示。</p>
         </div>
       </div>
     </div>
@@ -2068,7 +2159,7 @@
           </p>
           <div style="background:#F7FAFC; padding:30px 20px; border-radius:15px; margin:20px 0; text-align: left;">
             <p style="margin-bottom: 10px;"><strong>商务合作联系方式:</strong></p>
-            <p style="color: var(--text-sub);">📧 <a href="mailto:business@petogether.com" style="color: var(--primary);">business@petogether.com</a></p>
+            <p style="color: var(--text-sub);">📧 <a href="/cdn-cgi/l/email-protection#0a687f7963646f79794a7a6f7e656d6f7e626f7824696567" style="color: var(--primary);"><span class="__cf_email__" data-cfemail="b6d4c3c5dfd8d3c5c5f6c6d3c2d9d1d3c2ded3c498d5d9db">[email&#160;protected]</span></a></p>
             <p style="color: var(--text-sub); margin-top: 5px;">📱 400-888-8888</p>
           </div>
           <a href="#" class="btn-secondary">
@@ -2144,7 +2235,7 @@
   </div>
 
   <!-- JavaScript -->
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     // 移动端菜单控制
     function toggleMenu() {
       const navLinks = document.getElementById('navLinks');
@@ -2313,16 +2404,4 @@
     }
 
     // 显示/隐藏回到顶部按钮
-    window.addEventListener('scroll', function() {
-      const backToTop = document.getElementById('backToTop');
-      
-      if (window.scrollY > 300) {
-        backToTop.classList.add('show');
-      } else {
-        backToTop.classList.remove('show');
-      }
-    });
-  </script>
-
-</body>
-</html>
+    window.addEventListener('scroll', function()
