@@ -296,8 +296,9 @@
       padding: 0;
       animation: fadeInUp 0.8s ease-out 0.5s both;
       display: flex;
+      flex-direction: column;
       gap: 20px;
-      align-items: flex-start;
+      align-items: center;
     }
     
     .disclaimer-content {
@@ -315,7 +316,7 @@
         0 1px 3px rgba(0, 0, 0, 0.03);
       position: relative;
       overflow: hidden;
-      flex: 1;
+      width: 100%;
     }
     
     .disclaimer-content i {
@@ -338,16 +339,16 @@
     .survey-download {
       background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
       border-radius: 20px;
-      padding: 20px 24px;
-      min-width: 240px;
+      padding: 20px 28px;
       display: flex;
-      flex-direction: column;
-      gap: 10px;
+      align-items: center;
+      gap: 20px;
       box-shadow: 0 8px 25px rgba(255, 131, 0, 0.25);
       transition: all 0.3s;
       cursor: pointer;
       text-decoration: none;
       color: white;
+      max-width: 600px;
     }
     
     .survey-download:hover {
@@ -358,23 +359,27 @@
     .survey-download-header {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
     
     .survey-download-header i {
-      font-size: 1.8rem;
+      font-size: 2.2rem;
       color: white;
+    }
+    
+    .survey-download-info {
+      flex: 1;
     }
     
     .survey-download-title {
       font-weight: 700;
-      font-size: 1rem;
+      font-size: 1.1rem;
       color: white;
-      margin: 0;
+      margin: 0 0 4px 0;
     }
     
     .survey-download-subtitle {
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       color: rgba(255, 255, 255, 0.9);
       margin: 0;
       line-height: 1.4;
@@ -382,8 +387,9 @@
     
     .survey-download-stats {
       display: flex;
-      gap: 15px;
-      margin-top: 5px;
+      gap: 12px;
+      padding: 0 12px;
+      border-left: 1px solid rgba(255, 255, 255, 0.3);
     }
     
     .survey-stat {
@@ -403,13 +409,13 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      margin-top: 8px;
-      padding: 8px 16px;
+      padding: 10px 24px;
       background: rgba(255, 255, 255, 0.2);
       border-radius: 12px;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       font-weight: 600;
       transition: all 0.3s;
+      white-space: nowrap;
     }
     
     .survey-download:hover .survey-download-action {
@@ -1557,7 +1563,6 @@
       /* 免责声明与报告下载响应式 */
       .hero-disclaimer {
         margin-top: 50px;
-        flex-direction: column;
         gap: 15px;
       }
       
@@ -1576,20 +1581,33 @@
       }
       
       .survey-download {
-        min-width: 100%;
-        padding: 18px 20px;
+        flex-direction: column;
+        max-width: 100%;
+        padding: 20px;
+        gap: 15px;
+      }
+      
+      .survey-download-stats {
+        border-left: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.3);
+        padding: 12px 0 0 0;
+        justify-content: center;
       }
       
       .survey-download-header i {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
       }
       
       .survey-download-title {
-        font-size: 0.95rem;
+        font-size: 1rem;
       }
       
       .survey-download-subtitle {
-        font-size: 0.75rem;
+        font-size: 0.8rem;
+      }
+      
+      .survey-download-action {
+        width: 100%;
       }
     }
 
@@ -1673,17 +1691,14 @@
       
       <!-- 免责声明与调研报告 -->
       <div class="hero-disclaimer">
-        <div class="disclaimer-content">
-          <i class="ri-information-line"></i>
-          <p>本页面部分功能示例、角色设定与场景内容为 Petogether 团队概念化呈现；数据依据《2025年中国宠物行业白皮书》《全球宠物旅行服务市场研究报告》等行业资料以及 313 份自有调研结果综合整理，仅用于方案展示。</p>
-        </div>
-        
         <a href="pets/survey-report.pdf" download="Petogether宠物友好旅行内容需求调查报告.pdf" class="survey-download">
           <div class="survey-download-header">
             <i class="ri-file-text-line"></i>
-            <div class="survey-download-title">调研报告</div>
+            <div class="survey-download-info">
+              <div class="survey-download-title">完整调研报告</div>
+              <div class="survey-download-subtitle">313份深度问卷 · 完整数据分析</div>
+            </div>
           </div>
-          <div class="survey-download-subtitle">313份深度问卷<br>完整数据分析</div>
           <div class="survey-download-stats">
             <div class="survey-stat">
               <i class="ri-user-3-line"></i>
@@ -1691,14 +1706,19 @@
             </div>
             <div class="survey-stat">
               <i class="ri-file-pdf-line"></i>
-              <span>PDF</span>
+              <span>9页</span>
             </div>
           </div>
           <div class="survey-download-action">
             <i class="ri-download-2-line"></i>
-            <span>下载完整报告</span>
+            <span>下载PDF</span>
           </div>
         </a>
+        
+        <div class="disclaimer-content">
+          <i class="ri-information-line"></i>
+          <p>本页面部分功能示例、角色设定与场景内容为 Petogether 团队概念化呈现；数据依据《2025年中国宠物行业白皮书》《全球宠物旅行服务市场研究报告》等行业资料以及 313 份自有调研结果综合整理，仅用于方案展示。</p>
+        </div>
       </div>
     </div>
   </section>
@@ -2518,4 +2538,16 @@
     }
 
     // 显示/隐藏回到顶部按钮
-    window.addEventListener('scroll', function()
+    window.addEventListener('scroll', function() {
+      const backToTop = document.getElementById('backToTop');
+      
+      if (window.scrollY > 300) {
+        backToTop.classList.add('show');
+      } else {
+        backToTop.classList.remove('show');
+      }
+    });
+  </script>
+
+</body>
+</html>
