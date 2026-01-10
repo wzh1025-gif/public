@@ -266,6 +266,31 @@ body {
     box-shadow: 0 20px 60px rgba(42, 75, 141, 0.2);
 }
 
+/* 轮播优化 */
+.carousel-item img {
+    filter: brightness(0.7);
+    transition: all 0.5s;
+}
+.carousel-item:hover img {
+    filter: brightness(0.5);
+}
+.carousel-caption {
+    text-align: left;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+.carousel-control-prev,
+.carousel-control-next {
+    width: 8%;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+#featuredCarousel:hover .carousel-control-prev,
+#featuredCarousel:hover .carousel-control-next {
+    opacity: 1;
+}
+
 /* 作品集网格 */
 .filter-buttons {
     display: flex;
@@ -296,34 +321,39 @@ body {
     box-shadow: 0 4px 15px rgba(42, 75, 141, 0.4);
 }
 .portfolio-grid {
-    column-count: 2;
-    column-gap: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
 }
-@media (min-width: 992px) {
+@media (max-width: 768px) {
     .portfolio-grid {
-        column-count: 3;
+        grid-template-columns: 1fr;
     }
 }
 .work-item {
-    break-inside: avoid;
-    margin-bottom: 20px;
     border-radius: 20px;
     overflow: hidden;
     position: relative;
     cursor: pointer;
     border: 1px solid var(--border);
     transition: all 0.3s;
+    display: none;
+}
+.work-item.show {
+    display: block;
 }
 .work-item:hover {
     border-color: var(--accent);
 }
 .work-item img {
     width: 100%;
+    height: 300px;
+    object-fit: cover;
     display: block;
     transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1);
 }
 .work-item:hover img {
-    transform: scale(1.1) rotate(1deg);
+    transform: scale(1.1);
     filter: brightness(0.4);
 }
 .work-overlay {
@@ -351,6 +381,27 @@ body {
     text-transform: uppercase;
     margin-bottom: 10px;
     width: fit-content;
+}
+
+/* 加载更多按钮 */
+.load-more-btn {
+    background: var(--glass);
+    border: 2px solid var(--border);
+    color: var(--text-primary);
+    padding: 15px 40px;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+.load-more-btn:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(42, 75, 141, 0.3);
+}
+.load-more-btn.hidden {
+    display: none;
 }
 
 /* 学术部分 - 优化为暗色调统一 */
@@ -549,6 +600,47 @@ footer {
     border-top: 1px solid var(--border);
 }
 
+/* 返回顶部按钮 */
+.back-to-top {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-light));
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px) rotate(0deg);
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    z-index: 999;
+    box-shadow: 0 8px 30px rgba(42, 75, 141, 0.4);
+}
+.back-to-top:hover {
+    transform: translateY(-5px) rotate(-10deg) scale(1.1);
+    box-shadow: 0 15px 50px rgba(42, 75, 141, 0.6);
+    background: linear-gradient(135deg, var(--accent-light), var(--accent));
+}
+.back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) rotate(0deg);
+}
+.back-to-top i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: rocket-bounce 2s ease-in-out infinite;
+}
+@keyframes rocket-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
 /* 工具类 */
 .py-100 {
     padding: 100px 0;
@@ -582,9 +674,6 @@ footer {
     .bento-card {
         padding: 30px;
     }
-    .portfolio-grid {
-        column-count: 2;
-    }
     .filter-buttons {
         justify-content: center;
     }
@@ -604,6 +693,58 @@ footer {
     }
     .contact-method-item {
         padding: 15px;
+    }
+    .carousel-item img {
+        height: 300px !important;
+    }
+    .work-item img {
+        height: 250px;
+    }
+    
+    /* 🎯 借鉴Gemini：移动端横向滑动优化 */
+    .portfolio-grid {
+        display: flex !important;
+        overflow-x: auto;
+        gap: 15px;
+        padding: 10px 5px 30px 5px;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none; /* 隐藏滚动条 */
+        -webkit-overflow-scrolling: touch; /* iOS平滑滚动 */
+    }
+    .portfolio-grid::-webkit-scrollbar {
+        display: none; /* 隐藏滚动条 */
+    }
+    .work-item {
+        min-width: 280px !important;
+        max-width: 280px !important;
+        scroll-snap-align: start;
+        flex-shrink: 0;
+    }
+    .work-item img {
+        height: 350px !important;
+        object-fit: cover;
+    }
+    /* 加载更多按钮在移动端隐藏 */
+    .load-more-btn {
+        display: none;
+    }
+    /* 精选轮播高度调整 */
+    #featuredCarousel .carousel-item img {
+        height: 300px !important;
+    }
+    #featuredCarousel .carousel-caption {
+        padding: 20px !important;
+    }
+    #featuredCarousel .carousel-caption h3 {
+        font-size: 1.2rem;
+    }
+    /* 返回顶部按钮移动端优化 */
+    .back-to-top {
+        width: 48px;
+        height: 48px;
+        bottom: 20px;
+        right: 20px;
+        font-size: 1.2rem;
     }
 }
 </style>
@@ -627,14 +768,19 @@ footer {
     </div>
 </nav>
 
+<!-- 返回顶部按钮 -->
+<button id="backToTop" class="back-to-top" aria-label="返回顶部">
+    <i class="bi bi-rocket-takeoff"></i>
+</button>
+
 <section class="hero">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-8" data-aos="fade-up">
-                <span class="hero-tag">MBA / Media Strategist / Creator</span>
-                <h1 class="hero-h1">在算法中寻找温度<br>用数据重构价值<br><span>Making Media Human.</span></h1>
+                <span class="hero-tag">Multimedia Journalist / Media Researcher / Content Producer</span>
+                <h1 class="hero-h1">在算法中寻找温度<br>用数据重构价值<br><span>Decoding Traffic, Reconstructing Value.</span></h1>
                 <p class="lead text-secondary mb-5 col-lg-10">
-                    拥有5年实战经验的前南昌广播电视台全媒体记者。从单条视频1400万+浏览量的《白鹭王国》,到累计全网传播破1.5亿的深度叙事,我擅长用PR/AE的技术理性辅助新闻专业主义的感性,打造现象级报道。如今,我带着对行业变革的思考转身向学,致力于在AI人机协作边界、XR文化遗产复活及老年传播、情绪传播等前沿领域,探索传媒产业的下一个增长极。我不满足于做单纯的"爆款制造者",更致力于成为算法时代下,用学术逻辑解构流量、用商业思维重塑传媒的长期主义者。
+                    拥有5年南昌广播电视台全媒体记者工作经验。从单条视频1400万+浏览量的《白鹭王国》，到累计全网传播破1.5亿的深度叙事，我擅长用技术理性辅助新闻专业主义的感性，打造现象级报道。如今，我带着对行业变革的思考转身向学，致力于在AI、XR、情绪传播等前沿领域，探索传媒产业的下一个增长极。我不满足于做单纯的"爆款制造者"，更致力于成为算法时代下，用学术逻辑解构流量、用商业思维重塑传媒的长期主义者。
                 </p>
                 <div class="d-flex gap-4 align-items-center flex-wrap">
                     <a href="#projects" class="btn btn-accent">探索作品集</a>
@@ -687,24 +833,7 @@ footer {
     </div>
 </section>
 
-<section id="projects" class="py-100">
-    <div class="container">
-        <div class="row g-4 mb-5">
-            <div class="col-lg-8" data-aos="fade-up">
-                <div class="bento-card">
-                    <div class="d-flex justify-content-between mb-4">
-                        <span class="badge rounded-pill border border-secondary text-secondary">Featured Case Study</span>
-                        <i class="bi bi-arrow-up-right text-secondary"></i>
-                    </div>
-                    <h2 class="fw-bold mb-3">宠游伴 · Petogether</h2>
-                    <p class="text-secondary mb-4 col-lg-9">
-                        在调研了313位养宠人士后,我们听到了同一个声音:"我想带它去旅行,但我不敢。"很多时候,传统的OTA平台只给了我们一个冷冰冰的"允许携带宠物"标签。<br><br>
-                        为了解决这个"最后1公里"的信任问题,我们创立了宠游伴 (Petogether)。这是一个专注"人宠共生"生活方式的垂直社区。我们不做泛泛的信息聚合,而是通过严格的实地验证和短视频内容,为您过滤掉所有的"伪友好"。<br><br>
-                        我们不仅提供一张床位,更提供一套完整的出行解决方案。我们相信,旅行的意义,在于全家人整整齐齐,一个都不能少。
-                    </p>
-                    <a href="petogether.html" class="btn btn-outline-light rounded-pill px-4 btn-sm">深度复盘报告</a>
-                    <div class="mt-5 pt-4">
-                        <img src="assets/new%20media%20projects3.png" class="img-fluid rounded-4 shadow-lg" alt="Petogether Project" style="border: 1px solid var(--border);">
+;">
                     </div>
                 </div>
             </div>
@@ -732,19 +861,142 @@ footer {
             </div>
         </div>
 
-        <div class="d-flex justify-content-between align-items-center mb-5 flex-wrap gap-3">
-            <h5 class="text-secondary fw-bold text-uppercase mb-0" style="letter-spacing: 2px;">
-                Works Gallery / 精选作品库
+        <!-- 精选作品轮播 -->
+        <div class="mb-5" data-aos="fade-up">
+            <h5 class="text-secondary fw-bold text-uppercase mb-4" style="letter-spacing: 2px;">
+                <i class="bi bi-stars me-2"></i>Featured Works / 精选作品
             </h5>
-            <div class="filter-buttons">
-                <button class="filter-btn active" data-filter="*">全部</button>
-                <button class="filter-btn" data-filter=".breaking">突发 Breaking</button>
-                <button class="filter-btn" data-filter=".public">民生 Public</button>
-                <button class="filter-btn" data-filter=".profile">特写 Profile</button>
-                <button class="filter-btn" data-filter=".event">事件 Event</button>
-                <button class="filter-btn" data-filter=".live">直播 Live</button>
+            <div id="featuredCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#featuredCarousel" data-bs-slide-to="0" class="active"></button>
+                    <button type="button" data-bs-target="#featuredCarousel" data-bs-slide-to="1"></button>
+                    <button type="button" data-bs-target="#featuredCarousel" data-bs-slide-to="2"></button>
+                    <button type="button" data-bs-target="#featuredCarousel" data-bs-slide-to="3"></button>
+                    <button type="button" data-bs-target="#featuredCarousel" data-bs-slide-to="4"></button>
+                    <button type="button" data-bs-target="#featuredCarousel" data-bs-slide-to="5"></button>
+                    <button type="button" data-bs-target="#featuredCarousel" data-bs-slide-to="6"></button>
+                    <button type="button" data-bs-target="#featuredCarousel" data-bs-slide-to="7"></button>
+                </div>
+                <div class="carousel-inner rounded-4 overflow-hidden" style="border: 1px solid var(--border);">
+                    <!-- 1. 新华社转载：捕鱼人 -->
+                    <div class="carousel-item active">
+                        <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/9684591?channel=weixin" target="_blank" class="text-decoration-none">
+                            <img src="assets/Public01.png" class="d-block w-100" alt="捕鱼人" style="height: 500px; object-fit: cover;">
+                            <div class="carousel-caption" style="background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 40px 20px;">
+                                <span class="badge bg-success mb-2">新华社转载 · 深度报道</span>
+                                <h3 class="fw-bold">上岸了,这些捕鱼人成了养鱼人</h3>
+                                <p class="mb-0">生态转型的深度叙事 · 全网热议</p>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <!-- 2. 学习强国：黑鹳现身 -->
+                    <div class="carousel-item">
+                        <a href="https://article.xuexi.cn/articles/index.html?art_id=10539520634142671440" target="_blank" class="text-decoration-none">
+                            <img src="assets/Public05.png" class="d-block w-100" alt="黑鹳" style="height: 500px; object-fit: cover;">
+                            <div class="carousel-caption" style="background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 40px 20px;">
+                                <span class="badge bg-success mb-2">学习强国推荐 · 生态报道</span>
+                                <h3 class="fw-bold">"鸟中大熊猫"黑鹳现身大汊湖</h3>
+                                <p class="mb-0">在算法中寻找自然的温度</p>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <!-- 3. 人物特写：最美民警 -->
+                    <div class="carousel-item">
+                        <a href="https://article.xuexi.cn/articles/index.html?art_id=9452145926970099827" target="_blank" class="text-decoration-none">
+                            <img src="assets/profile01.png" class="d-block w-100" alt="邓金海" style="height: 500px; object-fit: cover;">
+                            <div class="carousel-caption" style="background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 40px 20px;">
+                                <span class="badge bg-primary mb-2">人物特写 · 学习强国</span>
+                                <h3 class="fw-bold">"最美基层民警"邓金海</h3>
+                                <p class="mb-0">朴实的藏蓝里,埋藏对群众的真情</p>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <!-- 4. 突发事件：防汛救援 -->
+                    <div class="carousel-item">
+                        <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/9262544?channel=weixin" target="_blank" class="text-decoration-none">
+                            <img src="assets/Event 01.png" class="d-block w-100" alt="回乡防汛" style="height: 500px; object-fit: cover;">
+                            <div class="carousel-caption" style="background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 40px 20px;">
+                                <span class="badge bg-danger mb-2">突发事件 · 紧急救援</span>
+                                <h3 class="fw-bold">休假不休战!铁血战士回乡防汛</h3>
+                                <p class="mb-0">责任担当 · 与灾害的赛跑</p>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <!-- 5. 生命救援：公交急救 -->
+                    <div class="carousel-item">
+                        <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/9690078?channel=weixin" target="_blank" class="text-decoration-none">
+                            <img src="assets/Breaking02.png" class="d-block w-100" alt="公交急救" style="height: 500px; object-fit: cover;">
+                            <div class="carousel-caption" style="background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 40px 20px;">
+                                <span class="badge bg-warning mb-2">生命救援 · 温情报道</span>
+                                <h3 class="fw-bold">危急!这辆公交车要直奔医院……</h3>
+                                <p class="mb-0">与时间赛跑的生命接力</p>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <!-- 6. 民生特写：长者饭堂 -->
+                    <div class="carousel-item">
+                        <a href="https://article.xuexi.cn/articles/index.html?art_id=5064583530809808863" target="_blank" class="text-decoration-none">
+                            <img src="assets/profile03.png" class="d-block w-100" alt="长者饭" style="height: 500px; object-fit: cover;">
+                            <div class="carousel-caption" style="background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 40px 20px;">
+                                <span class="badge bg-info mb-2">民生特写 · 学习强国</span>
+                                <h3 class="fw-bold">一碗"长者饭"飘出幸福邻里情</h3>
+                                <p class="mb-0">社区温度的记录者</p>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <!-- 7. 高额年终奖：种粮大户 -->
+                    <div class="carousel-item">
+                        <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/10527065?channel=weixin" target="_blank" class="text-decoration-none">
+                            <img src="assets/Public06.png" class="d-block w-100" alt="年终奖" style="height: 500px; object-fit: cover;">
+                            <div class="carousel-caption" style="background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 40px 20px;">
+                                <span class="badge bg-warning mb-2">民生热点 · 高流量报道</span>
+                                <h3 class="fw-bold">别人家的年终奖!486万元现金</h3>
+                                <p class="mb-0">江西种粮大户的致富故事</p>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <!-- 8. 抗疫系列：天使日记 -->
+                    <div class="carousel-item">
+                        <a href="https://h.xinhuaxmt.com/vh512/share/11352820?d=134b03c" target="_blank" class="text-decoration-none">
+                            <img src="assets/Event 04.png" class="d-block w-100" alt="抗疫" style="height: 500px; object-fit: cover;">
+                            <div class="carousel-caption" style="background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 40px 20px;">
+                                <span class="badge bg-danger mb-2">系列报道 · 疫情纪实</span>
+                                <h3 class="fw-bold">共同的战"疫" · 天使日记</h3>
+                                <p class="mb-0">记录时代的温度与力量</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#featuredCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#featuredCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
             </div>
         </div>
+
+        <div class="d-flex justify-content-between align-items-center mb-5 flex-wrap gap-3">
+            <h5 class="text-secondary fw-bold text-uppercase mb-0" style="letter-spacing: 2px;">
+                Works Gallery / 作品分类
+            </h5>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="breaking">突发 Breaking</button>
+                <button class="filter-btn" data-filter="public">民生 Public</button>
+                <button class="filter-btn" data-filter="profile">特写 Profile</button>
+                <button class="filter-btn" data-filter="event">事件 Event</button>
+            </div>
+        </div>
+        
         <div class="portfolio-grid" id="portfolioGrid">
             <!-- Breaking 突发 (7个) -->
             <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/9670899?isview=1&homeshow=1&newstype=1115" target="_blank" class="work-item breaking" data-aos="zoom-in">
@@ -805,7 +1057,7 @@ footer {
                 </div>
             </a>
             
-            <a href="https://article.xuexi.cn/articles/index.html?art_id=12900439493159857558&t=1603271140916&showmenu=false&study_style_id=video_default&source=share&share_to=wx_single&item_id=12900439493159857558&ref_read_id=4bd17822-1339-4d5f-80ab-e451aa6ae40c_160329877337" target="_blank" class="work-item public" data-aos="zoom-in" data-aos-delay="50">
+            <a href="https://article.xuexi.cn/articles/index.html?art_id=12900439493159857558" target="_blank" class="work-item public" data-aos="zoom-in" data-aos-delay="50">
                 <img src="assets/Public02.png" alt="水果身份证">
                 <div class="work-overlay">
                     <span class="work-tag">民生 Public</span>
@@ -813,7 +1065,7 @@ footer {
                 </div>
             </a>
             
-            <a href="https://article.xuexi.cn/articles/index.html?art_id=8357176110698422438&t=1602904116643&showmenu=false&study_style_id=video_default&source=share&share_to=wx_single&item_id=8357176110698422438&ref_read_id=b5150817-47fc-44f6-be6f-cdc9597e08e3_1602952190500" target="_blank" class="work-item public" data-aos="zoom-in" data-aos-delay="100">
+            <a href="https://article.xuexi.cn/articles/index.html?art_id=8357176110698422438" target="_blank" class="work-item public" data-aos="zoom-in" data-aos-delay="100">
                 <img src="assets/Public03.png" alt="智慧病房">
                 <div class="work-overlay">
                     <span class="work-tag">民生 Public</span>
@@ -821,7 +1073,7 @@ footer {
                 </div>
             </a>
             
-            <a href="https://article.xuexi.cn/articles/index.html?art_id=17901250841551066672&t=1602570846844&showmenu=false&study_style_id=video_default&source=share&share_to=wx_single&item_id=17901250841551066672&ref_read_id=00bcf1f7-f49d-4eea-9af4-d08a8b8722ea_160260581877" target="_blank" class="work-item public" data-aos="zoom-in" data-aos-delay="150">
+            <a href="https://article.xuexi.cn/articles/index.html?art_id=17901250841551066672" target="_blank" class="work-item public" data-aos="zoom-in" data-aos-delay="150">
                 <img src="assets/Public04.png" alt="高标准农田">
                 <div class="work-overlay">
                     <span class="work-tag">民生 Public</span>
@@ -829,7 +1081,7 @@ footer {
                 </div>
             </a>
             
-            <a href="https://article.xuexi.cn/articles/index.html?art_id=10539520634142671440&t=1638843551681&showmenu=false&study_style_id=video_default&source=share&share_to=wx_single&item_id=10539520634142671440&ref_read_id=2c929f72-2c3e-47a7-90d8-69f78e8d6dd5_164127582035" target="_blank" class="work-item public" data-aos="zoom-in" data-aos-delay="200">
+            <a href="https://article.xuexi.cn/articles/index.html?art_id=10539520634142671440" target="_blank" class="work-item public" data-aos="zoom-in" data-aos-delay="200">
                 <img src="assets/Public05.png" alt="黑鹳">
                 <div class="work-overlay">
                     <span class="work-tag">民生 Public</span>
@@ -870,7 +1122,7 @@ footer {
             </a>
 
             <!-- Profile 特写 (6个) -->
-            <a href="https://article.xuexi.cn/articles/index.html?art_id=9452145926970099827&t=1610251326384&showmenu=false&study_style_id=video_default&source=share&share_to=wx_single&item_id=9452145926970099827&ref_read_id=58d8efb5-579b-43f0-bdb2-0e180d63634a_1610285088510" target="_blank" class="work-item profile" data-aos="zoom-in">
+            <a href="https://article.xuexi.cn/articles/index.html?art_id=9452145926970099827" target="_blank" class="work-item profile" data-aos="zoom-in">
                 <img src="assets/profile01.png" alt="邓金海">
                 <div class="work-overlay">
                     <span class="work-tag">特写 Profile</span>
@@ -878,7 +1130,7 @@ footer {
                 </div>
             </a>
             
-            <a href="https://article.xuexi.cn/articles/index.html?art_id=11485252614120153378&t=1610251326285&showmenu=false&study_style_id=video_default&source=share&share_to=wx_single&item_id=11485252614120153378&ref_read_id=64d64b16-d852-46d6-bbba-e82e3dfb090e_161028503043" target="_blank" class="work-item profile" data-aos="zoom-in" data-aos-delay="50">
+            <a href="https://article.xuexi.cn/articles/index.html?art_id=11485252614120153378" target="_blank" class="work-item profile" data-aos="zoom-in" data-aos-delay="50">
                 <img src="assets/profile02.png" alt="曾洁林">
                 <div class="work-overlay">
                     <span class="work-tag">特写 Profile</span>
@@ -886,7 +1138,7 @@ footer {
                 </div>
             </a>
             
-            <a href="https://article.xuexi.cn/articles/index.html?art_id=5064583530809808863&t=1639272479399&showmenu=false&study_style_id=video_default&source=share&share_to=wx_single&item_id=5064583530809808863&ref_read_id=be6383a1-9d30-41cb-af4a-4d981aa20d73_1643346768073" target="_blank" class="work-item profile" data-aos="zoom-in" data-aos-delay="100">
+            <a href="https://article.xuexi.cn/articles/index.html?art_id=5064583530809808863" target="_blank" class="work-item profile" data-aos="zoom-in" data-aos-delay="100">
                 <img src="assets/profile03.png" alt="长者饭">
                 <div class="work-overlay">
                     <span class="work-tag">特写 Profile</span>
@@ -951,57 +1203,416 @@ footer {
                     <p class="small mb-0">疫情系列《天使日记》</p>
                 </div>
             </a>
+        </div>
 
-            <!-- Live 直播 (6个,无外链) -->
-            <div class="work-item live" data-aos="zoom-in">
-                <img src="assets/Live01.jpg" alt="五一直播">
-                <div class="work-overlay">
-                    <span class="work-tag">直播 Live</span>
-                    <h6 class="fw-bold">五一去哪儿玩</h6>
-                    <p class="small mb-0">大型直播策划</p>
+        <!-- 加载更多按钮 -->
+        <div class="text-center mt-5">
+            <button class="load-more-btn" id="loadMoreBtn">
+                <i class="bi bi-plus-circle me-2"></i>加载更多作品
+            </button>
+        </div>
+    </div>
+</section>
+
+<section id="projects" class="py-100">
+    <div class="container">
+        <!-- Petogether大卡片 + 两个小卡片 -->
+        <div class="row g-4 mb-5">
+            <div class="col-lg-8" data-aos="fade-up">
+                <div class="bento-card">
+                    <div class="d-flex justify-content-between mb-4">
+                        <span class="badge rounded-pill border border-secondary text-secondary">Featured Case Study</span>
+                        <i class="bi bi-arrow-up-right text-secondary"></i>
+                    </div>
+                    <h2 class="fw-bold mb-3">宠游伴 · Petogether</h2>
+                    <p class="text-secondary mb-4 col-lg-9">
+                        在调研了313位养宠人士后,我们听到了同一个声音:"我想带它去旅行,但我不敢。"很多时候,传统的OTA平台只给了我们一个冷冰冰的"允许携带宠物"标签。<br><br>
+                        为了解决这个"最后1公里"的信任问题,我们创立了宠游伴 (Petogether)。这是一个专注"人宠共生"生活方式的垂直社区。我们不做泛泛的信息聚合,而是通过严格的实地验证和短视频内容,为您过滤掉所有的"伪友好"。<br><br>
+                        我们不仅提供一张床位,更提供一套完整的出行解决方案。我们相信,旅行的意义,在于全家人整整齐齐,一个都不能少。
+                    </p>
+                    <a href="petogether.html" class="btn btn-outline-light rounded-pill px-4 btn-sm">深度复盘报告</a>
+                    <div class="mt-5 pt-4">
+                        <img src="assets/pets/case-scenic-1.png" 
+                             onerror="this.src='assets/new media projects3.png'" 
+                             class="img-fluid rounded-4 shadow-lg" 
+                             alt="Petogether Project" 
+                             style="border: 1px solid var(--border); max-height: 400px; object-fit: cover;">
+                    </div>
                 </div>
             </div>
+            <div class="col-lg-4">
+                <div class="row g-4 h-100">
+                    <div class="col-12" data-aos="fade-left">
+                        <div class="bento-card">
+                            <h4 class="fw-bold mb-3">CreatorEase Pro 平台</h4>
+                            <p class="small text-secondary mb-4">
+                                专为新媒体人打造的轻量级生产力工作台。通过数据驱动的标题生成、全方位的文案合规性扫描以及多平台分发建议,我们将复杂的创作流程转化为简单高效的逻辑决策,助力每一位创作者在算法时代精准捕捉流量。纯静态运行,隐私数据不上传,让您的创作更安全、更高效。
+                            </p>
+                            <span class="text-accent fw-bold small">VIEW PROJECT →</span>
+                        </div>
+                    </div>
+                    <div class="col-12" data-aos="fade-left" data-aos-delay="100">
+                        <div class="bento-card">
+                            <h4 class="fw-bold mb-3">CyberSeed 赛博种子</h4>
+                            <p class="small text-secondary mb-4">
+                                这是一个连接算法逻辑与生活诗意的创作者实验室。我们通过「赛博抽签」从近百件生活小事中为你捕捉创作契机,辅以专业级合规扫描与标题引擎,将破碎的灵感瞬间转化为高质感的内容产出。在这里,每一次随机抽取,都是一场预谋已久的创作实验。
+                            </p>
+                            <span class="text-accent fw-bold small">EXPLORE LAB →</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 精选作品轮播 -->
+        <div class="mb-5" data-aos="fade-up">
+            <h5 class="text-secondary fw-bold text-uppercase mb-4" style="letter-spacing: 2px;">
+                <i class="bi bi-stars me-2"></i>Featured Works / 精选作品
+            </h5>
+            <div id="featuredCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#featuredCarousel" data-bs-slide-to="0" class="active"></button>
+                    <button type="button" data-bs-target="#featuredCarousel" data-bs-slide-to="1"></button>
+                    <button type="button" data-bs-target="#featuredCarousel" data-bs-slide-to="2"></button>
+                    <button type="button" data-bs-target="#featuredCarousel" data-bs-slide-to="3"></button>
+                    <button type="button" data-bs-target="#featuredCarousel" data-bs-slide-to="4"></button>
+                    <button type="button" data-bs-target="#featuredCarousel" data-bs-slide-to="5"></button>
+                    <button type="button" data-bs-target="#featuredCarousel" data-bs-slide-to="6"></button>
+                    <button type="button" data-bs-target="#featuredCarousel" data-bs-slide-to="7"></button>
+                </div>
+                <div class="carousel-inner rounded-4 overflow-hidden" style="border: 1px solid var(--border);">
+                    <!-- 1. 新华社转载：捕鱼人 -->
+                    <div class="carousel-item active">
+                        <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/9684591?channel=weixin" target="_blank" class="text-decoration-none">
+                            <img src="assets/Public01.png" class="d-block w-100" alt="捕鱼人" style="height: 500px; object-fit: cover;">
+                            <div class="carousel-caption" style="background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 40px 20px;">
+                                <span class="badge bg-success mb-2">新华社转载 · 深度报道</span>
+                                <h3 class="fw-bold">上岸了,这些捕鱼人成了养鱼人</h3>
+                                <p class="mb-0">生态转型的深度叙事 · 全网热议</p>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <!-- 2. 学习强国：黑鹳现身 -->
+                    <div class="carousel-item">
+                        <a href="https://article.xuexi.cn/articles/index.html?art_id=10539520634142671440" target="_blank" class="text-decoration-none">
+                            <img src="assets/Public05.png" class="d-block w-100" alt="黑鹳" style="height: 500px; object-fit: cover;">
+                            <div class="carousel-caption" style="background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 40px 20px;">
+                                <span class="badge bg-success mb-2">学习强国推荐 · 生态报道</span>
+                                <h3 class="fw-bold">"鸟中大熊猫"黑鹳现身大汊湖</h3>
+                                <p class="mb-0">在算法中寻找自然的温度</p>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <!-- 3. 人物特写：最美民警 -->
+                    <div class="carousel-item">
+                        <a href="https://article.xuexi.cn/articles/index.html?art_id=9452145926970099827" target="_blank" class="text-decoration-none">
+                            <img src="assets/profile01.png" class="d-block w-100" alt="邓金海" style="height: 500px; object-fit: cover;">
+                            <div class="carousel-caption" style="background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 40px 20px;">
+                                <span class="badge bg-primary mb-2">人物特写 · 学习强国</span>
+                                <h3 class="fw-bold">"最美基层民警"邓金海</h3>
+                                <p class="mb-0">朴实的藏蓝里,埋藏对群众的真情</p>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <!-- 4. 突发事件：防汛救援 -->
+                    <div class="carousel-item">
+                        <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/9262544?channel=weixin" target="_blank" class="text-decoration-none">
+                            <img src="assets/Event 01.png" class="d-block w-100" alt="回乡防汛" style="height: 500px; object-fit: cover;">
+                            <div class="carousel-caption" style="background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 40px 20px;">
+                                <span class="badge bg-danger mb-2">突发事件 · 紧急救援</span>
+                                <h3 class="fw-bold">休假不休战!铁血战士回乡防汛</h3>
+                                <p class="mb-0">责任担当 · 与灾害的赛跑</p>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <!-- 5. 生命救援：公交急救 -->
+                    <div class="carousel-item">
+                        <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/9690078?channel=weixin" target="_blank" class="text-decoration-none">
+                            <img src="assets/Breaking02.png" class="d-block w-100" alt="公交急救" style="height: 500px; object-fit: cover;">
+                            <div class="carousel-caption" style="background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 40px 20px;">
+                                <span class="badge bg-warning mb-2">生命救援 · 温情报道</span>
+                                <h3 class="fw-bold">危急!这辆公交车要直奔医院……</h3>
+                                <p class="mb-0">与时间赛跑的生命接力</p>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <!-- 6. 民生特写：长者饭堂 -->
+                    <div class="carousel-item">
+                        <a href="https://article.xuexi.cn/articles/index.html?art_id=5064583530809808863" target="_blank" class="text-decoration-none">
+                            <img src="assets/profile03.png" class="d-block w-100" alt="长者饭" style="height: 500px; object-fit: cover;">
+                            <div class="carousel-caption" style="background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 40px 20px;">
+                                <span class="badge bg-info mb-2">民生特写 · 学习强国</span>
+                                <h3 class="fw-bold">一碗"长者饭"飘出幸福邻里情</h3>
+                                <p class="mb-0">社区温度的记录者</p>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <!-- 7. 高额年终奖：种粮大户 -->
+                    <div class="carousel-item">
+                        <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/10527065?channel=weixin" target="_blank" class="text-decoration-none">
+                            <img src="assets/Public06.png" class="d-block w-100" alt="年终奖" style="height: 500px; object-fit: cover;">
+                            <div class="carousel-caption" style="background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 40px 20px;">
+                                <span class="badge bg-warning mb-2">民生热点 · 高流量报道</span>
+                                <h3 class="fw-bold">别人家的年终奖!486万元现金</h3>
+                                <p class="mb-0">江西种粮大户的致富故事</p>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <!-- 8. 抗疫系列：天使日记 -->
+                    <div class="carousel-item">
+                        <a href="https://h.xinhuaxmt.com/vh512/share/11352820?d=134b03c" target="_blank" class="text-decoration-none">
+                            <img src="assets/Event 04.png" class="d-block w-100" alt="抗疫" style="height: 500px; object-fit: cover;">
+                            <div class="carousel-caption" style="background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 40px 20px;">
+                                <span class="badge bg-danger mb-2">系列报道 · 疫情纪实</span>
+                                <h3 class="fw-bold">共同的战"疫" · 天使日记</h3>
+                                <p class="mb-0">记录时代的温度与力量</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#featuredCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#featuredCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mb-5 flex-wrap gap-3">
+            <h5 class="text-secondary fw-bold text-uppercase mb-0" style="letter-spacing: 2px;">
+                Works Gallery / 作品分类
+            </h5>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="breaking">突发 Breaking</button>
+                <button class="filter-btn" data-filter="public">民生 Public</button>
+                <button class="filter-btn" data-filter="profile">特写 Profile</button>
+                <button class="filter-btn" data-filter="event">事件 Event</button>
+            </div>
+        </div>
+        
+        <div class="portfolio-grid" id="portfolioGrid">
+            <!-- Breaking 突发 (6个) -->
+            <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/9670899?isview=1&homeshow=1&newstype=1115" target="_blank" class="work-item breaking" data-aos="zoom-in">
+                <img src="assets/Breaking01.png" alt="宠物狗陪驾">
+                <div class="work-overlay">
+                    <span class="work-tag">突发 Breaking</span>
+                    <h6 class="fw-bold">宠物狗这样"陪驾"不可取,有危险!</h6>
+                </div>
+            </a>
             
-            <div class="work-item live" data-aos="zoom-in" data-aos-delay="50">
-                <img src="assets/Live02.jpg" alt="赏荷直播">
+            <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/9690078?channel=weixin" target="_blank" class="work-item breaking" data-aos="zoom-in" data-aos-delay="50">
+                <img src="assets/Breaking02.png" alt="公交急救">
                 <div class="work-overlay">
-                    <span class="work-tag">直播 Live</span>
-                    <h6 class="fw-bold">赏荷田 尝莲子 村民增收日子甜</h6>
+                    <span class="work-tag">突发 Breaking</span>
+                    <h6 class="fw-bold">危急!这辆公交车要直奔医院……</h6>
                 </div>
-            </div>
+            </a>
             
-            <div class="work-item live" data-aos="zoom-in" data-aos-delay="100">
-                <img src="assets/Live03.jpg" alt="端午直播">
+            <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/9237912?channel=weixin" target="_blank" class="work-item breaking" data-aos="zoom-in" data-aos-delay="100">
+                <img src="assets/Breaking03.png" alt="女童送医">
                 <div class="work-overlay">
-                    <span class="work-tag">直播 Live</span>
-                    <h6 class="fw-bold">五月五 是端阳</h6>
+                    <span class="work-tag">突发 Breaking</span>
+                    <h6 class="fw-bold">4岁女童突发疾病 高速交警紧急送医</h6>
                 </div>
-            </div>
+            </a>
             
-            <div class="work-item live" data-aos="zoom-in" data-aos-delay="150">
-                <img src="assets/Live04.jpg" alt="英雄马">
+            <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/9263019?channel=weixin" target="_blank" class="work-item breaking" data-aos="zoom-in" data-aos-delay="150">
+                <img src="assets/Breaking04.png" alt="高速险情">
                 <div class="work-overlay">
-                    <span class="work-tag">直播 Live</span>
-                    <h6 class="fw-bold">一起认识我们的"英雄马"</h6>
+                    <span class="work-tag">突发 Breaking</span>
+                    <h6 class="fw-bold">高速上S形急行走位?真相后惊出一身冷汗</h6>
                 </div>
-            </div>
+            </a>
             
-            <div class="work-item live" data-aos="zoom-in" data-aos-delay="200">
-                <img src="assets/Live05.jpg" alt="快件中心">
+            <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/10292478" target="_blank" class="work-item breaking" data-aos="zoom-in" data-aos-delay="200">
+                <img src="assets/Breaking05.png" alt="救助凤头鹰">
                 <div class="work-overlay">
-                    <span class="work-tag">直播 Live</span>
-                    <h6 class="fw-bold">记者带你揭秘快件分拨中心</h6>
+                    <span class="work-tag">突发 Breaking</span>
+                    <h6 class="fw-bold">受伤凤头鹰"空降"动物园 他们暖心救助</h6>
                 </div>
-            </div>
+            </a>
             
-            <div class="work-item live" data-aos="zoom-in" data-aos-delay="250">
-                <img src="assets/Live06.jpg" alt="迎新年">
+            <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/10043974?isview=1&homeshow=1&newstype=1001" target="_blank" class="work-item breaking" data-aos="zoom-in" data-aos-delay="250">
+                <img src="assets/Breaking06.png" alt="铁骑送考">
                 <div class="work-overlay">
-                    <span class="work-tag">直播 Live</span>
-                    <h6 class="fw-bold">迎2021第一缕阳光</h6>
-                    <p class="small mb-0">联合央视·学习强国</p>
+                    <span class="work-tag">突发 Breaking</span>
+                    <h6 class="fw-bold">赶考途中遇堵车 铁骑交警火速送考</h6>
                 </div>
-            </div>
+            </a>
+
+            <!-- Public 民生 (9个) -->
+            <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/9684591?channel=weixin" target="_blank" class="work-item public" data-aos="zoom-in">
+                <img src="assets/Public01.png" alt="捕鱼人">
+                <div class="work-overlay">
+                    <span class="work-tag">民生 Public</span>
+                    <h6 class="fw-bold">上岸了,这些捕鱼人成了养鱼人</h6>
+                    <p class="small mb-0">新华社转载 · 深度报道</p>
+                </div>
+            </a>
+            
+            <a href="https://article.xuexi.cn/articles/index.html?art_id=12900439493159857558" target="_blank" class="work-item public" data-aos="zoom-in" data-aos-delay="50">
+                <img src="assets/Public02.png" alt="水果身份证">
+                <div class="work-overlay">
+                    <span class="work-tag">民生 Public</span>
+                    <h6 class="fw-bold">江西南昌:这些水果有了"身份证"</h6>
+                </div>
+            </a>
+            
+            <a href="https://article.xuexi.cn/articles/index.html?art_id=8357176110698422438" target="_blank" class="work-item public" data-aos="zoom-in" data-aos-delay="100">
+                <img src="assets/Public03.png" alt="智慧病房">
+                <div class="work-overlay">
+                    <span class="work-tag">民生 Public</span>
+                    <h6 class="fw-bold">南昌:智慧病房电子设备给住院病人带来方便</h6>
+                </div>
+            </a>
+            
+            <a href="https://article.xuexi.cn/articles/index.html?art_id=17901250841551066672" target="_blank" class="work-item public" data-aos="zoom-in" data-aos-delay="150">
+                <img src="assets/Public04.png" alt="高标准农田">
+                <div class="work-overlay">
+                    <span class="work-tag">民生 Public</span>
+                    <h6 class="fw-bold">江西安义:高标准农田粮食生产喜获丰收</h6>
+                </div>
+            </a>
+            
+            <a href="https://article.xuexi.cn/articles/index.html?art_id=10539520634142671440" target="_blank" class="work-item public" data-aos="zoom-in" data-aos-delay="200">
+                <img src="assets/Public05.png" alt="黑鹳">
+                <div class="work-overlay">
+                    <span class="work-tag">民生 Public</span>
+                    <h6 class="fw-bold">江西南昌:"鸟中大熊猫"黑鹳现身大汊湖</h6>
+                </div>
+            </a>
+            
+            <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/10527065?channel=weixin" target="_blank" class="work-item public" data-aos="zoom-in" data-aos-delay="250">
+                <img src="assets/Public06.png" alt="年终奖">
+                <div class="work-overlay">
+                    <span class="work-tag">民生 Public</span>
+                    <h6 class="fw-bold">别人家的年终奖!江西种粮大户给农民发放486万元现金</h6>
+                </div>
+            </a>
+            
+            <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/10328213" target="_blank" class="work-item public" data-aos="zoom-in">
+                <img src="assets/Public07.png" alt="3D巨幕">
+                <div class="work-overlay">
+                    <span class="work-tag">民生 Public</span>
+                    <h6 class="fw-bold">震撼!裸眼3D巨幕亮相南昌</h6>
+                </div>
+            </a>
+            
+            <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/10262139?isview=1&homeshow=1&newstype=1001" target="_blank" class="work-item public" data-aos="zoom-in" data-aos-delay="50">
+                <img src="assets/Public08.png" alt="社区食堂">
+                <div class="work-overlay">
+                    <span class="work-tag">民生 Public</span>
+                    <h6 class="fw-bold">南昌:社区办食堂 书记来下厨</h6>
+                </div>
+            </a>
+            
+            <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/9781087?isview=1&homeshow=1&newstype=1001" target="_blank" class="work-item public" data-aos="zoom-in" data-aos-delay="100">
+                <img src="assets/Public09.png" alt="寻宝探展">
+                <div class="work-overlay">
+                    <span class="work-tag">民生 Public</span>
+                    <h6 class="fw-bold">寻宝!探展!来这儿,"牛"转乾坤</h6>
+                </div>
+            </a>
+
+            <!-- Profile 特写 (6个) -->
+            <a href="https://article.xuexi.cn/articles/index.html?art_id=9452145926970099827" target="_blank" class="work-item profile" data-aos="zoom-in">
+                <img src="assets/profile01.png" alt="邓金海">
+                <div class="work-overlay">
+                    <span class="work-tag">特写 Profile</span>
+                    <h6 class="fw-bold">"最美基层民警"邓金海:朴实的藏蓝里,埋藏对群众的真情</h6>
+                </div>
+            </a>
+            
+            <a href="https://article.xuexi.cn/articles/index.html?art_id=11485252614120153378" target="_blank" class="work-item profile" data-aos="zoom-in" data-aos-delay="50">
+                <img src="assets/profile02.png" alt="曾洁林">
+                <div class="work-overlay">
+                    <span class="work-tag">特写 Profile</span>
+                    <h6 class="fw-bold">"最美基层民警"曾洁林:坚守一线的"钢板书记"</h6>
+                </div>
+            </a>
+            
+            <a href="https://article.xuexi.cn/articles/index.html?art_id=5064583530809808863" target="_blank" class="work-item profile" data-aos="zoom-in" data-aos-delay="100">
+                <img src="assets/profile03.png" alt="长者饭">
+                <div class="work-overlay">
+                    <span class="work-tag">特写 Profile</span>
+                    <h6 class="fw-bold">江西南昌青山湖区:一碗"长者饭"飘出幸福邻里情</h6>
+                </div>
+            </a>
+            
+            <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/10303865?isview=1&homeshow=1&newstype=1001" target="_blank" class="work-item profile" data-aos="zoom-in" data-aos-delay="150">
+                <img src="assets/profile04.png" alt="文化大集">
+                <div class="work-overlay">
+                    <span class="work-tag">特写 Profile</span>
+                    <h6 class="fw-bold">赶文化大集!走进"华夏笔都"</h6>
+                </div>
+            </a>
+            
+            <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/9742921" target="_blank" class="work-item profile" data-aos="zoom-in" data-aos-delay="200">
+                <img src="assets/profile05.png" alt="三栖生态员">
+                <div class="work-overlay">
+                    <span class="work-tag">特写 Profile</span>
+                    <h6 class="fw-bold">南昌"三栖"生态员 守护生态一方绿色</h6>
+                </div>
+            </a>
+            
+            <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/9752010?channel=weixin" target="_blank" class="work-item profile" data-aos="zoom-in" data-aos-delay="250">
+                <img src="assets/profile06.png" alt="肉鸽致富">
+                <div class="work-overlay">
+                    <span class="work-tag">特写 Profile</span>
+                    <h6 class="fw-bold">身残志坚:小小肉鸽"孵出"致富路</h6>
+                </div>
+            </a>
+
+            <!-- Event 事件 (4个) -->
+            <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/9262544?channel=weixin" target="_blank" class="work-item event" data-aos="zoom-in">
+                <img src="assets/Event 01.png" alt="回乡防汛">
+                <div class="work-overlay">
+                    <span class="work-tag">事件 Event</span>
+                    <h6 class="fw-bold">休假不休战!铁血战士回乡防汛</h6>
+                </div>
+            </a>
+            
+            <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/9969368" target="_blank" class="work-item event" data-aos="zoom-in" data-aos-delay="50">
+                <img src="assets/Event 02.png" alt="生命护航">
+                <div class="work-overlay">
+                    <span class="work-tag">事件 Event</span>
+                    <h6 class="fw-bold">优先起飞!他们为生命千里护航</h6>
+                </div>
+            </a>
+            
+            <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/10007128?channel=weixin" target="_blank" class="work-item event" data-aos="zoom-in" data-aos-delay="100">
+                <img src="assets/Event 03.png" alt="海关截获">
+                <div class="work-overlay">
+                    <span class="work-tag">事件 Event</span>
+                    <h6 class="fw-bold">别心存侥幸!南昌海关截获350粒"蓝精灵"</h6>
+                </div>
+            </a>
+            
+            <a href="https://h.xinhuaxmt.com/vh512/share/11352820?d=134b03c" target="_blank" class="work-item event" data-aos="zoom-in" data-aos-delay="150">
+                <img src="assets/Event 04.png" alt="抗疫">
+                <div class="work-overlay">
+                    <span class="work-tag">事件 Event</span>
+                    <h6 class="fw-bold">共同的战"疫"</h6>
+                    <p class="small mb-0">疫情系列《天使日记》</p>
+                </div>
+            </a>
+        </div>
+
+        <!-- 加载更多按钮 -->
+        <div class="text-center mt-5">
+            <button class="load-more-btn" id="loadMoreBtn">
+                <i class="bi bi-plus-circle me-2"></i>加载更多作品
+            </button>
         </div>
     </div>
 </section>
@@ -1065,7 +1676,8 @@ footer {
             </div>
         </div>
         
-                <div class="row g-4">
+        <div class="row g-4">
+            <!-- 1. 已发表 - 反转新闻 -->
             <div class="col-lg-6" data-aos="fade-up">
                 <div class="paper-item h-100">
                     <div class="d-flex justify-content-between align-items-start mb-3">
@@ -1083,6 +1695,7 @@ footer {
                 </div>
             </div>
             
+            <!-- 2. 已发表 - 拆盲盒直播 -->
             <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
                 <div class="paper-item h-100">
                     <div class="d-flex justify-content-between align-items-start mb-3">
@@ -1100,7 +1713,25 @@ footer {
                 </div>
             </div>
             
+            <!-- 3. 已发表 - 自媒体从0到1 -->
             <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="paper-item h-100">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <span class="badge bg-success rounded-pill">已发表 · Published</span>
+                        <span class="text-secondary small">2025</span>
+                    </div>
+                    <h5 class="fw-bold mb-3">《自媒体从0到1》</h5>
+                    <p class="small text-secondary mb-3">
+                        <i class="bi bi-journal-text me-1"></i> 王泽恒.自媒体从0到1[J].成才与就业,2025,(23):54-55.
+                    </p>
+                    <p class="text-secondary small mb-0">
+                        分享了从"起步翻车"到逐渐找准定位的过程,反思了传统媒体"层层把关"与自媒体"独自负责"的差异,为新媒体从业者提供实践经验参考。
+                    </p>
+                </div>
+            </div>
+            
+            <!-- 4. 已录用 - AI新闻写作 -->
+            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
                 <div class="paper-item h-100">
                     <div class="d-flex justify-content-between align-items-start mb-3">
                         <span class="badge rounded-pill" style="background: #2196F3;">已录用 · Accepted</span>
@@ -1116,8 +1747,9 @@ footer {
                     </p>
                 </div>
             </div>
-            
-            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
+
+            <!-- 5. 已获奖 - 两会报道 -->
+            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="400">
                 <div class="paper-item h-100">
                     <div class="d-flex justify-content-between align-items-start mb-3">
                         <span class="badge rounded-pill" style="background: #FF9800;">已获奖 · Awarded</span>
@@ -1133,57 +1765,8 @@ footer {
                     </p>
                 </div>
             </div>
-
-            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="400">
-                <div class="paper-item h-100">
-                    <div class="d-flex justify-content-between align-items-start mb-3">
-                        <span class="badge bg-success rounded-pill">已发表 · Published</span>
-                        <span class="text-secondary small">2025</span>
-                    </div>
-                    <h5 class="fw-bold mb-3">《自媒体从0到1》</h5>
-                    <p class="small text-secondary mb-3">
-                        <i class="bi bi-journal-text me-1"></i> 王泽恒.自媒体从0到1[J].成才与就业,2025,(23):54-55.
-                    </p>
-                    <p class="text-secondary small mb-0">
-                        分享了从"起步翻车"到逐渐找准定位的过程,反思了传统媒体"层层把关"与自媒体"独自负责"的差异,为新媒体从业者提供实践经验参考。
-                    </p>
-                </div>
-            </div>
         </div>
 
-        <!-- 学术成绩 -->
-        <div class="row mt-5" data-aos="fade-up">
-                        <div class="col-lg-8 mx-auto">
-                <div class="academic-stats">
-                    <div class="row text-center">
-                        <div class="col-4">
-                            <div class="academic-stat-num">GPA 4.23/4.5</div>
-                            <div class="academic-stat-label">庆熙大学 MBA</div>
-                        </div>
-                        <div class="col-4">
-                            <div class="academic-stat-num">7+ 篇</div>
-                            <div class="academic-stat-label">学术论文</div>
-                        </div>
-                        <div class="col-4">
-                            <div class="academic-stat-num">Top 10%</div>
-                            <div class="academic-stat-label">专业排名</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-                        <div class="col-4">
-                            <div class="academic-stat-num">7+ 篇</div>
-                            <div class="academic-stat-label">学术论文</div>
-                        </div>
-                        <div class="col-4">
-                            <div class="academic-stat-num">Top 10%</div>
-                            <div class="academic-stat-label">专业排名</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </section>
 
@@ -1287,7 +1870,6 @@ footer {
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
 
 <script>
     // 初始化AOS动画
@@ -1356,30 +1938,112 @@ footer {
         statsObserver.observe(statsSection);
     }
 
-    // 作品筛选功能
-    const grid = document.querySelector('#portfolioGrid');
-    if (grid) {
-        const iso = new Isotope(grid, {
-            itemSelector: '.work-item',
-            layoutMode: 'masonry',
-            masonry: {
-                columnWidth: '.work-item',
-                gutter: 20
-            }
-        });
+    // 作品筛选与加载更多功能
+    let currentFilter = 'breaking';
+    let itemsPerLoad = 3; // PC端每次显示3个
+    let currentIndex = {};
 
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                // 切换active状态
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                
-                // 筛选
-                const filterValue = this.getAttribute('data-filter');
-                iso.arrange({ filter: filterValue });
-            });
-        });
+    // 初始化每个分类的索引
+    ['breaking', 'public', 'profile', 'event'].forEach(filter => {
+        currentIndex[filter] = itemsPerLoad;
+    });
+
+    // 检测是否为移动端
+    function isMobile() {
+        return window.innerWidth <= 768;
     }
+
+    // 初始化显示
+    function initPortfolio() {
+        const items = document.querySelectorAll('.work-item');
+        
+        if (isMobile()) {
+            // 移动端：显示当前分类的所有作品（横向滑动）
+            items.forEach(item => {
+                if (item.classList.contains(currentFilter)) {
+                    item.classList.add('show');
+                }
+            });
+        } else {
+            // PC端：只显示前N个
+            items.forEach((item, index) => {
+                if (item.classList.contains(currentFilter) && index < itemsPerLoad) {
+                    item.classList.add('show');
+                }
+            });
+        }
+        updateLoadMoreButton();
+    }
+
+    // 筛选功能
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            // 更新按钮状态
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            
+            // 更新当前筛选器
+            currentFilter = this.getAttribute('data-filter');
+            
+            // 隐藏所有项
+            const items = document.querySelectorAll('.work-item');
+            items.forEach(item => item.classList.remove('show'));
+            
+            if (isMobile()) {
+                // 移动端：显示所有
+                const filtered = Array.from(items).filter(item => item.classList.contains(currentFilter));
+                filtered.forEach(item => item.classList.add('show'));
+            } else {
+                // PC端：显示前N个
+                const filtered = Array.from(items).filter(item => item.classList.contains(currentFilter));
+                filtered.slice(0, currentIndex[currentFilter]).forEach(item => {
+                    item.classList.add('show');
+                });
+            }
+            
+            updateLoadMoreButton();
+        });
+    });
+
+    // 加载更多功能
+    document.getElementById('loadMoreBtn').addEventListener('click', function() {
+        const items = Array.from(document.querySelectorAll('.work-item')).filter(item => 
+            item.classList.contains(currentFilter)
+        );
+        
+        const start = currentIndex[currentFilter];
+        const end = start + itemsPerLoad;
+        
+        items.slice(start, end).forEach(item => {
+            item.classList.add('show');
+        });
+        
+        currentIndex[currentFilter] = end;
+        updateLoadMoreButton();
+    });
+
+    // 更新加载更多按钮状态
+    function updateLoadMoreButton() {
+        const items = Array.from(document.querySelectorAll('.work-item')).filter(item => 
+            item.classList.contains(currentFilter)
+        );
+        const btn = document.getElementById('loadMoreBtn');
+        
+        // 移动端或已显示全部时隐藏按钮
+        if (isMobile() || currentIndex[currentFilter] >= items.length) {
+            btn.classList.add('hidden');
+        } else {
+            btn.classList.remove('hidden');
+        }
+    }
+
+    // 页面加载时初始化
+    window.addEventListener('load', initPortfolio);
+    
+    // 窗口大小改变时重新初始化
+    window.addEventListener('resize', () => {
+        initPortfolio();
+    });
 
     // 平滑滚动
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1417,6 +2081,26 @@ footer {
             } catch (err) {
                 console.error('复制失败:', err);
             }
+        });
+    });
+
+    // 返回顶部按钮功能
+    const backToTopBtn = document.getElementById('backToTop');
+    
+    // 监听滚动事件
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            backToTopBtn.classList.add('show');
+        } else {
+            backToTopBtn.classList.remove('show');
+        }
+    });
+    
+    // 点击返回顶部
+    backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
         });
     });
 </script>
