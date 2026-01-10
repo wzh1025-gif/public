@@ -7,936 +7,224 @@
 
 <link rel="icon" href="assets/Favicon.png">
 <meta name="description" content="王泽恒｜媒体与传播 · 庆熙大学MBA。新媒体内容与研究：NAS / 情绪传播 / 媒体融合。">
-<meta property="og:title" content="王泽恒 · 个人主页 | Wang Zeheng">
-<meta property="og:description" content="个人简介 · 作品展示 · 学术与行业成果 · 时间线 · 目标 · 联系方式">
-<meta property="og:type" content="website">
-<meta property="og:image" content="assets/new%20media%20projects3.png">
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
 
 <style>
-:root{
-  --brand:#2a4b8d; 
-  --brand-weak:#3c5fa5; 
-  --brand-light:#5a7bc4;
-  --brand-ghost:#eef1f6; 
-  --brand-ink:#fff;
-  --accent:#e63946;
-  --bg:#f9f9f6; 
-  --ink:#101222; 
-  --muted:#6c757d; 
-  --border:#dfe3ea; 
-  --card:#fff;
-  --shadow-sm: 0 2px 8px rgba(16,18,34,.04);
-  --shadow-md: 0 8px 24px rgba(16,18,34,.08);
-  --shadow-lg: 0 16px 48px rgba(16,18,34,.12);
+:root {
+  --brand: #2a4b8d;
+  --brand-light: #3c5fa5;
+  --brand-bg: #f4f7ff;
+  --text-main: #1a1d23;
+  --text-muted: #64748b;
+  --card-shadow: 0 10px 30px -5px rgba(42, 75, 141, 0.08);
+  --card-hover: 0 20px 40px -10px rgba(42, 75, 141, 0.15);
 }
 
-*{box-sizing:border-box; margin:0; padding:0;}
-
-body{
-  font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,"Microsoft YaHei","PingFang SC";
-  color:var(--ink);
-  background:
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='160' height='160' filter='url(%23n)' opacity='0.025'/></svg>") center/240px 240px repeat,
-    linear-gradient(145deg,#fff 0%, var(--bg) 100%);
-  line-height:1.7;
-  overflow-x:hidden;
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  color: var(--text-main);
+  background-color: #fcfcfd;
+  line-height: 1.6;
 }
 
-.container{max-width:1140px; padding-left:24px; padding-right:24px;}
-
-/* ========== Navbar 导航栏 ========== */
-.navbar{
-  backdrop-filter:saturate(180%) blur(16px); 
-  background:rgba(255,255,255,0.92);
-  border-bottom:1px solid var(--border);
-  transition:all 0.3s cubic-bezier(0.4,0,0.2,1);
-}
-.navbar.scrolled{
-  box-shadow:var(--shadow-md);
-}
-.navbar-brand{
-  font-weight:700;
-  font-size:1.2rem;
-  color:var(--brand);
-  transition:transform 0.3s;
-}
-.navbar-brand:hover{
-  transform:translateY(-2px);
-  color:var(--brand-weak);
-}
-.nav-link{
-  font-weight:500;
-  color:var(--ink);
-  padding:0.5rem 1rem;
-  border-radius:8px;
-  transition:all 0.3s;
-  position:relative;
-}
-.nav-link:hover{
-  color:var(--brand);
-  background:var(--brand-ghost);
-}
-.nav-link::after{
-  content:'';
-  position:absolute;
-  bottom:0;
-  left:50%;
-  transform:translateX(-50%);
-  width:0;
-  height:2px;
-  background:var(--brand);
-  transition:width 0.3s;
-}
-.nav-link:hover::after{
-  width:60%;
+/* 现代感背景：渐变光晕 */
+.bg-glow {
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 100%; height: 600px;
+  background: radial-gradient(circle at 50% -20%, rgba(42,75,141,0.08) 0%, transparent 70%);
+  z-index: -1;
 }
 
-/* ========== Hero 首屏 ========== */
-.hero{
-  background:
-    linear-gradient(145deg,#fff 0%, #f3f6fb 100%),
-    radial-gradient(circle at 15% 10%, rgba(42,75,141,.08), transparent 50%),
-    radial-gradient(circle at 85% 90%, rgba(60,95,165,.06), transparent 50%);
-  position:relative;
-  overflow:hidden;
-  padding:80px 0 60px;
-}
-.hero::before{
-  content:'';
-  position:absolute;
-  top:-50%;
-  right:-20%;
-  width:600px;
-  height:600px;
-  background:radial-gradient(circle, rgba(42,75,141,0.05) 0%, transparent 70%);
-  border-radius:50%;
-  animation:float 20s ease-in-out infinite;
-}
-@keyframes float{
-  0%, 100%{transform:translateY(0) translateX(0);}
-  50%{transform:translateY(-30px) translateX(30px);}
+/* 导航栏优化 */
+.navbar {
+  backdrop-filter: blur(15px);
+  background: rgba(255, 255, 255, 0.8) !important;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
 }
 
-.hero h1{
-  font-size:clamp(2rem, 5vw, 3.2rem);
-  font-weight:800;
-  line-height:1.2;
-  background:linear-gradient(135deg, var(--brand) 0%, var(--brand-light) 100%);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  background-clip:text;
-  margin-bottom:1.5rem;
-}
-.hero-subtitle{
-  font-size:1.1rem;
-  color:var(--muted);
-  line-height:1.8;
-  max-width:600px;
-}
+/* Hero Section 升级 */
+.hero { padding: 100px 0 80px; position: relative; }
+.hero-title { font-weight: 850; letter-spacing: -1px; background: linear-gradient(135deg, #101222 0%, #2a4b8d 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.avatar-wrapper { position: relative; display: inline-block; }
+.avatar-img { width: 300px; height: 300px; border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; object-fit: cover; border: 8px solid #fff; box-shadow: var(--card-shadow); animation: morph 8s ease-in-out infinite; }
+@keyframes morph { 0%,100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; } 50% { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; } }
 
-.badge-soft{
-  background:linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
-  border:1px solid #c7d2fe;
-  color:#4f46e5;
-  padding:0.5rem 1.2rem;
-  font-weight:600;
-  font-size:0.9rem;
-  transition:all 0.3s;
-  display:inline-block;
+/* 特色项目卡片（宠游伴） */
+.featured-card {
+  background: linear-gradient(145deg, #ffffff, #f8faff);
+  border: 1px solid rgba(42, 75, 141, 0.1);
+  border-radius: 24px;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
-.badge-soft:hover{
-  transform:translateY(-2px);
-  box-shadow:0 4px 12px rgba(79,70,229,0.2);
-}
+.featured-card:hover { transform: translateY(-10px); box-shadow: var(--card-hover); }
+.project-tag { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--brand); letter-spacing: 1px; }
 
-.btn-brand{
-  background:linear-gradient(135deg, var(--brand) 0%, var(--brand-weak) 100%);
-  color:var(--brand-ink);
-  border:0;
-  padding:0.8rem 2rem;
-  font-weight:600;
-  font-size:1rem;
-  transition:all 0.3s;
-  box-shadow:0 4px 16px rgba(42,75,141,0.2);
-  position:relative;
-  overflow:hidden;
-}
-.btn-brand::before{
-  content:'';
-  position:absolute;
-  top:0;
-  left:-100%;
-  width:100%;
-  height:100%;
-  background:linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-  transition:left 0.5s;
-}
-.btn-brand:hover::before{
-  left:100%;
-}
-.btn-brand:hover{
-  transform:translateY(-2px);
-  box-shadow:0 8px 24px rgba(42,75,141,0.3);
-  color:#fff;
-}
+/* 作品集图片交互 */
+.portfolio-item { position: relative; overflow: hidden; border-radius: 16px; transition: all 0.3s; }
+.portfolio-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(42, 75, 141, 0.9); display: flex; flex-direction: column; justify-content: center; align-items: center; opacity: 0; transition: 0.3s; color: #fff; padding: 20px; text-align: center;}
+.portfolio-item:hover .portfolio-overlay { opacity: 1; }
+.portfolio-item:hover img { transform: scale(1.1); }
+img { transition: 0.5s; }
 
-.btn-ghost{
-  background:#fff;
-  border:2px solid var(--border);
-  color:var(--ink);
-  padding:0.8rem 2rem;
-  font-weight:600;
-  transition:all 0.3s;
-}
-.btn-ghost:hover{
-  border-color:var(--brand);
-  color:var(--brand);
-  transform:translateY(-2px);
-  box-shadow:var(--shadow-md);
-}
+/* 通用卡片样式 */
+.card-custom { background: #fff; border: 1px solid rgba(0,0,0,0.05); border-radius: 20px; padding: 30px; box-shadow: var(--card-shadow); height: 100%; transition: 0.3s; }
+.card-custom:hover { border-color: var(--brand); }
 
-.avatar-frame{
-  display:inline-block;
-  border-radius:50%;
-  padding:8px;
-  background:linear-gradient(135deg,var(--brand) 0%,var(--brand-light) 100%);
-  box-shadow:0 12px 32px rgba(42,75,141,.18);
-  transition:all 0.4s cubic-bezier(0.4,0,0.2,1);
-  position:relative;
-}
-.avatar-frame::before{
-  content:'';
-  position:absolute;
-  inset:-4px;
-  border-radius:50%;
-  background:linear-gradient(135deg,var(--brand),var(--brand-light));
-  opacity:0;
-  transition:opacity 0.4s;
-  z-index:-1;
-  filter:blur(20px);
-}
-.avatar-frame:hover::before{
-  opacity:0.6;
-}
-.avatar-frame:hover{
-  transform:scale(1.05) rotate(3deg);
-}
-.avatar-img{
-  width:280px;
-  height:280px;
-  border-radius:50%;
-  object-fit:cover;
-  border:4px solid #fff;
-}
+.section-label { color: var(--brand); font-weight: 700; font-size: 0.9rem; margin-bottom: 10px; display: block; }
 
-/* ========== Section 通用 ========== */
-section{
-  padding:80px 0;
-}
-.section-title{
-  text-align:center;
-  margin-bottom:3rem;
-}
-.section-title h2{
-  font-size:2.5rem;
-  font-weight:800;
-  color:var(--ink);
-  margin-bottom:1rem;
-  position:relative;
-  display:inline-block;
-}
-.section-title .bar{
-  width:80px;
-  height:5px;
-  border-radius:3px;
-  background:linear-gradient(90deg,var(--brand),var(--brand-light));
-  margin:0 auto;
-}
-
-/* ========== Cards 卡片 ========== */
-.card-soft{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:1.2rem;
-  box-shadow:var(--shadow-sm);
-  transition:all 0.4s cubic-bezier(0.4,0,0.2,1);
-  position:relative;
-  overflow:hidden;
-}
-.card-soft::before{
-  content:'';
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:4px;
-  background:linear-gradient(90deg, var(--brand), var(--brand-light));
-  transform:scaleX(0);
-  transform-origin:left;
-  transition:transform 0.4s;
-}
-.card-soft:hover::before{
-  transform:scaleX(1);
-}
-.card-soft:hover{
-  transform:translateY(-8px);
-  box-shadow:var(--shadow-lg);
-  border-color:var(--brand-ghost);
-}
-
-.card-icon{
-  width:56px;
-  height:56px;
-  border-radius:12px;
-  background:linear-gradient(135deg, var(--brand-ghost), #fff);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  margin-bottom:1rem;
-  font-size:1.5rem;
-  color:var(--brand);
-}
-
-/* ========== Stats 数据展示 ========== */
-.stat-card{
-  text-align:center;
-  padding:2rem;
-}
-.stat{
-  font-weight:800;
-  font-size:2.8rem;
-  background:linear-gradient(135deg, var(--brand), var(--brand-light));
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  background-clip:text;
-  line-height:1;
-  margin-bottom:0.5rem;
-}
-.stat-label{
-  color:var(--muted);
-  font-weight:500;
-  font-size:1rem;
-}
-
-/* ========== Timeline 时间线 ========== */
-.timeline-line{
-  position:absolute;
-  top:0;
-  bottom:0;
-  left:50%;
-  transform:translateX(-50%);
-  width:3px;
-  background:linear-gradient(180deg, var(--brand-ghost), var(--brand), var(--brand-ghost));
-  opacity:0.4;
-}
-.timeline-item{
-  position:relative;
-}
-.timeline-item::before{
-  content:'';
-  position:absolute;
-  top:20px;
-  width:16px;
-  height:16px;
-  border-radius:50%;
-  background:var(--brand);
-  border:3px solid #fff;
-  box-shadow:0 0 0 4px var(--brand-ghost);
-  z-index:2;
-}
-.timeline-item:nth-child(odd)::before{
-  right:-8px;
-}
-.timeline-item:nth-child(even)::before{
-  left:-8px;
-}
-.timeline-card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:1rem;
-  padding:1.5rem;
-  transition:all 0.3s;
-}
-.timeline-card:hover{
-  transform:translateX(-4px);
-  box-shadow:var(--shadow-md);
-}
-.timeline-item:nth-child(even) .timeline-card:hover{
-  transform:translateX(4px);
-}
-.timeline-date{
-  color:var(--brand);
-  font-weight:700;
-  font-size:0.9rem;
-  margin-bottom:0.5rem;
-}
-.timeline-title{
-  font-weight:700;
-  font-size:1.1rem;
-  margin-bottom:0.3rem;
-}
-.timeline-desc{
-  color:var(--muted);
-  font-size:0.95rem;
-}
-
-/* ========== Portfolio 作品集 ========== */
-.filter-btn{
-  padding:0.5rem 1.5rem;
-  border:2px solid var(--border);
-  background:#fff;
-  color:var(--muted);
-  font-weight:600;
-  transition:all 0.3s;
-}
-.filter-btn.active{
-  background:var(--brand);
-  color:#fff;
-  border-color:var(--brand);
-  box-shadow:0 4px 12px rgba(42,75,141,0.3);
-}
-.filter-btn:hover{
-  border-color:var(--brand);
-  color:var(--brand);
-}
-
-.port-item{
-  position:relative;
-  overflow:hidden;
-  border-radius:1rem;
-  transition:all 0.4s;
-}
-.port-thumb{
-  aspect-ratio:16/9;
-  object-fit:cover;
-  border-radius:1rem;
-  border:1px solid var(--border);
-  transition:all 0.4s;
-}
-.port-item:hover .port-thumb{
-  transform:scale(1.05);
-}
-.port-overlay{
-  position:absolute;
-  inset:0;
-  background:linear-gradient(to top, rgba(16,18,34,0.8) 0%, transparent 60%);
-  opacity:0;
-  transition:opacity 0.4s;
-  display:flex;
-  align-items:flex-end;
-  padding:1.5rem;
-  border-radius:1rem;
-}
-.port-item:hover .port-overlay{
-  opacity:1;
-}
-.port-info{
-  color:#fff;
-}
-.port-title{
-  font-weight:700;
-  font-size:1.1rem;
-  margin-bottom:0.3rem;
-}
-.port-tag{
-  font-size:0.85rem;
-  opacity:0.9;
-}
-
-/* ========== Achievement Cards 成果卡片 ========== */
-.achievement-card{
-  height:100%;
-  transition:all 0.4s;
-}
-.achievement-card .card-icon{
-  background:linear-gradient(135deg, var(--brand-ghost), #e0e7ff);
-}
-.achievement-card:hover{
-  transform:translateY(-12px);
-}
-.achievement-card h5{
-  font-size:1.3rem;
-  margin-bottom:1.2rem;
-  color:var(--ink);
-}
-.achievement-card ul{
-  list-style:none;
-  padding:0;
-}
-.achievement-card li{
-  padding:0.6rem 0;
-  border-bottom:1px solid var(--border);
-  color:var(--muted);
-  font-size:0.95rem;
-  transition:all 0.3s;
-  position:relative;
-  padding-left:1.5rem;
-}
-.achievement-card li:last-child{
-  border:none;
-}
-.achievement-card li::before{
-  content:'▸';
-  position:absolute;
-  left:0;
-  color:var(--brand);
-  font-weight:700;
-}
-.achievement-card li:hover{
-  color:var(--brand);
-  padding-left:2rem;
-}
-
-/* ========== Goals 目标 ========== */
-.goal-card{
-  background:linear-gradient(135deg, #fff 0%, var(--brand-ghost) 100%);
-  border:2px solid var(--border);
-  border-radius:1.2rem;
-  padding:2rem;
-  transition:all 0.4s;
-  position:relative;
-  overflow:hidden;
-}
-.goal-card::before{
-  content:'';
-  position:absolute;
-  top:-50%;
-  right:-50%;
-  width:200px;
-  height:200px;
-  background:radial-gradient(circle, rgba(42,75,141,0.1), transparent);
-  border-radius:50%;
-}
-.goal-card:hover{
-  transform:translateY(-8px);
-  box-shadow:var(--shadow-lg);
-  border-color:var(--brand);
-}
-.goal-card h5{
-  font-weight:800;
-  font-size:1.4rem;
-  color:var(--brand);
-  margin-bottom:1.5rem;
-  position:relative;
-  z-index:1;
-}
-.goal-card ul{
-  list-style:none;
-  padding:0;
-  position:relative;
-  z-index:1;
-}
-.goal-card li{
-  padding:0.8rem 0;
-  padding-left:2rem;
-  position:relative;
-  color:var(--ink);
-  line-height:1.6;
-}
-.goal-card li::before{
-  content:'✓';
-  position:absolute;
-  left:0;
-  color:var(--brand);
-  font-weight:700;
-  font-size:1.2rem;
-}
-
-/* ========== Contact 联系 ========== */
-.contact-info{
-  padding:1.5rem 0;
-}
-.contact-item{
-  padding:0.8rem 0;
-  display:flex;
-  align-items:center;
-  gap:0.8rem;
-  color:var(--ink);
-  transition:all 0.3s;
-  cursor:pointer;
-  border-radius:8px;
-  padding-left:0.5rem;
-}
-.contact-item:hover{
-  background:var(--brand-ghost);
-  padding-left:1rem;
-  color:var(--brand);
-}
-.contact-item i{
-  font-size:1.2rem;
-  color:var(--brand);
-}
-
-.form-control{
-  border:2px solid var(--border);
-  border-radius:0.75rem;
-  padding:0.8rem 1rem;
-  transition:all 0.3s;
-}
-.form-control:focus{
-  border-color:var(--brand);
-  box-shadow:0 0 0 4px rgba(42,75,141,0.1);
-}
-
-/* ========== Footer 页脚 ========== */
-.footer{
-  border-top:1px solid var(--border);
-  background:rgba(255,255,255,0.6);
-  backdrop-filter:blur(10px);
-}
-#easter{
-  padding:1rem 1.5rem;
-  background:linear-gradient(135deg, var(--brand-ghost), #fff);
-  border-radius:12px;
-  transition:all 0.3s;
-  border:1px solid var(--border);
-}
-#easter:hover{
-  background:linear-gradient(135deg, #fff, var(--brand-ghost));
-  box-shadow:var(--shadow-md);
-}
-
-/* ========== Back to Top 返回顶部 ========== */
-#backTop{
-  position:fixed;
-  right:24px;
-  bottom:24px;
-  width:50px;
-  height:50px;
-  border-radius:50%;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  background:linear-gradient(135deg, var(--brand), var(--brand-weak));
-  color:#fff;
-  box-shadow:0 4px 16px rgba(42,75,141,0.4);
-  transition:all 0.3s;
-  cursor:pointer;
-  z-index:999;
-}
-#backTop.show{
-  display:flex;
-}
-#backTop:hover{
-  transform:translateY(-4px);
-  box-shadow:0 8px 24px rgba(42,75,141,0.5);
-}
-
-/* ========== Responsive 响应式 ========== */
-@media (max-width:992px){
-  .hero{padding:60px 0 40px;}
-  .hero h1{font-size:2.2rem;}
-  .avatar-img{width:220px; height:220px;}
-  section{padding:60px 0;}
-  .section-title h2{font-size:2rem;}
-  .timeline-line{left:20px;}
-  .timeline-item::before{left:12px !important; right:auto !important;}
-  .timeline-card{margin-left:40px;}
-  .stat{font-size:2.2rem;}
-}
-
-@media (max-width:576px){
-  .container{padding-left:16px; padding-right:16px;}
-  .hero h1{font-size:1.8rem;}
-  .hero-subtitle{font-size:1rem;}
-  .btn-brand, .btn-ghost{padding:0.7rem 1.5rem; font-size:0.9rem;}
-  .section-title h2{font-size:1.6rem;}
-  .avatar-img{width:180px; height:180px;}
-}
+#backTop { position: fixed; right: 25px; bottom: 25px; width: 50px; height: 50px; border-radius: 15px; background: var(--brand); color: #fff; display: none; align-items: center; justify-content: center; z-index: 1000; transition: 0.3s; }
+#backTop.show { display: flex; }
 </style>
 </head>
 <body>
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg sticky-top" id="mainNav">
+<div class="bg-glow"></div>
+
+<nav class="navbar navbar-expand-lg sticky-top">
   <div class="container">
-    <a class="navbar-brand" href="#">
-      <i class="bi bi-mortarboard"></i> Wang Zeheng
-    </a>
+    <a class="navbar-brand fw-bold text-dark" href="#">WANG ZEHENG</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navMain">
-      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+      <ul class="navbar-nav ms-auto gap-3 fw-medium">
         <li class="nav-item"><a class="nav-link" href="#about">简介</a></li>
-        <li class="nav-item"><a class="nav-link" href="#achieve">成果</a></li>
-        <li class="nav-item"><a class="nav-link" href="#timeline">时间线</a></li>
+        <li class="nav-item"><a class="nav-link" href="#featured">核心项目</a></li>
         <li class="nav-item"><a class="nav-link" href="#portfolio">作品</a></li>
-        <li class="nav-item"><a class="nav-link" href="#goals">目标</a></li>
-        <li class="nav-item">
-          <a class="btn btn-sm btn-brand rounded-pill px-4" href="#contact">联系我</a>
-        </li>
+        <li class="nav-item"><a class="nav-link" href="#achieve">学术</a></li>
+        <li class="nav-item"><a class="btn btn-dark rounded-pill px-4 ms-lg-3" href="#contact">联系我</a></li>
       </ul>
     </div>
   </div>
 </nav>
 
-<!-- Hero -->
 <header class="hero">
-  <div class="container">
+  <div class="container text-center text-lg-start">
     <div class="row align-items-center gy-5">
       <div class="col-lg-7" data-aos="fade-up">
-        <h1>做有温度的<br>内容与研究</h1>
-        <p class="hero-subtitle">
-          现居江西南昌，庆熙大学(韩国)媒体管理MBA在读(GPA 3.89/4.3)。近5年南昌广播电视台多媒体记者/新媒体编辑经验，关注新媒体传播、社交媒体与新闻融合、网络议程设置(NAS)与情绪传播。
-        </p>
-        <div class="d-flex flex-wrap gap-3 mb-4">
-          <span class="badge-soft rounded-pill">内容制作</span>
-          <span class="badge-soft rounded-pill">账号运营 & 直播策划</span>
-          <span class="badge-soft rounded-pill">NAS / 情绪传播</span>
-        </div>
-        <div class="d-flex flex-wrap gap-3">
-          <a class="btn btn-brand btn-lg rounded-pill px-4" href="#portfolio">
-            <i class="bi bi-collection"></i> 查看作品
-          </a>
-          <a class="btn btn-ghost btn-lg rounded-pill px-4" href="assets/CV.pdf" target="_blank">
-            <i class="bi bi-file-earmark-pdf"></i> 下载简历
-          </a>
-          <a class="btn btn-ghost btn-lg rounded-pill px-4" href="petogether.html">
-            <i class="bi bi-paw"></i> 宠游伴项目
-          </a>
+        <span class="section-label">Media & Communication · MBA</span>
+        <h1 class="display-3 hero-title mb-4">做有温度的<br>内容与研究</h1>
+        <p class="lead text-secondary mb-5">南昌广播电视台 4 年实操经验 × 庆熙大学媒体管理研究。深耕新媒体传播、NAS 与情绪传播领域，致力于用数据与感性连接受众。</p>
+        <div class="d-flex flex-wrap justify-content-center justify-content-lg-start gap-3">
+          <a class="btn btn-primary btn-lg rounded-pill px-5 shadow" href="#portfolio">浏览作品集</a>
+          <a class="btn btn-outline-dark btn-lg rounded-pill px-5" href="assets/CV.pdf" target="_blank">获取简历</a>
         </div>
       </div>
-      <div class="col-lg-5 text-center" data-aos="zoom-in" data-aos-delay="200">
-        <span class="avatar-frame">
+      <div class="col-lg-5 text-center" data-aos="zoom-in">
+        <div class="avatar-wrapper">
           <img src="assets/11cun.jpg" class="avatar-img" alt="王泽恒">
-        </span>
+        </div>
       </div>
     </div>
   </div>
 </header>
 
-<!-- About -->
-<section id="about">
+<section id="featured" class="py-5">
   <div class="container">
-    <div class="section-title" data-aos="fade-up">
-      <h2>个人简介</h2>
-      <div class="bar"></div>
+    <div class="row mb-5">
+      <div class="col-lg-6">
+        <span class="section-label text-uppercase">Featured Project</span>
+        <h2 class="fw-bold display-6">核心成果展示</h2>
+      </div>
     </div>
-    <div class="row justify-content-center">
-      <div class="col-lg-10" data-aos="fade-up" data-aos-delay="100">
-        <div class="card-soft p-4 p-lg-5">
-          <p class="mb-3" style="font-size:1.05rem; line-height:1.8;">
-            本科毕业于荆楚理工学院广播电视编导(GPA 3.77/4.00)。2019–2023 于南昌广播电视台任多媒体记者/新媒体编辑,负责选题策划、采访撰稿、拍摄剪辑及全平台运营,年浏览量超1亿;曾联合央视与"学习强国"策划大型直播,单场观看量破百万。
-          </p>
-          <p class="mb-0" style="font-size:1.05rem; line-height:1.8;">
-            <strong>研究兴趣:</strong> 新媒体传播、社交媒体与新闻融合、网络/算法议程设置(NAS/AAS)、情绪传播与用户行为。
-          </p>
+    
+    <div class="featured-card p-4 p-lg-5" data-aos="fade-up">
+      <div class="row align-items-center gy-4">
+        <div class="col-lg-6">
+          <div class="project-tag mb-2">Academic + Practice</div>
+          <h3 class="fw-bold mb-3">宠游伴 · Petogether</h3>
+          <p class="text-secondary mb-4">这是一个将<b>网络议程设置（NAS）理论</b>应用于宠物社交垂直领域的商业实践项目。通过情绪化传播模型提升用户粘性，探索新媒体环境下的社群运营新范式。</p>
+          <ul class="list-unstyled mb-4 text-secondary">
+            <li class="mb-2"><i class="bi bi-check2-circle text-primary me-2"></i> 核心理论：社交媒体融合与情绪传播</li>
+            <li class="mb-2"><i class="bi bi-check2-circle text-primary me-2"></i> 实战成果：闭环式产品原型与营销策略</li>
+          </ul>
+          <a href="petogether.html" class="btn btn-dark rounded-pill px-4">阅读深度复盘报告 <i class="bi bi-arrow-right ms-2"></i></a>
+        </div>
+        <div class="col-lg-6">
+          <img src="assets/new%20media%20projects3.png" class="img-fluid rounded-4 shadow-sm" alt="项目展示">
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Stats -->
-<section id="stats" style="background:linear-gradient(180deg, var(--bg) 0%, #fff 100%); padding:60px 0;">
+<section class="py-5 bg-white border-top border-bottom">
   <div class="container">
     <div class="row g-4 text-center">
-      <div class="col-6 col-lg-3" data-aos="zoom-in">
-        <div class="card-soft stat-card">
-          <div class="stat"><span class="countup" data-count="6">0</span>+</div>
-          <div class="stat-label">学术论文</div>
-        </div>
-      </div>
-      <div class="col-6 col-lg-3" data-aos="zoom-in" data-aos-delay="100">
-        <div class="card-soft stat-card">
-          <div class="stat"><span class="countup" data-count="120">0</span>+</div>
-          <div class="stat-label">媒体作品</div>
-        </div>
-      </div>
-      <div class="col-6 col-lg-3" data-aos="zoom-in" data-aos-delay="200">
-        <div class="card-soft stat-card">
-          <div class="stat"><span class="countup" data-count="1400">0</span>万+</div>
-          <div class="stat-label">视频播放</div>
-        </div>
-      </div>
-      <div class="col-6 col-lg-3" data-aos="zoom-in" data-aos-delay="300">
-        <div class="card-soft stat-card">
-          <div class="stat"><span class="countup" data-count="20">0</span>+</div>
-          <div class="stat-label">合作项目</div>
-        </div>
-      </div>
+      <div class="col-6 col-lg-3"><div class="h2 fw-bold mb-0">6+</div><div class="text-muted small">学术论文</div></div>
+      <div class="col-6 col-lg-3"><div class="h2 fw-bold mb-0">120+</div><div class="text-muted small">媒体作品</div></div>
+      <div class="col-6 col-lg-3"><div class="h2 fw-bold mb-0">1400w+</div><div class="text-muted small">视频播放量</div></div>
+      <div class="col-6 col-lg-3"><div class="h2 fw-bold mb-0">3.89</div><div class="text-muted small">MBA GPA</div></div>
     </div>
   </div>
 </section>
 
-<!-- Achievements -->
-<section id="achieve">
+<section id="portfolio" class="py-5">
   <div class="container">
-    <div class="section-title" data-aos="fade-up">
-      <h2>学术与行业成果</h2>
-      <div class="bar"></div>
-    </div>
-    <div class="row g-4">
-      <div class="col-lg-6" data-aos="fade-up">
-        <div class="card-soft achievement-card p-4">
-          <div class="card-icon">
-            <i class="bi bi-journal-text"></i>
-          </div>
-          <h5><i class="bi bi-mortarboard-fill text-primary"></i> 学术成果</h5>
-          <ul>
-            <li>《反转新闻的负面影响及预防策略》<br><small class="text-muted">《新闻与传播》,湖北省人文社科重大项目 17ZD032</small></li>
-            <li>《大众媒体价值观对受众的影响调查——基于近十年"两会"报道变化的案例研究》</li>
-            <li>《航拍在当代纪录片中的应用——以〈航拍中国〉为例》</li>
-            <li><strong>待发表:</strong> "拆盲盒"直播中情绪化传播与用户行为研究 (2025.10)</li>
-            <li><strong>待发表:</strong> 新媒体环境下地方媒体议程设置的功能转型与传播策略——以"颖响力"为例 (2025.12)</li>
-          </ul>
-          <div class="mt-3">
-            <a href="#" class="btn btn-sm btn-outline-primary rounded-pill">
-              查看完整学术成果 <i class="bi bi-arrow-right"></i>
-            </a>
-          </div>
-        </div>
+    <div class="d-flex justify-content-between align-items-end mb-5">
+      <div>
+        <span class="section-label">Portfolio</span>
+        <h2 class="fw-bold">精选作品集</h2>
       </div>
-      <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-        <div class="card-soft achievement-card p-4">
-          <div class="card-icon">
-            <i class="bi bi-broadcast"></i>
-          </div>
-          <h5><i class="bi bi-camera-video-fill text-danger"></i> 工作成果</h5>
-          <ul>
-            <li>制作编辑 100+ 多媒体新闻稿,多篇被新华社等国家级媒体转载</li>
-            <li>《白鹭王国迎来万只"小可爱"》12 小时 1400 万播放,微博热搜第 42 位</li>
-            <li>疫情系列《天使日记》多平台联动传播</li>
-            <li>负责微信/微博/抖音/视频号等账号运营,年浏览量超 1 亿</li>
-            <li>联合央视、"学习强国"策划大型直播,单场观看量突破 100 万</li>
-          </ul>
-          <div class="mt-3">
-            <a href="#" class="btn btn-sm btn-outline-danger rounded-pill">
-              查看完整作品集 <i class="bi bi-arrow-right"></i>
-            </a>
-          </div>
-        </div>
+      <div class="d-none d-md-flex gap-2">
+        <button class="btn btn-sm btn-outline-dark rounded-pill filter-btn active" data-filter="*">全部</button>
+        <button class="btn btn-sm btn-outline-dark rounded-pill filter-btn" data-filter=".cat-human">人文</button>
+        <button class="btn btn-sm btn-outline-dark rounded-pill filter-btn" data-filter=".cat-life">民生</button>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- Timeline -->
-<section id="timeline" style="background:var(--bg);">
-  <div class="container">
-    <div class="section-title" data-aos="fade-up">
-      <h2>时间线</h2>
-      <div class="bar"></div>
-    </div>
-    <div class="row justify-content-center">
-      <div class="col-lg-10">
-        <div class="position-relative">
-          <div class="timeline-line d-none d-lg-block"></div>
-          <div class="row g-4">
-            <div class="col-12 timeline-item" data-aos="fade-right">
-              <div class="timeline-card" style="width:48%; margin-left:0">
-                <div class="timeline-date">2024.09 – 2025.12</div>
-                <div class="timeline-title">庆熙大学 · 媒体管理 MBA</div>
-                <div class="timeline-desc">GPA 3.89/4.3 | 研究:新媒体传播 / NAS / 情绪传播</div>
-              </div>
-            </div>
-            <div class="col-12 d-flex justify-content-end timeline-item" data-aos="fade-left">
-              <div class="timeline-card" style="width:48%; margin-right:0">
-                <div class="timeline-date">2019.01 – 2023.03</div>
-                <div class="timeline-title">南昌广播电视台</div>
-                <div class="timeline-desc">多媒体记者/新媒体编辑 | 选题策划 / 采访撰稿 / 拍摄剪辑 / 全平台运营</div>
-              </div>
-            </div>
-            <div class="col-12 timeline-item" data-aos="fade-right">
-              <div class="timeline-card" style="width:48%; margin-left:0">
-                <div class="timeline-date">2014.09 – 2018.06</div>
-                <div class="timeline-title">荆楚理工学院 · 广播电视编导</div>
-                <div class="timeline-desc">GPA 3.77/4.00 | 媒介写作 / 影像制作 / 采访与编辑</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Portfolio -->
-<section id="portfolio">
-  <div class="container">
-    <div class="section-title" data-aos="fade-up">
-      <h2>精选作品</h2>
-      <div class="bar"></div>
-    </div>
-    <div class="d-flex justify-content-center gap-2 mb-5" data-aos="fade-up" data-aos-delay="100">
-      <button class="btn btn-sm rounded-pill filter-btn active" data-filter="*">全部</button>
-      <button class="btn btn-sm rounded-pill filter-btn" data-filter=".cat-human">人文</button>
-      <button class="btn btn-sm rounded-pill filter-btn" data-filter=".cat-life">民生</button>
-      <button class="btn btn-sm rounded-pill filter-btn" data-filter=".cat-covid">抗疫</button>
-    </div>
-    <div class="row g-4" id="grid">
+    <div class="row g-4 grid">
       <div class="col-md-6 col-lg-4 grid-item cat-human" data-aos="fade-up">
-        <div class="port-item">
-          <a href="https://xhpfmapi.zhongguowangshi.com/vh512/share/9684591?channel=weixin" target="_blank" rel="noopener">
-            <img class="w-100 port-thumb" loading="lazy" src="assets/new%20media%20projects3.png" alt="上岸了,这些捕鱼人成了养鱼人">
-            <div class="port-overlay">
-              <div class="port-info">
-                <div class="port-title">上岸了,这些捕鱼人成了养鱼人</div>
-                <div class="port-tag">#人文 · 点击查看报道</div>
-              </div>
-            </div>
-          </a>
+        <div class="portfolio-item shadow-sm">
+          <img src="assets/new%20media%20projects3.png" class="w-100" alt="捕鱼人">
+          <div class="portfolio-overlay">
+            <h6 class="fw-bold">上岸了，这些捕鱼人成了养鱼人</h6>
+            <p class="small">新华社转载 · 人文深度报道</p>
+            <a href="https://xhpfmapi.zhongguowangshi.com/vh512/share/9684591?channel=weixin" target="_blank" class="btn btn-sm btn-light rounded-pill px-3">查看详情</a>
+          </div>
         </div>
       </div>
-      <div class="col-md-6 col-lg-4 grid-item cat-life" data-aos="fade-up" data-aos-delay="100">
-        <div class="port-item">
-          <a href="https://h.xinhuaxmt.com/vh512/share/10639704?docid=10639704&newstype=1001&d=1348992" target="_blank" rel="noopener">
-            <img class="w-100 port-thumb" loading="lazy" src="assets/new%20media%20projects2.png" alt="幸福生活一键直达">
-            <div class="port-overlay">
-              <div class="port-info">
-                <div class="port-title">幸福生活"一键直达"</div>
-                <div class="port-tag">#民生 · 点击查看报道</div>
-              </div>
-            </div>
-          </a>
-        </div>
       </div>
-      <div class="col-md-6 col-lg-4 grid-item cat-covid" data-aos="fade-up" data-aos-delay="200">
-        <div class="port-item">
-          <a href="https://h.xinhuaxmt.com/vh512/share/11352820?d=134b03c" target="_blank" rel="noopener">
-            <img class="w-100 port-thumb" loading="lazy" src="assets/new%20media%20projects1.png" alt="共同的战疫">
-            <div class="port-overlay">
-              <div class="port-info">
-                <div class="port-title">共同的战"疫"</div>
-                <div class="port-tag">#抗疫 · 点击查看报道</div>
-              </div>
-            </div>
-          </a>
-        </div>
-      </div>
-    </div>
   </div>
 </section>
 
-<!-- Goals -->
-<section id="goals" style="background:var(--bg);">
+<section id="achieve" class="py-5 bg-light">
   <div class="container">
-    <div class="section-title" data-aos="fade-up">
-      <h2>阶段目标</h2>
-      <div class="bar"></div>
-    </div>
     <div class="row g-4">
-      <div class="col-md-6" data-aos="fade-up">
-        <div class="goal-card h-100">
-          <h5>🎯 短期(1–2年,至 2026)</h5>
-          <ul>
-            <li>完成庆熙大学 MBA 并维持优异 GPA</li>
-            <li>两篇待发论文按时见刊;完成《AI 新闻写作能力边界与感知悖论研究》并发表</li>
-            <li>在抖音/小红书打造 1 个细分主题个人账号</li>
-          </ul>
+      <div class="col-lg-8" data-aos="fade-up">
+        <div class="card-custom">
+          <span class="section-label">Research</span>
+          <h4 class="fw-bold mb-4">学术成果与待刊研究</h4>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="p-3 border-start border-primary border-4 bg-white shadow-sm rounded">
+                <div class="small text-primary fw-bold">2025.10 (Expected)</div>
+                <div class="fw-bold mt-1 small">《“拆盲盒”直播中情绪化传播研究》</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="p-3 border-start border-secondary border-4 bg-white shadow-sm rounded">
+                <div class="small text-muted fw-bold"> 已发表 / 核心项目</div>
+                <div class="fw-bold mt-1 small">《反转新闻的负面影响及预防策略》</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
-        <div class="goal-card h-100">
-          <h5>🚀 中期(3–5年,至 2028)</h5>
-          <ul>
-            <li>进入专业媒体机构或文化传播公司</li>
-            <li>聚焦数字传播、社交媒体、市场营销方向,参与重点事件研究</li>
+      <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+        <div class="card-custom bg-dark text-white">
+          <span class="section-label text-white-50">Future Goals</span>
+          <h4 class="fw-bold mb-3">阶段性目标</h4>
+          <ul class="list-unstyled small text-white-50">
+            <li class="mb-2"><i class="bi bi-compass me-2"></i> 完成庆熙大学 MBA 学位</li>
+            <li class="mb-2"><i class="bi bi-compass me-2"></i> 发表 AI 新闻写作边界研究</li>
+            <li class="mb-2"><i class="bi bi-compass me-2"></i> 运营一个细分文化个人账号</li>
           </ul>
         </div>
       </div>
@@ -944,145 +232,47 @@ section{
   </div>
 </section>
 
-<!-- Contact -->
-<section id="contact">
-  <div class="container">
-    <div class="section-title" data-aos="fade-up">
-      <h2>联系我</h2>
-      <div class="bar"></div>
-    </div>
-    <div class="row g-4">
-      <div class="col-lg-6" data-aos="fade-right">
-        <div class="card-soft p-4 h-100">
-          <h5 class="fw-bold mb-4"><i class="bi bi-envelope-fill text-primary"></i> 留言</h5>
-          <form action="mailto:1433890263@qq.com" method="post" enctype="text/plain" onsubmit="showToast('将打开邮件客户端发送');">
-            <div class="row g-3">
-              <div class="col-md-6">
-                <input name="name" class="form-control" placeholder="你的名字" required>
-              </div>
-              <div class="col-md-6">
-                <input name="email" type="email" class="form-control" placeholder="你的邮箱" required>
-              </div>
-              <div class="col-12">
-                <textarea name="message" rows="5" class="form-control" placeholder="想说的话…" required></textarea>
-              </div>
-            </div>
-            <button class="btn btn-brand rounded-pill px-5 mt-3">
-              <i class="bi bi-send"></i> 发送消息
-            </button>
-          </form>
+<section id="contact" class="py-5">
+  <div class="container text-center">
+    <div class="max-width: 600px; margin: 0 auto;">
+      <h2 class="fw-bold mb-4">准备好一起创造了吗？</h2>
+      <p class="text-secondary mb-5">无论是学术探讨、项目合作还是媒体约稿，欢迎通过以下方式联系我。</p>
+      <div class="d-flex justify-content-center gap-4 flex-wrap">
+        <div class="text-center">
+          <div class="copyable p-3 bg-light rounded-circle mb-2" data-copy="1433890263@qq.com" style="width:60px; height:60px; display:flex; align-items:center; justify-content:center;">
+            <i class="bi bi-envelope-fill text-primary"></i>
+          </div>
+          <div class="small fw-bold">Email</div>
         </div>
-      </div>
-      <div class="col-lg-6" data-aos="fade-left">
-        <div class="card-soft p-4 h-100">
-          <h5 class="fw-bold mb-4"><i class="bi bi-info-circle-fill text-success"></i> 联系方式</h5>
-          <div class="contact-info">
-            <div class="contact-item copyable" data-copy="1433890263@qq.com">
-              <i class="bi bi-envelope-fill"></i>
-              <span>1433890263@qq.com</span>
-            </div>
-            <div class="contact-item copyable" data-copy="wangzeheng202311@163.com">
-              <i class="bi bi-envelope-fill"></i>
-              <span>wangzeheng202311@163.com</span>
-            </div>
-            <div class="contact-item copyable" data-copy="wzh1025@khu.ac.kr">
-              <i class="bi bi-envelope-fill"></i>
-              <span>wzh1025@khu.ac.kr</span>
-            </div>
+        <div class="text-center">
+          <div class="p-3 bg-light rounded-circle mb-2" style="width:60px; height:60px; display:flex; align-items:center; justify-content:center;">
+            <i class="bi bi-wechat text-success"></i>
           </div>
-          <div class="mt-4">
-            <img src="assets/WeChat.png" width="140" class="rounded border shadow-sm" alt="WeChat">
-            <p class="small text-muted mt-2 mb-3">扫码添加微信(备注来意)</p>
-            <a class="btn btn-ghost rounded-pill px-4" href="assets/CV.pdf" target="_blank">
-              <i class="bi bi-file-earmark-pdf"></i> 下载完整简历
-            </a>
-          </div>
+          <div class="small fw-bold">WeChat</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Footer -->
-<footer class="footer py-4">
-  <div class="container">
-    <div class="row align-items-center g-3">
-      <div class="col-lg-6 text-center text-lg-start">
-        <div class="text-secondary small">
-          © <span id="year"></span> 王泽恒 · All rights reserved.
-        </div>
-      </div>
-      <div class="col-lg-6">
-        <div class="small" id="easter">
-          别划啦!底部彩蛋是我 —— 论文赶稿中、文化短视频更新中,要是你也对"用新媒体讲好文化故事"感兴趣,来聊聊吧～
-        </div>
-      </div>
-    </div>
+<footer class="py-5 border-top">
+  <div class="container text-center">
+    <div class="small text-secondary">© <span id="year"></span> 王泽恒 · 南昌 / 首尔</div>
   </div>
 </footer>
 
-<a href="#" id="backTop">
-  <i class="bi bi-arrow-up-short" style="font-size:1.5rem;"></i>
-</a>
-
-<!-- Toast 容器 -->
-<div class="position-fixed bottom-0 start-50 translate-middle-x p-3" style="z-index:1080">
-  <div id="liveToast" class="toast align-items-center text-bg-dark border-0" role="status" aria-live="polite" aria-atomic="true">
-    <div class="d-flex">
-      <div class="toast-body" id="toastText">提示</div>
-      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
-    </div>
-  </div>
-</div>
+<a href="#" id="backTop"><i class="bi bi-arrow-up-short h4 mb-0"></i></a>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
 
 <script>
-// 初始化动画
-AOS.init({ 
-  once: true, 
-  duration: 800, 
-  easing: "ease-out-cubic",
-  offset: 100
-});
+AOS.init({ duration: 800, once: true });
+document.getElementById('year').textContent = new Date().getFullYear();
 
-// 导航栏滚动效果
-const navbar = document.getElementById('mainNav');
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 50) {
-    navbar.classList.add('scrolled');
-  } else {
-    navbar.classList.remove('scrolled');
-  }
-});
-
-// 数字递增动画
-document.querySelectorAll('.countup').forEach(el => {
-  const target = +el.dataset.count;
-  let current = 0;
-  const increment = target / 60;
-  const timer = setInterval(() => {
-    current += increment;
-    if (current >= target) {
-      current = target;
-      clearInterval(timer);
-    }
-    el.textContent = Math.floor(current);
-  }, 16);
-});
-
-// 作品筛选
-const iso = new Isotope('#grid', {
-  itemSelector: '.grid-item',
-  layoutMode: 'masonry',
-  masonry: {
-    columnWidth: '.grid-item',
-    gutter: 16
-  }
-});
-
+// Isotope
+var iso = new Isotope('.grid', { itemSelector: '.grid-item', layoutMode: 'masonry' });
 document.querySelectorAll('.filter-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -1091,66 +281,11 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
   });
 });
 
-// 返回顶部
-const backTop = document.getElementById('backTop');
+// Back to Top
+const back = document.getElementById('backTop');
 window.addEventListener('scroll', () => {
-  backTop.classList.toggle('show', window.scrollY > 300);
-});
-backTop.addEventListener('click', (e) => {
-  e.preventDefault();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-});
-
-// 页脚彩蛋
-const easterEggs = [
-  "论文赶稿中… 咖啡续上 ☕️",
-  "文化短视频剪辑中,欢迎投递选题 🎬",
-  "在思考:如何让"文化"更好看更好玩 ✨",
-  "想一起做研究/拍片?来聊聊～ 🎯",
-  "播客《边角位》更新中,欢迎收听 🎙️",
-  "PhD申请准备中,欢迎交流 📚"
-];
-document.getElementById('easter').addEventListener('click', function() {
-  this.textContent = easterEggs[Math.floor(Math.random() * easterEggs.length)];
-  showToast('彩蛋更新～');
-});
-
-// 复制功能
-document.querySelectorAll('.copyable').forEach(el => {
-  el.addEventListener('click', async () => {
-    const text = el.getAttribute('data-copy') || el.textContent.trim();
-    try {
-      await navigator.clipboard.writeText(text);
-      showToast('✓ 已复制到剪贴板');
-    } catch (err) {
-      showToast('✗ 复制失败');
-    }
-  });
-});
-
-// Toast 提示
-function showToast(message) {
-  const toastEl = document.getElementById('liveToast');
-  const toastText = document.getElementById('toastText');
-  toastText.textContent = message;
-  const toast = new bootstrap.Toast(toastEl);
-  toast.show();
-}
-
-// 年份自动更新
-document.getElementById('year').textContent = new Date().getFullYear();
-
-// 平滑滚动
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function(e) {
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) {
-      e.preventDefault();
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  });
+  back.classList.toggle('show', window.scrollY > 400);
 });
 </script>
-
 </body>
 </html>
