@@ -3,277 +3,270 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>王泽恒 · 个人主页 | Wang Zeheng</title>
+<title>王泽恒 | Wang Zeheng · Media Strategy & Research</title>
 
-<link rel="icon" href="assets/Favicon.png">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;800&display=swap');
+
 :root {
-  --brand: #2a4b8d;
-  --brand-dark: #1a356d;
-  --accent: #e63946;
-  --bg-subtle: #f8f9fc;
+    --bg: #0a0c10;
+    --accent: #2a4b8d;
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.6);
+    --glass: rgba(255, 255, 255, 0.03);
 }
 
 body {
-  font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
-  color: #333;
-  background-color: #fff;
-  scroll-behavior: smooth;
+    background-color: var(--bg);
+    color: var(--text-primary);
+    font-family: 'Plus Jakarta Sans', 'PingFang SC', sans-serif;
+    overflow-x: hidden;
 }
 
-/* 现代玻璃拟态导航 */
-.navbar {
-  backdrop-filter: blur(10px);
-  background: rgba(255, 255, 255, 0.9);
-  border-bottom: 1px solid #eee;
+/* 动态背景光晕 */
+.bg-blobs {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden;
+}
+.blob {
+    position: absolute; width: 500px; height: 500px; background: radial-gradient(circle, rgba(42,75,141,0.15) 0%, transparent 70%);
+    filter: blur(80px); animation: move 20s infinite alternate;
+}
+@keyframes move { from { transform: translate(-20%, -20%); } to { transform: translate(20%, 20%); } }
+
+/* 导航：隐形化 */
+.navbar { padding: 30px 0; transition: 0.4s; }
+.navbar-brand { font-weight: 800; letter-spacing: 2px; font-size: 1.2rem; }
+
+/* Hero Section: 极简主义 */
+.hero { height: 90vh; display: flex; align-items: center; position: relative; }
+.hero-tag { font-size: 0.9rem; letter-spacing: 4px; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; display: block; }
+.hero-h1 { font-size: calc(2rem + 4vw); font-weight: 800; line-height: 1; margin-bottom: 30px; letter-spacing: -2px; }
+.hero-h1 span { color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.3); }
+
+/* 数据展示：大字报感 */
+.stats-grid { border-top: 1px solid rgba(255,255,255,0.1); padding: 80px 0; }
+.stat-item { border-right: 1px solid rgba(255,255,255,0.1); }
+.stat-num { font-size: 4rem; font-weight: 800; color: var(--accent); line-height: 1; }
+.stat-unit { font-size: 1.2rem; color: #fff; margin-left: 5px; }
+
+/* 案例卡片：Bento Box 风格 */
+.bento-card {
+    background: var(--glass);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 32px;
+    padding: 40px;
+    transition: 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+}
+.bento-card:hover {
+    background: rgba(255,255,255,0.08);
+    transform: translateY(-10px);
+    border-color: var(--accent);
 }
 
-/* 数据看板区：强化视觉冲击力 */
-.stat-banner {
-  background: var(--brand);
-  color: white;
-  padding: 60px 0;
-  border-radius: 0 0 50px 50px;
+/* 作品集：艺术展墙 */
+.portfolio-grid {
+    column-count: 2; column-gap: 20px;
 }
-.stat-number { font-size: 3rem; font-weight: 800; line-height: 1; margin-bottom: 5px; }
-.stat-label { font-size: 0.9rem; opacity: 0.8; letter-spacing: 1px; }
+@media (min-width: 992px) { .portfolio-grid { column-count: 4; } }
+.work-item {
+    break-inside: avoid;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+}
+.work-item img { width: 100%; transition: 0.8s cubic-bezier(0.2, 1, 0.3, 1); }
+.work-item:hover img { transform: scale(1.1) rotate(1deg); filter: brightness(0.4); }
+.work-overlay {
+    position: absolute; inset: 0; display: flex; flex-direction: column; 
+    justify-content: flex-end; padding: 20px; opacity: 0; transition: 0.4s;
+}
+.work-item:hover .work-overlay { opacity: 1; }
 
-/* 案例卡片样式 (PPT/网页展示) */
-.case-card {
-  border: none;
-  border-radius: 20px;
-  background: var(--bg-subtle);
-  transition: all 0.4s ease;
-  height: 100%;
-}
-.case-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-}
-.case-icon {
-  width: 50px; height: 50px;
-  background: #fff;
-  border-radius: 12px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.5rem; color: var(--brand);
-  margin-bottom: 1.5rem;
+/* 学术部分：预留的高级感 */
+.academic-card {
+    background: linear-gradient(135deg, rgba(42,75,141,0.1) 0%, transparent 100%);
+    border-radius: 24px; padding: 40px; border-left: 4px solid var(--accent);
 }
 
-/* 视频作品集：紧凑型网格 */
-.video-grid-item {
-  position: relative;
-  border-radius: 12px;
-  overflow: hidden;
-  aspect-ratio: 16/9;
-  background: #000;
+.btn-accent {
+    background: var(--accent); color: white; border-radius: 50px; padding: 15px 35px;
+    font-weight: 600; transition: 0.3s; border: none;
 }
-.video-grid-item img {
-  width: 100%; height: 100%; object-fit: cover;
-  opacity: 0.8; transition: 0.4s;
-}
-.video-grid-item:hover img { opacity: 0.4; transform: scale(1.05); }
-.video-info {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  padding: 15px;
-  background: linear-gradient(transparent, rgba(0,0,0,0.8));
-  color: white;
-  opacity: 0; transition: 0.3s;
-}
-.video-grid-item:hover .video-info { opacity: 1; }
+.btn-accent:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(42,75,141,0.4); color: white; }
 
-/* 学术部分 */
-.academic-section { background: #fdfdfd; padding: 80px 0; }
-.gpa-badge {
-  display: inline-block;
-  padding: 8px 20px;
-  background: rgba(42, 75, 141, 0.1);
-  color: var(--brand);
-  border-radius: 50px;
-  font-weight: bold;
-}
-
-.section-title { font-weight: 800; position: relative; padding-bottom: 15px; margin-bottom: 40px; }
-.section-title::after {
-  content: ''; position: absolute; left: 0; bottom: 0;
-  width: 60px; height: 5px; background: var(--brand); border-radius: 10px;
-}
 </style>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg sticky-top">
-  <div class="container">
-    <a class="navbar-brand fw-bold" href="#">WANG ZEHENG</a>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto fw-medium">
-        <li class="nav-item"><a class="nav-link" href="#cases">核心案例</a></li>
-        <li class="nav-item"><a class="nav-link" href="#videos">视频作品</a></li>
-        <li class="nav-item"><a class="nav-link" href="#academic">学术研究</a></li>
-      </ul>
+<div class="bg-blobs">
+    <div class="blob" style="top: 10%; left: 10%;"></div>
+    <div class="blob" style="bottom: 10%; right: 10%; animation-delay: -5s;"></div>
+</div>
+
+<nav class="navbar navbar-dark fixed-top">
+    <div class="container d-flex justify-content-between">
+        <a class="navbar-brand" href="#">ZEHENG.W</a>
+        <div class="d-none d-md-flex gap-4">
+            <a href="#projects" class="text-white text-decoration-none small fw-bold">PROJECTS</a>
+            <a href="#academic" class="text-white text-decoration-none small fw-bold">ACADEMIC</a>
+            <a href="#contact" class="text-white text-decoration-none small fw-bold">CONTACT</a>
+        </div>
     </div>
-  </div>
 </nav>
 
-<header class="py-5 mt-4">
-  <div class="container">
-    <div class="row align-items-center">
-      <div class="col-lg-7" data-aos="fade-right">
-        <h1 class="display-4 fw-bold mb-3">多媒体记者 · 传媒学者</h1>
-        <p class="lead text-muted mb-4">
-          深耕南昌广播电视台 4 年，年均产出 300+ 稿件。现于庆熙大学攻读媒体管理 MBA，致力于通过 NAS 理论与数据模型，探索情绪传播在数字媒体中的最优解。
-        </p>
-        <div class="d-flex gap-3">
-          <a href="#contact" class="btn btn-primary px-4 py-2 rounded-pill">联系我</a>
-          <a href="assets/CV.pdf" class="btn btn-outline-dark px-4 py-2 rounded-pill">下载完整履历</a>
+<section class="hero">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-10" data-aos="fade-up">
+                <span class="hero-tag">MBA / Media Strategist / Creator</span>
+                <h1 class="hero-h1">用数据重构感性<br><span>Making Media Human.</span></h1>
+                <p class="lead text-secondary mb-5 col-lg-8">
+                    从南昌广播电视台的 1200+ 深度报道，到全网 1.5 亿播放量的爆款叙事。
+                    我正在庆熙大学通过 NAS 理论与媒体管理思维，探索传媒的下一个增长极。
+                </p>
+                <div class="d-flex gap-4 align-items-center">
+                    <a href="#projects" class="btn btn-accent">探索作品集</a>
+                    <a href="assets/CV.pdf" class="text-white text-decoration-none fw-bold small">GET MY RESUME <i class="bi bi-arrow-right"></i></a>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="col-lg-5 text-center" data-aos="zoom-in">
-        <img src="assets/11cun.jpg" alt="Profile" class="rounded-circle shadow" style="width: 280px; height: 280px; object-fit: cover; border: 10px solid var(--bg-subtle);">
-      </div>
     </div>
-  </div>
-</header>
-
-<section class="stat-banner text-center">
-  <div class="container">
-    <div class="row g-4">
-      <div class="col-6 col-lg-3" data-aos="fade-up">
-        <div class="stat-number">1.5<small>亿+</small></div>
-        <div class="stat-label">全网视频播放量</div>
-      </div>
-      <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
-        <div class="stat-number">1200<small>+</small></div>
-        <div class="stat-label">媒体作品产出</div>
-      </div>
-      <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
-        <div class="stat-number">7<small>+</small></div>
-        <div class="stat-label">学术论文发表</div>
-      </div>
-      <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
-        <div class="stat-number">3.89</div>
-        <div class="stat-label">庆熙大学 MBA GPA</div>
-      </div>
-    </div>
-  </div>
 </section>
 
-<section id="cases" class="py-5 mt-5">
-  <div class="container">
-    <h2 class="section-title">核心案例展示 <small class="text-muted fs-6 fw-normal ms-2">Case Studies</small></h2>
-    <div class="row g-4">
-      <div class="col-lg-6" data-aos="fade-up">
-        <div class="case-card p-4 d-flex flex-column h-100 border-start border-primary border-5">
-          <div class="case-icon"><i class="bi bi-globe"></i></div>
-          <h4 class="fw-bold">宠游伴 · Petogether 商业计划</h4>
-          <p class="text-muted flex-grow-1">
-            将 NAS（网络议程设置）理论与宠物社交结合的垂直领域实践。包含完整的市场调研报告、Axure 产品原型以及基于情绪传播的内容运营矩阵。
-          </p>
-          <div class="mt-3">
-            <span class="badge bg-white text-primary border me-2">独立网页</span>
-            <span class="badge bg-white text-primary border me-2">商业计划书</span>
-            <a href="petogether.html" class="link-primary fw-bold text-decoration-none float-end">查看详情 →</a>
-          </div>
+<section class="stats-grid">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-md-3 stat-item" data-aos="fade-up">
+                <div class="stat-num">1.5<span class="stat-unit">B+</span></div>
+                <div class="text-secondary small mt-2 fw-bold">TOTAL VIEWS</div>
+            </div>
+            <div class="col-md-3 stat-item" data-aos="fade-up" data-aos-delay="100">
+                <div class="stat-num">1200<span class="stat-unit">+</span></div>
+                <div class="text-secondary small mt-2 fw-bold">REPORTS PRODUCED</div>
+            </div>
+            <div class="col-md-3 stat-item" data-aos="fade-up" data-aos-delay="200">
+                <div class="stat-num">7<span class="stat-unit">Papers</span></div>
+                <div class="text-secondary small mt-2 fw-bold">ACADEMIC RESEARCH</div>
+            </div>
+            <div class="col-md-3 border-0" data-aos="fade-up" data-aos-delay="300">
+                <div class="stat-num">3.89</div>
+                <div class="text-secondary small mt-2 fw-bold">MBA GPA</div>
+            </div>
         </div>
-      </div>
-      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
-        <div class="case-card p-4">
-          <div class="case-icon"><i class="bi bi-file-earmark-ppt"></i></div>
-          <h5 class="fw-bold">情绪传播模型研究</h5>
-          <p class="small text-muted">针对短视频“拆盲盒”现象的情绪触发机制分析（庆熙大学学期汇报）。</p>
-          <a href="#" class="btn btn-sm btn-dark w-100 rounded-pill mt-2">查看演示文稿</a>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
-        <div class="case-card p-4">
-          <div class="case-icon"><i class="bi bi-play-circle-fill"></i></div>
-          <h5 class="fw-bold">南昌台直播策划案</h5>
-          <p class="small text-muted">联合央视、学习强国策划的百万级播放量直播全案（附复盘视频）。</p>
-          <a href="#" class="btn btn-sm btn-dark w-100 rounded-pill mt-2">观看视频</a>
-        </div>
-      </div>
     </div>
-  </div>
 </section>
 
-<section id="videos" class="py-5 bg-light">
-  <div class="container">
-    <div class="d-flex justify-content-between align-items-end mb-4">
-      <h2 class="section-title mb-0">精选媒体作品 <small class="text-muted fs-6 fw-normal ms-2">20+ Video Clips</small></h2>
-      <div class="btn-group shadow-sm">
-        <button class="btn btn-white btn-sm border active">全部</button>
-        <button class="btn btn-white btn-sm border">人文深度</button>
-        <button class="btn btn-white btn-sm border">民生新闻</button>
-        <button class="btn btn-white btn-sm border">大型活动</button>
-      </div>
-    </div>
-    
-    <div class="row g-3">
-      <div class="col-6 col-md-4 col-lg-3" data-aos="zoom-in">
-        <a href="https://xhpfmapi.zhongguowangshi.com/vh512/share/9684591?channel=weixin" target="_blank" class="video-grid-item d-block">
-          <img src="assets/new%20media%20projects3.png" alt="作品">
-          <div class="video-info">
-            <div class="small fw-bold">上岸捕鱼人复产专题</div>
-            <div style="font-size: 0.7rem; opacity: 0.8;">新华社转载 · 深度报道</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-6 col-md-4 col-lg-3" data-aos="zoom-in">
-        <div class="video-grid-item">
-          <img src="assets/new%20media%20projects2.png" alt="作品">
-          <div class="video-info"><div class="small fw-bold">幸福生活“一键直达”</div></div>
+<section id="projects" class="py-100">
+    <div class="container">
+        <div class="row g-4 mb-5">
+            <div class="col-lg-8" data-aos="fade-up">
+                <div class="bento-card">
+                    <div class="d-flex justify-content-between mb-4">
+                        <span class="badge rounded-pill border border-secondary text-secondary">Featured Case Study</span>
+                        <i class="bi bi-arrow-up-right"></i>
+                    </div>
+                    <h2 class="fw-bold mb-3">宠游伴 · Petogether</h2>
+                    <p class="text-secondary mb-4 col-lg-9">这不仅是一个宠物社交产品，它是我对 NAS（网络议程设置）理论在垂直社区中的闭环实验。包含了从市场调研到情绪传染模型建立的完整链条。</p>
+                    <a href="petogether.html" class="btn btn-outline-light rounded-pill px-4 btn-sm">深度复盘报告</a>
+                    <div class="mt-5 pt-4">
+                        <img src="assets/new%20media%20projects3.png" class="img-fluid rounded-4 shadow-lg" alt="Project">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="row g-4 h-100">
+                    <div class="col-12" data-aos="fade-left">
+                        <div class="bento-card">
+                            <h4 class="fw-bold">情绪传播模型</h4>
+                            <p class="small text-secondary">针对短视频“拆盲盒”现象的情绪触发机制分析。</p>
+                            <span class="text-accent fw-bold small">VIEW PPT →</span>
+                        </div>
+                    </div>
+                    <div class="col-12" data-aos="fade-left" data-aos-delay="100">
+                        <div class="bento-card">
+                            <h4 class="fw-bold">直播全案复盘</h4>
+                            <p class="small text-secondary">联合央视推出的百万级直播策划背后的媒体逻辑。</p>
+                            <span class="text-accent fw-bold small">WATCH VIDEO →</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="col-6 col-md-4 col-lg-3 text-center d-flex align-items-center justify-content-center border rounded-3 bg-white" style="height: 150px; border-style: dashed !important;">
-         <span class="text-muted small">更多 20+ 视频持续更新中...</span>
-      </div>
+
+        <h5 class="text-secondary mb-4 fw-bold mt-5">WORKS GALLERY / 20+ 精选作品库</h5>
+        <div class="portfolio-grid">
+            <div class="work-item" data-aos="zoom-in">
+                <img src="assets/new%20media%20projects2.png" alt="Work">
+                <div class="work-overlay">
+                    <span class="fw-bold small">深度报道</span>
+                    <h6 class="fw-bold">上岸捕鱼人的复产之路</h6>
+                </div>
+            </div>
+            <div class="work-item" data-aos="zoom-in" data-aos-delay="50">
+                <img src="assets/new%20media%20projects3.png" alt="Work">
+                <div class="work-overlay"><h6 class="fw-bold">民生新闻专题案例 A</h6></div>
+            </div>
+             <div class="work-item" data-aos="zoom-in" data-aos-delay="100">
+                <img src="assets/new%20media%20projects2.png" alt="Work">
+                <div class="work-overlay"><h6 class="fw-bold">大型晚会现场导播复盘</h6></div>
+            </div>
+             <div class="work-item" data-aos="zoom-in" data-aos-delay="150">
+                <img src="assets/new%20media%20projects3.png" alt="Work">
+                <div class="work-overlay"><h6 class="fw-bold">MBA 商业模拟课件</h6></div>
+            </div>
+            </div>
     </div>
-  </div>
 </section>
 
-<section id="academic" class="academic-section">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-4" data-aos="fade-right">
-        <h2 class="section-title">学术研究</h2>
-        <div class="gpa-badge mb-3">Academic GPA: 3.89 / 4.3</div>
-        <p class="text-muted">
-          在庆熙大学学习期间，我系统梳理了传媒经济学与受众行为理论。以下是我的研究脉络与发表记录。
-        </p>
-      </div>
-      <div class="col-lg-8" data-aos="fade-left">
-        <div class="card border-0 shadow-sm p-4 mb-3">
-          <h5 class="fw-bold text-primary">研究兴趣：算法议程设置 (AAS) 与情绪传染</h5>
-          <p class="small">这里可以描述你对新媒体环境下，算法如何影响公众情绪的研究心得。例如：“探讨在碎片化信息流中，核心议题如何通过情绪锚点实现跨平台传播...”</p>
+<section id="academic" class="py-100 bg-white text-dark" style="border-radius: 60px 60px 0 0;">
+    <div class="container py-5">
+        <div class="row align-items-center">
+            <div class="col-lg-5" data-aos="fade-right">
+                <h2 class="display-5 fw-bold mb-4">学术视野<br>Academic Rigor</h2>
+                <p class="lead mb-5 text-muted">在庆熙大学 MBA 的深造中，我试图构建一套从理论模型到商业变现的闭环思维体系。</p>
+                <div class="academic-card mb-4 text-dark">
+                    <div class="small fw-bold text-primary">RESEARCH INTEREST</div>
+                    <h5 class="fw-bold mt-2">算法议程设置 (AAS) 与社交媒体融合研究</h5>
+                </div>
+            </div>
+            <div class="col-lg-6 offset-lg-1" data-aos="fade-left">
+                <div class="list-group list-group-flush">
+                    <div class="list-group-item py-4">
+                        <span class="badge bg-dark rounded-pill mb-2">已发表</span>
+                        <h5 class="fw-bold">《反转新闻的负面影响及预防策略》</h5>
+                        <p class="small text-muted mb-0">湖北省人文社科重大项目支持研究</p>
+                    </div>
+                    <div class="list-group-item py-4">
+                        <span class="badge bg-primary rounded-pill mb-2">待发表 · 2025</span>
+                        <h5 class="fw-bold">《AI 新闻写作边界与感知悖论研究》</h5>
+                        <p class="small text-muted mb-0">基于庆熙大学 MBA 媒体管理课程深度延伸</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="list-group list-group-flush">
-          <div class="list-group-item px-0 bg-transparent">
-            <span class="badge bg-secondary mb-2">已发表</span>
-            <h6>《反转新闻的负面影响及预防策略》 —— 湖北省人文社科重大项目</h6>
-          </div>
-          <div class="list-group-item px-0 bg-transparent">
-            <span class="badge bg-info mb-2">待刊 (2025)</span>
-            <h6>《AI 新闻写作能力边界与感知悖论研究》</h6>
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
 </section>
 
-<footer class="py-5 bg-dark text-white text-center">
-  <div class="container">
-    <p class="mb-0 small text-secondary">© 2026 王 Zeheng. Built with Passion & Media Logic.</p>
-  </div>
+<footer class="py-5 text-center text-secondary small">
+    <div class="container">
+        <hr class="mb-5 opacity-10">
+        <p>© 2026 WANG ZEHENG. ALL RIGHTS RESERVED. FROM NANCHANG TO SEOUL.</p>
+    </div>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script>
-  AOS.init({ once: true });
+    AOS.init({ duration: 1000, once: true });
 </script>
 </body>
 </html>
