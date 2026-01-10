@@ -6,8 +6,6 @@
 <title>王泽恒 · 个人主页 | Wang Zeheng</title>
 
 <link rel="icon" href="assets/Favicon.png">
-<meta name="description" content="王泽恒｜媒体与传播 · 庆熙大学MBA。新媒体内容与研究：NAS / 情绪传播 / 媒体融合。">
-
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
@@ -15,277 +13,267 @@
 <style>
 :root {
   --brand: #2a4b8d;
-  --brand-light: #3c5fa5;
-  --brand-bg: #f4f7ff;
-  --text-main: #1a1d23;
-  --text-muted: #64748b;
-  --card-shadow: 0 10px 30px -5px rgba(42, 75, 141, 0.08);
-  --card-hover: 0 20px 40px -10px rgba(42, 75, 141, 0.15);
+  --brand-dark: #1a356d;
+  --accent: #e63946;
+  --bg-subtle: #f8f9fc;
 }
 
 body {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  color: var(--text-main);
-  background-color: #fcfcfd;
-  line-height: 1.6;
+  font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  color: #333;
+  background-color: #fff;
+  scroll-behavior: smooth;
 }
 
-/* 现代感背景：渐变光晕 */
-.bg-glow {
-  position: absolute;
-  top: 0; left: 50%;
-  transform: translateX(-50%);
-  width: 100%; height: 600px;
-  background: radial-gradient(circle at 50% -20%, rgba(42,75,141,0.08) 0%, transparent 70%);
-  z-index: -1;
-}
-
-/* 导航栏优化 */
+/* 现代玻璃拟态导航 */
 .navbar {
-  backdrop-filter: blur(15px);
-  background: rgba(255, 255, 255, 0.8) !important;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid #eee;
 }
 
-/* Hero Section 升级 */
-.hero { padding: 100px 0 80px; position: relative; }
-.hero-title { font-weight: 850; letter-spacing: -1px; background: linear-gradient(135deg, #101222 0%, #2a4b8d 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.avatar-wrapper { position: relative; display: inline-block; }
-.avatar-img { width: 300px; height: 300px; border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; object-fit: cover; border: 8px solid #fff; box-shadow: var(--card-shadow); animation: morph 8s ease-in-out infinite; }
-@keyframes morph { 0%,100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; } 50% { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; } }
+/* 数据看板区：强化视觉冲击力 */
+.stat-banner {
+  background: var(--brand);
+  color: white;
+  padding: 60px 0;
+  border-radius: 0 0 50px 50px;
+}
+.stat-number { font-size: 3rem; font-weight: 800; line-height: 1; margin-bottom: 5px; }
+.stat-label { font-size: 0.9rem; opacity: 0.8; letter-spacing: 1px; }
 
-/* 特色项目卡片（宠游伴） */
-.featured-card {
-  background: linear-gradient(145deg, #ffffff, #f8faff);
-  border: 1px solid rgba(42, 75, 141, 0.1);
-  border-radius: 24px;
+/* 案例卡片样式 (PPT/网页展示) */
+.case-card {
+  border: none;
+  border-radius: 20px;
+  background: var(--bg-subtle);
+  transition: all 0.4s ease;
+  height: 100%;
+}
+.case-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+.case-icon {
+  width: 50px; height: 50px;
+  background: #fff;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; color: var(--brand);
+  margin-bottom: 1.5rem;
+}
+
+/* 视频作品集：紧凑型网格 */
+.video-grid-item {
+  position: relative;
+  border-radius: 12px;
   overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  aspect-ratio: 16/9;
+  background: #000;
 }
-.featured-card:hover { transform: translateY(-10px); box-shadow: var(--card-hover); }
-.project-tag { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--brand); letter-spacing: 1px; }
+.video-grid-item img {
+  width: 100%; height: 100%; object-fit: cover;
+  opacity: 0.8; transition: 0.4s;
+}
+.video-grid-item:hover img { opacity: 0.4; transform: scale(1.05); }
+.video-info {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 15px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.8));
+  color: white;
+  opacity: 0; transition: 0.3s;
+}
+.video-grid-item:hover .video-info { opacity: 1; }
 
-/* 作品集图片交互 */
-.portfolio-item { position: relative; overflow: hidden; border-radius: 16px; transition: all 0.3s; }
-.portfolio-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(42, 75, 141, 0.9); display: flex; flex-direction: column; justify-content: center; align-items: center; opacity: 0; transition: 0.3s; color: #fff; padding: 20px; text-align: center;}
-.portfolio-item:hover .portfolio-overlay { opacity: 1; }
-.portfolio-item:hover img { transform: scale(1.1); }
-img { transition: 0.5s; }
+/* 学术部分 */
+.academic-section { background: #fdfdfd; padding: 80px 0; }
+.gpa-badge {
+  display: inline-block;
+  padding: 8px 20px;
+  background: rgba(42, 75, 141, 0.1);
+  color: var(--brand);
+  border-radius: 50px;
+  font-weight: bold;
+}
 
-/* 通用卡片样式 */
-.card-custom { background: #fff; border: 1px solid rgba(0,0,0,0.05); border-radius: 20px; padding: 30px; box-shadow: var(--card-shadow); height: 100%; transition: 0.3s; }
-.card-custom:hover { border-color: var(--brand); }
-
-.section-label { color: var(--brand); font-weight: 700; font-size: 0.9rem; margin-bottom: 10px; display: block; }
-
-#backTop { position: fixed; right: 25px; bottom: 25px; width: 50px; height: 50px; border-radius: 15px; background: var(--brand); color: #fff; display: none; align-items: center; justify-content: center; z-index: 1000; transition: 0.3s; }
-#backTop.show { display: flex; }
+.section-title { font-weight: 800; position: relative; padding-bottom: 15px; margin-bottom: 40px; }
+.section-title::after {
+  content: ''; position: absolute; left: 0; bottom: 0;
+  width: 60px; height: 5px; background: var(--brand); border-radius: 10px;
+}
 </style>
 </head>
 <body>
 
-<div class="bg-glow"></div>
-
 <nav class="navbar navbar-expand-lg sticky-top">
   <div class="container">
-    <a class="navbar-brand fw-bold text-dark" href="#">WANG ZEHENG</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navMain">
-      <ul class="navbar-nav ms-auto gap-3 fw-medium">
-        <li class="nav-item"><a class="nav-link" href="#about">简介</a></li>
-        <li class="nav-item"><a class="nav-link" href="#featured">核心项目</a></li>
-        <li class="nav-item"><a class="nav-link" href="#portfolio">作品</a></li>
-        <li class="nav-item"><a class="nav-link" href="#achieve">学术</a></li>
-        <li class="nav-item"><a class="btn btn-dark rounded-pill px-4 ms-lg-3" href="#contact">联系我</a></li>
+    <a class="navbar-brand fw-bold" href="#">WANG ZEHENG</a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto fw-medium">
+        <li class="nav-item"><a class="nav-link" href="#cases">核心案例</a></li>
+        <li class="nav-item"><a class="nav-link" href="#videos">视频作品</a></li>
+        <li class="nav-item"><a class="nav-link" href="#academic">学术研究</a></li>
       </ul>
     </div>
   </div>
 </nav>
 
-<header class="hero">
-  <div class="container text-center text-lg-start">
-    <div class="row align-items-center gy-5">
-      <div class="col-lg-7" data-aos="fade-up">
-        <span class="section-label">Media & Communication · MBA</span>
-        <h1 class="display-3 hero-title mb-4">做有温度的<br>内容与研究</h1>
-        <p class="lead text-secondary mb-5">南昌广播电视台 4 年实操经验 × 庆熙大学媒体管理研究。深耕新媒体传播、NAS 与情绪传播领域，致力于用数据与感性连接受众。</p>
-        <div class="d-flex flex-wrap justify-content-center justify-content-lg-start gap-3">
-          <a class="btn btn-primary btn-lg rounded-pill px-5 shadow" href="#portfolio">浏览作品集</a>
-          <a class="btn btn-outline-dark btn-lg rounded-pill px-5" href="assets/CV.pdf" target="_blank">获取简历</a>
+<header class="py-5 mt-4">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-7" data-aos="fade-right">
+        <h1 class="display-4 fw-bold mb-3">多媒体记者 · 传媒学者</h1>
+        <p class="lead text-muted mb-4">
+          深耕南昌广播电视台 4 年，年均产出 300+ 稿件。现于庆熙大学攻读媒体管理 MBA，致力于通过 NAS 理论与数据模型，探索情绪传播在数字媒体中的最优解。
+        </p>
+        <div class="d-flex gap-3">
+          <a href="#contact" class="btn btn-primary px-4 py-2 rounded-pill">联系我</a>
+          <a href="assets/CV.pdf" class="btn btn-outline-dark px-4 py-2 rounded-pill">下载完整履历</a>
         </div>
       </div>
       <div class="col-lg-5 text-center" data-aos="zoom-in">
-        <div class="avatar-wrapper">
-          <img src="assets/11cun.jpg" class="avatar-img" alt="王泽恒">
-        </div>
+        <img src="assets/11cun.jpg" alt="Profile" class="rounded-circle shadow" style="width: 280px; height: 280px; object-fit: cover; border: 10px solid var(--bg-subtle);">
       </div>
     </div>
   </div>
 </header>
 
-<section id="featured" class="py-5">
+<section class="stat-banner text-center">
   <div class="container">
-    <div class="row mb-5">
-      <div class="col-lg-6">
-        <span class="section-label text-uppercase">Featured Project</span>
-        <h2 class="fw-bold display-6">核心成果展示</h2>
+    <div class="row g-4">
+      <div class="col-6 col-lg-3" data-aos="fade-up">
+        <div class="stat-number">1.5<small>亿+</small></div>
+        <div class="stat-label">全网视频播放量</div>
+      </div>
+      <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+        <div class="stat-number">1200<small>+</small></div>
+        <div class="stat-label">媒体作品产出</div>
+      </div>
+      <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+        <div class="stat-number">7<small>+</small></div>
+        <div class="stat-label">学术论文发表</div>
+      </div>
+      <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+        <div class="stat-number">3.89</div>
+        <div class="stat-label">庆熙大学 MBA GPA</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cases" class="py-5 mt-5">
+  <div class="container">
+    <h2 class="section-title">核心案例展示 <small class="text-muted fs-6 fw-normal ms-2">Case Studies</small></h2>
+    <div class="row g-4">
+      <div class="col-lg-6" data-aos="fade-up">
+        <div class="case-card p-4 d-flex flex-column h-100 border-start border-primary border-5">
+          <div class="case-icon"><i class="bi bi-globe"></i></div>
+          <h4 class="fw-bold">宠游伴 · Petogether 商业计划</h4>
+          <p class="text-muted flex-grow-1">
+            将 NAS（网络议程设置）理论与宠物社交结合的垂直领域实践。包含完整的市场调研报告、Axure 产品原型以及基于情绪传播的内容运营矩阵。
+          </p>
+          <div class="mt-3">
+            <span class="badge bg-white text-primary border me-2">独立网页</span>
+            <span class="badge bg-white text-primary border me-2">商业计划书</span>
+            <a href="petogether.html" class="link-primary fw-bold text-decoration-none float-end">查看详情 →</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+        <div class="case-card p-4">
+          <div class="case-icon"><i class="bi bi-file-earmark-ppt"></i></div>
+          <h5 class="fw-bold">情绪传播模型研究</h5>
+          <p class="small text-muted">针对短视频“拆盲盒”现象的情绪触发机制分析（庆熙大学学期汇报）。</p>
+          <a href="#" class="btn btn-sm btn-dark w-100 rounded-pill mt-2">查看演示文稿</a>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+        <div class="case-card p-4">
+          <div class="case-icon"><i class="bi bi-play-circle-fill"></i></div>
+          <h5 class="fw-bold">南昌台直播策划案</h5>
+          <p class="small text-muted">联合央视、学习强国策划的百万级播放量直播全案（附复盘视频）。</p>
+          <a href="#" class="btn btn-sm btn-dark w-100 rounded-pill mt-2">观看视频</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="videos" class="py-5 bg-light">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-end mb-4">
+      <h2 class="section-title mb-0">精选媒体作品 <small class="text-muted fs-6 fw-normal ms-2">20+ Video Clips</small></h2>
+      <div class="btn-group shadow-sm">
+        <button class="btn btn-white btn-sm border active">全部</button>
+        <button class="btn btn-white btn-sm border">人文深度</button>
+        <button class="btn btn-white btn-sm border">民生新闻</button>
+        <button class="btn btn-white btn-sm border">大型活动</button>
       </div>
     </div>
     
-    <div class="featured-card p-4 p-lg-5" data-aos="fade-up">
-      <div class="row align-items-center gy-4">
-        <div class="col-lg-6">
-          <div class="project-tag mb-2">Academic + Practice</div>
-          <h3 class="fw-bold mb-3">宠游伴 · Petogether</h3>
-          <p class="text-secondary mb-4">这是一个将<b>网络议程设置（NAS）理论</b>应用于宠物社交垂直领域的商业实践项目。通过情绪化传播模型提升用户粘性，探索新媒体环境下的社群运营新范式。</p>
-          <ul class="list-unstyled mb-4 text-secondary">
-            <li class="mb-2"><i class="bi bi-check2-circle text-primary me-2"></i> 核心理论：社交媒体融合与情绪传播</li>
-            <li class="mb-2"><i class="bi bi-check2-circle text-primary me-2"></i> 实战成果：闭环式产品原型与营销策略</li>
-          </ul>
-          <a href="petogether.html" class="btn btn-dark rounded-pill px-4">阅读深度复盘报告 <i class="bi bi-arrow-right ms-2"></i></a>
+    <div class="row g-3">
+      <div class="col-6 col-md-4 col-lg-3" data-aos="zoom-in">
+        <a href="https://xhpfmapi.zhongguowangshi.com/vh512/share/9684591?channel=weixin" target="_blank" class="video-grid-item d-block">
+          <img src="assets/new%20media%20projects3.png" alt="作品">
+          <div class="video-info">
+            <div class="small fw-bold">上岸捕鱼人复产专题</div>
+            <div style="font-size: 0.7rem; opacity: 0.8;">新华社转载 · 深度报道</div>
+          </div>
+        </a>
+      </div>
+      <div class="col-6 col-md-4 col-lg-3" data-aos="zoom-in">
+        <div class="video-grid-item">
+          <img src="assets/new%20media%20projects2.png" alt="作品">
+          <div class="video-info"><div class="small fw-bold">幸福生活“一键直达”</div></div>
         </div>
-        <div class="col-lg-6">
-          <img src="assets/new%20media%20projects3.png" class="img-fluid rounded-4 shadow-sm" alt="项目展示">
-        </div>
+      </div>
+      <div class="col-6 col-md-4 col-lg-3 text-center d-flex align-items-center justify-content-center border rounded-3 bg-white" style="height: 150px; border-style: dashed !important;">
+         <span class="text-muted small">更多 20+ 视频持续更新中...</span>
       </div>
     </div>
   </div>
 </section>
 
-<section class="py-5 bg-white border-top border-bottom">
+<section id="academic" class="academic-section">
   <div class="container">
-    <div class="row g-4 text-center">
-      <div class="col-6 col-lg-3"><div class="h2 fw-bold mb-0">6+</div><div class="text-muted small">学术论文</div></div>
-      <div class="col-6 col-lg-3"><div class="h2 fw-bold mb-0">120+</div><div class="text-muted small">媒体作品</div></div>
-      <div class="col-6 col-lg-3"><div class="h2 fw-bold mb-0">1400w+</div><div class="text-muted small">视频播放量</div></div>
-      <div class="col-6 col-lg-3"><div class="h2 fw-bold mb-0">3.89</div><div class="text-muted small">MBA GPA</div></div>
+    <div class="row">
+      <div class="col-lg-4" data-aos="fade-right">
+        <h2 class="section-title">学术研究</h2>
+        <div class="gpa-badge mb-3">Academic GPA: 3.89 / 4.3</div>
+        <p class="text-muted">
+          在庆熙大学学习期间，我系统梳理了传媒经济学与受众行为理论。以下是我的研究脉络与发表记录。
+        </p>
+      </div>
+      <div class="col-lg-8" data-aos="fade-left">
+        <div class="card border-0 shadow-sm p-4 mb-3">
+          <h5 class="fw-bold text-primary">研究兴趣：算法议程设置 (AAS) 与情绪传染</h5>
+          <p class="small">这里可以描述你对新媒体环境下，算法如何影响公众情绪的研究心得。例如：“探讨在碎片化信息流中，核心议题如何通过情绪锚点实现跨平台传播...”</p>
+        </div>
+        <div class="list-group list-group-flush">
+          <div class="list-group-item px-0 bg-transparent">
+            <span class="badge bg-secondary mb-2">已发表</span>
+            <h6>《反转新闻的负面影响及预防策略》 —— 湖北省人文社科重大项目</h6>
+          </div>
+          <div class="list-group-item px-0 bg-transparent">
+            <span class="badge bg-info mb-2">待刊 (2025)</span>
+            <h6>《AI 新闻写作能力边界与感知悖论研究》</h6>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<section id="portfolio" class="py-5">
+<footer class="py-5 bg-dark text-white text-center">
   <div class="container">
-    <div class="d-flex justify-content-between align-items-end mb-5">
-      <div>
-        <span class="section-label">Portfolio</span>
-        <h2 class="fw-bold">精选作品集</h2>
-      </div>
-      <div class="d-none d-md-flex gap-2">
-        <button class="btn btn-sm btn-outline-dark rounded-pill filter-btn active" data-filter="*">全部</button>
-        <button class="btn btn-sm btn-outline-dark rounded-pill filter-btn" data-filter=".cat-human">人文</button>
-        <button class="btn btn-sm btn-outline-dark rounded-pill filter-btn" data-filter=".cat-life">民生</button>
-      </div>
-    </div>
-
-    <div class="row g-4 grid">
-      <div class="col-md-6 col-lg-4 grid-item cat-human" data-aos="fade-up">
-        <div class="portfolio-item shadow-sm">
-          <img src="assets/new%20media%20projects3.png" class="w-100" alt="捕鱼人">
-          <div class="portfolio-overlay">
-            <h6 class="fw-bold">上岸了，这些捕鱼人成了养鱼人</h6>
-            <p class="small">新华社转载 · 人文深度报道</p>
-            <a href="https://xhpfmapi.zhongguowangshi.com/vh512/share/9684591?channel=weixin" target="_blank" class="btn btn-sm btn-light rounded-pill px-3">查看详情</a>
-          </div>
-        </div>
-      </div>
-      </div>
-  </div>
-</section>
-
-<section id="achieve" class="py-5 bg-light">
-  <div class="container">
-    <div class="row g-4">
-      <div class="col-lg-8" data-aos="fade-up">
-        <div class="card-custom">
-          <span class="section-label">Research</span>
-          <h4 class="fw-bold mb-4">学术成果与待刊研究</h4>
-          <div class="row g-3">
-            <div class="col-md-6">
-              <div class="p-3 border-start border-primary border-4 bg-white shadow-sm rounded">
-                <div class="small text-primary fw-bold">2025.10 (Expected)</div>
-                <div class="fw-bold mt-1 small">《“拆盲盒”直播中情绪化传播研究》</div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="p-3 border-start border-secondary border-4 bg-white shadow-sm rounded">
-                <div class="small text-muted fw-bold"> 已发表 / 核心项目</div>
-                <div class="fw-bold mt-1 small">《反转新闻的负面影响及预防策略》</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-        <div class="card-custom bg-dark text-white">
-          <span class="section-label text-white-50">Future Goals</span>
-          <h4 class="fw-bold mb-3">阶段性目标</h4>
-          <ul class="list-unstyled small text-white-50">
-            <li class="mb-2"><i class="bi bi-compass me-2"></i> 完成庆熙大学 MBA 学位</li>
-            <li class="mb-2"><i class="bi bi-compass me-2"></i> 发表 AI 新闻写作边界研究</li>
-            <li class="mb-2"><i class="bi bi-compass me-2"></i> 运营一个细分文化个人账号</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="contact" class="py-5">
-  <div class="container text-center">
-    <div class="max-width: 600px; margin: 0 auto;">
-      <h2 class="fw-bold mb-4">准备好一起创造了吗？</h2>
-      <p class="text-secondary mb-5">无论是学术探讨、项目合作还是媒体约稿，欢迎通过以下方式联系我。</p>
-      <div class="d-flex justify-content-center gap-4 flex-wrap">
-        <div class="text-center">
-          <div class="copyable p-3 bg-light rounded-circle mb-2" data-copy="1433890263@qq.com" style="width:60px; height:60px; display:flex; align-items:center; justify-content:center;">
-            <i class="bi bi-envelope-fill text-primary"></i>
-          </div>
-          <div class="small fw-bold">Email</div>
-        </div>
-        <div class="text-center">
-          <div class="p-3 bg-light rounded-circle mb-2" style="width:60px; height:60px; display:flex; align-items:center; justify-content:center;">
-            <i class="bi bi-wechat text-success"></i>
-          </div>
-          <div class="small fw-bold">WeChat</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer class="py-5 border-top">
-  <div class="container text-center">
-    <div class="small text-secondary">© <span id="year"></span> 王泽恒 · 南昌 / 首尔</div>
+    <p class="mb-0 small text-secondary">© 2026 王 Zeheng. Built with Passion & Media Logic.</p>
   </div>
 </footer>
 
-<a href="#" id="backTop"><i class="bi bi-arrow-up-short h4 mb-0"></i></a>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
-
 <script>
-AOS.init({ duration: 800, once: true });
-document.getElementById('year').textContent = new Date().getFullYear();
-
-// Isotope
-var iso = new Isotope('.grid', { itemSelector: '.grid-item', layoutMode: 'masonry' });
-document.querySelectorAll('.filter-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    iso.arrange({ filter: btn.dataset.filter });
-  });
-});
-
-// Back to Top
-const back = document.getElementById('backTop');
-window.addEventListener('scroll', () => {
-  back.classList.toggle('show', window.scrollY > 400);
-});
+  AOS.init({ once: true });
 </script>
 </body>
 </html>
