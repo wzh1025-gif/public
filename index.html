@@ -723,6 +723,39 @@ footer {
     color: var(--text-primary);
 }
 
+/* 项目卡片链接文字中英文切换 */
+.project-link-text {
+    position: relative;
+    display: inline-block;
+    height: 1.2em;
+    overflow: hidden;
+}
+.project-link-text .link-en,
+.project-link-text .link-zh {
+    display: block;
+    transition: all 0.3s ease;
+}
+.project-link-text .link-en {
+    transform: translateY(0);
+    opacity: 1;
+}
+.project-link-text .link-zh {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateY(100%);
+    opacity: 0;
+}
+/* 悬停时切换 */
+.bento-card:hover .project-link-text .link-en {
+    transform: translateY(-100%);
+    opacity: 0;
+}
+.bento-card:hover .project-link-text .link-zh {
+    transform: translateY(0);
+    opacity: 1;
+}
+
 /* 工具类 */
 .py-100 {
     padding: 100px 0;
@@ -989,22 +1022,32 @@ footer {
             <div class="col-lg-4">
                 <div class="row g-4 h-100">
                     <div class="col-12" data-aos="fade-left">
-                        <div class="bento-card">
-                            <h4 class="fw-bold mb-3">CreatorEase Pro 平台</h4>
-                            <p class="small text-secondary mb-4">
-                                专为新媒体人打造的轻量级生产力工作台。通过数据驱动的标题生成、全方位的文案合规性扫描以及多平台分发建议,我们将复杂的创作流程转化为简单高效的逻辑决策,助力每一位创作者在算法时代精准捕捉流量。纯静态运行,隐私数据不上传,让您的创作更安全、更高效。
-                            </p>
-                            <span class="text-accent fw-bold small">VIEW PROJECT →</span>
-                        </div>
+                        <a href="CreatorEase.html" class="text-decoration-none" target="_blank">
+                            <div class="bento-card">
+                                <h4 class="fw-bold mb-3">CreatorEase Pro 平台</h4>
+                                <p class="small text-secondary mb-4">
+                                    专为新媒体人打造的轻量级生产力工作台。通过数据驱动的标题生成、全方位的文案合规性扫描以及多平台分发建议,我们将复杂的创作流程转化为简单高效的逻辑决策,助力每一位创作者在算法时代精准捕捉流量。纯静态运行,隐私数据不上传,让您的创作更安全、更高效。
+                                </p>
+                                <span class="project-link-text text-accent fw-bold small">
+                                    <span class="link-en">VIEW PROJECT →</span>
+                                    <span class="link-zh">查看项目 →</span>
+                                </span>
+                            </div>
+                        </a>
                     </div>
                     <div class="col-12" data-aos="fade-left" data-aos-delay="100">
-                        <div class="bento-card">
-                            <h4 class="fw-bold mb-3">CyberSeed 赛博种子</h4>
-                            <p class="small text-secondary mb-4">
-                                这是一个连接算法逻辑与生活诗意的创作者实验室。我们通过「赛博抽签」从近百件生活小事中为你捕捉创作契机,辅以专业级合规扫描与标题引擎,将破碎的灵感瞬间转化为高质感的内容产出。在这里,每一次随机抽取,都是一场预谋已久的创作实验。
-                            </p>
-                            <span class="text-accent fw-bold small">EXPLORE LAB →</span>
-                        </div>
+                        <a href="CyberSeed.html" class="text-decoration-none" target="_blank">
+                            <div class="bento-card">
+                                <h4 class="fw-bold mb-3">CyberSeed 赛博种子</h4>
+                                <p class="small text-secondary mb-4">
+                                    这是一个连接算法逻辑与生活诗意的创作者实验室。我们通过「赛博抽签」从近百件生活小事中为你捕捉创作契机,辅以专业级合规扫描与标题引擎,将破碎的灵感瞬间转化为高质感的内容产出。在这里,每一次随机抽取,都是一场预谋已久的创作实验。
+                                </p>
+                                <span class="project-link-text text-accent fw-bold small">
+                                    <span class="link-en">EXPLORE LAB →</span>
+                                    <span class="link-zh">探索实验室 →</span>
+                                </span>
+                            </div>
+                        </a>
                     </div>
                 </div>
             </div>
