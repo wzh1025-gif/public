@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CyberSeed | 赛博种子 - 777个创作契机">
+    <title>CyberSeed | 赛博种子</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Noto+Sans+SC:wght@400;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --neon-primary: #00ff9f;
+            --neon-secondary: #00d8ff;
+            --neon-accent: #ff0080;
+            --bg-dark: #020204;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background: var(--bg-dark);
+            color: #e2e8f0;
+            font-family: 'Noto Sans SC', sans-serif;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* 赛博网格背景 */
+        .cyber-grid {
+            position: fixed;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(0, 255, 159, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 159, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -2;
+            animation: grid-move 20s linear infinite;
+        }
+        
+        @keyframes grid-move {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(40px, 40px); }
+        }
+        
+        /* 动态光晕 */
+        .cyber-grid::before {
+            content: '';
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(0, 255, 159, 0.15) 0%, transparent 70%);
+            top: -400px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: pulse-glow 8s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.3; transform: translateX(-50%) scale(1); }
+            50% { opacity: 0.6; transform: translateX(-50%) scale(1.2); }
+        }
+        
+        /* 扫描线 */
+        .scanline {
+            position: fixed;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon-primary), transparent);
+            top: 0;
+            animation: scan 5s linear infinite;
+            z-index: 10;
+            pointer-events: none;
+            opacity: 0.4;
+        }
+        
+        @keyframes scan {
+            0% { top: 0; opacity: 0; }
+            50% { opacity: 0.4; }
+            100% { top: 100%; opacity: 0; }
+        }
+        
+        /* 主容器 */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 24px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        /* 头部 */
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 52px;
+            font-weight: 900;
+            letter-spacing: 0.05em;
+            background: linear-gradient(135deg, var(--neon-primary), var(--neon-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 80px rgba(0, 255, 159, 0.5);
+            margin-bottom: 12px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        /* 故障效果 */
+        .logo::before,
+        .logo::after {
+            content: 'CYBERSEED';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--neon-primary), var(--neon-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .logo:hover::before {
+            animation: glitch-1 0.3s infinite;
+        }
+        
+        .logo:hover::after {
+            animation: glitch-2 0.3s infinite reverse;
+        }
+        
+        @keyframes glitch-1 {
+            0%, 100% { transform: translate(0); opacity: 0.8; }
+            33% { transform: translate(-3px, 2px); opacity: 1; }
+            66% { transform: translate(3px, -2px); opacity: 0.8; }
+        }
+        
+        @keyframes glitch-2 {
+            0%, 100% { transform: translate(0); opacity: 0.8; }
+            33% { transform: translate(3px, -2px); opacity: 1; }
+            66% { transform: translate(-3px, 2px); opacity: 0.8; }
+        }
+        
+        .subtitle {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.4em;
+            color: var(--neon-secondary);
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+        
+        /* 主卡片 */
+        .seed-stage {
+            background: rgba(10, 15, 25, 0.8);
+            border: 1px solid rgba(0, 255, 159, 0.2);
+            border-radius: 4px;
+            padding: 60px 50px;
+            min-height: 340px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            box-shadow: 
+                0 0 60px rgba(0, 0, 0, 0.8),
+                inset 0 0 40px rgba(0, 255, 159, 0.03),
+                0 0 0 1px rgba(0, 255, 159, 0.1);
+            backdrop-filter: blur(20px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .seed-stage:hover {
+            border-color: rgba(0, 255, 159, 0.4);
+            box-shadow: 
+                0 0 80px rgba(0, 0, 0, 0.9),
+                inset 0 0 60px rgba(0, 255, 159, 0.05),
+                0 0 0 1px rgba(0, 255, 159, 0.3),
+                0 0 100px rgba(0, 255, 159, 0.2);
+        }
+        
+        /* 顶部霓虹线 */
+        .seed-stage::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 20%;
+            right: 20%;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                var(--neon-primary) 20%, 
+                var(--neon-primary) 80%, 
+                transparent);
+            box-shadow: 0 0 10px var(--neon-primary);
+        }
+        
+        /* 系统信息 */
+        .sys-info {
+            position: absolute;
+            top: 20px;
+            right: 24px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9px;
+            color: rgba(0, 255, 159, 0.4);
+            text-align: right;
+            line-height: 1.8;
+            letter-spacing: 0.1em;
+        }
+        
+        /* 待机状态 */
+        .standby {
+            text-align: center;
+            opacity: 0.3;
+        }
+        
+        .standby-text {
+            font-size: 20px;
+            color: #6b7280;
+            margin-bottom: 12px;
+        }
+        
+        .standby-code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: #4b5563;
+            letter-spacing: 0.2em;
+        }
+        
+        /* 种子显示 */
+        .seed-display {
+            position: relative;
+        }
+        
+        .seed-id {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--neon-primary);
+            letter-spacing: 0.3em;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px var(--neon-primary);
+        }
+        
+        .seed-content {
+            font-size: 30px;
+            line-height: 1.5;
+            color: #f8fafc;
+            font-weight: 400;
+            margin-bottom: 40px;
+            letter-spacing: 0.02em;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+        
+        /* 底部操作栏 */
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .copy-btn {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            color: var(--neon-secondary);
+            background: none;
+            border: 1px solid var(--neon-secondary);
+            padding: 10px 24px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .copy-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--neon-secondary);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s;
+            z-index: -1;
+        }
+        
+        .copy-btn:hover {
+            color: #000;
+            box-shadow: 0 0 20px var(--neon-secondary);
+        }
+        
+        .copy-btn:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .seed-counter {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: #6b7280;
+            letter-spacing: 0.2em;
+        }
+        
+        /* 主按钮 */
+        .capture-btn {
+            margin: 30px auto 0;
+            display: block;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            font-weight: 900;
+            letter-spacing: 0.3em;
+            color: #000;
+            background: linear-gradient(135deg, var(--neon-primary), var(--neon-secondary));
+            border: none;
+            padding: 20px 56px;
+            cursor: pointer;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 0 40px rgba(0, 255, 159, 0.4),
+                0 0 80px rgba(0, 255, 159, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .capture-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+        
+        .capture-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 
+                0 0 60px rgba(0, 255, 159, 0.6),
+                0 0 120px rgba(0, 255, 159, 0.3);
+        }
+        
+        .capture-btn:hover::before {
+            transform: translateX(100%);
+        }
+        
+        .capture-btn:active {
+            transform: translateY(0);
+        }
+        
+        /* 键盘提示 */
+        .hint {
+            text-align: center;
+            margin-top: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: #4b5563;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+        }
+        
+        /* 页脚 */
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: #4b5563;
+            letter-spacing: 0.15em;
+        }
+        
+        footer a {
+            color: var(--neon-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        footer a:hover {
+            color: var(--neon-primary);
+            text-shadow: 0 0 10px var(--neon-primary);
+        }
+        
+        /* 动画 */
+        .fade-in {
+            animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* 加载效果 */
+        .loading::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--neon-primary);
+            box-shadow: 0 0 10px var(--neon-primary);
+            animation: loading-bar 0.8s ease-out;
+        }
+        
+        @keyframes loading-bar {
+            from { transform: scaleX(0); transform-origin: left; }
+            to { transform: scaleX(1); }
+        }
+        
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 24px 20px;
+            }
+            
+            .logo {
+                font-size: 40px;
+            }
+            
+            .seed-stage {
+                padding: 40px 28px;
+                min-height: 300px;
+            }
+            
+            .seed-content {
+                font-size: 24px;
+            }
+            
+            .capture-btn {
+                font-size: 12px;
+                padding: 16px 44px;
+            }
+            
+            header {
+                margin-bottom: 30px;
+            }
+            
+            footer {
+                margin-top: 24px;
+            }
+        }
+        
+        /* 隐藏类 */
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="cyber-grid"></div>
+    <div class="scanline"></div>
+    
+    <div class="container">
+        <!-- 头部 -->
+        <header>
+            <h1 class="logo">CYBERSEED</h1>
+            <p class="subtitle">赛博种子 · 777 个创作契机</p>
+        </header>
+        
+        <!-- 主舞台 -->
+        <div class="seed-stage">
+            <div class="sys-info">
+                SYSTEM: ACTIVE<br>
+                DATABASE: 777_UNITS<br>
+                STATUS: READY
+            </div>
+            
+            <!-- 待机状态 -->
+            <div id="standby" class="standby">
+                <p class="standby-text">等待捕捉创作契机...</p>
+                <p class="standby-code">>> AWAITING_INPUT</p>
+            </div>
+            
+            <!-- 显示状态 -->
+            <div id="display" class="seed-display hidden">
+                <div class="seed-id" id="seed-num">SEED #000</div>
+                <div class="seed-content" id="seed-text"></div>
+                
+                <div class="actions">
+                    <button class="copy-btn" onclick="copySeed()">Copy</button>
+                    <span class="seed-counter" id="counter">1 / 777</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 捕捉按钮 -->
+        <button class="capture-btn" onclick="capture()">
+            捕捉灵感
+        </button>
+        
+        <p class="hint">Press Space</p>
+        
+        <!-- 页脚 -->
+        <footer>
+            <p>
+                <a href="https://github.com/yourusername/cyberseed" target="_blank">GitHub</a>
+                <span style="margin: 0 16px; opacity: 0.3;">·</span>
+                <span style="opacity: 0.5;">Based on 666 Thought Experiments</span>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // ========== 核心种子库 ==========
+        const coreSeeds = [
+            "描写一下你灵魂的形状",
+            "向盲人描述红色",
+            "一觉醒来发现回到了2000年的第一天",
+            "五百年后，新物种发现了人类最后一卷录音带",
+            "凌晨四点，我接到一个电话",
+            "现在是2022年，我是来自2077年的穿越者",
+            "你的影子看起来是什么样子的？",
+            "如果你的性格可以像软件版本一样升级，v2.0你会增加什么功能？",
+            "描述你和人工智能朋友的一次聊天",
+            "给未来的孩子写一封信，描述现在的世界",
+            "如果你的生命只剩下24小时，你会如何处理社交账号？",
+            "不提雪字，描述一下雪很大的场景",
+            "你会如何处理你的数字遗产？",
+            "如果你拥有一个可以删除痛苦记忆的按钮",
+            "描述赛博世界里的最后一道自然光",
+            "如果古人也有朋友圈，他们会发什么？",
+            "怀疑自己是外星人，你要怎么证明？",
+            "向一百年后的人类留言",
+            "虚构一个古代英雄，叙述你和他生活一天的故事",
+            "你中了一个亿，会如何使用这笔巨额财富？",
+            "食物如果有思维能力，为了避免被吃掉它会怎么做？",
+            "你的朋友正在慢慢改变形状，他变成了什么？",
+            "如果可以预知未来，你最想知道的一件事是什么？",
+            "描述宇宙的尽头",
+            "写一封永远不会寄出的信",
+            "如果记忆可以买卖，你会出售哪一段？",
+            "描述一个只存在于梦中的城市",
+            "给你的前世写一段话",
+            "如果情绪有颜色，你今天是什么色？",
+            "最后一个人类醒来时看到了什么",
+            "时间停止了60秒，你会做什么",
+            "如果你能和一本书对话",
+            "给前世的自己留言",
+            "拨打119，如果你遇到了来自未来的火灾",
+            "莫言作品给你印象最深的地方",
+            "写一封辞退信给绩效差但理性强的员工",
+            "在空间站独自生活三个月要带什么",
+            "和一种动物交换一天的生活",
+            "最想去但还没去的城市",
+            "不虚此生的人生定义",
+            "回到过去改变一个决定",
+            "暴雨中行走的触感",
+            "给20年后的自己发简讯",
+            "总结过往写作经历",
+            "第一次心跳的感觉",
+            "程序的Bug是什么",
+            "机房里的新文明",
+            "梦境视频剪辑频道",
+            "名为数字乡愁的传染病",
+            "第一个数字化人类的遗言",
+            "影子在深夜逃走了",
+            "只有声音没有画面的清晨",
+            "邻居是一个正在运行的程序",
+            "记忆云盘扩容",
+            "算法统治的幸福村庄",
+            "言语变成实体落地"
+        ];
+
+        // 扩展至 777 条
+        const seeds = [];
+        for (let i = 1; i <= 777; i++) {
+            let content = coreSeeds[(i - 1) % coreSeeds.length];
+            seeds.push({ id: i, content: content });
+        }
+
+        let currentSeed = null;
+
+        // ========== 捕捉函数 ==========
+        function capture() {
+            const standby = document.getElementById('standby');
+            const display = document.getElementById('display');
+            const stage = document.querySelector('.seed-stage');
+            
+            // 隐藏当前内容
+            standby.classList.add('hidden');
+            display.classList.add('hidden');
+            
+            // 添加加载效果
+            stage.classList.add('loading');
+            
+            // 模拟解码延迟
+            setTimeout(() => {
+                // 随机抽取
+                currentSeed = seeds[Math.floor(Math.random() * seeds.length)];
+                
+                // 更新显示
+                document.getElementById('seed-num').textContent = 
+                    `SEED #${currentSeed.id.toString().padStart(3, '0')}`;
+                document.getElementById('seed-text').textContent = currentSeed.content;
+                document.getElementById('counter').textContent = `${currentSeed.id} / 777`;
+                
+                // 移除加载效果
+                stage.classList.remove('loading');
+                
+                // 显示内容
+                display.classList.remove('hidden');
+                display.classList.add('fade-in');
+            }, 800);
+        }
+
+        // ========== 复制函数 ==========
+        function copySeed() {
+            if (!currentSeed) return;
+            
+            const text = `SEED #${currentSeed.id.toString().padStart(3, '0')}\n${currentSeed.content}`;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = event.target;
+                const original = btn.textContent;
+                btn.textContent = 'COPIED!';
+                btn.style.color = '#000';
+                btn.style.background = 'var(--neon-primary)';
+                btn.style.borderColor = 'var(--neon-primary)';
+                
+                setTimeout(() => {
+                    btn.textContent = original;
+                    btn.style.color = '';
+                    btn.style.background = '';
+                    btn.style.borderColor = '';
+                }, 1500);
+            });
+        }
+
+        // ========== 键盘快捷键 ==========
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' && e.target === document.body) {
+                e.preventDefault();
+                capture();
+            }
+        });
+    </script>
+</body>
+</html>
