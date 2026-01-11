@@ -1370,7 +1370,7 @@
 
         // 扩展至 850 条
         const seeds = [];
-        for (let i = 1; i <= 777; i++) {
+        for (let i = 1; i <= 850; i++) {
             let content = coreSeeds[(i - 1) % coreSeeds.length];
             seeds.push({ id: i, content: content });
         }
@@ -1399,7 +1399,7 @@
                 document.getElementById('seed-num').textContent = 
                     `SEED #${currentSeed.id.toString().padStart(3, '0')}`;
                 document.getElementById('seed-text').textContent = currentSeed.content;
-                document.getElementById('counter').textContent = `${currentSeed.id} / 777`;
+                document.getElementById('counter').textContent = `${currentSeed.id} / 850`;
                 
                 // 移除加载效果
                 stage.classList.remove('loading');
