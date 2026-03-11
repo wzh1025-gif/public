@@ -362,6 +362,20 @@ section {
 /* ─────────────────────────────────────────────
    ① OVERVIEW
 ───────────────────────────────────────────── */
+
+/* ─────────────────────────────────────────────
+   New gradient: violet-pink
+───────────────────────────────────────────── */
+.grad-violet-pink {
+  background: linear-gradient(135deg, var(--grad-violet) 0%, var(--grad-pink) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─────────────────────────────────────────────
+   IP card — pure image
+───────────────────────────────────────────── */
 /* tool chips in wide card */
 .tool-chips {
   display: flex;
@@ -395,65 +409,78 @@ section {
   cursor: pointer;
   position: relative;
   background: rgba(255,255,255,0.6);
-  backdrop-filter: blur(12px);
   border: 1px solid rgba(255,255,255,0.8);
   box-shadow: var(--shadow-sm);
   transition: all 0.4s cubic-bezier(0.25, 1, 0.3, 1);
-  aspect-ratio: 3/4;
+  aspect-ratio: 9/16;
 }
 .ip-card:hover {
-  transform: translateY(-8px) scale(1.02);
+  transform: translateY(-8px);
   box-shadow: var(--shadow-lg);
-  border-color: rgba(255,255,255,1);
 }
 .ip-card.featured {
   grid-column: span 2;
   grid-row: span 2;
   aspect-ratio: auto;
+  min-height: 480px;
 }
-.ip-placeholder {
+.ip-card img {
   width: 100%; height: 100%;
-  min-height: 200px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  font-size: 3rem;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.3, 1);
 }
-.ip-card.featured .ip-placeholder { min-height: 360px; font-size: 5rem; }
-.ip-overlay {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  padding: 20px;
-  background: linear-gradient(to top, rgba(255,255,255,0.95), transparent);
-  transform: translateY(8px);
-  opacity: 0;
-  transition: all 0.35s;
+.ip-card:hover img { transform: scale(1.04); }
+
+/* poster-item pure image */
+.poster-item img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.3, 1);
 }
-.ip-card:hover .ip-overlay { opacity: 1; transform: translateY(0); }
-.ip-overlay h6 {
-  font-size: 0.85rem;
-  font-weight: 600;
-  margin-bottom: 4px;
-  color: var(--text-primary);
+.poster-item:hover img { transform: scale(1.04); }
+
+/* ─────────────────────────────────────────────
+   Creative Poster Grid
+───────────────────────────────────────────── */
+.creative-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
 }
-.ip-overlay p {
-  font-size: 0.72rem;
-  color: var(--text-secondary);
+.creative-item {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  cursor: pointer;
+  background: rgba(255,255,255,0.6);
+  border: 1px solid rgba(255,255,255,0.8);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.3, 1);
+  aspect-ratio: 9/16;
 }
-.ip-type-badge {
-  position: absolute;
-  top: 14px; left: 14px;
-  padding: 5px 12px;
-  border-radius: 50px;
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  background: rgba(255,255,255,0.85);
-  backdrop-filter: blur(8px);
-  color: var(--text-secondary);
-  border: 1px solid rgba(255,255,255,0.9);
+.creative-item:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+}
+.creative-item:first-child {
+  grid-column: span 2;
+  grid-row: span 2;
+  aspect-ratio: auto;
+  min-height: 480px;
+}
+.creative-item img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.3, 1);
+}
+.creative-item:hover img { transform: scale(1.04); }
+
+@media (max-width: 900px) {
+  .creative-grid { grid-template-columns: repeat(2, 1fr); }
+  .creative-item:first-child { grid-column: span 2; grid-row: span 1; min-height: 300px; }
+  .ip-card.featured { grid-column: span 2; grid-row: span 1; min-height: 300px; }
 }
 
 /* IP sub tabs */
@@ -907,6 +934,7 @@ footer a:hover { color: var(--text-primary); }
   <ul class="nav-links">
     <li><a href="#ip">IP Design</a></li>
     <li><a href="#poster">City Poster</a></li>
+    <li><a href="#creative">Creative</a></li>
     <li><a href="#video">Video & GIF</a></li>
   </ul>
   <a href="index.html" class="nav-back">
@@ -952,65 +980,27 @@ footer a:hover { color: var(--text-primary); }
   <div class="section-header fade-up">
     <span class="section-label">IP Design</span>
     <h2 class="section-title"><span class="grad-cyan-violet">IP 形象</span>设计</h2>
-    <p class="section-sub">AI 生成的角色 IP，涵盖三视图、表情包、海报与形象衍生设计。</p>
   </div>
 
-  <!-- sub tabs -->
-  <div class="ip-tabs fade-up fade-up-delay-1">
-    <button class="ip-tab active" onclick="switchTab(this,'all')">全部</button>
-    <button class="ip-tab" onclick="switchTab(this,'3view')">三视图</button>
-    <button class="ip-tab" onclick="switchTab(this,'emoji')">表情包</button>
-    <button class="ip-tab" onclick="switchTab(this,'poster-ip')">形象海报</button>
-  </div>
-
-  <div class="ip-grid fade-up fade-up-delay-2">
-    <!-- Featured -->
+  <div class="ip-grid fade-up fade-up-delay-1">
     <div class="ip-card featured">
-      <div class="ip-placeholder" style="background:linear-gradient(145deg,#ffecd2,#fcb69f,#ff9a9e);">
-        🐉
-        <span style="font-size:0.85rem;color:rgba(255,255,255,0.8);margin-top:8px;font-weight:500;">[ 主角色三视图占位 ]</span>
-      </div>
-      <span class="ip-type-badge">三视图 · Featured</span>
-      <div class="ip-overlay">
-        <h6>主 IP 角色 · 三视图</h6>
-        <p>正面 · 侧面 · 背面完整形象展示</p>
-      </div>
+      <img src="assets/ai/设计-1.png" alt="" loading="lazy">
     </div>
-
-    <!-- Emoji 1 -->
     <div class="ip-card">
-      <div class="ip-placeholder" style="background:linear-gradient(145deg,#a1c4fd,#c2e9fb);">😄</div>
-      <span class="ip-type-badge">表情包</span>
-      <div class="ip-overlay"><h6>快乐系列</h6><p>AI 生成表情包 · 系列一</p></div>
+      <img src="assets/ai/设计-2.png" alt="" loading="lazy">
     </div>
-
-    <!-- Emoji 2 -->
     <div class="ip-card">
-      <div class="ip-placeholder" style="background:linear-gradient(145deg,#fbc2eb,#a6c1ee);">🥺</div>
-      <span class="ip-type-badge">表情包</span>
-      <div class="ip-overlay"><h6>委屈系列</h6><p>AI 生成表情包 · 系列二</p></div>
+      <img src="assets/ai/设计-3.png" alt="" loading="lazy">
     </div>
-
-    <!-- Poster IP 1 -->
     <div class="ip-card">
-      <div class="ip-placeholder" style="background:linear-gradient(145deg,#d4fc79,#96e6a1);">🌿</div>
-      <span class="ip-type-badge">形象海报</span>
-      <div class="ip-overlay"><h6>自然主题海报</h6><p>IP × 环境融合设计</p></div>
+      <img src="assets/ai/设计-4.png" alt="" loading="lazy">
     </div>
-
-    <!-- Poster IP 2 -->
     <div class="ip-card">
-      <div class="ip-placeholder" style="background:linear-gradient(145deg,#fccb90,#d57eeb);">🌙</div>
-      <span class="ip-type-badge">形象海报</span>
-      <div class="ip-overlay"><h6>夜间主题海报</h6><p>IP × 霓虹赛博风</p></div>
+      <img src="assets/ai/设计-5.png" alt="" loading="lazy">
     </div>
-
-    <!-- Upload hint -->
-  </div>
-
-  <div class="upload-hint fade-up fade-up-delay-3">
-    <span class="icon">＋</span>
-    <p><strong>继续添加 IP 作品</strong> — 拖拽或上传图片，三视图 / 表情包 / 海报 / 形象设计均可</p>
+    <div class="ip-card">
+      <img src="assets/ai/设计-6.png" alt="" loading="lazy">
+    </div>
   </div>
 </section>
 
@@ -1032,42 +1022,33 @@ footer a:hover { color: var(--text-primary); }
       <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
     </button>
     <div class="poster-track">
-      <div class="poster-item">
-        <div class="poster-img bg-g1"><span class="city-initial">TYO</span></div>
-        <div class="poster-info"><h5>Tokyo · 东京</h5><p>霓虹与寂静的共生</p></div>
-      </div>
-      <div class="poster-item">
-        <div class="poster-img bg-g2"><span class="city-initial">SEL</span></div>
-        <div class="poster-info"><h5>Seoul · 首尔</h5><p>汉江边的数字浪漫</p></div>
-      </div>
-      <div class="poster-item">
-        <div class="poster-img bg-g3"><span class="city-initial">NCG</span></div>
-        <div class="poster-info"><h5>Nanchang · 南昌</h5><p>红色记忆与新城之光</p></div>
-      </div>
-      <div class="poster-item">
-        <div class="poster-img bg-g4"><span class="city-initial">NYC</span></div>
-        <div class="poster-info"><h5>New York · 纽约</h5><p>摩天楼的呼吸节奏</p></div>
-      </div>
-      <div class="poster-item">
-        <div class="poster-img bg-g5"><span class="city-initial">PAR</span></div>
-        <div class="poster-info"><h5>Paris · 巴黎</h5><p>永恒光晕下的街角</p></div>
-      </div>
-      <div class="poster-item">
-        <div class="poster-img bg-g6"><span class="city-initial">SIN</span></div>
-        <div class="poster-info"><h5>Singapore · 新加坡</h5><p>花园城市的未来感</p></div>
-      </div>
-      <div class="poster-item">
-        <div class="poster-img bg-g7"><span class="city-initial">MAC</span></div>
-        <div class="poster-info"><h5>Macau · 澳门</h5><p>光与影的双城叙事</p></div>
-      </div>
-      <div class="poster-item" style="border:2px dashed rgba(0,0,0,0.1);background:rgba(255,255,255,0.3);">
-        <div class="poster-img" style="background:rgba(0,0,0,0.03);"><span style="font-size:2rem;font-weight:300;color:rgba(0,0,0,0.2);">+</span></div>
-        <div class="poster-info">
-          <h5 style="color:var(--text-tertiary)">继续添加</h5>
-          <p>上传你的城市海报</p>
-        </div>
-      </div>
+      <div class="poster-item"><img src="assets/ai/城市-1.png" alt="" loading="lazy"></div>
+      <div class="poster-item"><img src="assets/ai/城市-2.png" alt="" loading="lazy"></div>
+      <div class="poster-item"><img src="assets/ai/城市-3.png" alt="" loading="lazy"></div>
+      <div class="poster-item"><img src="assets/ai/城市-4.png" alt="" loading="lazy"></div>
+      <div class="poster-item"><img src="assets/ai/城市-5.png" alt="" loading="lazy"></div>
+      <div class="poster-item"><img src="assets/ai/城市-6.png" alt="" loading="lazy"></div>
     </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     ③-B CREATIVE POSTER
+══════════════════════════════════════════ -->
+<section id="creative">
+  <div class="section-header fade-up">
+    <span class="section-label">Creative Poster</span>
+    <h2 class="section-title"><span class="grad-violet-pink">创意</span>海报</h2>
+  </div>
+
+  <div class="creative-grid fade-up fade-up-delay-1">
+    <div class="creative-item"><img src="assets/ai/海报-1.png" alt="" loading="lazy"></div>
+    <div class="creative-item"><img src="assets/ai/海报-2.png" alt="" loading="lazy"></div>
+    <div class="creative-item"><img src="assets/ai/海报-3.png" alt="" loading="lazy"></div>
+    <div class="creative-item"><img src="assets/ai/海报-4.png" alt="" loading="lazy"></div>
+    <div class="creative-item"><img src="assets/ai/海报-5.png" alt="" loading="lazy"></div>
+    <div class="creative-item"><img src="assets/ai/海报-6.png" alt="" loading="lazy"></div>
+    <div class="creative-item"><img src="assets/ai/海报-7.png" alt="" loading="lazy"></div>
   </div>
 </section>
 
