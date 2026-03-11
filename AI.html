@@ -366,28 +366,14 @@ section {
 }
 
 /* ─────────────────────────────────────────────
-   图片压缩渲染优化
-   - max-width/max-height 防止超大图撑满
-   - object-fit: cover 智能裁切
-   - content-visibility: auto 延迟渲染
+   全局图片 — 自然铺满容器，不限制尺寸
 ───────────────────────────────────────────── */
 img {
   max-width: 100%;
-  height: auto;
-  display: block;
-  object-fit: cover;
-  decoding: async;
-}
-/* 限制单张图最大渲染尺寸，浏览器会缩放显示，节省内存 */
-.design-item img,
-.poster-item img,
-.city-item img {
   width: 100%;
   height: 100%;
+  display: block;
   object-fit: cover;
-  image-rendering: auto;
-  /* 限制图片最大渲染分辨率 */
-  max-height: 600px;
 }
 
 /* ─────────────────────────────────────────────
@@ -612,7 +598,7 @@ img {
   width: 100%; height: 100%;
   object-fit: cover;
   transition: transform 0.6s cubic-bezier(0.25, 1, 0.3, 1);
-  max-height: 450px;
+
 }
 .city-item:hover .city-img img { transform: scale(1.06); }
 
@@ -686,6 +672,11 @@ img {
 .video-slot-2 {
   grid-column: 3 / 4;
   grid-row: 1 / 2;
+}
+/* 视频3：占1列，行2（GIF-2位置） */
+.video-slot-3 {
+  grid-column: 3 / 4;
+  grid-row: 2 / 3;
 }
 
 /* B站 iframe 嵌入容器 */
@@ -797,16 +788,16 @@ img {
 }
 
 /* GIF布局定位 */
-/* GIF-1: 第4列，竖版，跨2行（紧贴视频右侧） */
-.gif-slot-1 { grid-column: 4; grid-row: 1 / 3; }
-/* GIF 2-5: 行2，各占1列 */
-.gif-slot-2 { grid-column: 1; grid-row: 2; }
-.gif-slot-3 { grid-column: 2; grid-row: 2; }
-.gif-slot-4 { grid-column: 3; grid-row: 2; }
-/* GIF-5: 行3，宽2列 */
-.gif-slot-5 { grid-column: 1 / 3; grid-row: 3; }
-/* GIF-6: 行3，宽2列 */
-.gif-slot-6 { grid-column: 3 / 5; grid-row: 3; }
+/* GIF-1: 第4列，竖版，跨3行（紧贴视频右侧） */
+.gif-slot-1 { grid-column: 4; grid-row: 1 / 4; }
+/* GIF 2-4: 行2，各占1列（列1-3） */
+.gif-slot-2 { grid-column: 1; grid-row: 3; }
+.gif-slot-3 { grid-column: 2; grid-row: 3; }
+.gif-slot-4 { grid-column: 3; grid-row: 3; }
+/* GIF-5: 行4，宽2列 */
+.gif-slot-5 { grid-column: 1 / 3; grid-row: 4; }
+/* GIF-6: 行4，宽2列 */
+.gif-slot-6 { grid-column: 3 / 5; grid-row: 4; }
 
 /* GIF 媒体容器 */
 .gif-media {
@@ -817,8 +808,6 @@ img {
 .gif-media img {
   width: 100%; height: 100%;
   object-fit: cover;
-  max-height: 400px;
-  image-rendering: auto;
 }
 /* 标准GIF比例 */
 .gif-slot:not(.gif-slot-1) .gif-media { aspect-ratio: 16/9; }
@@ -1276,6 +1265,20 @@ footer a:hover { color: var(--text-primary); }
       </div>
     </div>
 
+    <!-- ── 视频 3 ── -->
+    <div class="video-slot video-slot-3">
+      <div class="video-thumb-wrap">
+        <iframe src="//player.bilibili.com/player.html?bvid=BV1Q4wAzEEL5&autoplay=0&danmaku=0" scrolling="no" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <div class="video-info-bar">
+        <div>
+          <h5>AI 视频 · 03</h5>
+          <p>Bilibili · BV1Q4wAzEEL5</p>
+        </div>
+        <span>Runway ML</span>
+      </div>
+    </div>
+
     <!-- ── GIF 1：竖版，跨2行（与视频并列右侧） ── -->
     <div class="gif-slot gif-slot-1">
       <div class="gif-media">
@@ -1472,20 +1475,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
-// ── 图片懒加载增强：超大图自动缩放显示
-// 利用 CSS max-height 和 object-fit 已在CSS中处理，
-// 这里额外添加：图片加载完成后检查自然尺寸，防止极大图片撑破布局
-document.querySelectorAll('img[loading="lazy"]').forEach(img => {
-  img.addEventListener('load', function() {
-    // 超大图（>3000px）限制渲染宽度，降低内存占用
-    if (this.naturalWidth > 3000 || this.naturalHeight > 3000) {
-      this.style.imageRendering = 'auto';
-      // 触发 GPU 合成层，改善大图渲染性能
-      this.style.willChange = 'transform';
-      this.style.transform = 'translateZ(0)';
-    }
-  });
-});
+
 </script>
 </body>
 </html>
