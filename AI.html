@@ -186,6 +186,12 @@ nav {
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+.grad-violet-pink {
+  background: linear-gradient(135deg, var(--grad-violet) 0%, var(--grad-pink) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 
 /* ─────────────────────────────────────────────
    Hero Section
@@ -360,160 +366,182 @@ section {
 }
 
 /* ─────────────────────────────────────────────
-   ① OVERVIEW
+   图片压缩渲染优化
+   - max-width/max-height 防止超大图撑满
+   - object-fit: cover 智能裁切
+   - content-visibility: auto 延迟渲染
 ───────────────────────────────────────────── */
-
-/* ─────────────────────────────────────────────
-   New gradient: violet-pink
-───────────────────────────────────────────── */
-.grad-violet-pink {
-  background: linear-gradient(135deg, var(--grad-violet) 0%, var(--grad-pink) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  decoding: async;
+}
+/* 限制单张图最大渲染尺寸，浏览器会缩放显示，节省内存 */
+.design-item img,
+.poster-item img,
+.city-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  image-rendering: auto;
+  /* 限制图片最大渲染分辨率 */
+  max-height: 600px;
 }
 
 /* ─────────────────────────────────────────────
-   IP card — pure image
+   ① DESIGN SECTION — 瀑布流 Masonry 风格
 ───────────────────────────────────────────── */
-/* tool chips in wide card */
-.tool-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 20px;
-}
-.chip {
-  padding: 6px 16px;
-  border-radius: 50px;
-  font-size: 0.78rem;
-  font-weight: 500;
-  background: rgba(255,255,255,0.6);
-  border: 1px solid var(--border);
-  backdrop-filter: blur(8px);
-  transition: all 0.25s;
-}
-.chip:hover { background: rgba(255,255,255,0.9); transform: translateY(-1px); }
-
-/* ─────────────────────────────────────────────
-   ② IP Design Section
-───────────────────────────────────────────── */
-.ip-grid {
+.design-layout {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: auto;
   gap: 16px;
 }
-.ip-card {
-  border-radius: var(--radius-md);
+
+/* 特大主图：占 7列 × 2行 */
+.design-item-hero {
+  grid-column: 1 / 8;
+  grid-row: 1 / 3;
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  cursor: pointer;
+  aspect-ratio: 3/4;
   position: relative;
-  background: rgba(255,255,255,0.6);
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  transition: all 0.45s cubic-bezier(0.25, 1, 0.3, 1);
+  background: rgba(255,255,255,0.5);
   border: 1px solid rgba(255,255,255,0.8);
-  box-shadow: var(--shadow-sm);
-  transition: all 0.4s cubic-bezier(0.25, 1, 0.3, 1);
-  aspect-ratio: 9/16;
+  content-visibility: auto;
 }
-.ip-card:hover {
-  transform: translateY(-8px);
+.design-item-hero:hover {
+  transform: translateY(-8px) scale(1.01);
   box-shadow: var(--shadow-lg);
 }
-.ip-card.featured {
-  grid-column: span 2;
-  grid-row: span 2;
-  aspect-ratio: auto;
-  min-height: 480px;
-}
-.ip-card img {
+.design-item-hero img {
   width: 100%; height: 100%;
   object-fit: cover;
-  display: block;
-  transition: transform 0.5s cubic-bezier(0.25, 1, 0.3, 1);
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.3, 1);
 }
-.ip-card:hover img { transform: scale(1.04); }
+.design-item-hero:hover img { transform: scale(1.05); }
 
-/* poster-item pure image */
-.poster-item img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.5s cubic-bezier(0.25, 1, 0.3, 1);
-}
-.poster-item:hover img { transform: scale(1.04); }
-
-/* ─────────────────────────────────────────────
-   Creative Poster Grid
-───────────────────────────────────────────── */
-.creative-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-}
-.creative-item {
+/* 右侧竖向排 3 张 */
+.design-item-sm {
   border-radius: var(--radius-md);
   overflow: hidden;
   cursor: pointer;
-  background: rgba(255,255,255,0.6);
-  border: 1px solid rgba(255,255,255,0.8);
   box-shadow: var(--shadow-sm);
   transition: all 0.4s cubic-bezier(0.25, 1, 0.3, 1);
-  aspect-ratio: 9/16;
+  background: rgba(255,255,255,0.5);
+  border: 1px solid rgba(255,255,255,0.8);
+  content-visibility: auto;
+  contain: layout style paint;
 }
-.creative-item:hover {
-  transform: translateY(-8px);
+.design-item-sm:nth-child(2) { grid-column: 8 / 13; grid-row: 1; aspect-ratio: 4/3; }
+.design-item-sm:nth-child(3) { grid-column: 8 / 11; grid-row: 2; aspect-ratio: 1/1; }
+.design-item-sm:nth-child(4) { grid-column: 11 / 13; grid-row: 2; aspect-ratio: 1/1; }
+/* 第二排：3张横排 */
+.design-item-sm:nth-child(5) { grid-column: 1 / 5; grid-row: 3; aspect-ratio: 3/4; }
+.design-item-sm:nth-child(6) { grid-column: 5 / 9; grid-row: 3; aspect-ratio: 3/4; }
+.design-item-sm:nth-child(7) { grid-column: 9 / 13; grid-row: 3; aspect-ratio: 3/4; }
+
+.design-item-sm:hover {
+  transform: translateY(-6px);
   box-shadow: var(--shadow-lg);
 }
-.creative-item:first-child {
-  grid-column: span 2;
-  grid-row: span 2;
-  aspect-ratio: auto;
-  min-height: 480px;
-}
-.creative-item img {
+.design-item-sm img {
   width: 100%; height: 100%;
   object-fit: cover;
-  display: block;
   transition: transform 0.5s cubic-bezier(0.25, 1, 0.3, 1);
 }
-.creative-item:hover img { transform: scale(1.04); }
-
-@media (max-width: 900px) {
-  .creative-grid { grid-template-columns: repeat(2, 1fr); }
-  .creative-item:first-child { grid-column: span 2; grid-row: span 1; min-height: 300px; }
-  .ip-card.featured { grid-column: span 2; grid-row: span 1; min-height: 300px; }
-}
-
-/* IP sub tabs */
-.ip-tabs {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 32px;
-  background: rgba(255,255,255,0.55);
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--border);
-  border-radius: 50px;
-  padding: 5px;
-  width: fit-content;
-}
-.ip-tab {
-  padding: 8px 22px;
-  border-radius: 50px;
-  font-size: 0.82rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s;
-  color: var(--text-secondary);
-  border: none;
-  background: transparent;
-}
-.ip-tab.active {
-  background: white;
-  color: var(--text-primary);
-  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
-}
+.design-item-sm:hover img { transform: scale(1.05); }
 
 /* ─────────────────────────────────────────────
-   ③ City Poster Section
+   ② CREATIVE POSTER — 全新不对称布局
+   左：1张大竖图；右：2×2 网格
+───────────────────────────────────────────── */
+.poster-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 16px;
+}
+
+.poster-featured {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  cursor: pointer;
+  aspect-ratio: 9/16;
+  box-shadow: var(--shadow-md);
+  transition: all 0.45s cubic-bezier(0.25, 1, 0.3, 1);
+  background: rgba(255,255,255,0.5);
+  border: 1px solid rgba(255,255,255,0.8);
+  content-visibility: auto;
+}
+.poster-featured:hover {
+  transform: translateY(-8px) rotate(-0.5deg);
+  box-shadow: var(--shadow-lg);
+}
+.poster-featured img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.3, 1);
+}
+.poster-featured:hover img { transform: scale(1.05); }
+
+.poster-grid-item {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  cursor: pointer;
+  aspect-ratio: 9/13;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.3, 1);
+  background: rgba(255,255,255,0.5);
+  border: 1px solid rgba(255,255,255,0.8);
+  content-visibility: auto;
+  contain: layout style paint;
+}
+.poster-grid-item:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+}
+.poster-grid-item img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.3, 1);
+}
+.poster-grid-item:hover img { transform: scale(1.06); }
+
+/* 宽海报横跨两列 */
+.poster-wide {
+  grid-column: 2 / 4;
+  grid-row: 1;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  cursor: pointer;
+  aspect-ratio: 16/9;
+  box-shadow: var(--shadow-md);
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.3, 1);
+  background: rgba(255,255,255,0.5);
+  border: 1px solid rgba(255,255,255,0.8);
+  content-visibility: auto;
+}
+.poster-wide:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+}
+.poster-wide img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.3, 1);
+}
+.poster-wide:hover img { transform: scale(1.04); }
+
+/* ─────────────────────────────────────────────
+   ③ CITY POSTER — 横向滚动（保留原风格，强化视觉）
 ───────────────────────────────────────────── */
 .poster-scroll-container {
   position: relative;
@@ -524,8 +552,7 @@ section {
   top: 50%;
   transform: translateY(-60%);
   z-index: 10;
-  width: 44px;
-  height: 44px;
+  width: 44px; height: 44px;
   border-radius: 50%;
   background: rgba(255,255,255,0.85);
   backdrop-filter: blur(12px);
@@ -542,16 +569,11 @@ section {
   box-shadow: var(--shadow-lg);
   transform: translateY(-60%) scale(1.1);
 }
-.poster-arrow svg {
-  width: 18px;
-  height: 18px;
-  stroke: var(--text-primary);
-  stroke-width: 2;
-  fill: none;
-}
+.poster-arrow svg { width: 18px; height: 18px; stroke: var(--text-primary); stroke-width: 2; fill: none; }
 .poster-arrow-prev { left: 12px; }
 .poster-arrow-next { right: 12px; }
 .poster-arrow.hidden { opacity: 0; pointer-events: none; }
+
 .poster-track {
   display: flex;
   gap: 20px;
@@ -562,179 +584,203 @@ section {
   -webkit-overflow-scrolling: touch;
 }
 .poster-track::-webkit-scrollbar { display: none; }
-.poster-item {
+
+.city-item {
   flex-shrink: 0;
-  width: 280px;
+  width: 300px;
   scroll-snap-align: start;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  background: rgba(255,255,255,0.6);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.8);
-  box-shadow: var(--shadow-sm);
   cursor: pointer;
   transition: all 0.4s cubic-bezier(0.25, 1, 0.3, 1);
+  background: rgba(255,255,255,0.6);
+  border: 1px solid rgba(255,255,255,0.8);
+  box-shadow: var(--shadow-sm);
+  content-visibility: auto;
 }
-.poster-item:hover {
-  transform: translateY(-8px) rotate(-1deg);
+.city-item:hover {
+  transform: translateY(-10px) rotate(-1deg);
   box-shadow: var(--shadow-lg);
 }
-.poster-img {
+.city-img {
   width: 100%;
   aspect-ratio: 2/3;
-  background: linear-gradient(135deg, #e8eaf6, #fce4ec);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 4rem;
-  position: relative;
   overflow: hidden;
+  position: relative;
 }
-.poster-img::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.15));
+.city-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.3, 1);
+  max-height: 450px;
 }
-.poster-info {
-  padding: 18px 20px;
-}
-.poster-info h5 {
-  font-family: 'Syne', sans-serif;
-  font-size: 1rem;
-  font-weight: 700;
-  margin-bottom: 4px;
-}
-.poster-info p { font-size: 0.78rem; color: var(--text-secondary); }
+.city-item:hover .city-img img { transform: scale(1.06); }
 
-/* Gradient backgrounds for placeholder posters */
-.bg-g1 { background: linear-gradient(160deg, #ffecd2, #fcb69f) !important; }
-.bg-g2 { background: linear-gradient(160deg, #a1c4fd, #c2e9fb) !important; }
-.bg-g3 { background: linear-gradient(160deg, #fbc2eb, #a6c1ee) !important; }
-.bg-g4 { background: linear-gradient(160deg, #96fbc4, #f9f586) !important; }
-.bg-g5 { background: linear-gradient(160deg, #ffecd2, #fcb69f) !important; }
-.bg-g6 { background: linear-gradient(160deg, #d4fc79, #96e6a1) !important; }
-.bg-g7 { background: linear-gradient(160deg, #fccb90, #d57eeb) !important; }
-.city-initial {
+/* 城市标签覆盖层 */
+.city-overlay {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 40px 20px 18px;
+  background: linear-gradient(to top, rgba(0,0,0,0.55), transparent);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+.city-name {
   font-family: 'Syne', sans-serif;
-  font-size: 2.2rem;
+  font-size: 1.1rem;
   font-weight: 800;
-  letter-spacing: 0.08em;
-  color: rgba(255,255,255,0.75);
-  text-shadow: 0 2px 12px rgba(0,0,0,0.1);
+  color: white;
+  letter-spacing: 0.02em;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+.city-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 50px;
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(8px);
+  color: rgba(255,255,255,0.9);
+  border: 1px solid rgba(255,255,255,0.3);
 }
 
 /* ─────────────────────────────────────────────
-   ④ Video Section
+   ④⑤ VIDEO + GIF 合并板块
+   布局结构：
+   行1：视频1(宽) | 视频2(窄) | GIF-1(竖)
+   行2：GIF-2 | GIF-3 | GIF-4 | GIF-5
+   行3：GIF-6(宽2列)
 ───────────────────────────────────────────── */
-.video-hero {
-  border-radius: var(--radius-xl);
+
+/* 统一容器：4列网格 */
+.motion-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+/* ── 视频卡片 ── */
+.video-slot {
+  border-radius: var(--radius-lg);
   overflow: hidden;
   background: rgba(255,255,255,0.6);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255,255,255,0.8);
-  box-shadow: var(--shadow-lg);
-  margin-bottom: 24px;
+  box-shadow: var(--shadow-md);
+  transition: all 0.45s cubic-bezier(0.25, 1, 0.3, 1);
+  cursor: pointer;
 }
-.video-hero-placeholder {
+.video-slot:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+}
+/* 视频1：占2列，行1-2（高大） */
+.video-slot-1 {
+  grid-column: 1 / 3;
+  grid-row: 1 / 2;
+}
+/* 视频2：占1列，行1 */
+.video-slot-2 {
+  grid-column: 3 / 4;
+  grid-row: 1 / 2;
+}
+
+/* B站 iframe 嵌入容器 */
+.bili-wrap {
   width: 100%;
   aspect-ratio: 16/9;
-  background: linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 50%, #0a1a2e 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   position: relative;
   overflow: hidden;
+  background: #0a0a1a;
 }
-.video-hero-placeholder::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: 
-    radial-gradient(ellipse 60% 50% at 30% 40%, rgba(94,196,255,0.2) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 60% at 70% 60%, rgba(255,107,157,0.15) 0%, transparent 60%);
+.bili-wrap iframe {
+  width: 100%; height: 100%;
+  border: none;
+  display: block;
 }
-.play-btn {
-  width: 80px; height: 80px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.18);
-  backdrop-filter: blur(12px);
-  border: 2px solid rgba(255,255,255,0.3);
+/* 待上传占位（有BV号后删掉这块，换iframe） */
+.video-placeholder {
+  width: 100%; height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  transition: all 0.35s;
+  flex-direction: column;
+  gap: 14px;
   position: relative;
-  z-index: 1;
 }
-.play-btn:hover {
-  background: rgba(255,255,255,0.28);
-  transform: scale(1.1);
-  border-color: rgba(255,255,255,0.5);
+.video-placeholder.v1 { background: linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 50%, #0a1a2e 100%); }
+.video-placeholder.v2 { background: linear-gradient(135deg, #0d1b2a 0%, #1b2838 50%, #0a0a0a 100%); }
+.video-placeholder::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 30% 40%, rgba(94,196,255,0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 60% at 70% 60%, rgba(255,107,157,0.14) 0%, transparent 60%);
 }
-.play-btn svg { width: 28px; height: 28px; fill: white; margin-left: 4px; }
-.video-caption-bar {
-  padding: 20px 28px;
+.video-pending-label {
+  position: relative; z-index: 1;
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+}
+.bili-icon {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(12px);
+  border: 1.5px solid rgba(255,255,255,0.25);
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.35s;
+}
+/* B站粉色品牌色小圆点装饰 */
+.bili-icon::after {
+  content: '▶';
+  font-size: 1.1rem;
+  color: rgba(255,255,255,0.8);
+  margin-left: 3px;
+}
+.video-pending-text {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+}
+.bili-badge {
+  position: absolute;
+  top: 12px; right: 12px;
+  z-index: 2;
+  padding: 4px 12px;
+  border-radius: 50px;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  background: rgba(251,114,153,0.85); /* B站粉 */
+  color: white;
+  backdrop-filter: blur(6px);
+}
+.video-label {
+  position: relative; z-index: 1;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+}
+.video-info-bar {
+  padding: 16px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-top: 1px solid rgba(0,0,0,0.05);
 }
-.video-caption-bar h5 { font-size: 1rem; font-weight: 600; }
-.video-caption-bar span { font-size: 0.78rem; color: var(--text-secondary); }
+.video-info-bar h5 { font-size: 0.9rem; font-weight: 600; color: var(--text-primary); }
+.video-info-bar p  { font-size: 0.75rem; color: var(--text-secondary); margin-top: 2px; }
+.video-info-bar span { font-size: 0.72rem; color: var(--text-tertiary); white-space: nowrap; }
 
-.video-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-}
-.video-thumb {
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  cursor: pointer;
-  position: relative;
-  background: rgba(255,255,255,0.55);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.8);
-  box-shadow: var(--shadow-sm);
-  transition: all 0.4s cubic-bezier(0.25, 1, 0.3, 1);
-}
-.video-thumb:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-lg);
-}
-.video-thumb-img {
-  width: 100%;
-  aspect-ratio: 16/9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2.5rem;
-  position: relative;
-}
-.video-thumb-img::after {
-  content: '▶';
-  position: absolute;
-  font-size: 1.8rem;
-  color: white;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.4);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-.video-thumb:hover .video-thumb-img::after { opacity: 1; }
-.video-thumb-info { padding: 14px 16px; }
-.video-thumb-info h6 { font-size: 0.85rem; font-weight: 600; margin-bottom: 4px; }
-.video-thumb-info p  { font-size: 0.72rem; color: var(--text-secondary); }
-
-/* ─────────────────────────────────────────────
-   ⑤ GIF / Short Video Section
-───────────────────────────────────────────── */
-.gif-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-}
-.gif-card {
+/* ── GIF 卡片 ── */
+.gif-slot {
   border-radius: var(--radius-lg);
   overflow: hidden;
   cursor: pointer;
@@ -743,64 +789,92 @@ section {
   border: 1px solid rgba(255,255,255,0.8);
   box-shadow: var(--shadow-sm);
   transition: all 0.4s cubic-bezier(0.25, 1, 0.3, 1);
+  content-visibility: auto;
 }
-.gif-card:hover {
+.gif-slot:hover {
   transform: translateY(-8px);
   box-shadow: var(--shadow-lg);
 }
-.gif-card.wide { grid-column: span 2; }
-.gif-placeholder {
+
+/* GIF布局定位 */
+/* GIF-1: 第4列，竖版，跨2行（紧贴视频右侧） */
+.gif-slot-1 { grid-column: 4; grid-row: 1 / 3; }
+/* GIF 2-5: 行2，各占1列 */
+.gif-slot-2 { grid-column: 1; grid-row: 2; }
+.gif-slot-3 { grid-column: 2; grid-row: 2; }
+.gif-slot-4 { grid-column: 3; grid-row: 2; }
+/* GIF-5: 行3，宽2列 */
+.gif-slot-5 { grid-column: 1 / 3; grid-row: 3; }
+/* GIF-6: 行3，宽2列 */
+.gif-slot-6 { grid-column: 3 / 5; grid-row: 3; }
+
+/* GIF 媒体容器 */
+.gif-media {
   width: 100%;
-  aspect-ratio: 16/9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 3.5rem;
   position: relative;
   overflow: hidden;
 }
-.gif-placeholder .gif-badge {
-  position: absolute;
-  top: 14px; right: 14px;
-  padding: 5px 12px;
+.gif-media img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  max-height: 400px;
+  image-rendering: auto;
+}
+/* 标准GIF比例 */
+.gif-slot:not(.gif-slot-1) .gif-media { aspect-ratio: 16/9; }
+/* 竖版GIF（列4） */
+.gif-slot-1 .gif-media { height: 100%; min-height: 300px; aspect-ratio: unset; }
+
+/* GIF占位 */
+.gif-placeholder {
+  width: 100%; height: 100%; min-height: 160px;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 10px;
+  position: relative;
+}
+.gif-slot-1 .gif-placeholder { min-height: 100%; }
+.gif-placeholder .emoji { font-size: 2.2rem; }
+.gif-placeholder .gif-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+  background: rgba(0,0,0,0.2);
+  padding: 3px 10px;
   border-radius: 50px;
-  font-size: 0.68rem;
+  backdrop-filter: blur(6px);
+}
+.gif-badge-overlay {
+  position: absolute;
+  top: 10px; right: 10px;
+  padding: 3px 10px;
+  border-radius: 50px;
+  font-size: 0.62rem;
   font-weight: 700;
   letter-spacing: 0.08em;
+  text-transform: uppercase;
   background: rgba(255,255,255,0.85);
   backdrop-filter: blur(8px);
   color: var(--text-secondary);
 }
-.gif-info { padding: 20px 24px; }
-.gif-info h5 { font-size: 0.95rem; font-weight: 600; margin-bottom: 6px; }
-.gif-info p  { font-size: 0.78rem; color: var(--text-secondary); line-height: 1.5; }
+.gif-caption {
+  padding: 12px 16px;
+  border-top: 1px solid rgba(0,0,0,0.05);
+}
+.gif-caption h6 { font-size: 0.82rem; font-weight: 600; margin-bottom: 2px; }
+.gif-caption p  { font-size: 0.7rem; color: var(--text-secondary); }
+
+/* 占位背景色 */
+.bg-dark-blue    { background: linear-gradient(160deg, #0f0c29, #302b63, #24243e); }
+.bg-pink-warm    { background: linear-gradient(160deg, #f093fb, #f5576c); }
+.bg-mint-green   { background: linear-gradient(160deg, #43e97b, #38f9d7); }
+.bg-gold-sunset  { background: linear-gradient(160deg, #fa709a, #fee140); }
+.bg-ocean-blue   { background: linear-gradient(160deg, #4facfe, #00f2fe); }
+.bg-violet-night { background: linear-gradient(160deg, #a18cd1, #fbc2eb); }
 
 /* ─────────────────────────────────────────────
-   Upload Placeholder Strip
-───────────────────────────────────────────── */
-.upload-hint {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 20px 28px;
-  border-radius: var(--radius-md);
-  border: 2px dashed rgba(0,0,0,0.10);
-  background: rgba(255,255,255,0.4);
-  backdrop-filter: blur(8px);
-  cursor: pointer;
-  transition: all 0.3s;
-  margin-top: 20px;
-}
-.upload-hint:hover {
-  border-color: rgba(94,196,255,0.5);
-  background: rgba(255,255,255,0.65);
-}
-.upload-hint .icon { font-size: 1.8rem; }
-.upload-hint p { font-size: 0.85rem; color: var(--text-secondary); margin: 0; }
-.upload-hint strong { color: var(--text-primary); font-weight: 600; }
-
-/* ─────────────────────────────────────────────
-   Process / Tech Section
+   Process / Philosophy Section
 ───────────────────────────────────────────── */
 .process-grid {
   display: grid;
@@ -814,11 +888,7 @@ section {
   overflow: hidden;
   text-align: center;
 }
-.process-icon {
-  font-size: 2.5rem;
-  margin-bottom: 16px;
-  display: block;
-}
+.process-icon { font-size: 2.5rem; margin-bottom: 16px; display: block; }
 .process-num {
   position: absolute;
   top: 16px; right: 20px;
@@ -828,17 +898,8 @@ section {
   color: rgba(0,0,0,0.04);
   line-height: 1;
 }
-.process-card h4 {
-  font-family: 'Syne', sans-serif;
-  font-size: 1.1rem;
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-.process-card p {
-  font-size: 0.85rem;
-  color: var(--text-secondary);
-  line-height: 1.6;
-}
+.process-card h4 { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; }
+.process-card p  { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; }
 
 /* ─────────────────────────────────────────────
    Footer
@@ -850,11 +911,7 @@ footer {
   color: var(--text-tertiary);
   font-size: 0.82rem;
 }
-footer a {
-  color: var(--text-secondary);
-  text-decoration: none;
-  transition: color 0.2s;
-}
+footer a { color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
 footer a:hover { color: var(--text-primary); }
 
 /* ─────────────────────────────────────────────
@@ -865,45 +922,11 @@ footer a:hover { color: var(--text-primary); }
   transform: translateY(40px);
   transition: opacity 0.8s ease, transform 0.8s ease;
 }
-.fade-up.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
+.fade-up.visible { opacity: 1; transform: translateY(0); }
 .fade-up-delay-1 { transition-delay: 0.1s; }
 .fade-up-delay-2 { transition-delay: 0.2s; }
 .fade-up-delay-3 { transition-delay: 0.3s; }
 .fade-up-delay-4 { transition-delay: 0.4s; }
-
-/* ─────────────────────────────────────────────
-   Responsive
-───────────────────────────────────────────── */
-@media (max-width: 900px) {
-  section { padding: 70px 24px; }
-  nav { padding: 0 24px; }
-  .nav-links { display: none; }
-  .overview-grid { grid-template-columns: 1fr 1fr; }
-  .stat-card.tall { grid-row: span 1; }
-  .ip-grid { grid-template-columns: repeat(2, 1fr); }
-  .ip-card.featured { grid-column: span 2; }
-  .video-grid { grid-template-columns: 1fr; }
-  .process-grid { grid-template-columns: 1fr; }
-  .gif-grid { grid-template-columns: 1fr; }
-  .gif-card.wide { grid-column: span 1; }
-  .hero h1 { font-size: 3rem; }
-}
-@media (max-width: 600px) {
-  .overview-grid { grid-template-columns: 1fr; }
-  .ip-grid { grid-template-columns: 1fr; }
-  .ip-card.featured { grid-column: span 1; }
-  .stat-card.wide { grid-column: span 1; }
-}
-
-/* ─────────────────────────────────────────────
-   Custom scrollbar
-───────────────────────────────────────────── */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 50px; }
 
 /* ─────────────────────────────────────────────
    Cursor glow
@@ -917,6 +940,63 @@ footer a:hover { color: var(--text-primary); }
   background: radial-gradient(circle, rgba(94,196,255,0.08) 0%, transparent 70%);
   transform: translate(-50%, -50%);
   transition: left 0.6s ease, top 0.6s ease;
+}
+
+/* ─────────────────────────────────────────────
+   Custom scrollbar
+───────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 50px; }
+
+/* ─────────────────────────────────────────────
+   Responsive
+───────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .design-layout { grid-template-columns: repeat(6, 1fr); }
+  .design-item-hero { grid-column: 1 / 4; }
+  .design-item-sm:nth-child(2) { grid-column: 4 / 7; }
+  .design-item-sm:nth-child(3) { grid-column: 4 / 6; }
+  .design-item-sm:nth-child(4) { grid-column: 6 / 7; }
+  .design-item-sm:nth-child(5) { grid-column: 1 / 3; }
+  .design-item-sm:nth-child(6) { grid-column: 3 / 5; }
+  .design-item-sm:nth-child(7) { grid-column: 5 / 7; }
+  /* motion grid 缩为2列 */
+  .motion-grid { grid-template-columns: 1fr 1fr; }
+  .video-slot-1 { grid-column: 1 / 3; grid-row: 1; }
+  .video-slot-2 { grid-column: 1; grid-row: 2; }
+  .gif-slot-1   { grid-column: 2; grid-row: 2 / 4; }
+  .gif-slot-2   { grid-column: 1; grid-row: 3; }
+  .gif-slot-3   { grid-column: 1; grid-row: 4; }
+  .gif-slot-4   { grid-column: 2; grid-row: 4; }
+  .gif-slot-5   { grid-column: 1; grid-row: 5; }
+  .gif-slot-6   { grid-column: 2; grid-row: 5; }
+}
+@media (max-width: 900px) {
+  section { padding: 70px 24px; }
+  nav { padding: 0 24px; }
+  .nav-links { display: none; }
+  .design-layout { grid-template-columns: 1fr 1fr; }
+  .design-item-hero { grid-column: 1 / 3; grid-row: 1; aspect-ratio: 16/9; }
+  .design-item-sm:nth-child(n) { grid-column: auto; grid-row: auto; aspect-ratio: 1/1; }
+  .poster-layout { grid-template-columns: 1fr 1fr; }
+  .poster-featured { grid-column: 1; grid-row: 1 / 3; }
+  .poster-wide { grid-column: 2; grid-row: 1; aspect-ratio: 1/1; }
+  .poster-grid-item { grid-column: 2; }
+  /* motion 单列 */
+  .motion-grid { grid-template-columns: 1fr; }
+  .video-slot-1, .video-slot-2,
+  .gif-slot-1, .gif-slot-2, .gif-slot-3,
+  .gif-slot-4, .gif-slot-5, .gif-slot-6 {
+    grid-column: 1; grid-row: auto;
+  }
+  .gif-slot-1 .gif-media { aspect-ratio: 16/9; }
+  .process-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .poster-layout { grid-template-columns: 1fr; }
+  .poster-featured { grid-row: auto; }
+  .poster-wide { grid-column: 1; grid-row: auto; }
 }
 </style>
 </head>
@@ -932,10 +1012,10 @@ footer a:hover { color: var(--text-primary); }
 <nav id="navbar">
   <a href="index.html" class="nav-logo">W·Z·H <span>AI Works</span></a>
   <ul class="nav-links">
-    <li><a href="#ip">IP Design</a></li>
-    <li><a href="#poster">City Poster</a></li>
-    <li><a href="#creative">Creative</a></li>
-    <li><a href="#video">Video & GIF</a></li>
+    <li><a href="#design">Design</a></li>
+    <li><a href="#poster">Poster</a></li>
+    <li><a href="#city">City</a></li>
+    <li><a href="#video">Video &amp; GIF</a></li>
   </ul>
   <a href="index.html" class="nav-back">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
@@ -956,14 +1036,14 @@ footer a:hover { color: var(--text-primary); }
     <span class="line2">实验室</span>
   </h1>
   <p class="hero-desc">
-    用 AI 重新定义视觉叙事。从 IP 形象设计到城市海报，从动态影像到短视频内容——这里是算法与创意共生的地方。
+    用 AI 重新定义视觉叙事。从创意设计到城市海报，从动态影像到 GIF——这里是算法与创意共生的地方。
   </p>
   <div class="hero-tags">
-    <span class="hero-tag orange">IP 形象设计</span>
+    <span class="hero-tag orange">创意设计</span>
     <span class="hero-tag pink">表情包 &amp; 海报</span>
     <span class="hero-tag cyan">城市视觉</span>
     <span class="hero-tag violet">AI 视频生成</span>
-    <span class="hero-tag mint">短视频 &amp; GIF</span>
+    <span class="hero-tag mint">动态 GIF</span>
   </div>
   <div class="scroll-hint">
     <span>Scroll</span>
@@ -972,185 +1052,319 @@ footer a:hover { color: var(--text-primary); }
 </section>
 
 
-
 <!-- ══════════════════════════════════════════
-     ② IP DESIGN
+     ① DESIGN — AI 创意设计
+     不对称 Masonry 布局
 ══════════════════════════════════════════ -->
-<section id="ip" style="background:transparent;">
+<section id="design" style="background:transparent;">
   <div class="section-header fade-up">
-    <span class="section-label">IP Design</span>
-    <h2 class="section-title"><span class="grad-cyan-violet">IP 形象</span>设计</h2>
+    <span class="section-label">AI Design</span>
+    <h2 class="section-title"><span class="grad-cyan-violet">创意</span>设计</h2>
+    <p class="section-sub">用 AI 工具探索视觉可能，从单帧构思到完整作品的创作实验。</p>
   </div>
 
-  <div class="ip-grid fade-up fade-up-delay-1">
-    <div class="ip-card featured">
-      <img src="assets/ai/设计-1.png" alt="" loading="lazy">
+  <div class="design-layout fade-up fade-up-delay-1">
+    <!-- 主图 -->
+    <div class="design-item-hero">
+      <img src="assets/ai/设计-1.png" alt="AI 创意设计 1" loading="lazy" decoding="async">
     </div>
-    <div class="ip-card">
-      <img src="assets/ai/设计-2.png" alt="" loading="lazy">
+    <!-- 右侧小图 -->
+    <div class="design-item-sm">
+      <img src="assets/ai/设计-2.png" alt="AI 创意设计 2" loading="lazy" decoding="async">
     </div>
-    <div class="ip-card">
-      <img src="assets/ai/设计-3.png" alt="" loading="lazy">
+    <div class="design-item-sm">
+      <img src="assets/ai/设计-3.png" alt="AI 创意设计 3" loading="lazy" decoding="async">
     </div>
-    <div class="ip-card">
-      <img src="assets/ai/设计-4.png" alt="" loading="lazy">
+    <div class="design-item-sm">
+      <img src="assets/ai/设计-4.png" alt="AI 创意设计 4" loading="lazy" decoding="async">
     </div>
-    <div class="ip-card">
-      <img src="assets/ai/设计-5.png" alt="" loading="lazy">
+    <!-- 第二排 -->
+    <div class="design-item-sm">
+      <img src="assets/ai/设计-5.png" alt="AI 创意设计 5" loading="lazy" decoding="async">
     </div>
-    <div class="ip-card">
-      <img src="assets/ai/设计-6.png" alt="" loading="lazy">
+    <div class="design-item-sm">
+      <img src="assets/ai/设计-6.png" alt="AI 创意设计 6" loading="lazy" decoding="async">
+    </div>
+    <div class="design-item-sm">
+      <img src="assets/ai/设计-7.png" alt="AI 创意设计 7" loading="lazy" decoding="async">
     </div>
   </div>
 </section>
 
+
 <!-- ══════════════════════════════════════════
-     ③ CITY POSTER
+     ② CREATIVE POSTER — 创意海报
+     左大竖图 + 右侧混排
 ══════════════════════════════════════════ -->
-<section id="poster" style="padding-left:0;padding-right:0;max-width:100%;">
-  <div style="padding:0 40px;" class="section-header fade-up">
+<section id="poster" style="background:rgba(255,255,255,0.3);border-radius:60px;max-width:100%;padding:100px 80px;">
+  <div style="max-width:1280px;margin:0 auto;">
+    <div class="section-header fade-up">
+      <span class="section-label">Creative Poster</span>
+      <h2 class="section-title"><span class="grad-violet-pink">创意</span>海报</h2>
+      <p class="section-sub">将 AI 生成的视觉语言转化为完整的海报叙事，每一张都是一场对话。</p>
+    </div>
+
+    <div class="poster-layout fade-up fade-up-delay-1">
+      <!-- 左侧主海报 -->
+      <div class="poster-featured">
+        <img src="assets/ai/海报-1.png" alt="创意海报 1" loading="lazy" decoding="async">
+      </div>
+      <!-- 右上：宽版横图 -->
+      <div class="poster-wide">
+        <img src="assets/ai/海报-2.png" alt="创意海报 2" loading="lazy" decoding="async">
+      </div>
+      <!-- 右下：两格 -->
+      <div class="poster-grid-item">
+        <img src="assets/ai/海报-3.png" alt="创意海报 3" loading="lazy" decoding="async">
+      </div>
+      <div class="poster-grid-item">
+        <img src="assets/ai/海报-4.png" alt="创意海报 4" loading="lazy" decoding="async">
+      </div>
+    </div>
+
+    <!-- 第二行：剩余3张 -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px;" class="fade-up fade-up-delay-2">
+      <div class="poster-grid-item">
+        <img src="assets/ai/海报-5.png" alt="创意海报 5" loading="lazy" decoding="async">
+      </div>
+      <div class="poster-grid-item">
+        <img src="assets/ai/海报-6.png" alt="创意海报 6" loading="lazy" decoding="async">
+      </div>
+      <div class="poster-grid-item">
+        <img src="assets/ai/海报-7.png" alt="创意海报 7" loading="lazy" decoding="async">
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     ③ CITY POSTER — 城市视觉海报
+     横向滚动 · 升级卡片样式
+══════════════════════════════════════════ -->
+<section id="city" style="padding-left:0;padding-right:0;max-width:100%;padding-top:100px;padding-bottom:100px;">
+  <div style="padding:0 40px;max-width:1280px;margin:0 auto 0;" class="section-header fade-up">
     <span class="section-label">City Poster Series</span>
     <h2 class="section-title"><span class="grad-orange-pink">城市</span>视觉海报</h2>
     <p class="section-sub">以 AI 为笔，重新描绘全球城市的情绪与气质。横向滑动查看全系列。</p>
   </div>
 
   <div class="poster-scroll-container fade-up fade-up-delay-1">
-    <button class="poster-arrow poster-arrow-prev hidden" id="posterPrev" onclick="scrollPoster(-1)">
+    <button class="poster-arrow poster-arrow-prev hidden" id="posterPrev" onclick="scrollCity(-1)">
       <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
     </button>
-    <button class="poster-arrow poster-arrow-next" id="posterNext" onclick="scrollPoster(1)">
+    <button class="poster-arrow poster-arrow-next" id="posterNext" onclick="scrollCity(1)">
       <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
     </button>
-    <div class="poster-track">
-      <div class="poster-item"><img src="assets/ai/城市-1.png" alt="" loading="lazy"></div>
-      <div class="poster-item"><img src="assets/ai/城市-2.png" alt="" loading="lazy"></div>
-      <div class="poster-item"><img src="assets/ai/城市-3.png" alt="" loading="lazy"></div>
-      <div class="poster-item"><img src="assets/ai/城市-4.png" alt="" loading="lazy"></div>
-      <div class="poster-item"><img src="assets/ai/城市-5.png" alt="" loading="lazy"></div>
-      <div class="poster-item"><img src="assets/ai/城市-6.png" alt="" loading="lazy"></div>
+    <div class="poster-track" id="cityTrack">
+      <div class="city-item">
+        <div class="city-img">
+          <img src="assets/ai/城市-1.png" alt="城市海报 1" loading="lazy" decoding="async">
+          <div class="city-overlay">
+            <span class="city-name">城市 01</span>
+            <span class="city-badge">AI Poster</span>
+          </div>
+        </div>
+      </div>
+      <div class="city-item">
+        <div class="city-img">
+          <img src="assets/ai/城市-2.png" alt="城市海报 2" loading="lazy" decoding="async">
+          <div class="city-overlay">
+            <span class="city-name">城市 02</span>
+            <span class="city-badge">AI Poster</span>
+          </div>
+        </div>
+      </div>
+      <div class="city-item">
+        <div class="city-img">
+          <img src="assets/ai/城市-3.png" alt="城市海报 3" loading="lazy" decoding="async">
+          <div class="city-overlay">
+            <span class="city-name">城市 03</span>
+            <span class="city-badge">AI Poster</span>
+          </div>
+        </div>
+      </div>
+      <div class="city-item">
+        <div class="city-img">
+          <img src="assets/ai/城市-4.png" alt="城市海报 4" loading="lazy" decoding="async">
+          <div class="city-overlay">
+            <span class="city-name">城市 04</span>
+            <span class="city-badge">AI Poster</span>
+          </div>
+        </div>
+      </div>
+      <div class="city-item">
+        <div class="city-img">
+          <img src="assets/ai/城市-5.png" alt="城市海报 5" loading="lazy" decoding="async">
+          <div class="city-overlay">
+            <span class="city-name">城市 05</span>
+            <span class="city-badge">AI Poster</span>
+          </div>
+        </div>
+      </div>
+      <div class="city-item">
+        <div class="city-img">
+          <img src="assets/ai/城市-6.png" alt="城市海报 6" loading="lazy" decoding="async">
+          <div class="city-overlay">
+            <span class="city-name">城市 06</span>
+            <span class="city-badge">AI Poster</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════
-     ③-B CREATIVE POSTER
-══════════════════════════════════════════ -->
-<section id="creative">
-  <div class="section-header fade-up">
-    <span class="section-label">Creative Poster</span>
-    <h2 class="section-title"><span class="grad-violet-pink">创意</span>海报</h2>
-  </div>
-
-  <div class="creative-grid fade-up fade-up-delay-1">
-    <div class="creative-item"><img src="assets/ai/海报-1.png" alt="" loading="lazy"></div>
-    <div class="creative-item"><img src="assets/ai/海报-2.png" alt="" loading="lazy"></div>
-    <div class="creative-item"><img src="assets/ai/海报-3.png" alt="" loading="lazy"></div>
-    <div class="creative-item"><img src="assets/ai/海报-4.png" alt="" loading="lazy"></div>
-    <div class="creative-item"><img src="assets/ai/海报-5.png" alt="" loading="lazy"></div>
-    <div class="creative-item"><img src="assets/ai/海报-6.png" alt="" loading="lazy"></div>
-    <div class="creative-item"><img src="assets/ai/海报-7.png" alt="" loading="lazy"></div>
-  </div>
-</section>
 
 <!-- ══════════════════════════════════════════
-     ④ VIDEO & GIF
+     ④⑤ VIDEO + GIF — 动态影像合并板块
 ══════════════════════════════════════════ -->
 <section id="video">
   <div class="section-header fade-up">
-    <span class="section-label">Video & Motion</span>
+    <span class="section-label">Video &amp; Motion</span>
     <h2 class="section-title">AI <span class="grad-mint-cyan">动态</span>影像</h2>
-    <p class="section-sub">视频与 GIF 同台，记录 AI 赋予画面运动与情绪的每一次实验。</p>
+    <p class="section-sub">视频与 GIF 同台——记录 AI 赋予画面运动与情绪的每一次实验。</p>
   </div>
 
-  <!-- Tab switcher -->
-  <div class="ip-tabs fade-up fade-up-delay-1">
-    <button class="ip-tab active" onclick="switchVideoTab(this,'video')">🎬 视频</button>
-    <button class="ip-tab" onclick="switchVideoTab(this,'gif')">✨ GIF</button>
-  </div>
+  <div class="motion-grid fade-up fade-up-delay-1">
 
-  <!-- VIDEO panel -->
-  <div id="panel-video">
-    <div class="video-hero glass fade-up fade-up-delay-1">
-      <div class="video-hero-placeholder">
-        <div class="play-btn">
-          <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+    <!-- ── 视频 1：主推，宽2列 ── -->
+    <div class="video-slot video-slot-1">
+      <div class="bili-wrap">
+        <!--
+          ★ 晚上上传B站后，把下面这行注释取消，填入你的 BV 号
+          <iframe src="//player.bilibili.com/player.html?bvid=BV填入你的号&autoplay=0" scrolling="no" allowfullscreen></iframe>
+        -->
+        <div class="video-placeholder v1">
+          <div class="bili-badge">Bilibili</div>
+          <div class="video-pending-label">
+            <div class="bili-icon"></div>
+            <span class="video-pending-text">AI 视频 · 01 · 即将上线</span>
+          </div>
         </div>
       </div>
-      <div class="video-caption-bar">
+      <div class="video-info-bar">
         <div>
-          <h5>精选 AI 视频 · Featured Work</h5>
-          <p style="font-size:0.82rem;color:var(--text-secondary);margin-top:4px;">[ 上传你的主推视频 ]</p>
+          <h5>AI 视频 · 01</h5>
+          <p>B站视频嵌入 · 填入 BV 号即可</p>
         </div>
-        <span>Runway ML · 2024</span>
+        <span>主推作品</span>
       </div>
     </div>
 
-    <div class="video-grid fade-up fade-up-delay-2" style="margin-top:16px;">
-      <div class="video-thumb">
-        <div class="video-thumb-img" style="background:linear-gradient(135deg,#1a1a2e,#16213e);">🎬</div>
-        <div class="video-thumb-info"><h6>城市漫游 Vol.1</h6><p>Kling AI · 15s</p></div>
+    <!-- ── 视频 2 ── -->
+    <div class="video-slot video-slot-2">
+      <div class="bili-wrap">
+        <!--
+          ★ 填入第二个视频的 BV 号
+          <iframe src="//player.bilibili.com/player.html?bvid=BV填入你的号&autoplay=0" scrolling="no" allowfullscreen></iframe>
+        -->
+        <div class="video-placeholder v2">
+          <div class="bili-badge">Bilibili</div>
+          <div class="video-pending-label">
+            <div class="bili-icon"></div>
+            <span class="video-pending-text">AI 视频 · 02 · 即将上线</span>
+          </div>
+        </div>
       </div>
-      <div class="video-thumb">
-        <div class="video-thumb-img" style="background:linear-gradient(135deg,#2d1b69,#11998e);">🌊</div>
-        <div class="video-thumb-info"><h6>流动的光</h6><p>Runway ML · 10s</p></div>
-      </div>
-      <div class="video-thumb">
-        <div class="video-thumb-img" style="background:linear-gradient(135deg,#c0392b,#f39c12);">🌅</div>
-        <div class="video-thumb-info"><h6>黎明序曲</h6><p>Sora · 20s</p></div>
+      <div class="video-info-bar">
+        <div>
+          <h5>AI 视频 · 02</h5>
+          <p>B站视频嵌入 · 填入 BV 号即可</p>
+        </div>
+        <span>Kling AI</span>
       </div>
     </div>
-  </div>
 
-  <!-- GIF panel (hidden by default) -->
-  <div id="panel-gif" style="display:none;">
-    <div class="gif-grid fade-up">
-      <div class="gif-card wide">
-        <div class="gif-placeholder" style="background:linear-gradient(160deg,#0f0c29,#302b63,#24243e);">
-          <span>🌌</span>
-          <span class="gif-badge">GIF · Loop</span>
+    <!-- ── GIF 1：竖版，跨2行（与视频并列右侧） ── -->
+    <div class="gif-slot gif-slot-1">
+      <div class="gif-media">
+        <!-- <img src="assets/ai/AI GIF-1.gif" alt="AI GIF 1" loading="lazy"> -->
+        <div class="gif-placeholder bg-dark-blue" style="aspect-ratio:9/16;min-height:280px;">
+          <span class="emoji">🌌</span>
+          <span class="gif-label">AI GIF · 01</span>
         </div>
-        <div class="gif-info">
-          <h5>星际穿越 · 精选 GIF</h5>
-          <p>AI 生成动图，循环展示算法与宇宙的视觉比喻。[ 替换为你的主推 GIF ]</p>
-        </div>
+        <div class="gif-badge-overlay">GIF · Loop</div>
       </div>
-      <div class="gif-card">
-        <div class="gif-placeholder" style="background:linear-gradient(160deg,#f093fb,#f5576c);">
-          <span>🌸</span><span class="gif-badge">GIF</span>
-        </div>
-        <div class="gif-info"><h5>粉樱幻境</h5><p>AI 动图 · 花瓣飘落循环</p></div>
-      </div>
-      <div class="gif-card">
-        <div class="gif-placeholder" style="background:linear-gradient(160deg,#43e97b,#38f9d7);">
-          <span>🌿</span><span class="gif-badge">GIF</span>
-        </div>
-        <div class="gif-info"><h5>生长时刻</h5><p>AI 动图 · 植物生长延时</p></div>
-      </div>
-      <div class="gif-card">
-        <div class="gif-placeholder" style="background:linear-gradient(160deg,#fa709a,#fee140);">
-          <span>🌅</span><span class="gif-badge">GIF</span>
-        </div>
-        <div class="gif-info"><h5>黄昏涟漪</h5><p>AI 动图 · 水面反光</p></div>
-      </div>
-      <div class="gif-card">
-        <div class="gif-placeholder" style="background:linear-gradient(160deg,#4facfe,#00f2fe);">
-          <span>🌊</span><span class="gif-badge">GIF</span>
-        </div>
-        <div class="gif-info"><h5>深海呼吸</h5><p>AI 动图 · 海浪循环</p></div>
+      <div class="gif-caption">
+        <h6>AI GIF · 01</h6>
+        <p>上传 AI GIF-1</p>
       </div>
     </div>
-  </div>
 
-  <div class="upload-hint fade-up" style="margin-top:24px;">
-    <span class="icon">🎬</span>
-    <p><strong>添加视频或 GIF</strong> — 支持 MP4 / GIF，或粘贴 Bilibili / YouTube 链接</p>
+    <!-- ── GIF 2 ── -->
+    <div class="gif-slot gif-slot-2">
+      <div class="gif-media">
+        <!-- <img src="assets/ai/AI GIF-2.gif" alt="AI GIF 2" loading="lazy"> -->
+        <div class="gif-placeholder bg-pink-warm" style="aspect-ratio:16/9;">
+          <span class="emoji">🌸</span>
+          <span class="gif-label">AI GIF · 02</span>
+        </div>
+        <div class="gif-badge-overlay">GIF</div>
+      </div>
+      <div class="gif-caption"><h6>AI GIF · 02</h6><p>上传 AI GIF-2</p></div>
+    </div>
+
+    <!-- ── GIF 3 ── -->
+    <div class="gif-slot gif-slot-3">
+      <div class="gif-media">
+        <!-- <img src="assets/ai/AI GIF-3.gif" alt="AI GIF 3" loading="lazy"> -->
+        <div class="gif-placeholder bg-mint-green" style="aspect-ratio:16/9;">
+          <span class="emoji">🌿</span>
+          <span class="gif-label">AI GIF · 03</span>
+        </div>
+        <div class="gif-badge-overlay">GIF</div>
+      </div>
+      <div class="gif-caption"><h6>AI GIF · 03</h6><p>上传 AI GIF-3</p></div>
+    </div>
+
+    <!-- ── GIF 4 ── -->
+    <div class="gif-slot gif-slot-4">
+      <div class="gif-media">
+        <!-- <img src="assets/ai/AI GIF-4.gif" alt="AI GIF 4" loading="lazy"> -->
+        <div class="gif-placeholder bg-gold-sunset" style="aspect-ratio:16/9;">
+          <span class="emoji">🌅</span>
+          <span class="gif-label">AI GIF · 04</span>
+        </div>
+        <div class="gif-badge-overlay">GIF</div>
+      </div>
+      <div class="gif-caption"><h6>AI GIF · 04</h6><p>上传 AI GIF-4</p></div>
+    </div>
+
+    <!-- ── GIF 5：宽2列 ── -->
+    <div class="gif-slot gif-slot-5">
+      <div class="gif-media" style="aspect-ratio:21/9;">
+        <!-- <img src="assets/ai/AI GIF-5.gif" alt="AI GIF 5" loading="lazy"> -->
+        <div class="gif-placeholder bg-ocean-blue" style="aspect-ratio:21/9;">
+          <span class="emoji">🌊</span>
+          <span class="gif-label">AI GIF · 05</span>
+        </div>
+        <div class="gif-badge-overlay">GIF · Loop</div>
+      </div>
+      <div class="gif-caption"><h6>AI GIF · 05</h6><p>上传 AI GIF-5</p></div>
+    </div>
+
+    <!-- ── GIF 6：宽2列 ── -->
+    <div class="gif-slot gif-slot-6">
+      <div class="gif-media" style="aspect-ratio:21/9;">
+        <!-- <img src="assets/ai/AI GIF-6.gif" alt="AI GIF 6" loading="lazy"> -->
+        <div class="gif-placeholder bg-violet-night" style="aspect-ratio:21/9;">
+          <span class="emoji">✨</span>
+          <span class="gif-label">AI GIF · 06</span>
+        </div>
+        <div class="gif-badge-overlay">GIF</div>
+      </div>
+      <div class="gif-caption"><h6>AI GIF · 06</h6><p>上传 AI GIF-6（可选）</p></div>
+    </div>
+
   </div>
 </section>
+
 
 <!-- ══════════════════════════════════════════
      PROCESS — Human-Centered
 ══════════════════════════════════════════ -->
-<section id="process" style="background:rgba(255,255,255,0.4);border-radius:60px 60px 0 0;max-width:100%;padding:100px 80px;">
+<section id="process" style="background:rgba(255,255,255,0.4);border-radius:0 0 60px 60px;max-width:100%;padding:100px 80px;">
   <div class="section-header fade-up" style="text-align:center;max-width:640px;margin:0 auto 70px;">
     <span class="section-label">Philosophy</span>
     <h2 class="section-title">以<span class="grad-all">人</span>为核心</h2>
@@ -1160,8 +1374,7 @@ footer a:hover { color: var(--text-primary); }
     </p>
   </div>
 
-  <!-- Big quote -->
-  <div class="glass fade-up fade-up-delay-1" style="padding:56px 64px;border-radius:var(--radius-xl);text-align:center;margin-bottom:24px;position:relative;overflow:hidden;">
+  <div class="glass fade-up fade-up-delay-1" style="max-width:1280px;margin:0 auto 24px;padding:56px 64px;border-radius:var(--radius-xl);text-align:center;position:relative;overflow:hidden;">
     <div style="position:absolute;top:-20px;left:40px;font-size:12rem;font-family:'Syne',sans-serif;font-weight:800;color:rgba(0,0,0,0.03);line-height:1;pointer-events:none;">"</div>
     <p style="font-family:'Syne',sans-serif;font-size:clamp(1.3rem,2.5vw,1.9rem);font-weight:700;line-height:1.5;letter-spacing:-0.02em;position:relative;z-index:1;">
       AI 能生成一千张图，<br>
@@ -1169,7 +1382,7 @@ footer a:hover { color: var(--text-primary); }
     </p>
   </div>
 
-  <div class="process-grid">
+  <div class="process-grid" style="max-width:1280px;margin:0 auto;">
     <div class="glass process-card fade-up fade-up-delay-1">
       <span class="process-icon">🫀</span>
       <span class="process-num">01</span>
@@ -1215,79 +1428,61 @@ document.addEventListener('mousemove', e => {
 // ── Scroll reveal
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
+    if (entry.isIntersecting) entry.target.classList.add('visible');
   });
-}, { threshold: 0.12 });
-
+}, { threshold: 0.08 });
 document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-// ── IP Tabs
-function switchTab(btn, type) {
-  document.querySelectorAll('.ip-tab').forEach(t => t.classList.remove('active'));
-  btn.classList.add('active');
+// ── City poster scroll
+function scrollCity(dir) {
+  const track = document.getElementById('cityTrack');
+  track.scrollBy({ left: dir * 340, behavior: 'smooth' });
 }
-
-// ── Video/GIF Tab
-function switchVideoTab(btn, panel) {
-  // update tab styles (only within video section)
-  btn.closest('.ip-tabs').querySelectorAll('.ip-tab').forEach(t => t.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('panel-video').style.display = panel === 'video' ? 'block' : 'none';
-  document.getElementById('panel-gif').style.display   = panel === 'gif'   ? 'block' : 'none';
-}
-
-// ── Poster arrow scroll
-function scrollPoster(dir) {
-  const track = document.querySelector('.poster-track');
-  track.scrollBy({ left: dir * 320, behavior: 'smooth' });
-}
-// Update arrow visibility on scroll
-const posterTrack = document.querySelector('.poster-track');
-if (posterTrack) {
-  posterTrack.addEventListener('scroll', () => {
-    const prev = document.getElementById('posterPrev');
-    const next = document.getElementById('posterNext');
-    prev.classList.toggle('hidden', posterTrack.scrollLeft < 20);
-    next.classList.toggle('hidden', posterTrack.scrollLeft + posterTrack.clientWidth >= posterTrack.scrollWidth - 20);
+const cityTrack = document.getElementById('cityTrack');
+if (cityTrack) {
+  cityTrack.addEventListener('scroll', () => {
+    document.getElementById('posterPrev').classList.toggle('hidden', cityTrack.scrollLeft < 20);
+    document.getElementById('posterNext').classList.toggle('hidden',
+      cityTrack.scrollLeft + cityTrack.clientWidth >= cityTrack.scrollWidth - 20);
   });
+  // Drag to scroll
+  let isDown = false, startX, scrollLeft;
+  cityTrack.addEventListener('mousedown', e => { isDown = true; startX = e.pageX - cityTrack.offsetLeft; scrollLeft = cityTrack.scrollLeft; cityTrack.style.cursor = 'grabbing'; });
+  cityTrack.addEventListener('mouseleave', () => { isDown = false; cityTrack.style.cursor = 'grab'; });
+  cityTrack.addEventListener('mouseup', () => { isDown = false; cityTrack.style.cursor = 'grab'; });
+  cityTrack.addEventListener('mousemove', e => {
+    if (!isDown) return;
+    e.preventDefault();
+    cityTrack.scrollLeft = scrollLeft - (e.pageX - cityTrack.offsetLeft - startX) * 1.4;
+  });
+  cityTrack.style.cursor = 'grab';
 }
-const track = document.querySelector('.poster-track');
-let isDown = false, startX, scrollLeft;
-track.addEventListener('mousedown', e => {
-  isDown = true;
-  startX = e.pageX - track.offsetLeft;
-  scrollLeft = track.scrollLeft;
-  track.style.cursor = 'grabbing';
-});
-track.addEventListener('mouseleave', () => { isDown = false; track.style.cursor = 'grab'; });
-track.addEventListener('mouseup', () => { isDown = false; track.style.cursor = 'grab'; });
-track.addEventListener('mousemove', e => {
-  if (!isDown) return;
-  e.preventDefault();
-  const x = e.pageX - track.offsetLeft;
-  track.scrollLeft = scrollLeft - (x - startX) * 1.4;
-});
-track.style.cursor = 'grab';
 
 // ── Nav scroll effect
 window.addEventListener('scroll', () => {
   const nav = document.getElementById('navbar');
-  if (window.scrollY > 20) {
-    nav.style.background = 'rgba(245,245,247,0.92)';
-  } else {
-    nav.style.background = 'rgba(245,245,247,0.8)';
-  }
+  nav.style.background = window.scrollY > 20 ? 'rgba(245,245,247,0.92)' : 'rgba(245,245,247,0.8)';
 });
 
 // ── Smooth scroll for nav links
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
     const target = document.querySelector(a.getAttribute('href'));
-    if (target) {
-      e.preventDefault();
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  });
+});
+
+// ── 图片懒加载增强：超大图自动缩放显示
+// 利用 CSS max-height 和 object-fit 已在CSS中处理，
+// 这里额外添加：图片加载完成后检查自然尺寸，防止极大图片撑破布局
+document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+  img.addEventListener('load', function() {
+    // 超大图（>3000px）限制渲染宽度，降低内存占用
+    if (this.naturalWidth > 3000 || this.naturalHeight > 3000) {
+      this.style.imageRendering = 'auto';
+      // 触发 GPU 合成层，改善大图渲染性能
+      this.style.willChange = 'transform';
+      this.style.transform = 'translateZ(0)';
     }
   });
 });
