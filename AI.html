@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Works · 王泽恒</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+/* ─────────────────────────────────────────────
+   CSS Variables & Reset
+───────────────────────────────────────────── */
+:root {
+  --white: #ffffff;
+  --off-white: #f5f5f7;
+  --surface: rgba(255,255,255,0.72);
+  --surface-hover: rgba(255,255,255,0.88);
+  --border: rgba(0,0,0,0.08);
+  --border-hover: rgba(0,0,0,0.18);
+  --text-primary: #1d1d1f;
+  --text-secondary: #6e6e73;
+  --text-tertiary: #aeaeb2;
+
+  --grad-orange: #ff7b54;
+  --grad-pink: #ff6b9d;
+  --grad-cyan: #5ec4ff;
+  --grad-violet: #c77dff;
+  --grad-mint: #62e8d4;
+
+  --radius-sm: 14px;
+  --radius-md: 22px;
+  --radius-lg: 32px;
+  --radius-xl: 48px;
+
+  --shadow-sm: 0 2px 12px rgba(0,0,0,0.06);
+  --shadow-md: 0 8px 40px rgba(0,0,0,0.10);
+  --shadow-lg: 0 24px 80px rgba(0,0,0,0.13);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  background: var(--off-white);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* ─────────────────────────────────────────────
+   Noise texture overlay
+───────────────────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.4;
+}
+
+/* ─────────────────────────────────────────────
+   Gradient mesh background
+───────────────────────────────────────────── */
+.bg-mesh {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: var(--off-white);
+}
+.bg-mesh::before {
+  content: '';
+  position: absolute;
+  width: 700px; height: 700px;
+  top: -200px; right: -150px;
+  background: radial-gradient(circle, rgba(94,196,255,0.13) 0%, transparent 65%);
+  border-radius: 50%;
+}
+.bg-mesh::after {
+  content: '';
+  position: absolute;
+  width: 600px; height: 600px;
+  bottom: 5%; left: -100px;
+  background: radial-gradient(circle, rgba(255,107,157,0.10) 0%, transparent 65%);
+  border-radius: 50%;
+}
+.bg-blob-3 {
+  position: fixed;
+  width: 500px; height: 500px;
+  top: 40%; left: 40%;
+  background: radial-gradient(circle, rgba(255,123,84,0.07) 0%, transparent 65%);
+  border-radius: 50%;
+  z-index: -1;
+  animation: floatBlob 18s ease-in-out infinite alternate;
+}
+@keyframes floatBlob {
+  from { transform: translate(-30px, -20px) scale(1); }
+  to   { transform: translate(30px, 20px) scale(1.08); }
+}
+
+/* ─────────────────────────────────────────────
+   Navigation
+───────────────────────────────────────────── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 0 40px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(245,245,247,0.8);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  transition: all 0.4s;
+}
+.nav-logo {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  color: var(--text-primary);
+}
+.nav-logo span {
+  background: linear-gradient(135deg, var(--grad-orange), var(--grad-pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.25s;
+}
+.nav-links a:hover { color: var(--text-primary); }
+.nav-back {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.25s;
+}
+.nav-back:hover { color: var(--text-primary); }
+.nav-back svg { width: 14px; height: 14px; }
+
+/* ─────────────────────────────────────────────
+   Gradient text utility
+───────────────────────────────────────────── */
+.grad-orange-pink {
+  background: linear-gradient(135deg, var(--grad-orange) 0%, var(--grad-pink) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.grad-cyan-violet {
+  background: linear-gradient(135deg, var(--grad-cyan) 0%, var(--grad-violet) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.grad-mint-cyan {
+  background: linear-gradient(135deg, var(--grad-mint) 0%, var(--grad-cyan) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.grad-all {
+  background: linear-gradient(135deg, var(--grad-orange) 0%, var(--grad-pink) 40%, var(--grad-cyan) 80%, var(--grad-violet) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─────────────────────────────────────────────
+   Hero Section
+───────────────────────────────────────────── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 40px 80px;
+  position: relative;
+}
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 18px;
+  border-radius: 50px;
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 36px;
+  box-shadow: var(--shadow-sm);
+}
+.hero-eyebrow .dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--grad-orange), var(--grad-pink));
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.3); }
+}
+.hero h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(3.2rem, 8vw, 7rem);
+  font-weight: 800;
+  line-height: 1.0;
+  letter-spacing: -0.04em;
+  margin-bottom: 12px;
+}
+.hero h1 .line2 {
+  display: block;
+  font-size: clamp(2.4rem, 6vw, 5.5rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--text-secondary);
+}
+.hero-desc {
+  max-width: 540px;
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  font-weight: 400;
+  margin: 28px auto 48px;
+  line-height: 1.7;
+}
+.hero-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 56px;
+}
+.hero-tag {
+  padding: 8px 20px;
+  border-radius: 50px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.65);
+  color: var(--text-secondary);
+  transition: all 0.3s;
+  cursor: default;
+}
+.hero-tag:hover {
+  background: rgba(255,255,255,0.9);
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+.hero-tag.orange { border-color: rgba(255,123,84,0.3); color: var(--grad-orange); background: rgba(255,123,84,0.06); }
+.hero-tag.pink   { border-color: rgba(255,107,157,0.3); color: var(--grad-pink);   background: rgba(255,107,157,0.06); }
+.hero-tag.cyan   { border-color: rgba(94,196,255,0.35); color: #3aabf0;            background: rgba(94,196,255,0.08); }
+.hero-tag.violet { border-color: rgba(199,125,255,0.3); color: var(--grad-violet); background: rgba(199,125,255,0.07); }
+.hero-tag.mint   { border-color: rgba(98,232,212,0.3);  color: #2dcab5;            background: rgba(98,232,212,0.07); }
+
+/* Scroll indicator */
+.scroll-hint {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.4;
+}
+.scroll-hint span { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; }
+.scroll-line {
+  width: 1px; height: 40px;
+  background: linear-gradient(to bottom, var(--text-primary), transparent);
+  animation: scrollDrop 2s ease-in-out infinite;
+}
+@keyframes scrollDrop {
+  0% { transform: scaleY(0); transform-origin: top; }
+  50% { transform: scaleY(1); transform-origin: top; }
+  51% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* ─────────────────────────────────────────────
+   Section common
+───────────────────────────────────────────── */
+section {
+  padding: 100px 40px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.section-header {
+  margin-bottom: 60px;
+}
+.section-label {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 16px;
+}
+.section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+.section-sub {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-top: 14px;
+  max-width: 480px;
+  line-height: 1.65;
+}
+
+/* ─────────────────────────────────────────────
+   Glass card
+───────────────────────────────────────────── */
+.glass {
+  background: rgba(255,255,255,0.65);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255,255,255,0.8);
+  box-shadow: var(--shadow-md);
+  border-radius: var(--radius-lg);
+  transition: all 0.45s cubic-bezier(0.25, 1, 0.3, 1);
+}
+.glass:hover {
+  background: rgba(255,255,255,0.82);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-6px);
+}
+
+/* ─────────────────────────────────────────────
+   ① OVERVIEW
+───────────────────────────────────────────── */
+/* tool chips in wide card */
+.tool-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+}
+.chip {
+  padding: 6px 16px;
+  border-radius: 50px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  background: rgba(255,255,255,0.6);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(8px);
+  transition: all 0.25s;
+}
+.chip:hover { background: rgba(255,255,255,0.9); transform: translateY(-1px); }
+
+/* ─────────────────────────────────────────────
+   ② IP Design Section
+───────────────────────────────────────────── */
+.ip-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.ip-card {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.8);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.3, 1);
+  aspect-ratio: 3/4;
+}
+.ip-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(255,255,255,1);
+}
+.ip-card.featured {
+  grid-column: span 2;
+  grid-row: span 2;
+  aspect-ratio: auto;
+}
+.ip-placeholder {
+  width: 100%; height: 100%;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 3rem;
+}
+.ip-card.featured .ip-placeholder { min-height: 360px; font-size: 5rem; }
+.ip-overlay {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 20px;
+  background: linear-gradient(to top, rgba(255,255,255,0.95), transparent);
+  transform: translateY(8px);
+  opacity: 0;
+  transition: all 0.35s;
+}
+.ip-card:hover .ip-overlay { opacity: 1; transform: translateY(0); }
+.ip-overlay h6 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--text-primary);
+}
+.ip-overlay p {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+}
+.ip-type-badge {
+  position: absolute;
+  top: 14px; left: 14px;
+  padding: 5px 12px;
+  border-radius: 50px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(8px);
+  color: var(--text-secondary);
+  border: 1px solid rgba(255,255,255,0.9);
+}
+
+/* IP sub tabs */
+.ip-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 32px;
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  padding: 5px;
+  width: fit-content;
+}
+.ip-tab {
+  padding: 8px 22px;
+  border-radius: 50px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+  color: var(--text-secondary);
+  border: none;
+  background: transparent;
+}
+.ip-tab.active {
+  background: white;
+  color: var(--text-primary);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+}
+
+/* ─────────────────────────────────────────────
+   ③ City Poster Section
+───────────────────────────────────────────── */
+.poster-scroll-container {
+  position: relative;
+  margin: 0 -40px;
+}
+.poster-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-60%);
+  z-index: 10;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s;
+}
+.poster-arrow:hover {
+  background: white;
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-60%) scale(1.1);
+}
+.poster-arrow svg {
+  width: 18px;
+  height: 18px;
+  stroke: var(--text-primary);
+  stroke-width: 2;
+  fill: none;
+}
+.poster-arrow-prev { left: 12px; }
+.poster-arrow-next { right: 12px; }
+.poster-arrow.hidden { opacity: 0; pointer-events: none; }
+.poster-track {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 20px 40px 40px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.poster-track::-webkit-scrollbar { display: none; }
+.poster-item {
+  flex-shrink: 0;
+  width: 280px;
+  scroll-snap-align: start;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.8);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.3, 1);
+}
+.poster-item:hover {
+  transform: translateY(-8px) rotate(-1deg);
+  box-shadow: var(--shadow-lg);
+}
+.poster-img {
+  width: 100%;
+  aspect-ratio: 2/3;
+  background: linear-gradient(135deg, #e8eaf6, #fce4ec);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  position: relative;
+  overflow: hidden;
+}
+.poster-img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.15));
+}
+.poster-info {
+  padding: 18px 20px;
+}
+.poster-info h5 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.poster-info p { font-size: 0.78rem; color: var(--text-secondary); }
+
+/* Gradient backgrounds for placeholder posters */
+.bg-g1 { background: linear-gradient(160deg, #ffecd2, #fcb69f) !important; }
+.bg-g2 { background: linear-gradient(160deg, #a1c4fd, #c2e9fb) !important; }
+.bg-g3 { background: linear-gradient(160deg, #fbc2eb, #a6c1ee) !important; }
+.bg-g4 { background: linear-gradient(160deg, #96fbc4, #f9f586) !important; }
+.bg-g5 { background: linear-gradient(160deg, #ffecd2, #fcb69f) !important; }
+.bg-g6 { background: linear-gradient(160deg, #d4fc79, #96e6a1) !important; }
+.bg-g7 { background: linear-gradient(160deg, #fccb90, #d57eeb) !important; }
+.city-initial {
+  font-family: 'Syne', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.75);
+  text-shadow: 0 2px 12px rgba(0,0,0,0.1);
+}
+
+/* ─────────────────────────────────────────────
+   ④ Video Section
+───────────────────────────────────────────── */
+.video-hero {
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.8);
+  box-shadow: var(--shadow-lg);
+  margin-bottom: 24px;
+}
+.video-hero-placeholder {
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 50%, #0a1a2e 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.video-hero-placeholder::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse 60% 50% at 30% 40%, rgba(94,196,255,0.2) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 60% at 70% 60%, rgba(255,107,157,0.15) 0%, transparent 60%);
+}
+.play-btn {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.18);
+  backdrop-filter: blur(12px);
+  border: 2px solid rgba(255,255,255,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.35s;
+  position: relative;
+  z-index: 1;
+}
+.play-btn:hover {
+  background: rgba(255,255,255,0.28);
+  transform: scale(1.1);
+  border-color: rgba(255,255,255,0.5);
+}
+.play-btn svg { width: 28px; height: 28px; fill: white; margin-left: 4px; }
+.video-caption-bar {
+  padding: 20px 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.video-caption-bar h5 { font-size: 1rem; font-weight: 600; }
+.video-caption-bar span { font-size: 0.78rem; color: var(--text-secondary); }
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.video-thumb {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.8);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.3, 1);
+}
+.video-thumb:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+}
+.video-thumb-img {
+  width: 100%;
+  aspect-ratio: 16/9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  position: relative;
+}
+.video-thumb-img::after {
+  content: '▶';
+  position: absolute;
+  font-size: 1.8rem;
+  color: white;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.video-thumb:hover .video-thumb-img::after { opacity: 1; }
+.video-thumb-info { padding: 14px 16px; }
+.video-thumb-info h6 { font-size: 0.85rem; font-weight: 600; margin-bottom: 4px; }
+.video-thumb-info p  { font-size: 0.72rem; color: var(--text-secondary); }
+
+/* ─────────────────────────────────────────────
+   ⑤ GIF / Short Video Section
+───────────────────────────────────────────── */
+.gif-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+.gif-card {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  cursor: pointer;
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.8);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.3, 1);
+}
+.gif-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+}
+.gif-card.wide { grid-column: span 2; }
+.gif-placeholder {
+  width: 100%;
+  aspect-ratio: 16/9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.5rem;
+  position: relative;
+  overflow: hidden;
+}
+.gif-placeholder .gif-badge {
+  position: absolute;
+  top: 14px; right: 14px;
+  padding: 5px 12px;
+  border-radius: 50px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(8px);
+  color: var(--text-secondary);
+}
+.gif-info { padding: 20px 24px; }
+.gif-info h5 { font-size: 0.95rem; font-weight: 600; margin-bottom: 6px; }
+.gif-info p  { font-size: 0.78rem; color: var(--text-secondary); line-height: 1.5; }
+
+/* ─────────────────────────────────────────────
+   Upload Placeholder Strip
+───────────────────────────────────────────── */
+.upload-hint {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 28px;
+  border-radius: var(--radius-md);
+  border: 2px dashed rgba(0,0,0,0.10);
+  background: rgba(255,255,255,0.4);
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-top: 20px;
+}
+.upload-hint:hover {
+  border-color: rgba(94,196,255,0.5);
+  background: rgba(255,255,255,0.65);
+}
+.upload-hint .icon { font-size: 1.8rem; }
+.upload-hint p { font-size: 0.85rem; color: var(--text-secondary); margin: 0; }
+.upload-hint strong { color: var(--text-primary); font-weight: 600; }
+
+/* ─────────────────────────────────────────────
+   Process / Tech Section
+───────────────────────────────────────────── */
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.process-card {
+  padding: 32px;
+  border-radius: var(--radius-lg);
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+.process-icon {
+  font-size: 2.5rem;
+  margin-bottom: 16px;
+  display: block;
+}
+.process-num {
+  position: absolute;
+  top: 16px; right: 20px;
+  font-family: 'Syne', sans-serif;
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: rgba(0,0,0,0.04);
+  line-height: 1;
+}
+.process-card h4 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.process-card p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ─────────────────────────────────────────────
+   Footer
+───────────────────────────────────────────── */
+footer {
+  text-align: center;
+  padding: 60px 40px;
+  border-top: 1px solid var(--border);
+  color: var(--text-tertiary);
+  font-size: 0.82rem;
+}
+footer a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+footer a:hover { color: var(--text-primary); }
+
+/* ─────────────────────────────────────────────
+   Animations
+───────────────────────────────────────────── */
+.fade-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.fade-up-delay-1 { transition-delay: 0.1s; }
+.fade-up-delay-2 { transition-delay: 0.2s; }
+.fade-up-delay-3 { transition-delay: 0.3s; }
+.fade-up-delay-4 { transition-delay: 0.4s; }
+
+/* ─────────────────────────────────────────────
+   Responsive
+───────────────────────────────────────────── */
+@media (max-width: 900px) {
+  section { padding: 70px 24px; }
+  nav { padding: 0 24px; }
+  .nav-links { display: none; }
+  .overview-grid { grid-template-columns: 1fr 1fr; }
+  .stat-card.tall { grid-row: span 1; }
+  .ip-grid { grid-template-columns: repeat(2, 1fr); }
+  .ip-card.featured { grid-column: span 2; }
+  .video-grid { grid-template-columns: 1fr; }
+  .process-grid { grid-template-columns: 1fr; }
+  .gif-grid { grid-template-columns: 1fr; }
+  .gif-card.wide { grid-column: span 1; }
+  .hero h1 { font-size: 3rem; }
+}
+@media (max-width: 600px) {
+  .overview-grid { grid-template-columns: 1fr; }
+  .ip-grid { grid-template-columns: 1fr; }
+  .ip-card.featured { grid-column: span 1; }
+  .stat-card.wide { grid-column: span 1; }
+}
+
+/* ─────────────────────────────────────────────
+   Custom scrollbar
+───────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 50px; }
+
+/* ─────────────────────────────────────────────
+   Cursor glow
+───────────────────────────────────────────── */
+.cursor-glow {
+  position: fixed;
+  width: 320px; height: 320px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(circle, rgba(94,196,255,0.08) 0%, transparent 70%);
+  transform: translate(-50%, -50%);
+  transition: left 0.6s ease, top 0.6s ease;
+}
+</style>
+</head>
+<body>
+
+<div class="bg-mesh"></div>
+<div class="bg-blob-3"></div>
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<!-- ══════════════════════════════════════════
+     NAVIGATION
+══════════════════════════════════════════ -->
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">W·Z·H <span>AI Works</span></a>
+  <ul class="nav-links">
+    <li><a href="#ip">IP Design</a></li>
+    <li><a href="#poster">City Poster</a></li>
+    <li><a href="#video">Video & GIF</a></li>
+  </ul>
+  <a href="index.html" class="nav-back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+    返回主页
+  </a>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     HERO
+══════════════════════════════════════════ -->
+<section class="hero" style="max-width:100%;padding-left:40px;padding-right:40px;">
+  <div class="hero-eyebrow">
+    <span class="dot"></span>
+    AI Creation Lab · 王泽恒
+  </div>
+  <h1>
+    <span class="grad-all">AI 创作</span>
+    <span class="line2">实验室</span>
+  </h1>
+  <p class="hero-desc">
+    用 AI 重新定义视觉叙事。从 IP 形象设计到城市海报，从动态影像到短视频内容——这里是算法与创意共生的地方。
+  </p>
+  <div class="hero-tags">
+    <span class="hero-tag orange">IP 形象设计</span>
+    <span class="hero-tag pink">表情包 &amp; 海报</span>
+    <span class="hero-tag cyan">城市视觉</span>
+    <span class="hero-tag violet">AI 视频生成</span>
+    <span class="hero-tag mint">短视频 &amp; GIF</span>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+
+
+<!-- ══════════════════════════════════════════
+     ② IP DESIGN
+══════════════════════════════════════════ -->
+<section id="ip" style="background:transparent;">
+  <div class="section-header fade-up">
+    <span class="section-label">IP Design</span>
+    <h2 class="section-title"><span class="grad-cyan-violet">IP 形象</span>设计</h2>
+    <p class="section-sub">AI 生成的角色 IP，涵盖三视图、表情包、海报与形象衍生设计。</p>
+  </div>
+
+  <!-- sub tabs -->
+  <div class="ip-tabs fade-up fade-up-delay-1">
+    <button class="ip-tab active" onclick="switchTab(this,'all')">全部</button>
+    <button class="ip-tab" onclick="switchTab(this,'3view')">三视图</button>
+    <button class="ip-tab" onclick="switchTab(this,'emoji')">表情包</button>
+    <button class="ip-tab" onclick="switchTab(this,'poster-ip')">形象海报</button>
+  </div>
+
+  <div class="ip-grid fade-up fade-up-delay-2">
+    <!-- Featured -->
+    <div class="ip-card featured">
+      <div class="ip-placeholder" style="background:linear-gradient(145deg,#ffecd2,#fcb69f,#ff9a9e);">
+        🐉
+        <span style="font-size:0.85rem;color:rgba(255,255,255,0.8);margin-top:8px;font-weight:500;">[ 主角色三视图占位 ]</span>
+      </div>
+      <span class="ip-type-badge">三视图 · Featured</span>
+      <div class="ip-overlay">
+        <h6>主 IP 角色 · 三视图</h6>
+        <p>正面 · 侧面 · 背面完整形象展示</p>
+      </div>
+    </div>
+
+    <!-- Emoji 1 -->
+    <div class="ip-card">
+      <div class="ip-placeholder" style="background:linear-gradient(145deg,#a1c4fd,#c2e9fb);">😄</div>
+      <span class="ip-type-badge">表情包</span>
+      <div class="ip-overlay"><h6>快乐系列</h6><p>AI 生成表情包 · 系列一</p></div>
+    </div>
+
+    <!-- Emoji 2 -->
+    <div class="ip-card">
+      <div class="ip-placeholder" style="background:linear-gradient(145deg,#fbc2eb,#a6c1ee);">🥺</div>
+      <span class="ip-type-badge">表情包</span>
+      <div class="ip-overlay"><h6>委屈系列</h6><p>AI 生成表情包 · 系列二</p></div>
+    </div>
+
+    <!-- Poster IP 1 -->
+    <div class="ip-card">
+      <div class="ip-placeholder" style="background:linear-gradient(145deg,#d4fc79,#96e6a1);">🌿</div>
+      <span class="ip-type-badge">形象海报</span>
+      <div class="ip-overlay"><h6>自然主题海报</h6><p>IP × 环境融合设计</p></div>
+    </div>
+
+    <!-- Poster IP 2 -->
+    <div class="ip-card">
+      <div class="ip-placeholder" style="background:linear-gradient(145deg,#fccb90,#d57eeb);">🌙</div>
+      <span class="ip-type-badge">形象海报</span>
+      <div class="ip-overlay"><h6>夜间主题海报</h6><p>IP × 霓虹赛博风</p></div>
+    </div>
+
+    <!-- Upload hint -->
+  </div>
+
+  <div class="upload-hint fade-up fade-up-delay-3">
+    <span class="icon">＋</span>
+    <p><strong>继续添加 IP 作品</strong> — 拖拽或上传图片，三视图 / 表情包 / 海报 / 形象设计均可</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     ③ CITY POSTER
+══════════════════════════════════════════ -->
+<section id="poster" style="padding-left:0;padding-right:0;max-width:100%;">
+  <div style="padding:0 40px;" class="section-header fade-up">
+    <span class="section-label">City Poster Series</span>
+    <h2 class="section-title"><span class="grad-orange-pink">城市</span>视觉海报</h2>
+    <p class="section-sub">以 AI 为笔，重新描绘全球城市的情绪与气质。横向滑动查看全系列。</p>
+  </div>
+
+  <div class="poster-scroll-container fade-up fade-up-delay-1">
+    <button class="poster-arrow poster-arrow-prev hidden" id="posterPrev" onclick="scrollPoster(-1)">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <button class="poster-arrow poster-arrow-next" id="posterNext" onclick="scrollPoster(1)">
+      <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
+    </button>
+    <div class="poster-track">
+      <div class="poster-item">
+        <div class="poster-img bg-g1"><span class="city-initial">TYO</span></div>
+        <div class="poster-info"><h5>Tokyo · 东京</h5><p>霓虹与寂静的共生</p></div>
+      </div>
+      <div class="poster-item">
+        <div class="poster-img bg-g2"><span class="city-initial">SEL</span></div>
+        <div class="poster-info"><h5>Seoul · 首尔</h5><p>汉江边的数字浪漫</p></div>
+      </div>
+      <div class="poster-item">
+        <div class="poster-img bg-g3"><span class="city-initial">NCG</span></div>
+        <div class="poster-info"><h5>Nanchang · 南昌</h5><p>红色记忆与新城之光</p></div>
+      </div>
+      <div class="poster-item">
+        <div class="poster-img bg-g4"><span class="city-initial">NYC</span></div>
+        <div class="poster-info"><h5>New York · 纽约</h5><p>摩天楼的呼吸节奏</p></div>
+      </div>
+      <div class="poster-item">
+        <div class="poster-img bg-g5"><span class="city-initial">PAR</span></div>
+        <div class="poster-info"><h5>Paris · 巴黎</h5><p>永恒光晕下的街角</p></div>
+      </div>
+      <div class="poster-item">
+        <div class="poster-img bg-g6"><span class="city-initial">SIN</span></div>
+        <div class="poster-info"><h5>Singapore · 新加坡</h5><p>花园城市的未来感</p></div>
+      </div>
+      <div class="poster-item">
+        <div class="poster-img bg-g7"><span class="city-initial">MAC</span></div>
+        <div class="poster-info"><h5>Macau · 澳门</h5><p>光与影的双城叙事</p></div>
+      </div>
+      <div class="poster-item" style="border:2px dashed rgba(0,0,0,0.1);background:rgba(255,255,255,0.3);">
+        <div class="poster-img" style="background:rgba(0,0,0,0.03);"><span style="font-size:2rem;font-weight:300;color:rgba(0,0,0,0.2);">+</span></div>
+        <div class="poster-info">
+          <h5 style="color:var(--text-tertiary)">继续添加</h5>
+          <p>上传你的城市海报</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     ④ VIDEO & GIF
+══════════════════════════════════════════ -->
+<section id="video">
+  <div class="section-header fade-up">
+    <span class="section-label">Video & Motion</span>
+    <h2 class="section-title">AI <span class="grad-mint-cyan">动态</span>影像</h2>
+    <p class="section-sub">视频与 GIF 同台，记录 AI 赋予画面运动与情绪的每一次实验。</p>
+  </div>
+
+  <!-- Tab switcher -->
+  <div class="ip-tabs fade-up fade-up-delay-1">
+    <button class="ip-tab active" onclick="switchVideoTab(this,'video')">🎬 视频</button>
+    <button class="ip-tab" onclick="switchVideoTab(this,'gif')">✨ GIF</button>
+  </div>
+
+  <!-- VIDEO panel -->
+  <div id="panel-video">
+    <div class="video-hero glass fade-up fade-up-delay-1">
+      <div class="video-hero-placeholder">
+        <div class="play-btn">
+          <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        </div>
+      </div>
+      <div class="video-caption-bar">
+        <div>
+          <h5>精选 AI 视频 · Featured Work</h5>
+          <p style="font-size:0.82rem;color:var(--text-secondary);margin-top:4px;">[ 上传你的主推视频 ]</p>
+        </div>
+        <span>Runway ML · 2024</span>
+      </div>
+    </div>
+
+    <div class="video-grid fade-up fade-up-delay-2" style="margin-top:16px;">
+      <div class="video-thumb">
+        <div class="video-thumb-img" style="background:linear-gradient(135deg,#1a1a2e,#16213e);">🎬</div>
+        <div class="video-thumb-info"><h6>城市漫游 Vol.1</h6><p>Kling AI · 15s</p></div>
+      </div>
+      <div class="video-thumb">
+        <div class="video-thumb-img" style="background:linear-gradient(135deg,#2d1b69,#11998e);">🌊</div>
+        <div class="video-thumb-info"><h6>流动的光</h6><p>Runway ML · 10s</p></div>
+      </div>
+      <div class="video-thumb">
+        <div class="video-thumb-img" style="background:linear-gradient(135deg,#c0392b,#f39c12);">🌅</div>
+        <div class="video-thumb-info"><h6>黎明序曲</h6><p>Sora · 20s</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GIF panel (hidden by default) -->
+  <div id="panel-gif" style="display:none;">
+    <div class="gif-grid fade-up">
+      <div class="gif-card wide">
+        <div class="gif-placeholder" style="background:linear-gradient(160deg,#0f0c29,#302b63,#24243e);">
+          <span>🌌</span>
+          <span class="gif-badge">GIF · Loop</span>
+        </div>
+        <div class="gif-info">
+          <h5>星际穿越 · 精选 GIF</h5>
+          <p>AI 生成动图，循环展示算法与宇宙的视觉比喻。[ 替换为你的主推 GIF ]</p>
+        </div>
+      </div>
+      <div class="gif-card">
+        <div class="gif-placeholder" style="background:linear-gradient(160deg,#f093fb,#f5576c);">
+          <span>🌸</span><span class="gif-badge">GIF</span>
+        </div>
+        <div class="gif-info"><h5>粉樱幻境</h5><p>AI 动图 · 花瓣飘落循环</p></div>
+      </div>
+      <div class="gif-card">
+        <div class="gif-placeholder" style="background:linear-gradient(160deg,#43e97b,#38f9d7);">
+          <span>🌿</span><span class="gif-badge">GIF</span>
+        </div>
+        <div class="gif-info"><h5>生长时刻</h5><p>AI 动图 · 植物生长延时</p></div>
+      </div>
+      <div class="gif-card">
+        <div class="gif-placeholder" style="background:linear-gradient(160deg,#fa709a,#fee140);">
+          <span>🌅</span><span class="gif-badge">GIF</span>
+        </div>
+        <div class="gif-info"><h5>黄昏涟漪</h5><p>AI 动图 · 水面反光</p></div>
+      </div>
+      <div class="gif-card">
+        <div class="gif-placeholder" style="background:linear-gradient(160deg,#4facfe,#00f2fe);">
+          <span>🌊</span><span class="gif-badge">GIF</span>
+        </div>
+        <div class="gif-info"><h5>深海呼吸</h5><p>AI 动图 · 海浪循环</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="upload-hint fade-up" style="margin-top:24px;">
+    <span class="icon">🎬</span>
+    <p><strong>添加视频或 GIF</strong> — 支持 MP4 / GIF，或粘贴 Bilibili / YouTube 链接</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     PROCESS — Human-Centered
+══════════════════════════════════════════ -->
+<section id="process" style="background:rgba(255,255,255,0.4);border-radius:60px 60px 0 0;max-width:100%;padding:100px 80px;">
+  <div class="section-header fade-up" style="text-align:center;max-width:640px;margin:0 auto 70px;">
+    <span class="section-label">Philosophy</span>
+    <h2 class="section-title">以<span class="grad-all">人</span>为核心</h2>
+    <p class="section-sub" style="max-width:100%;margin-top:16px;">
+      技术是手段，人是尺度。在所有 AI 创作实践中，我始终相信：<br>
+      <strong>决定作品意义的，是人的感知、判断与选择。</strong>
+    </p>
+  </div>
+
+  <!-- Big quote -->
+  <div class="glass fade-up fade-up-delay-1" style="padding:56px 64px;border-radius:var(--radius-xl);text-align:center;margin-bottom:24px;position:relative;overflow:hidden;">
+    <div style="position:absolute;top:-20px;left:40px;font-size:12rem;font-family:'Syne',sans-serif;font-weight:800;color:rgba(0,0,0,0.03);line-height:1;pointer-events:none;">"</div>
+    <p style="font-family:'Syne',sans-serif;font-size:clamp(1.3rem,2.5vw,1.9rem);font-weight:700;line-height:1.5;letter-spacing:-0.02em;position:relative;z-index:1;">
+      AI 能生成一千张图，<br>
+      <span class="grad-orange-pink">但只有人能决定哪一张值得被看见。</span>
+    </p>
+  </div>
+
+  <div class="process-grid">
+    <div class="glass process-card fade-up fade-up-delay-1">
+      <span class="process-icon">🫀</span>
+      <span class="process-num">01</span>
+      <h4><span class="grad-orange-pink">情感</span>先行</h4>
+      <p>每件作品的起点都是一个具体的人类情感——不是"生成一张好看的图"，而是"我想传递什么感受"。Prompt 是情感的翻译，不是命令。</p>
+    </div>
+    <div class="glass process-card fade-up fade-up-delay-2">
+      <span class="process-icon">🧭</span>
+      <span class="process-num">02</span>
+      <h4><span class="grad-cyan-violet">判断</span>居中</h4>
+      <p>AI 输出的是可能性，人做的是筛选与取舍。新闻从业的训练让我习惯在海量素材中辨别"真正重要的那一帧"——这个能力在 AI 创作中同样核心。</p>
+    </div>
+    <div class="glass process-card fade-up fade-up-delay-3">
+      <span class="process-icon">🌱</span>
+      <span class="process-num">03</span>
+      <h4><span class="grad-mint-cyan">意义</span>收尾</h4>
+      <p>一件作品完成时，我会问：它对看见它的人意味着什么？技术再精良，若无法在人与人之间制造连接，便只是噪音。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════ -->
+<footer>
+  <p style="margin-bottom:12px;">
+    <a href="index.html">← 返回主页 / Back to Portfolio</a>
+  </p>
+  <p>© 2026 Wang Zeheng · All AI works created with human intention.</p>
+</footer>
+
+<!-- ══════════════════════════════════════════
+     SCRIPTS
+══════════════════════════════════════════ -->
+<script>
+// ── Cursor glow
+const glow = document.getElementById('cursorGlow');
+document.addEventListener('mousemove', e => {
+  glow.style.left = e.clientX + 'px';
+  glow.style.top  = e.clientY + 'px';
+});
+
+// ── Scroll reveal
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// ── IP Tabs
+function switchTab(btn, type) {
+  document.querySelectorAll('.ip-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// ── Video/GIF Tab
+function switchVideoTab(btn, panel) {
+  // update tab styles (only within video section)
+  btn.closest('.ip-tabs').querySelectorAll('.ip-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('panel-video').style.display = panel === 'video' ? 'block' : 'none';
+  document.getElementById('panel-gif').style.display   = panel === 'gif'   ? 'block' : 'none';
+}
+
+// ── Poster arrow scroll
+function scrollPoster(dir) {
+  const track = document.querySelector('.poster-track');
+  track.scrollBy({ left: dir * 320, behavior: 'smooth' });
+}
+// Update arrow visibility on scroll
+const posterTrack = document.querySelector('.poster-track');
+if (posterTrack) {
+  posterTrack.addEventListener('scroll', () => {
+    const prev = document.getElementById('posterPrev');
+    const next = document.getElementById('posterNext');
+    prev.classList.toggle('hidden', posterTrack.scrollLeft < 20);
+    next.classList.toggle('hidden', posterTrack.scrollLeft + posterTrack.clientWidth >= posterTrack.scrollWidth - 20);
+  });
+}
+const track = document.querySelector('.poster-track');
+let isDown = false, startX, scrollLeft;
+track.addEventListener('mousedown', e => {
+  isDown = true;
+  startX = e.pageX - track.offsetLeft;
+  scrollLeft = track.scrollLeft;
+  track.style.cursor = 'grabbing';
+});
+track.addEventListener('mouseleave', () => { isDown = false; track.style.cursor = 'grab'; });
+track.addEventListener('mouseup', () => { isDown = false; track.style.cursor = 'grab'; });
+track.addEventListener('mousemove', e => {
+  if (!isDown) return;
+  e.preventDefault();
+  const x = e.pageX - track.offsetLeft;
+  track.scrollLeft = scrollLeft - (x - startX) * 1.4;
+});
+track.style.cursor = 'grab';
+
+// ── Nav scroll effect
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('navbar');
+  if (window.scrollY > 20) {
+    nav.style.background = 'rgba(245,245,247,0.92)';
+  } else {
+    nav.style.background = 'rgba(245,245,247,0.8)';
+  }
+});
+
+// ── Smooth scroll for nav links
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+</body>
+</html>
