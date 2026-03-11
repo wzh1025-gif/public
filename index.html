@@ -1,1950 +1,1154 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>王泽恒 | Wang Zeheng · Media Strategy & Research</title>
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wang Zeheng · Media Researcher & Journalist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600;800&display=swap');
+/* ─── RESET & BASE ─────────────────────────────── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-    --bg: #0a0c10;
-    --bg-elevated: #12151a;
-    --accent: #2a4b8d;
-    --accent-light: #3c5fa5;
-    --text-primary: #ffffff;
-    --text-secondary: rgba(255, 255, 255, 0.6);
-    --text-tertiary: rgba(255, 255, 255, 0.4);
-    --glass: rgba(255, 255, 255, 0.03);
-    --glass-hover: rgba(255, 255, 255, 0.08);
-    --border: rgba(255, 255, 255, 0.1);
+  --ink:     #1a1714;
+  --ink-60:  rgba(26,23,20,0.6);
+  --ink-30:  rgba(26,23,20,0.3);
+  --ink-10:  rgba(26,23,20,0.08);
+  --paper:   #faf8f5;
+  --cream:   #f2ede6;
+  --accent:  #c8470a;
+  --accent2: #1d4ed8;
+  --serif:   'DM Serif Display', 'Noto Serif SC', Georgia, serif;
+  --sans:    'DM Sans', 'PingFang SC', system-ui, sans-serif;
+  --rule:    1px solid rgba(26,23,20,0.15);
 }
 
-/* 亮色主题 */
-[data-theme="light"] {
-    --bg: #ffffff;
-    --bg-elevated: #f8f9fa;
-    --accent: #2a4b8d;
-    --accent-light: #3c5fa5;
-    --text-primary: #1a1a1a;
-    --text-secondary: rgba(0, 0, 0, 0.6);
-    --text-tertiary: rgba(0, 0, 0, 0.4);
-    --glass: rgba(0, 0, 0, 0.03);
-    --glass-hover: rgba(0, 0, 0, 0.06);
-    --border: rgba(0, 0, 0, 0.1);
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+html { scroll-behavior: smooth; }
 
 body {
-    background-color: var(--bg);
-    color: var(--text-primary);
-    font-family: 'Plus Jakarta Sans', 'PingFang SC', -apple-system, sans-serif;
-    overflow-x: hidden;
-    line-height: 1.6;
-    max-width: 100vw;
-    position: relative;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
 }
 
-html {
-    overflow-x: hidden;
-    width: 100%;
+/* ─── TYPOGRAPHY ───────────────────────────────── */
+h1, h2, h3 { font-family: var(--serif); font-weight: 400; line-height: 1.1; }
+.label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink-60);
 }
 
-* {
-    box-sizing: border-box;
+/* ─── NAV ──────────────────────────────────────── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  height: 64px;
+  background: rgba(250,248,245,0.94);
+  backdrop-filter: blur(16px);
+  border-bottom: var(--rule);
+  transition: box-shadow 0.3s;
 }
+.nav-brand {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  color: var(--ink);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+}
+.nav-links {
+  display: flex;
+  gap: 36px;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--ink); }
 
-/* 动态背景光晕 */
-.bg-blobs {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    overflow: hidden;
-    pointer-events: none;
-}
-.blob {
-    position: absolute;
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, rgba(42,75,141,0.15) 0%, transparent 70%);
-    filter: blur(80px);
-    animation: move 20s infinite alternate ease-in-out;
-}
-.blob:nth-child(1) {
-    top: 10%;
-    left: 10%;
-}
-.blob:nth-child(2) {
-    bottom: 10%;
-    right: 10%;
-    animation-delay: -5s;
-}
-.blob:nth-child(3) {
-    top: 50%;
-    left: 50%;
-    animation-delay: -10s;
-    opacity: 0.5;
-}
-@keyframes move {
-    from { transform: translate(-20%, -20%); }
-    to { transform: translate(20%, 20%); }
-}
-
-/* 导航栏 */
-.navbar {
-    padding: 30px 0;
-    transition: all 0.4s;
-    backdrop-filter: blur(10px);
-}
-.navbar.scrolled {
-    background: rgba(10, 12, 16, 0.95);
-    padding: 20px 0;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-}
-.navbar-brand {
-    font-weight: 800;
-    letter-spacing: 2px;
-    font-size: 1.2rem;
-    transition: color 0.3s;
-}
-.navbar-brand:hover {
-    color: var(--accent-light) !important;
-}
-.nav-link-custom {
-    color: var(--text-secondary);
-    text-decoration: none;
-    font-size: 0.85rem;
-    font-weight: 600;
-    letter-spacing: 1px;
-    transition: color 0.3s;
-    position: relative;
-}
-.nav-link-custom::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--accent);
-    transition: width 0.3s;
-}
-.nav-link-custom:hover {
-    color: var(--text-primary);
-}
-.nav-link-custom:hover::after {
-    width: 100%;
-}
-
-/* Hero Section */
+/* ─── HERO ─────────────────────────────────────── */
 .hero {
-    min-height: 90vh;
-    display: flex;
-    align-items: center;
-    position: relative;
-    padding: 100px 0 80px;
+  margin-top: 64px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: calc(100vh - 64px);
+  border-bottom: var(--rule);
 }
-.hero-tag {
-    font-size: 0.85rem;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--accent-light);
-    margin-bottom: 20px;
-    display: block;
-    font-weight: 600;
+.hero-left {
+  padding: 80px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: var(--rule);
 }
-.hero-h1 {
-    font-size: clamp(2.5rem, 6vw, 5rem);
-    font-weight: 800;
-    line-height: 1.1;
-    margin-bottom: 30px;
-    letter-spacing: -2px;
+.hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 40px;
 }
-.hero-h1 span {
-    color: transparent;
-    -webkit-text-stroke: 1px rgba(255,255,255,0.3);
+.hero-eyebrow::before {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 2px;
+  background: var(--accent);
+  flex-shrink: 0;
 }
-.hero-image-wrapper {
-    position: relative;
+.hero-name {
+  font-size: clamp(3.5rem, 5.5vw, 5.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin-bottom: 32px;
 }
-.hero-profile-img {
-    width: 100%;
-    max-width: 320px;
-    height: auto;
-    aspect-ratio: 1;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 8px solid rgba(42, 75, 141, 0.2);
-    box-shadow: 0 20px 60px rgba(42, 75, 141, 0.3);
-    transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+.hero-name em {
+  font-style: italic;
+  color: var(--ink-60);
 }
-.hero-profile-img:hover {
-    transform: scale(1.05) rotate(3deg);
-    box-shadow: 0 30px 80px rgba(42, 75, 141, 0.5);
-    border-color: var(--accent);
+.hero-desc {
+  font-size: 1.05rem;
+  color: var(--ink-60);
+  line-height: 1.8;
+  max-width: 480px;
+  margin-bottom: 48px;
+  font-weight: 300;
 }
-
-/* 数据展示 */
-.stats-grid {
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    padding: 80px 0;
-    margin: 60px 0;
+.hero-desc strong { font-weight: 600; color: var(--ink); }
+.hero-cta {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 64px;
 }
-.stat-item {
-    border-right: 1px solid var(--border);
-    padding: 20px;
-    position: relative;
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 2px solid var(--ink);
+  transition: all 0.25s;
+  cursor: pointer;
+  font-family: var(--sans);
 }
-.stat-item:last-child {
-    border-right: none;
+.btn-primary:hover {
+  background: var(--accent);
+  border-color: var(--accent);
 }
-.stat-wrapper {
-    transition: all 0.4s;
-    cursor: pointer;
-    padding: 20px;
-    border-radius: 20px;
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  background: transparent;
+  color: var(--ink);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 2px solid var(--ink-30);
+  transition: all 0.25s;
 }
-.stat-wrapper:hover {
-    background: var(--glass);
-    transform: scale(1.05);
+.btn-ghost:hover { border-color: var(--ink); }
+.hero-stats {
+  display: flex;
+  gap: 0;
+  border-top: var(--rule);
+  padding-top: 32px;
 }
-.stat-num {
-    font-size: clamp(3rem, 5vw, 4rem);
-    font-weight: 800;
-    color: var(--accent-light);
-    line-height: 1;
-    display: inline-block;
-    transition: all 0.3s;
+.hero-stat { flex: 1; }
+.hero-stat + .hero-stat {
+  padding-left: 24px;
+  border-left: var(--rule);
 }
-.stat-wrapper:hover .stat-num {
-    color: var(--text-primary);
+.stat-n {
+  font-family: var(--serif);
+  font-size: 2.2rem;
+  color: var(--ink);
+  line-height: 1;
+  margin-bottom: 6px;
 }
-.stat-unit {
-    font-size: 1.2rem;
-    color: var(--text-primary);
-    margin-left: 5px;
-    font-weight: 600;
+/* hero right panel — text + portrait layout */
+.hero-right {
+  position: relative;
+  background: var(--cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 52px;
+  border-left: var(--rule);
 }
-.stat-label {
-    font-size: 0.85rem;
-    color: var(--text-tertiary);
-    margin-top: 10px;
-    font-weight: 600;
-    letter-spacing: 1px;
+.hero-right-inner {
+  display: flex;
+  align-items: flex-start;
+  gap: 36px;
+  width: 100%;
+  max-width: 520px;
 }
-.stat-detail {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    margin-top: 8px;
-    opacity: 0;
-    transform: translateY(-10px);
-    transition: all 0.3s;
+.hero-portrait {
+  flex-shrink: 0;
+  width: 160px;
+  height: 210px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: var(--rule);
+  box-shadow: 0 12px 40px rgba(26,23,20,0.1);
+  background: var(--ink-10);
 }
-.stat-wrapper:hover .stat-detail {
-    opacity: 1;
-    transform: translateY(0);
+.hero-portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  transition: transform 0.6s ease;
 }
-
-/* Bento Box 卡片 */
-.bento-card {
-    background: var(--glass);
-    border: 1px solid var(--border);
-    border-radius: 32px;
-    padding: 40px;
-    transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
-    position: relative;
-    overflow: hidden;
-    height: 100%;
+.hero-portrait:hover img { transform: scale(1.04); }
+.hero-right-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-top: 4px;
 }
-.bento-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--accent), var(--accent-light));
-    transform: scaleX(0);
-    transition: transform 0.5s;
+.hero-right-desc {
+  font-size: 0.92rem;
+  color: var(--ink-60);
+  line-height: 1.8;
+  font-weight: 300;
 }
-.bento-card:hover::before {
-    transform: scaleX(1);
-}
-.bento-card:hover {
-    background: var(--glass-hover);
-    transform: translateY(-10px);
-    border-color: var(--accent);
-    box-shadow: 0 20px 60px rgba(42, 75, 141, 0.2);
-}
-
-/* 轮播优化 - 添加毛玻璃效果 */
-#featuredCarousel {
-    max-width: 900px;
-    margin: 0 auto;
-}
-#featuredCarousel .carousel-inner {
-    perspective: 1000px;
-}
-.carousel-item {
-    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.carousel-item img {
-    filter: brightness(0.7);
-    transition: all 0.6s;
-    height: 400px;
-    object-fit: cover;
-}
-/* 非活动项：模糊毛玻璃效果 */
-.carousel-item:not(.active) img {
-    filter: brightness(0.4) blur(8px);
-    transform: scale(0.95);
-    opacity: 0.6;
-}
-/* 活动项：清晰 */
-.carousel-item.active img {
-    filter: brightness(0.7);
-    transform: scale(1);
-    opacity: 1;
-}
-.carousel-item:hover img {
-    filter: brightness(0.5);
-}
-.carousel-caption {
-    text-align: left;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    transition: all 0.3s;
-}
-/* 非活动项的标题也模糊 */
-.carousel-item:not(.active) .carousel-caption {
-    opacity: 0;
-}
-.carousel-control-prev,
-.carousel-control-next {
-    width: 8%;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-#featuredCarousel:hover .carousel-control-prev,
-#featuredCarousel:hover .carousel-control-next {
-    opacity: 1;
+.hero-right-desc strong { font-weight: 600; color: var(--ink); }
+.hero-location {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--ink-60);
+  padding: 6px 14px;
+  border: var(--rule);
+  width: fit-content;
+  background: rgba(250,248,245,0.8);
 }
 
-/* 作品集网格 */
-.filter-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+/* ─── TICKER STRIP ─────────────────────────────── */
+.ticker-strip {
+  background: var(--ink);
+  padding: 14px 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.ticker-inner {
+  display: inline-flex;
+  gap: 40px;
+  animation: ticker 28s linear infinite;
+}
+.ticker-inner span {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(250,248,245,0.55);
+}
+.ticker-dot { color: var(--accent) !important; font-size: 1rem !important; }
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ─── SECTION BASE ─────────────────────────────── */
+section { padding: 96px 48px; }
+.section-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-bottom: 32px;
+  margin-bottom: 48px;
+  border-bottom: var(--rule);
+}
+.section-title { font-size: clamp(2rem, 3.5vw, 2.8rem); letter-spacing: -0.02em; }
+.see-all {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.2s;
+}
+.see-all:hover { color: var(--accent); }
+.see-all::after { content: ' →'; }
+
+/* ─── ABOUT ─────────────────────────────────────── */
+.about-section {
+  background: var(--cream);
+  border-top: var(--rule);
+  border-bottom: var(--rule);
+}
+.about-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 56px;
+  align-items: start;
+}
+.about-bio {
+  font-size: 1.1rem;
+  line-height: 1.85;
+  color: var(--ink);
+  font-weight: 300;
+}
+.about-bio strong { font-weight: 600; color: var(--ink); }
+.col-title {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: var(--rule);
+}
+.skills-wrap { margin-top: 32px; }
+.skill-tag {
+  display: inline-block;
+  padding: 5px 12px;
+  border: var(--rule);
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin: 4px 4px 4px 0;
+  transition: all 0.2s;
+  cursor: default;
+}
+.skill-tag:hover {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+.timeline-item {
+  padding: 16px 0;
+  border-bottom: var(--rule);
+}
+.timeline-item:last-child { border-bottom: none; }
+.t-year { font-size: 0.72rem; font-weight: 700; color: var(--accent); letter-spacing: 0.05em; margin-bottom: 4px; }
+.t-text { font-size: 0.88rem; line-height: 1.5; }
+.t-sub { color: var(--ink-60); font-size: 0.8rem; margin-top: 2px; }
+
+/* ─── WORKS ──────────────────────────────────────── */
+.works-section { border-bottom: var(--rule); }
+.works-filter {
+  display: flex;
+  width: fit-content;
+  border: var(--rule);
+  margin-bottom: 48px;
 }
 .filter-btn {
-    padding: 10px 20px;
-    border: 2px solid var(--border);
-    background: transparent;
-    color: var(--text-secondary);
-    border-radius: 50px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s;
-    letter-spacing: 0.5px;
+  padding: 10px 24px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: transparent;
+  border: none;
+  border-right: var(--rule);
+  cursor: pointer;
+  color: var(--ink-60);
+  transition: all 0.2s;
+  font-family: var(--sans);
 }
-.filter-btn:hover {
-    border-color: var(--accent);
-    color: var(--text-primary);
-    background: var(--glass);
+.filter-btn:last-child { border-right: none; }
+.filter-btn:hover { color: var(--ink); background: var(--cream); }
+.filter-btn.active { background: var(--ink); color: var(--paper); }
+
+.works-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--ink-10);
+  border: 1px solid var(--ink-10);
 }
-.filter-btn.active {
-    border-color: var(--accent);
-    background: var(--accent);
-    color: white;
-    box-shadow: 0 4px 15px rgba(42, 75, 141, 0.4);
+.work-card {
+  background: var(--paper);
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4/5;
+  display: none;
+  cursor: pointer;
+  text-decoration: none;
 }
-.portfolio-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
+.work-card.show { display: block; }
+.work-card.featured {
+  aspect-ratio: unset;
+  grid-column: span 2;
+  grid-row: span 2;
 }
-@media (max-width: 768px) {
-    .portfolio-grid {
-        grid-template-columns: 1fr;
-    }
+.work-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease, filter 0.4s ease;
 }
-.work-item {
-    border-radius: 20px;
-    overflow: hidden;
-    position: relative;
-    cursor: pointer;
-    border: 1px solid var(--border);
-    transition: all 0.3s;
-    display: none;
+.work-card:hover .work-card-img {
+  transform: scale(1.06);
+  filter: brightness(0.4);
 }
-.work-item.show {
-    display: block;
+.work-card-info {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 32px 24px 24px;
+  background: linear-gradient(to top, rgba(26,23,20,0.95) 0%, transparent 100%);
+  transform: translateY(10px);
+  opacity: 0;
+  transition: all 0.35s ease;
 }
-.work-item:hover {
-    border-color: var(--accent);
-}
-.work-item img {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-    display: block;
-    transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1);
-}
-.work-item:hover img {
-    transform: scale(1.1);
-    filter: brightness(0.4);
-}
-.work-overlay {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 20px;
-    opacity: 0;
-    transition: opacity 0.4s;
-    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-}
-.work-item:hover .work-overlay {
-    opacity: 1;
-}
+.work-card:hover .work-card-info { opacity: 1; transform: translateY(0); }
 .work-tag {
-    display: inline-block;
-    padding: 4px 12px;
-    background: var(--accent);
-    border-radius: 20px;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-    width: fit-content;
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ff8c5a;
+  margin-bottom: 8px;
+  display: block;
+}
+.work-title {
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  color: white;
+  line-height: 1.3;
+}
+/* Placeholder for missing images */
+.work-placeholder {
+  width: 100%;
+  height: 100%;
+  background: var(--cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: var(--ink-30);
 }
 
-/* 加载更多按钮 */
-.load-more-btn {
-    background: var(--glass);
-    border: 2px solid var(--border);
-    color: var(--text-primary);
-    padding: 15px 40px;
-    border-radius: 50px;
-    font-weight: 600;
-    transition: all 0.3s;
-    cursor: pointer;
-}
-.load-more-btn:hover {
-    background: var(--accent);
-    border-color: var(--accent);
-    transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(42, 75, 141, 0.3);
-}
-.load-more-btn.hidden {
-    display: none;
-}
-
-/* 学术部分 - 优化为暗色调统一 */
+/* ─── ACADEMIC ─────────────────────────────────── */
 .academic-section {
-    background: var(--bg-elevated);
-    border-radius: 60px 60px 0 0;
-    padding: 100px 0;
-    margin-top: 100px;
-    position: relative;
+  background: var(--ink);
+  color: var(--paper);
 }
-.academic-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--border), transparent);
+.academic-section .section-title { color: var(--paper); }
+.academic-section .section-header { border-color: rgba(250,248,245,0.12); }
+.academic-section .label { color: rgba(250,248,245,0.45); }
+.academic-section .see-all { color: rgba(250,248,245,0.45); }
+.academic-section .see-all:hover { color: var(--paper); }
+
+.papers-list { display: flex; flex-direction: column; }
+.paper-row {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  gap: 32px;
+  align-items: center;
+  padding: 28px 0;
+  border-bottom: 1px solid rgba(250,248,245,0.1);
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.25s;
 }
-.academic-icon {
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(135deg, rgba(42,75,141,0.2), rgba(42,75,141,0.1));
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.8rem;
-    color: var(--accent-light);
-    flex-shrink: 0;
+.paper-row:last-child { border-bottom: none; }
+.paper-row:hover { background: rgba(250,248,245,0.04); padding-left: 16px; margin-left: -16px; }
+.paper-num {
+  font-family: var(--serif);
+  font-size: 1.6rem;
+  color: rgba(250,248,245,0.18);
+  font-style: italic;
+  text-align: right;
 }
-.academic-card {
-    background: linear-gradient(135deg, rgba(42,75,141,0.15) 0%, rgba(42,75,141,0.05) 100%);
-    border-radius: 24px;
-    padding: 30px;
-    border: 1px solid var(--border);
-    transition: all 0.3s;
+.paper-title { font-size: 0.98rem; font-weight: 500; color: var(--paper); line-height: 1.45; margin-bottom: 6px; }
+.paper-meta { font-size: 0.75rem; color: rgba(250,248,245,0.4); letter-spacing: 0.04em; }
+.paper-badge {
+  padding: 5px 14px;
+  border: 1px solid rgba(250,248,245,0.2);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(250,248,245,0.45);
+  white-space: nowrap;
+  transition: all 0.2s;
 }
-.academic-card:hover {
-    background: linear-gradient(135deg, rgba(42,75,141,0.2) 0%, rgba(42,75,141,0.1) 100%);
-    transform: translateY(-5px);
-    border-color: var(--accent);
+.paper-row:hover .paper-badge { border-color: var(--accent); color: #ff8c5a; }
+
+/* ─── PROJECTS ────────────────────────────────── */
+.projects-section { border-bottom: var(--rule); }
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--ink-10);
+  border: 1px solid var(--ink-10);
 }
-.paper-item {
-    background: var(--glass);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 30px;
-    transition: all 0.3s;
-    position: relative;
-    overflow: hidden;
+.project-card {
+  background: var(--paper);
+  padding: 48px 40px;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: background 0.3s;
 }
-.paper-item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 4px;
-    height: 100%;
-    background: var(--accent);
-    transform: scaleY(0);
-    transition: transform 0.3s;
+.project-card:hover { background: var(--cream); }
+.project-arrow {
+  position: absolute;
+  top: 40px; right: 40px;
+  font-size: 1.1rem;
+  color: var(--ink-30);
+  transition: all 0.25s;
 }
-.paper-item:hover::before {
-    transform: scaleY(1);
+.project-card:hover .project-arrow { color: var(--accent); transform: translate(4px, -4px); }
+.p-tag {
+  display: inline-block;
+  padding: 4px 12px;
+  background: var(--ink-10);
+  font-size: 0.67rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
 }
-.paper-item:hover {
-    background: var(--glass-hover);
-    border-color: var(--accent);
-    transform: translateY(-5px);
+.p-title {
+  font-size: 1.55rem;
+  margin-bottom: 14px;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
 }
-.academic-stats {
-    background: var(--glass);
-    border: 1px solid var(--border);
-    border-radius: 24px;
-    padding: 40px 20px;
-    margin-top: 40px;
+.p-desc { font-size: 0.88rem; color: var(--ink-60); line-height: 1.75; font-weight: 300; }
+
+/* AI card — dark */
+.project-card.ai-card {
+  background: var(--ink);
+  color: var(--paper);
 }
-.academic-stat-num {
-    font-size: 2rem;
-    font-weight: 800;
-    color: var(--accent-light);
-    margin-bottom: 10px;
-}
-.academic-stat-label {
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    letter-spacing: 1px;
+.project-card.ai-card:hover { background: #26211e; }
+.project-card.ai-card .p-desc { color: rgba(250,248,245,0.5); }
+.project-card.ai-card .p-tag { background: rgba(200,71,10,0.25); color: #ff8c5a; }
+.project-card.ai-card .project-arrow { color: rgba(250,248,245,0.25); }
+.project-card.ai-card:hover .project-arrow { color: #ff8c5a; }
+.ai-glow {
+  position: absolute;
+  width: 280px; height: 280px;
+  background: radial-gradient(circle, rgba(200,71,10,0.18) 0%, transparent 70%);
+  bottom: -80px; right: -80px;
+  pointer-events: none;
 }
 
-/* 联系部分 */
-.contact-card {
-    background: var(--glass);
-    border: 1px solid var(--border);
-    border-radius: 24px;
-    padding: 40px;
+/* ─── CONTACT ──────────────────────────────────── */
+.contact-section {
+  background: var(--cream);
+  border-bottom: var(--rule);
 }
-.form-control-dark {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 15px;
-    color: var(--text-primary);
-    transition: all 0.3s;
-    width: 100%;
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
 }
-.form-control-dark:focus {
-    outline: none;
-    border-color: var(--accent);
-    background: rgba(255, 255, 255, 0.08);
-    box-shadow: 0 0 0 3px rgba(42, 75, 141, 0.1);
+.contact-headline {
+  font-size: clamp(2.8rem, 4vw, 4.2rem);
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin-bottom: 24px;
 }
-.form-control-dark::placeholder {
-    color: var(--text-tertiary);
+.contact-sub {
+  font-size: 1rem;
+  color: var(--ink-60);
+  line-height: 1.75;
+  font-weight: 300;
+  margin-bottom: 40px;
 }
-.contact-methods {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+.contact-links { display: flex; flex-direction: column; border-top: var(--rule); }
+.contact-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 0;
+  border-bottom: var(--rule);
+  text-decoration: none;
+  color: var(--ink);
+  transition: padding-left 0.25s, color 0.2s;
 }
-.contact-method-item {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    cursor: pointer;
-    transition: all 0.3s;
-    position: relative;
-}
-.contact-method-item:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: var(--accent);
-    transform: translateX(5px);
-}
-.contact-method-item > i:first-child {
-    font-size: 1.5rem;
-    color: var(--accent-light);
-}
-.contact-method-item > div {
-    flex: 1;
-}
-.copy-icon {
-    opacity: 0;
-    transition: opacity 0.3s;
-    color: var(--accent-light);
-}
-.contact-method-item:hover .copy-icon {
-    opacity: 1;
-}
+.contact-link:hover { padding-left: 12px; color: var(--accent); }
+.cl-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+.cl-val { font-size: 0.85rem; color: var(--ink-60); }
 
-/* 按钮 */
-.btn-accent {
-    background: var(--accent);
-    color: white;
-    border-radius: 50px;
-    padding: 15px 35px;
-    font-weight: 600;
-    transition: all 0.3s;
-    border: none;
-    box-shadow: 0 4px 20px rgba(42, 75, 141, 0.3);
-}
-.btn-accent:hover {
-    background: var(--accent-light);
-    transform: scale(1.05);
-    box-shadow: 0 10px 40px rgba(42, 75, 141, 0.5);
-    color: white;
-}
-.btn-outline-light {
-    border: 2px solid var(--border);
-    color: var(--text-primary);
-    transition: all 0.3s;
-    padding: 12px 30px;
-    font-weight: 600;
-}
-.btn-outline-light:hover {
-    border-color: var(--accent);
-    background: var(--accent);
-    color: white;
-}
-
-/* Badge */
-.badge {
-    font-weight: 600;
-    padding: 8px 16px;
-    font-size: 0.75rem;
-    letter-spacing: 1px;
-}
-
-/* Footer */
+/* ─── FOOTER ───────────────────────────────────── */
 footer {
-    background: var(--bg);
-    padding: 60px 0;
-    border-top: 1px solid var(--border);
+  padding: 28px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: var(--rule);
+}
+.footer-copy { font-size: 0.72rem; color: var(--ink-30); letter-spacing: 0.05em; }
+.footer-brand { font-family: var(--serif); font-size: 0.9rem; color: var(--ink-60); }
+
+/* ─── STAT SLOT ANIMATION ───────────────────────── */
+.stat-slot {
+  display: inline-block;
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.45s ease;
+}
+.stat-slot.exit-up {
+  transform: translateY(-28px);
+  opacity: 0;
+}
+.stat-slot.enter-down {
+  transform: translateY(28px);
+  opacity: 0;
+}
+.stat-label-slot {
+  display: inline-block;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.35s ease;
+}
+.stat-label-slot.exit-up {
+  transform: translateY(-14px);
+  opacity: 0;
+}
+.stat-label-slot.enter-down {
+  transform: translateY(14px);
+  opacity: 0;
+}
+.hero-stat {
+  overflow: hidden;
 }
 
-/* 返回顶部按钮 */
-.back-to-top {
-    position: fixed;
-    bottom: 40px;
-    right: 40px;
-    width: 56px;
-    height: 56px;
-    background: linear-gradient(135deg, var(--accent), var(--accent-light));
-    border: none;
-    border-radius: 50%;
-    color: white;
-    font-size: 1.5rem;
-    cursor: pointer;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(20px) rotate(0deg);
-    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    z-index: 999;
-    box-shadow: 0 8px 30px rgba(42, 75, 141, 0.4);
-}
-.back-to-top:hover {
-    transform: translateY(-5px) rotate(-10deg) scale(1.1);
-    box-shadow: 0 15px 50px rgba(42, 75, 141, 0.6);
-    background: linear-gradient(135deg, var(--accent-light), var(--accent));
-}
-.back-to-top.show {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0) rotate(0deg);
-}
-.back-to-top i {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    animation: rocket-bounce 2s ease-in-out infinite;
-}
-@keyframes rocket-bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
-}
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
 
-/* 主题切换按钮 - 简约隐晦风格 */
-.theme-toggle {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    color: var(--text-secondary);
+/* ─── RESPONSIVE ────────────────────────────────── */
+@media (max-width: 960px) {
+  nav { padding: 0 24px; }
+  .nav-links { display: none; }
+  .hero { grid-template-columns: 1fr; }
+  .hero-left { padding: 48px 24px; border-right: none; border-bottom: var(--rule); }
+  .hero-right { padding: 40px 24px; border-left: none; }
+  .hero-right-inner { gap: 24px; }
+  .hero-portrait { width: 120px; height: 158px; }
+  .hero-right-desc { font-size: 0.85rem; }
+  section { padding: 64px 24px; }
+  .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .works-grid { grid-template-columns: 1fr 1fr; }
+  .work-card.featured { grid-column: span 2; aspect-ratio: 16/9; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+  footer { flex-direction: column; gap: 10px; padding: 24px; text-align: center; }
+  .paper-row { grid-template-columns: 40px 1fr; }
+  .paper-badge { display: none; }
 }
-.theme-toggle:hover {
-    color: var(--text-primary);
-    transform: rotate(180deg);
-}
-.theme-toggle i {
-    font-size: 1.2rem;
-    transition: all 0.3s ease;
-}
-/* 亮色主题时轻微调整 */
-[data-theme="light"] .theme-toggle {
-    color: var(--text-secondary);
-}
-[data-theme="light"] .theme-toggle:hover {
-    color: var(--text-primary);
-}
-
-/* 项目卡片链接文字中英文切换 */
-.project-link-text {
-    position: relative;
-    display: inline-block;
-    height: 1.2em;
-    overflow: hidden;
-}
-.project-link-text .link-en,
-.project-link-text .link-zh {
-    display: block;
-    transition: all 0.3s ease;
-}
-.project-link-text .link-en {
-    transform: translateY(0);
-    opacity: 1;
-}
-.project-link-text .link-zh {
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: translateY(100%);
-    opacity: 0;
-}
-/* 悬停时切换 */
-.bento-card:hover .project-link-text .link-en {
-    transform: translateY(-100%);
-    opacity: 0;
-}
-.bento-card:hover .project-link-text .link-zh {
-    transform: translateY(0);
-    opacity: 1;
-}
-
-/* 工具类 */
-.py-100 {
-    padding: 100px 0;
-}
-.text-accent {
-    color: var(--accent-light);
-}
-
-/* 响应式 */
-@media (max-width: 768px) {
-    /* 移动端触摸优化 - 防止滑动时误触 */
-    * {
-        -webkit-tap-highlight-color: transparent;
-        -webkit-touch-callout: none;
-    }
-    body {
-        overflow-x: hidden !important;
-        width: 100vw !important;
-        -webkit-overflow-scrolling: touch;
-    }
-    /* 禁用所有卡片的transform动画，防止误触时内容移位 */
-    .bento-card,
-    .stat-item,
-    .paper-item,
-    .work-item {
-        transform: none !important;
-        transition: background-color 0.3s, border-color 0.3s !important;
-    }
-    .bento-card:hover,
-    .bento-card:active {
-        transform: none !important;
-    }
-    .container {
-        max-width: 100%;
-        padding-left: 15px;
-        padding-right: 15px;
-        overflow-x: hidden;
-    }
-    .hero {
-        min-height: 80vh;
-        padding: 80px 0 60px;
-    }
-    .hero-profile-img {
-        max-width: 240px;
-    }
-    .stats-grid {
-        padding: 60px 0;
-    }
-    .stat-item {
-        border-right: none;
-        border-bottom: 1px solid var(--border);
-        margin-bottom: 30px;
-        padding-bottom: 30px;
-    }
-    .stat-item:last-child {
-        border-bottom: none;
-        margin-bottom: 0;
-    }
-    .bento-card {
-        padding: 30px;
-    }
-    .filter-buttons {
-        justify-content: center;
-    }
-    .filter-btn {
-        font-size: 0.75rem;
-        padding: 8px 16px;
-    }
-    .academic-section {
-        padding: 60px 0;
-        margin-top: 60px;
-    }
-    .contact-card {
-        padding: 30px;
-    }
-    .contact-methods {
-        gap: 15px;
-    }
-    .contact-method-item {
-        padding: 15px;
-    }
-    /* 移动端轮播优化 - 确保居中 */
-    #featuredCarousel {
-        max-width: 100vw;
-        margin: 0 calc(-50vw + 50%);
-        width: 100vw;
-    }
-    #featuredCarousel .carousel-inner {
-        border-radius: 0 !important;
-        border: none !important;
-    }
-    .carousel-item img {
-        height: 280px !important;
-        object-fit: cover;
-        width: 100%;
-    }
-    .carousel-caption {
-        padding: 20px 15px !important;
-    }
-    #featuredCarousel .carousel-caption h3 {
-        font-size: 1.1rem;
-    }
-    #featuredCarousel .carousel-caption p {
-        font-size: 0.85rem;
-    }
-    .work-item img {
-        height: 250px;
-    }
-    
-    /* 🎯 借鉴Gemini：移动端横向滑动优化 */
-    .portfolio-grid {
-        display: flex !important;
-        overflow-x: auto;
-        gap: 15px;
-        padding: 10px 5px 30px 5px;
-        scroll-snap-type: x mandatory;
-        scrollbar-width: none; /* 隐藏滚动条 */
-        -webkit-overflow-scrolling: touch; /* iOS平滑滚动 */
-    }
-    .portfolio-grid::-webkit-scrollbar {
-        display: none; /* 隐藏滚动条 */
-    }
-    .work-item {
-        min-width: 280px !important;
-        max-width: 280px !important;
-        scroll-snap-align: start;
-        flex-shrink: 0;
-    }
-    .work-item img {
-        height: 350px !important;
-        object-fit: cover;
-    }
-    /* 加载更多按钮在移动端隐藏 */
-    .load-more-btn {
-        display: none;
-    }
-    /* 返回顶部按钮移动端优化 */
-    .back-to-top {
-        width: 48px;
-        height: 48px;
-        bottom: 20px;
-        right: 20px;
-        font-size: 1.2rem;
-    }
+@media (max-width: 600px) {
+  .hero-name { font-size: clamp(2.8rem, 10vw, 4rem); }
+  .works-grid { grid-template-columns: 1fr; }
+  .work-card.featured { grid-column: span 1; aspect-ratio: 4/5; }
+  .hero-stats { flex-direction: column; gap: 16px; }
+  .hero-stat + .hero-stat { padding-left: 0; border-left: none; border-top: var(--rule); padding-top: 16px; }
+  .works-filter { overflow-x: auto; max-width: 100%; }
 }
 </style>
 </head>
 <body>
 
-<div class="bg-blobs">
-    <div class="blob"></div>
-    <div class="blob"></div>
-    <div class="blob"></div>
-</div>
-
-<nav class="navbar navbar-dark fixed-top" id="navbar">
-    <div class="container d-flex justify-content-between align-items-center">
-        <a class="navbar-brand text-white" href="#">ZEHENG.W</a>
-        <div class="d-flex gap-4 align-items-center">
-            <div class="d-none d-md-flex gap-4">
-                <a href="#projects" class="nav-link-custom" data-en="PROJECTS" data-zh="作品集">PROJECTS</a>
-                <a href="#academic" class="nav-link-custom" data-en="ACADEMIC" data-zh="学术研究">ACADEMIC</a>
-                <a href="#contact" class="nav-link-custom" data-en="CONTACT" data-zh="联系方式">CONTACT</a>
-            </div>
-            <!-- 主题切换按钮 - 简约隐晦 -->
-            <button id="themeToggle" class="theme-toggle" aria-label="切换主题">
-                <i class="bi bi-circle-half theme-icon"></i>
-            </button>
-        </div>
-    </div>
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-brand">Wang Zeheng</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#ai">AI Works</a></li>
+    <li><a href="#works">Portfolio</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
 </nav>
 
-<!-- 返回顶部按钮 -->
-<button id="backToTop" class="back-to-top" aria-label="返回顶部">
-    <i class="bi bi-rocket-takeoff"></i>
-</button>
-
-<section class="hero">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-8" data-aos="fade-up">
-                <span class="hero-tag">Multimedia Journalist / Media Researcher / Content Producer</span>
-                <h1 class="hero-h1">在算法中寻找温度<br>用数据重构价值<br><span>Decoding Traffic, Reconstructing Value.</span></h1>
-                <p class="lead text-secondary mb-5 col-lg-10">
-                    拥有5年南昌广播电视台全媒体记者工作经验。从单条视频1400万+浏览量的《白鹭王国》，到累计全网传播破1.5亿的深度叙事，我擅长用技术理性辅助新闻专业主义的感性，打造现象级报道。如今，我带着对行业变革的思考转身向学，致力于在AI、XR、情绪传播等前沿领域，探索传媒产业的下一个增长极。我不满足于做单纯的"爆款制造者"，更致力于成为算法时代下，用学术逻辑解构流量、用商业思维重塑传媒的长期主义者。
-                </p>
-                <div class="d-flex gap-4 align-items-center flex-wrap">
-                    <a href="#projects" class="btn btn-accent">探索作品集</a>
-                    <a href="assets/CV.pdf" class="text-white text-decoration-none fw-bold small">
-                        GET MY RESUME <i class="bi bi-arrow-right ms-2"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-4 text-center mt-5 mt-lg-0" data-aos="zoom-in" data-aos-delay="200">
-                <div class="hero-image-wrapper">
-                    <img src="assets/11cun.jpg" alt="王泽恒" class="hero-profile-img">
-                </div>
-            </div>
-        </div>
+<!-- HERO -->
+<div class="hero">
+  <!-- LEFT: big name + stats -->
+  <div class="hero-left">
+    <div>
+      <div class="hero-eyebrow">
+        <span class="label">Media Researcher · Journalist · Creator</span>
+      </div>
+      <h1 class="hero-name">
+        Wang<br><em>Zeheng</em><br>王泽恒
+      </h1>
     </div>
-</section>
-
-<section class="stats-grid">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3 stat-item" data-aos="fade-up">
-                <div class="stat-wrapper">
-                    <div class="stat-num"><span class="counter" data-target="1.5">0</span><span class="stat-unit">亿+</span></div>
-                    <div class="stat-label">TOTAL VIEWS</div>
-                    <div class="stat-detail">全网累计播放量</div>
-                </div>
-            </div>
-            <div class="col-md-3 stat-item" data-aos="fade-up" data-aos-delay="100">
-                <div class="stat-wrapper">
-                    <div class="stat-num"><span class="counter" data-target="1200">0</span><span class="stat-unit">+</span></div>
-                    <div class="stat-label">REPORTS PRODUCED</div>
-                    <div class="stat-detail">原创稿件产出</div>
-                </div>
-            </div>
-            <div class="col-md-3 stat-item" data-aos="fade-up" data-aos-delay="200">
-                <div class="stat-wrapper">
-                    <div class="stat-num"><span class="counter" data-target="7">0</span><span class="stat-unit">+</span></div>
-                    <div class="stat-label">ACADEMIC PAPERS</div>
-                    <div class="stat-detail">学术论文发表</div>
-                </div>
-            </div>
-            <div class="col-md-3 stat-item" data-aos="fade-up" data-aos-delay="300">
-                <div class="stat-wrapper">
-                    <div class="stat-num"><span class="counter" data-target="4.23">0</span><span class="stat-unit">/4.5</span></div>
-                    <div class="stat-label">GPA</div>
-                    <div class="stat-detail">庆熙大学成绩</div>
-                </div>
-            </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="stat-n" id="stat-0">
+          <span class="stat-slot" data-values='["1.5亿+","全网第1","Top 0.1%"]' data-current="0">1.5亿+</span>
         </div>
+        <div class="label stat-label-slot" data-labels='["全网播放量","平台排名","内容创作者"]' data-current="0">全网播放量</div>
+      </div>
+      <div class="hero-stat">
+        <div class="stat-n" id="stat-1">
+          <span class="stat-slot" data-values='["1200+","5年","南昌电视台"]' data-current="0">1200+</span>
+        </div>
+        <div class="label stat-label-slot" data-labels='["原创稿件","从业经验","服务机构"]' data-current="0">原创稿件</div>
+      </div>
+      <div class="hero-stat">
+        <div class="stat-n" id="stat-2">
+          <span class="stat-slot" data-values='["7+","4.23","MBA"]' data-current="0">7+</span>
+        </div>
+        <div class="label stat-label-slot" data-labels='["学术论文","GPA / 4.5","庆熙大学"]' data-current="0">学术论文</div>
+      </div>
     </div>
-</section>
+  </div>
 
-<section id="projects" class="py-100">
-    <div class="container">
-        <!-- Petogether大卡片 + 两个小卡片 -->
-        <div class="row g-4 mb-5">
-            <div class="col-lg-8" data-aos="fade-up">
-                <div class="bento-card">
-                    <div class="d-flex justify-content-between mb-4">
-                        <span class="badge rounded-pill border border-secondary text-secondary">Featured Case Study</span>
-                        <i class="bi bi-arrow-up-right text-secondary"></i>
-                    </div>
-                    <h2 class="fw-bold mb-3">宠游伴 · Petogether</h2>
-                    <p class="text-secondary mb-4 col-lg-9">
-                        在调研了313位养宠人士后,我们听到了同一个声音:"我想带它去旅行,但我不敢。"很多时候,传统的OTA平台只给了我们一个冷冰冰的"允许携带宠物"标签。<br><br>
-                        为了解决这个"最后1公里"的信任问题,我们创立了宠游伴 (Petogether)。这是一个专注"人宠共生"生活方式的垂直社区。我们不做泛泛的信息聚合,而是通过严格的实地验证和短视频内容,为您过滤掉所有的"伪友好"。<br><br>
-                        我们不仅提供一张床位,更提供一套完整的出行解决方案。我们相信,旅行的意义,在于全家人整整齐齐,一个都不能少。
-                    </p>
-                    <a href="petogether.html" class="btn btn-outline-light rounded-pill px-4 btn-sm">深度复盘报告</a>
-                    <div class="mt-5 pt-4">
-                        <img src="pets/case-restaurant-1.png" 
-                             onerror="this.src='pets/case-restaurant-1.png'" 
-                             class="img-fluid rounded-4 shadow-lg" 
-                             alt="Petogether Project" 
-                             style="border: 1px solid var(--border); max-height: 400px; object-fit: cover;">
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="row g-4 h-100">
-                    <div class="col-12" data-aos="fade-left">
-                        <a href="CreatorEase.html" class="text-decoration-none" target="_blank">
-                            <div class="bento-card">
-                                <h4 class="fw-bold mb-3">CreatorEase Pro 平台</h4>
-                                <p class="small text-secondary mb-4">
-                                    专为新媒体人打造的轻量级生产力工作台。通过数据驱动的标题生成、全方位的文案合规性扫描以及多平台分发建议,我们将复杂的创作流程转化为简单高效的逻辑决策,助力每一位创作者在算法时代精准捕捉流量。纯静态运行,隐私数据不上传,让您的创作更安全、更高效。
-                                </p>
-                                <span class="project-link-text text-accent fw-bold small">
-                                    <span class="link-en">VIEW PROJECT →</span>
-                                    <span class="link-zh">查看项目 →</span>
-                                </span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-12" data-aos="fade-left" data-aos-delay="100">
-                        <a href="CyberSeed.html" class="text-decoration-none" target="_blank">
-                            <div class="bento-card">
-                                <h4 class="fw-bold mb-3">CyberSeed 赛博种子</h4>
-                                <p class="small text-secondary mb-4">
-                                    这是一个连接算法逻辑与生活诗意的创作者实验室。我们通过「赛博抽签」从近百件生活小事中为你捕捉创作契机,辅以专业级合规扫描与标题引擎,将破碎的灵感瞬间转化为高质感的内容产出。在这里,每一次随机抽取,都是一场预谋已久的创作实验。
-                                </p>
-                                <span class="project-link-text text-accent fw-bold small">
-                                    <span class="link-en">EXPLORE LAB →</span>
-                                    <span class="link-zh">探索实验室 →</span>
-                                </span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-12" data-aos="fade-left" data-aos-delay="200">
-                        <a href="AIWorks.html" class="text-decoration-none" target="_blank">
-                            <div class="bento-card" style="position:relative;overflow:hidden;">
-                                <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#ff7b54,#ff6b9d,#5ec4ff,#c77dff);"></div>
-                                <h4 class="fw-bold mb-3">AI 创作实验室</h4>
-                                <p class="small text-secondary mb-4">
-                                    用 AI 重新定义视觉叙事。IP 形象设计、城市视觉海报、AI 视频与动态影像——这里是算法与创意共生、以人为核心的创作空间。
-                                </p>
-                                <span class="project-link-text text-accent fw-bold small">
-                                    <span class="link-en">VIEW AI WORKS →</span>
-                                    <span class="link-zh">进入实验室 →</span>
-                                </span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 精选作品轮播 -->
-        <div class="mb-5" data-aos="fade-up">
-            <h5 class="text-secondary fw-bold text-uppercase mb-4" style="letter-spacing: 2px;">
-                <i class="bi bi-stars me-2"></i>Featured Works / 精选作品
-            </h5>
-            <div id="featuredCarousel" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#featuredCarousel" data-bs-slide-to="0" class="active"></button>
-                    <button type="button" data-bs-target="#featuredCarousel" data-bs-slide-to="1"></button>
-                    <button type="button" data-bs-target="#featuredCarousel" data-bs-slide-to="2"></button>
-                    <button type="button" data-bs-target="#featuredCarousel" data-bs-slide-to="3"></button>
-                    <button type="button" data-bs-target="#featuredCarousel" data-bs-slide-to="4"></button>
-                    <button type="button" data-bs-target="#featuredCarousel" data-bs-slide-to="5"></button>
-                    <button type="button" data-bs-target="#featuredCarousel" data-bs-slide-to="6"></button>
-                    <button type="button" data-bs-target="#featuredCarousel" data-bs-slide-to="7"></button>
-                </div>
-                <div class="carousel-inner rounded-4 overflow-hidden" style="border: 1px solid var(--border);">
-                    <!-- 1. 新华社转载：捕鱼人 -->
-                    <div class="carousel-item active">
-                        <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/9684591?channel=weixin" target="_blank" class="text-decoration-none">
-                            <img src="assets/Public01.png" class="d-block w-100" alt="捕鱼人">
-                            <div class="carousel-caption" style="background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 40px 20px;">
-                                <span class="badge bg-success mb-2">新华社转载 · 深度报道</span>
-                                <h3 class="fw-bold">上岸了,这些捕鱼人成了养鱼人</h3>
-                                <p class="mb-0">生态转型的深度叙事 · 全网热议</p>
-                            </div>
-                        </a>
-                    </div>
-                    
-                    <!-- 2. 学习强国：黑鹳现身 -->
-                    <div class="carousel-item">
-                        <a href="https://article.xuexi.cn/articles/index.html?art_id=10539520634142671440" target="_blank" class="text-decoration-none">
-                            <img src="assets/Public05.png" class="d-block w-100" alt="黑鹳">
-                            <div class="carousel-caption" style="background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 40px 20px;">
-                                <span class="badge bg-success mb-2">学习强国推荐 · 生态报道</span>
-                                <h3 class="fw-bold">"鸟中大熊猫"黑鹳现身大汊湖</h3>
-                                <p class="mb-0">在算法中寻找自然的温度</p>
-                            </div>
-                        </a>
-                    </div>
-                    
-                    <!-- 3. 人物特写：最美民警 -->
-                    <div class="carousel-item">
-                        <a href="https://article.xuexi.cn/articles/index.html?art_id=9452145926970099827" target="_blank" class="text-decoration-none">
-                            <img src="assets/profile01.png" class="d-block w-100" alt="邓金海">
-                            <div class="carousel-caption" style="background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 40px 20px;">
-                                <span class="badge bg-primary mb-2">人物特写 · 学习强国</span>
-                                <h3 class="fw-bold">"最美基层民警"邓金海</h3>
-                                <p class="mb-0">朴实的藏蓝里,埋藏对群众的真情</p>
-                            </div>
-                        </a>
-                    </div>
-                    
-                    <!-- 4. 突发事件：防汛救援 -->
-                    <div class="carousel-item">
-                        <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/9262544?channel=weixin" target="_blank" class="text-decoration-none">
-                            <img src="assets/Event 01.png" class="d-block w-100" alt="回乡防汛">
-                            <div class="carousel-caption" style="background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 40px 20px;">
-                                <span class="badge bg-danger mb-2">突发事件 · 紧急救援</span>
-                                <h3 class="fw-bold">休假不休战!铁血战士回乡防汛</h3>
-                                <p class="mb-0">责任担当 · 与灾害的赛跑</p>
-                            </div>
-                        </a>
-                    </div>
-                    
-                    <!-- 5. 生命救援：公交急救 -->
-                    <div class="carousel-item">
-                        <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/9690078?channel=weixin" target="_blank" class="text-decoration-none">
-                            <img src="assets/Breaking02.png" class="d-block w-100" alt="公交急救">
-                            <div class="carousel-caption" style="background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 40px 20px;">
-                                <span class="badge bg-warning mb-2">生命救援 · 温情报道</span>
-                                <h3 class="fw-bold">危急!这辆公交车要直奔医院……</h3>
-                                <p class="mb-0">与时间赛跑的生命接力</p>
-                            </div>
-                        </a>
-                    </div>
-                    
-                    <!-- 6. 民生特写：长者饭堂 -->
-                    <div class="carousel-item">
-                        <a href="https://article.xuexi.cn/articles/index.html?art_id=5064583530809808863" target="_blank" class="text-decoration-none">
-                            <img src="assets/profile03.png" class="d-block w-100" alt="长者饭">
-                            <div class="carousel-caption" style="background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 40px 20px;">
-                                <span class="badge bg-info mb-2">民生特写 · 学习强国</span>
-                                <h3 class="fw-bold">一碗"长者饭"飘出幸福邻里情</h3>
-                                <p class="mb-0">社区温度的记录者</p>
-                            </div>
-                        </a>
-                    </div>
-                    
-                    <!-- 7. 高额年终奖：种粮大户 -->
-                    <div class="carousel-item">
-                        <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/10527065?channel=weixin" target="_blank" class="text-decoration-none">
-                            <img src="assets/Public06.png" class="d-block w-100" alt="年终奖">
-                            <div class="carousel-caption" style="background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 40px 20px;">
-                                <span class="badge bg-warning mb-2">民生热点 · 高流量报道</span>
-                                <h3 class="fw-bold">别人家的年终奖!486万元现金</h3>
-                                <p class="mb-0">江西种粮大户的致富故事</p>
-                            </div>
-                        </a>
-                    </div>
-                    
-                    <!-- 8. 抗疫系列：天使日记 -->
-                    <div class="carousel-item">
-                        <a href="https://h.xinhuaxmt.com/vh512/share/11352820?d=134b03c" target="_blank" class="text-decoration-none">
-                            <img src="assets/Event 04.png" class="d-block w-100" alt="抗疫">
-                            <div class="carousel-caption" style="background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 40px 20px;">
-                                <span class="badge bg-danger mb-2">系列报道 · 疫情纪实</span>
-                                <h3 class="fw-bold">共同的战"疫" · 天使日记</h3>
-                                <p class="mb-0">记录时代的温度与力量</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#featuredCarousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#featuredCarousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div>
-        </div>
-
-        <div class="d-flex justify-content-between align-items-center mb-5 flex-wrap gap-3">
-            <h5 class="text-secondary fw-bold text-uppercase mb-0" style="letter-spacing: 2px;">
-                Works Gallery / 作品分类
-            </h5>
-            <div class="filter-buttons">
-                <button class="filter-btn active" data-filter="breaking">突发 Breaking</button>
-                <button class="filter-btn" data-filter="public">民生 Public</button>
-                <button class="filter-btn" data-filter="profile">特写 Profile</button>
-                <button class="filter-btn" data-filter="event">事件 Event</button>
-            </div>
-        </div>
-        
-        <div class="portfolio-grid" id="portfolioGrid">
-            <!-- Breaking 突发 (6个) -->
-            <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/9670899?isview=1&homeshow=1&newstype=1115" target="_blank" class="work-item breaking" data-aos="zoom-in">
-                <img src="assets/Breaking01.png" alt="宠物狗陪驾">
-                <div class="work-overlay">
-                    <span class="work-tag">突发 Breaking</span>
-                    <h6 class="fw-bold">宠物狗这样"陪驾"不可取,有危险!</h6>
-                </div>
-            </a>
-            
-            <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/9690078?channel=weixin" target="_blank" class="work-item breaking" data-aos="zoom-in" data-aos-delay="50">
-                <img src="assets/Breaking02.png" alt="公交急救">
-                <div class="work-overlay">
-                    <span class="work-tag">突发 Breaking</span>
-                    <h6 class="fw-bold">危急!这辆公交车要直奔医院……</h6>
-                </div>
-            </a>
-            
-            <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/9237912?channel=weixin" target="_blank" class="work-item breaking" data-aos="zoom-in" data-aos-delay="100">
-                <img src="assets/Breaking03.png" alt="女童送医">
-                <div class="work-overlay">
-                    <span class="work-tag">突发 Breaking</span>
-                    <h6 class="fw-bold">4岁女童突发疾病 高速交警紧急送医</h6>
-                </div>
-            </a>
-            
-            <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/9263019?channel=weixin" target="_blank" class="work-item breaking" data-aos="zoom-in" data-aos-delay="150">
-                <img src="assets/Breaking04.png" alt="高速险情">
-                <div class="work-overlay">
-                    <span class="work-tag">突发 Breaking</span>
-                    <h6 class="fw-bold">高速上S形急行走位?真相后惊出一身冷汗</h6>
-                </div>
-            </a>
-            
-            <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/10292478" target="_blank" class="work-item breaking" data-aos="zoom-in" data-aos-delay="200">
-                <img src="assets/Breaking05.png" alt="救助凤头鹰">
-                <div class="work-overlay">
-                    <span class="work-tag">突发 Breaking</span>
-                    <h6 class="fw-bold">受伤凤头鹰"空降"动物园 他们暖心救助</h6>
-                </div>
-            </a>
-            
-            <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/10043974?isview=1&homeshow=1&newstype=1001" target="_blank" class="work-item breaking" data-aos="zoom-in" data-aos-delay="250">
-                <img src="assets/Breaking06.png" alt="铁骑送考">
-                <div class="work-overlay">
-                    <span class="work-tag">突发 Breaking</span>
-                    <h6 class="fw-bold">赶考途中遇堵车 铁骑交警火速送考</h6>
-                </div>
-            </a>
-
-            <!-- Public 民生 (9个) -->
-            <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/9684591?channel=weixin" target="_blank" class="work-item public" data-aos="zoom-in">
-                <img src="assets/Public01.png" alt="捕鱼人">
-                <div class="work-overlay">
-                    <span class="work-tag">民生 Public</span>
-                    <h6 class="fw-bold">上岸了,这些捕鱼人成了养鱼人</h6>
-                    <p class="small mb-0">新华社转载 · 深度报道</p>
-                </div>
-            </a>
-            
-            <a href="https://article.xuexi.cn/articles/index.html?art_id=12900439493159857558" target="_blank" class="work-item public" data-aos="zoom-in" data-aos-delay="50">
-                <img src="assets/Public02.png" alt="水果身份证">
-                <div class="work-overlay">
-                    <span class="work-tag">民生 Public</span>
-                    <h6 class="fw-bold">江西南昌:这些水果有了"身份证"</h6>
-                </div>
-            </a>
-            
-            <a href="https://article.xuexi.cn/articles/index.html?art_id=8357176110698422438" target="_blank" class="work-item public" data-aos="zoom-in" data-aos-delay="100">
-                <img src="assets/Public03.png" alt="智慧病房">
-                <div class="work-overlay">
-                    <span class="work-tag">民生 Public</span>
-                    <h6 class="fw-bold">南昌:智慧病房电子设备给住院病人带来方便</h6>
-                </div>
-            </a>
-            
-            <a href="https://article.xuexi.cn/articles/index.html?art_id=17901250841551066672" target="_blank" class="work-item public" data-aos="zoom-in" data-aos-delay="150">
-                <img src="assets/Public04.png" alt="高标准农田">
-                <div class="work-overlay">
-                    <span class="work-tag">民生 Public</span>
-                    <h6 class="fw-bold">江西安义:高标准农田粮食生产喜获丰收</h6>
-                </div>
-            </a>
-            
-            <a href="https://article.xuexi.cn/articles/index.html?art_id=10539520634142671440" target="_blank" class="work-item public" data-aos="zoom-in" data-aos-delay="200">
-                <img src="assets/Public05.png" alt="黑鹳">
-                <div class="work-overlay">
-                    <span class="work-tag">民生 Public</span>
-                    <h6 class="fw-bold">江西南昌:"鸟中大熊猫"黑鹳现身大汊湖</h6>
-                </div>
-            </a>
-            
-            <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/10527065?channel=weixin" target="_blank" class="work-item public" data-aos="zoom-in" data-aos-delay="250">
-                <img src="assets/Public06.png" alt="年终奖">
-                <div class="work-overlay">
-                    <span class="work-tag">民生 Public</span>
-                    <h6 class="fw-bold">别人家的年终奖!江西种粮大户给农民发放486万元现金</h6>
-                </div>
-            </a>
-            
-            <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/10328213" target="_blank" class="work-item public" data-aos="zoom-in">
-                <img src="assets/Public07.png" alt="3D巨幕">
-                <div class="work-overlay">
-                    <span class="work-tag">民生 Public</span>
-                    <h6 class="fw-bold">震撼!裸眼3D巨幕亮相南昌</h6>
-                </div>
-            </a>
-            
-            <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/10262139?isview=1&homeshow=1&newstype=1001" target="_blank" class="work-item public" data-aos="zoom-in" data-aos-delay="50">
-                <img src="assets/Public08.png" alt="社区食堂">
-                <div class="work-overlay">
-                    <span class="work-tag">民生 Public</span>
-                    <h6 class="fw-bold">南昌:社区办食堂 书记来下厨</h6>
-                </div>
-            </a>
-            
-            <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/9781087?isview=1&homeshow=1&newstype=1001" target="_blank" class="work-item public" data-aos="zoom-in" data-aos-delay="100">
-                <img src="assets/Public09.png" alt="寻宝探展">
-                <div class="work-overlay">
-                    <span class="work-tag">民生 Public</span>
-                    <h6 class="fw-bold">寻宝!探展!来这儿,"牛"转乾坤</h6>
-                </div>
-            </a>
-
-            <!-- Profile 特写 (6个) -->
-            <a href="https://article.xuexi.cn/articles/index.html?art_id=9452145926970099827" target="_blank" class="work-item profile" data-aos="zoom-in">
-                <img src="assets/profile01.png" alt="邓金海">
-                <div class="work-overlay">
-                    <span class="work-tag">特写 Profile</span>
-                    <h6 class="fw-bold">"最美基层民警"邓金海:朴实的藏蓝里,埋藏对群众的真情</h6>
-                </div>
-            </a>
-            
-            <a href="https://article.xuexi.cn/articles/index.html?art_id=11485252614120153378" target="_blank" class="work-item profile" data-aos="zoom-in" data-aos-delay="50">
-                <img src="assets/profile02.png" alt="曾洁林">
-                <div class="work-overlay">
-                    <span class="work-tag">特写 Profile</span>
-                    <h6 class="fw-bold">"最美基层民警"曾洁林:坚守一线的"钢板书记"</h6>
-                </div>
-            </a>
-            
-            <a href="https://article.xuexi.cn/articles/index.html?art_id=5064583530809808863" target="_blank" class="work-item profile" data-aos="zoom-in" data-aos-delay="100">
-                <img src="assets/profile03.png" alt="长者饭">
-                <div class="work-overlay">
-                    <span class="work-tag">特写 Profile</span>
-                    <h6 class="fw-bold">江西南昌青山湖区:一碗"长者饭"飘出幸福邻里情</h6>
-                </div>
-            </a>
-            
-            <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/10303865?isview=1&homeshow=1&newstype=1001" target="_blank" class="work-item profile" data-aos="zoom-in" data-aos-delay="150">
-                <img src="assets/profile04.png" alt="文化大集">
-                <div class="work-overlay">
-                    <span class="work-tag">特写 Profile</span>
-                    <h6 class="fw-bold">赶文化大集!走进"华夏笔都"</h6>
-                </div>
-            </a>
-            
-            <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/9742921" target="_blank" class="work-item profile" data-aos="zoom-in" data-aos-delay="200">
-                <img src="assets/profile05.png" alt="三栖生态员">
-                <div class="work-overlay">
-                    <span class="work-tag">特写 Profile</span>
-                    <h6 class="fw-bold">南昌"三栖"生态员 守护生态一方绿色</h6>
-                </div>
-            </a>
-            
-            <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/9752010?channel=weixin" target="_blank" class="work-item profile" data-aos="zoom-in" data-aos-delay="250">
-                <img src="assets/profile06.png" alt="肉鸽致富">
-                <div class="work-overlay">
-                    <span class="work-tag">特写 Profile</span>
-                    <h6 class="fw-bold">身残志坚:小小肉鸽"孵出"致富路</h6>
-                </div>
-            </a>
-
-            <!-- Event 事件 (4个) -->
-            <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/9262544?channel=weixin" target="_blank" class="work-item event" data-aos="zoom-in">
-                <img src="assets/Event 01.png" alt="回乡防汛">
-                <div class="work-overlay">
-                    <span class="work-tag">事件 Event</span>
-                    <h6 class="fw-bold">休假不休战!铁血战士回乡防汛</h6>
-                </div>
-            </a>
-            
-            <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/9969368" target="_blank" class="work-item event" data-aos="zoom-in" data-aos-delay="50">
-                <img src="assets/Event 02.png" alt="生命护航">
-                <div class="work-overlay">
-                    <span class="work-tag">事件 Event</span>
-                    <h6 class="fw-bold">优先起飞!他们为生命千里护航</h6>
-                </div>
-            </a>
-            
-            <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/10007128?channel=weixin" target="_blank" class="work-item event" data-aos="zoom-in" data-aos-delay="100">
-                <img src="assets/Event 03.png" alt="海关截获">
-                <div class="work-overlay">
-                    <span class="work-tag">事件 Event</span>
-                    <h6 class="fw-bold">别心存侥幸!南昌海关截获350粒"蓝精灵"</h6>
-                </div>
-            </a>
-            
-            <a href="https://h.xinhuaxmt.com/vh512/share/11352820?d=134b03c" target="_blank" class="work-item event" data-aos="zoom-in" data-aos-delay="150">
-                <img src="assets/Event 04.png" alt="抗疫">
-                <div class="work-overlay">
-                    <span class="work-tag">事件 Event</span>
-                    <h6 class="fw-bold">共同的战"疫"</h6>
-                    <p class="small mb-0">疫情系列《天使日记》</p>
-                </div>
-            </a>
-        </div>
-
-        <!-- 加载更多按钮 -->
-        <div class="text-center mt-5">
-            <button class="load-more-btn" id="loadMoreBtn">
-                <i class="bi bi-plus-circle me-2"></i>加载更多作品
-            </button>
-        </div>
-    </div>
-</section>
-
-<section id="academic" class="academic-section">
-    <div class="container">
-        <!-- 顶部标题区 -->
-        <div class="row mb-5" data-aos="fade-up">
-            <div class="col-lg-8 mx-auto text-center">
-                <h2 class="display-5 fw-bold mb-3">学术视野<br><span class="text-accent">Academic Rigor</span></h2>
-                <p class="lead text-secondary">
-                    在庆熙大学 MBA 的深造中,我试图构建一套从理论模型到商业变现的闭环思维体系
-                </p>
-            </div>
-        </div>
-
-        <!-- 研究兴趣卡片 -->
-        <div class="row g-4 mb-5">
-            <div class="col-lg-6" data-aos="fade-right">
-                <div class="academic-card h-100">
-                    <div class="d-flex align-items-start gap-3 mb-4">
-                        <div class="academic-icon">
-                            <i class="bi bi-graph-up-arrow"></i>
-                        </div>
-                        <div>
-                            <div class="small fw-bold text-accent mb-2" style="letter-spacing: 2px;">RESEARCH INTEREST</div>
-                            <h4 class="fw-bold mb-3">议程设置 与情绪传播</h4>
-                            <p class="text-secondary mb-0">
-                                探索社交媒体平台中算法如何重构议题优先级,以及情绪作为传播货币的量化模型。
-                                关注从"人找信息"到"信息找人"范式转变下的受众行为变迁。
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6" data-aos="fade-left">
-                <div class="academic-card h-100">
-                    <div class="d-flex align-items-start gap-3 mb-4">
-                        <div class="academic-icon">
-                            <i class="bi bi-lightbulb"></i>
-                        </div>
-                        <div>
-                            <div class="small fw-bold text-accent mb-2" style="letter-spacing: 2px;">METHODOLOGY</div>
-                            <h4 class="fw-bold mb-3">混合研究方法论实践</h4>
-                            <p class="text-secondary mb-0">
-                                结合定量分析(大数据挖掘、回归模型)与定性研究(深度访谈、话语分析),
-                                构建"数据-理论-实践"的三角验证框架。
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 论文发表 -->
-        <div class="row" data-aos="fade-up">
-            <div class="col-12">
-                <h4 class="fw-bold mb-4 text-uppercase" style="letter-spacing: 2px;">
-                    <i class="bi bi-journal-text me-2 text-accent"></i>Publications & Research
-                </h4>
-            </div>
-        </div>
-        
-        <div class="row g-4">
-            <!-- 1. 已发表 - 反转新闻 -->
-            <div class="col-lg-6" data-aos="fade-up">
-                <div class="paper-item h-100">
-                    <div class="d-flex justify-content-between align-items-start mb-3">
-                        <span class="badge bg-success rounded-pill">已发表 · Published</span>
-                        <span class="text-secondary small">2018</span>
-                    </div>
-                    <h5 class="fw-bold mb-3">《反转新闻的负面影响及预防策略》</h5>
-                    <p class="small text-secondary mb-3">
-                        <i class="bi bi-book me-1"></i> 发表于《新闻与传播》期刊<br>
-                        <i class="bi bi-award me-1"></i> 湖北省人文社科重大项目(17ZD032)支持
-                    </p>
-                    <p class="text-secondary small mb-0">
-                        新媒体迭代降世进一步加速了反转新闻现象的负效应,主要表现为社会公信力受损、社会焦虑加剧;媒体形象受损、可信度降低;当事人权利被侵、遭受多重打击三个方面,本文建议建立媒体新闻进度标识制度、健全政府应询机制、培养公众理性思维三种对策进行规避。
-                    </p>
-                </div>
-            </div>
-            
-            <!-- 2. 已发表 - 拆盲盒直播 -->
-            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-                <div class="paper-item h-100">
-                    <div class="d-flex justify-content-between align-items-start mb-3">
-                        <span class="badge bg-success rounded-pill">已发表 · Published</span>
-                        <span class="text-secondary small">2025</span>
-                    </div>
-                    <h5 class="fw-bold mb-3">《"拆盲盒"直播中的情绪化传播与用户行为研究》</h5>
-                    <p class="small text-secondary mb-3">
-                        <i class="bi bi-mortarboard me-1"></i> 以"拆盲盒"直播(如"乌龟对对碰")为案例<br>
-                        <i class="bi bi-diagram-3 me-1"></i> 运用情绪传播理论、使用与满足理论及社会认同理论
-                    </p>
-                    <p class="text-secondary small mb-0">
-                        剖析了主播如何利用即时情绪反馈和虚拟社交互动激发消费欲望,以及由此引发的"赌徒心理"和冲动消费现象。探讨了在监管滞后背景下,盲盒直播对平台生态可能造成的损害,并呼吁对透明度和宣传真实性进行规范。
-                    </p>
-                </div>
-            </div>
-            
-            <!-- 3. 已发表 - 自媒体从0到1 -->
-            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-                <div class="paper-item h-100">
-                    <div class="d-flex justify-content-between align-items-start mb-3">
-                        <span class="badge bg-success rounded-pill">已发表 · Published</span>
-                        <span class="text-secondary small">2025</span>
-                    </div>
-                    <h5 class="fw-bold mb-3">《自媒体从0到1》</h5>
-                    <p class="small text-secondary mb-3">
-                        <i class="bi bi-journal-text me-1"></i> 王泽恒.自媒体从0到1[J].成才与就业,2025,(23):54-55.
-                    </p>
-                    <p class="text-secondary small mb-0">
-                        分享了从"起步翻车"到逐渐找准定位的过程,反思了传统媒体"层层把关"与自媒体"独自负责"的差异,为新媒体从业者提供实践经验参考。
-                    </p>
-                </div>
-            </div>
-            
-            <!-- 4. 已录用 - AI新闻写作 -->
-            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
-                <div class="paper-item h-100">
-                    <div class="d-flex justify-content-between align-items-start mb-3">
-                        <span class="badge rounded-pill" style="background: #2196F3;">已录用 · Accepted</span>
-                        <span class="text-secondary small">2026</span>
-                    </div>
-                    <h5 class="fw-bold mb-3">《AI 新闻写作能力边界与感知悖论研究》</h5>
-                    <p class="small text-secondary mb-3">
-                        <i class="bi bi-robot me-1"></i> 针对ChatGPT等大语言模型重塑新闻生产流程的现状<br>
-                        <i class="bi bi-globe me-1"></i> 探讨AI在政务报道中的实际效能与局限
-                    </p>
-                    <p class="text-secondary small mb-0">
-                        通过对比新华社采写稿件与AI生成内容,研究指出AI在结构规范和语言流畅度上已接近专业水准,但在信息深度、价值判断及叙事灵活性上仍存在显著短板。提出了"人机协作"的分层模式——AI承担结构化、可视化等技术性任务,记者则回归价值判断与社会责任,以规避"完美陷阱",实现效率与专业主义的平衡。
-                    </p>
-                </div>
-            </div>
-
-            <!-- 5. 已获奖 - 两会报道 -->
-            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="400">
-                <div class="paper-item h-100">
-                    <div class="d-flex justify-content-between align-items-start mb-3">
-                        <span class="badge rounded-pill" style="background: #FF9800;">已获奖 · Awarded</span>
-                        <span class="text-secondary small">2019</span>
-                    </div>
-                    <h5 class="fw-bold mb-3">《大众传媒中表达的价值观对受众的影响调查》</h5>
-                    <p class="small text-secondary mb-3">
-                        <i class="bi bi-trophy me-1"></i> 湖北省第十一届"挑战杯"大学生课外学术作品竞赛获奖作品<br>
-                        <i class="bi bi-newspaper me-1"></i> 以近十年"两会"报道方式的变化为例
-                    </p>
-                    <p class="text-secondary small mb-0">
-                        纵向追踪 2010-2020 十年间主流媒体"两会"报道的话语变迁,揭示媒体议程设置对公众政治认知的长期影响机制。
-                    </p>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</section>
-
-<!-- 联系部分 -->
-<section id="contact" class="py-100">
-    <div class="container">
-        <div class="row mb-5" data-aos="fade-up">
-            <div class="col-lg-8 mx-auto text-center">
-                <h2 class="display-5 fw-bold mb-3">联系我<br><span class="text-accent">Get In Touch</span></h2>
-                <p class="lead text-secondary">
-                    期待与你探讨媒体策略、学术合作或任何有趣的想法
-                </p>
-            </div>
-        </div>
-
-        <div class="row g-4">
-            <div class="col-lg-6" data-aos="fade-right">
-                <div class="contact-card">
-                    <h5 class="fw-bold mb-4">
-                        <i class="bi bi-envelope-fill me-2 text-accent"></i>发送消息
-                    </h5>
-                    <form action="mailto:1433890263@qq.com" method="post" enctype="text/plain">
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <input type="text" name="name" class="form-control-dark" placeholder="你的名字" required>
-                            </div>
-                            <div class="col-md-6">
-                                <input type="email" name="email" class="form-control-dark" placeholder="你的邮箱" required>
-                            </div>
-                            <div class="col-12">
-                                <textarea name="message" rows="5" class="form-control-dark" placeholder="想说的话..." required></textarea>
-                            </div>
-                            <div class="col-12">
-                                <button type="submit" class="btn btn-accent w-100">
-                                    <i class="bi bi-send me-2"></i>发送消息
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <div class="col-lg-6" data-aos="fade-left">
-                <div class="contact-card h-100">
-                    <h5 class="fw-bold mb-4">
-                        <i class="bi bi-info-circle-fill me-2 text-accent"></i>联系方式
-                    </h5>
-                    
-                    <div class="contact-methods">
-                        <div class="contact-method-item" data-copy="1433890263@qq.com">
-                            <i class="bi bi-envelope-fill"></i>
-                            <div>
-                                <div class="small text-secondary">QQ邮箱</div>
-                                <div class="fw-semibold"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8cbdb8bfbfb4b5bcbebabfccfdfda2efe3e1">[email&#160;protected]</a></div>
-                            </div>
-                            <i class="bi bi-clipboard copy-icon"></i>
-                        </div>
-
-                        <div class="contact-method-item" data-copy="wangzeheng202311@163.com">
-                            <i class="bi bi-envelope-fill"></i>
-                            <div>
-                                <div class="small text-secondary">网易邮箱</div>
-                                <div class="fw-semibold"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3b4c5a555c415e535e555c090b09080a0a7b0a0d0815585456">[email&#160;protected]</a></div>
-                            </div>
-                            <i class="bi bi-clipboard copy-icon"></i>
-                        </div>
-
-                        <div class="contact-method-item" data-copy="wzh1025@khu.ac.kr">
-                            <i class="bi bi-envelope-fill"></i>
-                            <div>
-                                <div class="small text-secondary">学校邮箱</div>
-                                <div class="fw-semibold"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="07707d6f36373532476c6f72296664296c75">[email&#160;protected]</a></div>
-                            </div>
-                            <i class="bi bi-clipboard copy-icon"></i>
-                        </div>
-                    </div>
-
-                    <hr style="border-color: var(--border); margin: 30px 0;">
-
-                    <div class="text-center">
-                        <img src="assets/WeChat.png" width="180" class="rounded-3 mb-3" style="border: 2px solid var(--border);" alt="微信二维码">
-                        <p class="small text-secondary mb-3">扫码添加微信(请备注来意)</p>
-                        <a href="assets/CV.pdf" target="_blank" class="btn btn-outline-light rounded-pill px-4">
-                            <i class="bi bi-file-earmark-pdf me-2"></i>下载完整简历
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<footer class="text-center text-secondary small">
-    <div class="container">
-        <hr class="mb-5" style="opacity: 0.1;">
-        <p class="mb-0" style="letter-spacing: 1px;">
-            © 2026 WANG ZEHENG. ALL RIGHTS RESERVED. FROM NANCHANG TO SEOUL.
+  <!-- RIGHT: portrait (right) + desc + CTA (left of portrait) -->
+  <div class="hero-right">
+    <div class="hero-right-inner">
+      <!-- text side -->
+      <div class="hero-right-text">
+        <div class="hero-location">📍 Seoul, South Korea</div>
+        <p class="hero-right-desc">
+          从南昌到首尔——五年新闻一线经验，现于<strong>庆熙大学</strong>攻读媒体管理硕士，专注<strong>算法议程设置、情感传播与AI新闻学</strong>研究。<br><br>
+          记录时代，也研究时代如何被记录。
         </p>
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <a href="#ai" class="btn-primary">AI 作品集</a>
+          <a href="#works" class="btn-ghost">新闻作品集 →</a>
+          <a href="#research" class="btn-ghost">学术研究 →</a>
+        </div>
+      </div>
+      <!-- portrait side -->
+      <div class="hero-portrait">
+        <img src="assets/11cun.jpg" alt="Wang Zeheng" onerror="this.style.display='none'">
+      </div>
     </div>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker-strip">
+  <div class="ticker-inner">
+    <span>Multimedia Journalism</span><span class="ticker-dot">·</span>
+    <span>New Media Research</span><span class="ticker-dot">·</span>
+    <span>Algorithmic Agenda-Setting</span><span class="ticker-dot">·</span>
+    <span>AI in Journalism</span><span class="ticker-dot">·</span>
+    <span>Short Video Dynamics</span><span class="ticker-dot">·</span>
+    <span>Emotional Communication</span><span class="ticker-dot">·</span>
+    <span>Xinhua Featured</span><span class="ticker-dot">·</span>
+    <span>Kyung Hee University</span><span class="ticker-dot">·</span>
+    <span>Multimedia Journalism</span><span class="ticker-dot">·</span>
+    <span>New Media Research</span><span class="ticker-dot">·</span>
+    <span>Algorithmic Agenda-Setting</span><span class="ticker-dot">·</span>
+    <span>AI in Journalism</span><span class="ticker-dot">·</span>
+    <span>Short Video Dynamics</span><span class="ticker-dot">·</span>
+    <span>Emotional Communication</span><span class="ticker-dot">·</span>
+    <span>Xinhua Featured</span><span class="ticker-dot">·</span>
+    <span>Kyung Hee University</span><span class="ticker-dot">·</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about" class="about-section">
+  <div class="section-header">
+    <div>
+      <div class="label" style="margin-bottom:10px;">01 — About</div>
+      <h2 class="section-title">关于我</h2>
+    </div>
+  </div>
+  <div class="about-grid reveal">
+    <div>
+      <p class="about-bio">
+        毕业于<strong>荆楚理工学院</strong>广播电视导演专业，曾任<strong>南昌广播电视台</strong>融媒体记者与新媒体编辑，深耕时政、民生、突发事件报道，多篇作品获<strong>新华社转载</strong>、登上<strong>学习强国</strong>平台。<br><br>
+        现就读于<strong>庆熙大学媒体管理硕士</strong>，研究方向聚焦于短视频平台算法对文化记忆的影响，构建「算法—情感—记忆」（AEM）理论框架，探索人工智能时代媒体传播的边界与可能。
+      </p>
+      <div class="skills-wrap">
+        <div class="col-title">专业技能</div>
+        <span class="skill-tag">多媒体报道</span>
+        <span class="skill-tag">短视频制作</span>
+        <span class="skill-tag">AI新闻学</span>
+        <span class="skill-tag">议程设置研究</span>
+        <span class="skill-tag">HTML/CSS/JS</span>
+        <span class="skill-tag">Prompt Engineering</span>
+        <span class="skill-tag">Runway · Kling</span>
+        <span class="skill-tag">小红书运营</span>
+        <span class="skill-tag">量化研究（SEM）</span>
+      </div>
+    </div>
+    <div>
+      <div class="col-title">教育经历</div>
+      <div class="timeline-item">
+        <div class="t-year">2023 — 现在</div>
+        <div class="t-text">庆熙大学 · 媒体管理硕士</div>
+        <div class="t-sub">GPA 4.23 / 4.5 · Seoul, Korea</div>
+      </div>
+      <div class="timeline-item">
+        <div class="t-year">2015 — 2019</div>
+        <div class="t-text">荆楚理工学院</div>
+        <div class="t-sub">广播电视导演专业 · 学士</div>
+      </div>
+    </div>
+    <div>
+      <div class="col-title">工作经历</div>
+      <div class="timeline-item">
+        <div class="t-year">2019 — 2023</div>
+        <div class="t-text">南昌广播电视台</div>
+        <div class="t-sub">融媒体记者 · 新媒体编辑</div>
+      </div>
+      <div class="timeline-item">
+        <div class="t-year">荣誉</div>
+        <div class="t-text">新华社转载 · 学习强国推荐</div>
+        <div class="t-sub">全网累计播放量 1.5亿+</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI WORKS — standalone section before portfolio -->
+<section id="ai" style="padding: 96px 48px; border-bottom: var(--rule);">
+  <div class="section-header">
+    <div>
+      <div class="label" style="margin-bottom:10px;">02 — AI Creative</div>
+      <h2 class="section-title">AI 创作实验室</h2>
+    </div>
+    <a href="AI.html" target="_blank" class="see-all">进入实验室</a>
+  </div>
+  <a href="AI.html" target="_blank" style="text-decoration:none; color:inherit; display:block;">
+    <div class="reveal" style="background: var(--ink); border-radius: 4px; overflow: hidden; position: relative; display: grid; grid-template-columns: 1fr 1fr; min-height: 380px; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.92'" onmouseout="this.style.opacity='1'">
+      <!-- left: text -->
+      <div style="padding: 56px 52px; display: flex; flex-direction: column; justify-content: space-between; border-right: 1px solid rgba(250,248,245,0.1);">
+        <div>
+          <div style="display:inline-block; padding: 4px 14px; background: rgba(200,71,10,0.25); font-size: 0.67rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #ff8c5a; margin-bottom: 28px;">AI Portfolio</div>
+          <h3 style="font-family: var(--serif); font-size: clamp(1.8rem, 3vw, 2.6rem); color: var(--paper); line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 20px;">AI Creative<br><em>Works</em></h3>
+          <p style="font-size: 0.92rem; color: rgba(250,248,245,0.55); line-height: 1.8; font-weight: 300; max-width: 400px;">
+            AI生成视频、AIGC影像实验、提示词工程与人机协作叙事——探索算法时代下媒体创作的边界与可能。
+          </p>
+        </div>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 36px;">
+          <span style="padding: 5px 14px; border: 1px solid rgba(250,248,245,0.18); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; color: rgba(250,248,245,0.5);">Runway</span>
+          <span style="padding: 5px 14px; border: 1px solid rgba(250,248,245,0.18); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; color: rgba(250,248,245,0.5);">Kling</span>
+          <span style="padding: 5px 14px; border: 1px solid rgba(250,248,245,0.18); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; color: rgba(250,248,245,0.5);">Sora</span>
+          <span style="padding: 5px 14px; border: 1px solid rgba(250,248,245,0.18); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; color: rgba(250,248,245,0.5);">Prompt Eng.</span>
+          <span style="padding: 5px 14px; border: 1px solid rgba(200,71,10,0.4); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; color: #ff8c5a;">AIGC</span>
+        </div>
+      </div>
+      <!-- right: visual -->
+      <div style="position: relative; background: linear-gradient(135deg, #1a1714 0%, #2d1f0e 50%, #1a0f00 100%); display: flex; align-items: center; justify-content: center; overflow: hidden;">
+        <div style="position:absolute; width:320px; height:320px; background: radial-gradient(circle, rgba(200,71,10,0.25) 0%, transparent 65%); top: 50%; left: 50%; transform: translate(-50%,-50%);"></div>
+        <div style="position:absolute; width:200px; height:200px; background: radial-gradient(circle, rgba(42,75,141,0.2) 0%, transparent 65%); top: 20%; right: 10%;"></div>
+        <div style="position: relative; text-align: center;">
+          <div style="font-size: 5rem; margin-bottom: 16px; opacity: 0.85;">✦</div>
+          <div style="font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(250,248,245,0.35);">Enter Lab →</div>
+        </div>
+      </div>
+      <!-- corner arrow -->
+      <div style="position:absolute; top: 32px; right: 36px; font-size: 1.2rem; color: rgba(250,248,245,0.25);">↗</div>
+    </div>
+  </a>
+</section>
+
+<!-- WORKS -->
+<section id="works" class="works-section">
+  <div class="section-header">
+    <div>
+      <div class="label" style="margin-bottom:10px;">03 — Portfolio</div>
+      <h2 class="section-title">新闻作品集</h2>
+    </div>
+  </div>
+
+  <div class="works-filter reveal">
+    <button class="filter-btn active" data-filter="all">全部</button>
+    <button class="filter-btn" data-filter="breaking">突发 Breaking</button>
+    <button class="filter-btn" data-filter="public">民生 Public</button>
+    <button class="filter-btn" data-filter="profile">特写 Profile</button>
+    <button class="filter-btn" data-filter="event">事件 Event</button>
+  </div>
+
+  <div class="works-grid reveal">
+    <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/9684591" target="_blank" class="work-card show" data-cat="public">
+      <img src="assets/Public01.png" alt="捕鱼人" class="work-card-img" onerror="this.style.display='none'">
+      <div class="work-card-info">
+        <span class="work-tag">公益报道 · 新华社转载</span>
+        <div class="work-title">上岸了，这些捕鱼人成了养鱼人</div>
+      </div>
+    </a>
+    <a href="https://article.xuexi.cn/articles/index.html?art_id=10539520634142671440" target="_blank" class="work-card show" data-cat="public">
+      <img src="assets/Public05.png" alt="黑鹳" class="work-card-img" onerror="this.style.display='none'">
+      <div class="work-card-info">
+        <span class="work-tag">生态报道 · 学习强国</span>
+        <div class="work-title">"鸟中大熊猫"黑鹳现身大汊湖</div>
+      </div>
+    </a>
+    <a href="https://article.xuexi.cn/articles/index.html?art_id=9452145926970099827" target="_blank" class="work-card show" data-cat="profile">
+      <img src="assets/profile01.png" alt="最美民警" class="work-card-img" onerror="this.style.display='none'">
+      <div class="work-card-info">
+        <span class="work-tag">人物特写 · 学习强国</span>
+        <div class="work-title">"最美基层民警"邓金海</div>
+      </div>
+    </a>
+    <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/9690078" target="_blank" class="work-card show" data-cat="breaking">
+      <img src="assets/Breaking02.png" alt="公交急救" class="work-card-img" onerror="this.style.display='none'">
+      <div class="work-card-info">
+        <span class="work-tag">突发 · 生命救援</span>
+        <div class="work-title">危急！这辆公交车要直奔医院……</div>
+      </div>
+    </a>
+    <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/9262544" target="_blank" class="work-card show" data-cat="event">
+      <img src="assets/Event 01.png" alt="防汛" class="work-card-img" onerror="this.style.display='none'">
+      <div class="work-card-info">
+        <span class="work-tag">突发事件 · 紧急救援</span>
+        <div class="work-title">休假不休战！铁血战士回乡防汛</div>
+      </div>
+    </a>
+    <a href="https://article.xuexi.cn/articles/index.html?art_id=5064583530809808863" target="_blank" class="work-card show" data-cat="profile">
+      <img src="assets/profile03.png" alt="长者饭" class="work-card-img" onerror="this.style.display='none'">
+      <div class="work-card-info">
+        <span class="work-tag">民生特写 · 学习强国</span>
+        <div class="work-title">一碗"长者饭"飘出幸福邻里情</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section id="research" class="academic-section">
+  <div class="section-header">
+    <div>
+      <div class="label" style="margin-bottom:10px;">04 — Research</div>
+      <h2 class="section-title">学术研究</h2>
+    </div>
+  </div>
+
+  <div class="papers-list reveal">
+    <a href="#" class="paper-row">
+      <div class="paper-num">01</div>
+      <div>
+        <div class="paper-title">《反转新闻的负面影响及预防策略》</div>
+        <div class="paper-meta">发表于《新闻与传播》· 湖北省人文社科重大项目（17ZD032）支持 · 2018</div>
+      </div>
+      <div class="paper-badge">已发表</div>
+    </a>
+    <a href="#" class="paper-row">
+      <div class="paper-num">02</div>
+      <div>
+        <div class="paper-title">《"拆盲盒"直播中的情绪化传播与用户行为研究》</div>
+        <div class="paper-meta">情绪传播理论 · 使用与满足理论 · 社会认同理论 · 2025</div>
+      </div>
+      <div class="paper-badge">已发表</div>
+    </a>
+    <a href="#" class="paper-row">
+      <div class="paper-num">03</div>
+      <div>
+        <div class="paper-title">《自媒体从0到1》</div>
+        <div class="paper-meta">王泽恒. 自媒体从0到1[J]. 成才与就业, 2025,(23):54-55.</div>
+      </div>
+      <div class="paper-badge">已发表</div>
+    </a>
+    <a href="#" class="paper-row">
+      <div class="paper-num">04</div>
+      <div>
+        <div class="paper-title">《AI 新闻写作能力边界与感知悖论研究》</div>
+        <div class="paper-meta">对比新华社稿件与AI生成内容 · 人机协作分层模式 · 2026</div>
+      </div>
+      <div class="paper-badge">已录用</div>
+    </a>
+    <a href="#" class="paper-row">
+      <div class="paper-num">05</div>
+      <div>
+        <div class="paper-title">《大众传媒中表达的价值观对受众的影响调查》</div>
+        <div class="paper-meta">湖北省第十一届"挑战杯"大学生课外学术作品竞赛获奖 · 以近十年"两会"报道变化为例 · 2019</div>
+      </div>
+      <div class="paper-badge">已获奖</div>
+    </a>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="projects-section">
+  <div class="section-header">
+    <div>
+      <div class="label" style="margin-bottom:10px;">05 — Projects</div>
+      <h2 class="section-title">创作项目</h2>
+    </div>
+  </div>
+  <div class="projects-grid reveal">
+    <a href="petogether.html" class="project-card">
+      <span class="project-arrow">↗</span>
+      <div class="p-tag">案例研究</div>
+      <h3 class="p-title">宠游伴 · Petogether</h3>
+      <p class="p-desc">调研313位养宠人士后创立的宠物友好出行垂直社区，通过实地验证与短视频内容解决「伪友好」信息痛点。MBA毕业核心项目。</p>
+    </a>
+    <a href="CreatorEase.html" target="_blank" class="project-card">
+      <span class="project-arrow">↗</span>
+      <div class="p-tag">工具产品</div>
+      <h3 class="p-title">CreatorEase Pro</h3>
+      <p class="p-desc">专为新媒体人打造的轻量级生产力工作台——数据驱动的标题生成、文案合规扫描、多平台分发建议。纯静态运行，隐私数据不上传。</p>
+    </a>
+    <a href="CyberSeed.html" target="_blank" class="project-card">
+      <span class="project-arrow">↗</span>
+      <div class="p-tag">创意实验室</div>
+      <h3 class="p-title">CyberSeed 赛博种子</h3>
+      <p class="p-desc">连接算法逻辑与生活诗意的创作者实验室。通过「赛博抽签」从近百件生活小事中捕捉创作契机，将碎片灵感转化为高质感内容。</p>
+    </a>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <div class="contact-grid reveal">
+    <div>
+      <div class="label" style="margin-bottom:16px;">06 — Contact</div>
+      <h2 class="contact-headline">Let's<br><em>Connect.</em></h2>
+      <p class="contact-sub">无论是学术合作、媒体项目，还是博士项目咨询，欢迎随时联系。我目前在首尔，也关注澳门、香港及韩国的博士项目机会。</p>
+      <a href="mailto:1433890263@qq.com" class="btn-primary">发送邮件 →</a>
+    </div>
+    <div>
+      <div class="contact-links">
+        <a href="mailto:1433890263@qq.com" class="contact-link">
+          <span class="cl-label">QQ 邮箱</span>
+          <span class="cl-val">1433890263@qq.com</span>
+        </a>
+        <a href="mailto:wangzeheng202311@163.com" class="contact-link">
+          <span class="cl-label">网易邮箱</span>
+          <span class="cl-val">wangzeheng202311@163.com</span>
+        </a>
+        <a href="mailto:wzh1025@khu.ac.kr" class="contact-link">
+          <span class="cl-label">学校邮箱</span>
+          <span class="cl-val">wzh1025@khu.ac.kr</span>
+        </a>
+        <a href="#" class="contact-link">
+          <span class="cl-label">Location</span>
+          <span class="cl-val">Seoul, South Korea</span>
+        </a>
+        <div class="contact-link" style="cursor:default;">
+          <span class="cl-label">Status</span>
+          <span class="cl-val" style="color:#22a35a; font-weight:600;">● Open to Opportunities</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-copy">© 2026 Wang Zeheng · From Nanchang to Seoul</span>
+  <span class="footer-brand">王泽恒</span>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-
 <script>
-    // 初始化AOS动画
-    AOS.init({ 
-        duration: 1000, 
-        once: true, 
-        offset: 100,
-        disable: 'mobile' // 移动端禁用AOS，防止触摸滑动冲突
-    });
-
-    // 导航栏滚动效果
-    window.addEventListener('scroll', () => {
-        const navbar = document.getElementById('navbar');
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-    });
-
-    // 导航链接中英文切换
-    document.querySelectorAll('.nav-link-custom').forEach(link => {
-        const enText = link.getAttribute('data-en');
-        const zhText = link.getAttribute('data-zh');
-        
-        link.addEventListener('mouseenter', function() {
-            this.textContent = zhText;
-        });
-        
-        link.addEventListener('mouseleave', function() {
-            this.textContent = enText;
-        });
-    });
-
-    // 数字递增动画
-    function animateCounter(element) {
-        const target = parseFloat(element.getAttribute('data-target'));
-        const duration = 2000;
-        const step = target / (duration / 16);
-        let current = 0;
-        const isDecimal = target % 1 !== 0;
-        
-        const timer = setInterval(() => {
-            current += step;
-            if (current >= target) {
-                current = target;
-                clearInterval(timer);
-            }
-            element.textContent = isDecimal ? current.toFixed(2) : Math.floor(current);
-        }, 16);
+// Scroll reveal
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(el => {
+    if (el.isIntersecting) {
+      el.target.classList.add('visible');
+      revealObserver.unobserve(el.target);
     }
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-    // 观察数据区域,进入视口时触发动画
-    const statsObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const counters = entry.target.querySelectorAll('.counter');
-                counters.forEach(counter => {
-                    if (!counter.classList.contains('animated')) {
-                        counter.classList.add('animated');
-                        animateCounter(counter);
-                    }
-                });
-                statsObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.5 });
+// Works filter
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const cat = btn.dataset.filter;
+    document.querySelectorAll('.work-card').forEach(card => {
+      card.classList.toggle('show', cat === 'all' || card.dataset.cat === cat);
+    });
+  });
+});
 
-    const statsSection = document.querySelector('.stats-grid');
-    if (statsSection) {
-        statsObserver.observe(statsSection);
+// Nav shadow on scroll
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').style.boxShadow =
+    window.scrollY > 10 ? '0 2px 24px rgba(26,23,20,0.08)' : 'none';
+}, { passive: true });
+
+// Smooth scroll for nav links
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+  });
+});
 
-    // 作品筛选与加载更多功能
-    let currentFilter = 'breaking';
-    let itemsPerLoad = 3; // PC端每次显示3个
-    let currentIndex = {};
+// ── Stat slot-machine rotation ─────────────────────
+function animateSlot(slot, labelEl, nextVal, nextLabel) {
+  // exit current
+  slot.classList.add('exit-up');
+  labelEl.classList.add('exit-up');
 
-    // 初始化每个分类的索引
-    ['breaking', 'public', 'profile', 'event'].forEach(filter => {
-        currentIndex[filter] = itemsPerLoad;
-    });
+  setTimeout(() => {
+    // swap value while invisible
+    slot.textContent = nextVal;
+    labelEl.textContent = nextLabel;
+    slot.classList.remove('exit-up');
+    labelEl.classList.remove('exit-up');
+    slot.classList.add('enter-down');
+    labelEl.classList.add('enter-down');
 
-    // 检测是否为移动端
-    function isMobile() {
-        return window.innerWidth <= 768;
-    }
+    // force reflow so transition fires
+    slot.getBoundingClientRect();
+    labelEl.getBoundingClientRect();
 
-    // 初始化显示
-    function initPortfolio() {
-        const items = document.querySelectorAll('.work-item');
-        
-        if (isMobile()) {
-            // 移动端：显示当前分类的所有作品（横向滑动）
-            items.forEach(item => {
-                if (item.classList.contains(currentFilter)) {
-                    item.classList.add('show');
-                }
-            });
-        } else {
-            // PC端：只显示前N个
-            items.forEach((item, index) => {
-                if (item.classList.contains(currentFilter) && index < itemsPerLoad) {
-                    item.classList.add('show');
-                }
-            });
-        }
-        updateLoadMoreButton();
-    }
+    slot.classList.remove('enter-down');
+    labelEl.classList.remove('enter-down');
+  }, 420);
+}
 
-    // 筛选功能
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            // 更新按钮状态
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            
-            // 更新当前筛选器
-            currentFilter = this.getAttribute('data-filter');
-            
-            // 隐藏所有项
-            const items = document.querySelectorAll('.work-item');
-            items.forEach(item => item.classList.remove('show'));
-            
-            if (isMobile()) {
-                // 移动端：显示所有
-                const filtered = Array.from(items).filter(item => item.classList.contains(currentFilter));
-                filtered.forEach(item => item.classList.add('show'));
-            } else {
-                // PC端：显示前N个
-                const filtered = Array.from(items).filter(item => item.classList.contains(currentFilter));
-                filtered.slice(0, currentIndex[currentFilter]).forEach(item => {
-                    item.classList.add('show');
-                });
-            }
-            
-            updateLoadMoreButton();
-        });
-    });
+function startStatCycle() {
+  const slots  = document.querySelectorAll('.stat-slot');
+  const labels = document.querySelectorAll('.stat-label-slot');
 
-    // 加载更多功能
-    document.getElementById('loadMoreBtn').addEventListener('click', function() {
-        const items = Array.from(document.querySelectorAll('.work-item')).filter(item => 
-            item.classList.contains(currentFilter)
-        );
-        
-        const start = currentIndex[currentFilter];
-        const end = start + itemsPerLoad;
-        
-        items.slice(start, end).forEach(item => {
-            item.classList.add('show');
-        });
-        
-        currentIndex[currentFilter] = end;
-        updateLoadMoreButton();
-    });
+  slots.forEach((slot, i) => {
+    const values    = JSON.parse(slot.dataset.values);
+    const labelVals = JSON.parse(labels[i].dataset.labels);
+    let current = 0;
 
-    // 更新加载更多按钮状态
-    function updateLoadMoreButton() {
-        const items = Array.from(document.querySelectorAll('.work-item')).filter(item => 
-            item.classList.contains(currentFilter)
-        );
-        const btn = document.getElementById('loadMoreBtn');
-        
-        // 移动端或已显示全部时隐藏按钮
-        if (isMobile() || currentIndex[currentFilter] >= items.length) {
-            btn.classList.add('hidden');
-        } else {
-            btn.classList.remove('hidden');
-        }
-    }
+    // stagger each stat column slightly
+    setTimeout(() => {
+      setInterval(() => {
+        current = (current + 1) % values.length;
+        animateSlot(slot, labels[i], values[current], labelVals[current]);
+      }, 2800);
+    }, i * 600); // 0ms, 600ms, 1200ms stagger
+  });
+}
 
-    // 页面加载时初始化
-    window.addEventListener('load', initPortfolio);
-    
-    // 窗口大小改变时重新初始化
-    window.addEventListener('resize', () => {
-        initPortfolio();
-    });
-
-    // 平滑滚动
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                const offsetTop = target.offsetTop - 80;
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-
-    // 邮箱一键复制功能
-    document.querySelectorAll('.contact-method-item').forEach(item => {
-        item.addEventListener('click', async function() {
-            const email = this.getAttribute('data-copy');
-            try {
-                await navigator.clipboard.writeText(email);
-                
-                // 显示复制成功提示
-                const copyIcon = this.querySelector('.copy-icon');
-                const originalClass = copyIcon.className;
-                copyIcon.className = 'bi bi-check-circle-fill copy-icon';
-                copyIcon.style.opacity = '1';
-                copyIcon.style.color = '#4caf50';
-                
-                setTimeout(() => {
-                    copyIcon.className = originalClass;
-                    copyIcon.style.color = '';
-                }, 2000);
-            } catch (err) {
-                console.error('复制失败:', err);
-            }
-        });
-    });
-
-    // Bootstrap轮播初始化 - 移动端优化
-    const carouselElement = document.getElementById('featuredCarousel');
-    if (carouselElement) {
-        const carousel = new bootstrap.Carousel(carouselElement, {
-            interval: 5000,
-            touch: true,
-            pause: 'hover'
-        });
-        
-        // 移动端：防止轮播触摸干扰页面滚动
-        if (window.innerWidth <= 768) {
-            const carouselElement = document.getElementById('featuredCarousel');
-            let startY = 0;
-            let isDragging = false;
-            
-            carouselElement.addEventListener('touchstart', function(e) {
-                startY = e.touches[0].clientY;
-            }, { passive: true });
-            
-            carouselElement.addEventListener('touchmove', function(e) {
-                // 允许上下滑动页面，不阻止默认行为
-                e.stopPropagation();
-            }, { passive: true });
-        }
-    }
-
-    // 返回顶部按钮功能
-    const backToTopBtn = document.getElementById('backToTop');
-    
-    // 监听滚动事件
-    window.addEventListener('scroll', () => {
-        if (window.pageYOffset > 300) {
-            backToTopBtn.classList.add('show');
-        } else {
-            backToTopBtn.classList.remove('show');
-        }
-    });
-    
-    // 点击返回顶部
-    backToTopBtn.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
-
-    // 主题切换功能
-    const themeToggle = document.getElementById('themeToggle');
-    const htmlElement = document.documentElement;
-    
-    // 从localStorage读取保存的主题
-    const savedTheme = localStorage.getItem('theme') || 'dark';
-    htmlElement.setAttribute('data-theme', savedTheme);
-    
-    /
+// Start after a short delay so page has settled
+setTimeout(startStatCycle, 1200);
+</script>
+</body>
+</html>
