@@ -482,36 +482,140 @@ img {
 .flip-hint-icon svg { width: 18px; height: 18px; color: var(--text-primary); }
 
 /* ─────────────────────────────────────────────
-   ② CREATIVE POSTER — 竖图双列瀑布流
+   ② CREATIVE POSTER — 堆叠抽牌布局
 ───────────────────────────────────────────── */
-.poster-layout {
-  columns: 2;
-  column-gap: 16px;
+.stack-scene {
+  display: flex;
+  align-items: center;
+  gap: 64px;
+  flex-wrap: wrap;
 }
-.poster-item {
-  break-inside: avoid;
-  border-radius: var(--radius-md);
+
+/* 牌堆容器 */
+.stack-deck {
+  position: relative;
+  width: 240px;
+  height: 360px;
+  flex-shrink: 0;
+}
+.stack-card {
+  position: absolute;
+  width: 240px;
+  height: 360px;
+  border-radius: var(--radius-lg);
   overflow: hidden;
+  box-shadow: var(--shadow-md);
+  border: 1px solid rgba(255,255,255,0.9);
   cursor: pointer;
-  box-shadow: var(--shadow-sm);
-  transition: all 0.4s cubic-bezier(0.25, 1, 0.3, 1);
-  background: rgba(255,255,255,0.5);
-  border: 1px solid rgba(255,255,255,0.8);
-  margin-bottom: 16px;
-  display: block;
+  will-change: transform, opacity;
+  transition: transform 0.65s cubic-bezier(0.34,1.4,0.64,1),
+              opacity 0.4s ease,
+              box-shadow 0.4s ease;
 }
-.poster-item:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-lg);
-}
-.poster-item img {
-  width: 100%;
-  height: auto;
-  display: block;
+.stack-card img {
+  width: 100%; height: 100%;
   object-fit: cover;
-  transition: transform 0.5s cubic-bezier(0.25, 1, 0.3, 1);
+  display: block;
+  pointer-events: none;
 }
-.poster-item:hover img { transform: scale(1.04); }
+.stack-card .card-num {
+  position: absolute;
+  bottom: 12px; right: 12px;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 800;
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(8px);
+  padding: 3px 10px;
+  border-radius: 50px;
+  color: var(--text-primary);
+  letter-spacing: 0.04em;
+}
+/* 各层堆叠初始偏移 */
+.stack-card:nth-child(1) { transform: translateY(0px)   rotate(0deg);    z-index: 9; }
+.stack-card:nth-child(2) { transform: translateY(7px)   rotate(2.8deg);  z-index: 8; }
+.stack-card:nth-child(3) { transform: translateY(14px)  rotate(-2deg);   z-index: 7; }
+.stack-card:nth-child(4) { transform: translateY(21px)  rotate(3.5deg);  z-index: 6; }
+.stack-card:nth-child(5) { transform: translateY(28px)  rotate(-1.5deg); z-index: 5; }
+.stack-card:nth-child(6) { transform: translateY(35px)  rotate(2deg);    z-index: 4; }
+.stack-card:nth-child(7) { transform: translateY(42px)  rotate(-2.8deg); z-index: 3; }
+.stack-card:nth-child(8) { transform: translateY(49px)  rotate(1.2deg);  z-index: 2; }
+.stack-card:nth-child(9) { transform: translateY(56px)  rotate(-1deg);   z-index: 1; }
+
+/* 右侧信息面板 */
+.stack-info {
+  flex: 1;
+  min-width: 200px;
+}
+.stack-info .poster-count {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-bottom: 16px;
+}
+.stack-info .count-big {
+  font-family: 'Syne', sans-serif;
+  font-size: 4rem;
+  font-weight: 900;
+  line-height: 1;
+  background: linear-gradient(135deg, var(--grad-violet) 0%, var(--grad-pink) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.stack-info .count-total {
+  font-size: 1rem;
+  color: var(--text-tertiary);
+}
+.stack-info .poster-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--text-primary);
+}
+.stack-info .poster-desc {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  margin-bottom: 28px;
+}
+.stack-draw-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: var(--text-primary);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25,1,0.3,1);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}
+.stack-draw-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.18);
+}
+.stack-draw-btn svg { width: 16px; height: 16px; }
+.stack-hint {
+  margin-top: 12px;
+  font-size: 0.72rem;
+  color: var(--text-tertiary);
+  letter-spacing: 0.04em;
+}
+
+/* 手机端：牌堆缩小 */
+@media (max-width: 600px) {
+  .stack-scene { gap: 32px; justify-content: center; }
+  .stack-deck { width: 180px; height: 270px; }
+  .stack-card { width: 180px; height: 270px; }
+  .stack-info { text-align: center; }
+  .stack-info .poster-count { justify-content: center; }
+}
 
 /* ─────────────────────────────────────────────
    ③ CITY POSTER — 横向滚动（保留原风格，强化视觉）
@@ -859,8 +963,7 @@ footer a:hover { color: var(--text-primary); }
 
   /* 设计：手机2列 */
   .flip-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-  .poster-layout { columns: 2; column-gap: 10px; }
-  .poster-item { margin-bottom: 10px; border-radius: var(--radius-sm); }
+
 
   /* 视频：手机单列，重置所有grid定位 */
   .video-grid {
@@ -906,7 +1009,6 @@ footer a:hover { color: var(--text-primary); }
 
   /* 极小屏：设计改为2列（卡片够小了） */
   .flip-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
-  .poster-layout { columns: 1; }
 
   /* GIF保持双列 */
   .gif-masonry { columns: 2; column-gap: 8px; }
@@ -1185,16 +1287,65 @@ footer a:hover { color: var(--text-primary); }
       <p class="section-sub">将 AI 生成的视觉语言转化为完整的海报叙事，每一张都是一场对话。</p>
     </div>
 
-    <div class="poster-layout fade-up fade-up-delay-1">
-      <div class="poster-item"><img src="assets/ai/海报-1.jpg" alt="创意海报 1" loading="lazy"></div>
-      <div class="poster-item"><img src="assets/ai/海报-2.jpg" alt="创意海报 2" loading="lazy"></div>
-      <div class="poster-item"><img src="assets/ai/海报-3.jpg" alt="创意海报 3" loading="lazy"></div>
-      <div class="poster-item"><img src="assets/ai/海报-4.jpg" alt="创意海报 4" loading="lazy"></div>
-      <div class="poster-item"><img src="assets/ai/海报-5.jpg" alt="创意海报 5" loading="lazy"></div>
-      <div class="poster-item"><img src="assets/ai/海报-6.jpg" alt="创意海报 6" loading="lazy"></div>
-      <div class="poster-item"><img src="assets/ai/海报-7.jpg" alt="创意海报 7" loading="lazy"></div>
-      <div class="poster-item"><img src="assets/ai/海报-8.jpg" alt="创意海报 8" loading="lazy"></div>
-      <div class="poster-item"><img src="assets/ai/海报-9.jpg" alt="创意海报 9" loading="lazy"></div>
+    <div class="stack-scene fade-up fade-up-delay-1">
+
+      <!-- 牌堆 -->
+      <div class="stack-deck" id="posterDeck">
+      <div class="stack-card" data-poster="1">
+        <img src="assets/ai/海报-1.jpg" alt="创意海报 1" loading="lazy">
+        <span class="card-num">001</span>
+      </div>
+      <div class="stack-card" data-poster="2">
+        <img src="assets/ai/海报-2.jpg" alt="创意海报 2" loading="lazy">
+        <span class="card-num">002</span>
+      </div>
+      <div class="stack-card" data-poster="3">
+        <img src="assets/ai/海报-3.jpg" alt="创意海报 3" loading="lazy">
+        <span class="card-num">003</span>
+      </div>
+      <div class="stack-card" data-poster="4">
+        <img src="assets/ai/海报-4.jpg" alt="创意海报 4" loading="lazy">
+        <span class="card-num">004</span>
+      </div>
+      <div class="stack-card" data-poster="5">
+        <img src="assets/ai/海报-5.jpg" alt="创意海报 5" loading="lazy">
+        <span class="card-num">005</span>
+      </div>
+      <div class="stack-card" data-poster="6">
+        <img src="assets/ai/海报-6.jpg" alt="创意海报 6" loading="lazy">
+        <span class="card-num">006</span>
+      </div>
+      <div class="stack-card" data-poster="7">
+        <img src="assets/ai/海报-7.jpg" alt="创意海报 7" loading="lazy">
+        <span class="card-num">007</span>
+      </div>
+      <div class="stack-card" data-poster="8">
+        <img src="assets/ai/海报-8.jpg" alt="创意海报 8" loading="lazy">
+        <span class="card-num">008</span>
+      </div>
+      <div class="stack-card" data-poster="9">
+        <img src="assets/ai/海报-9.jpg" alt="创意海报 9" loading="lazy">
+        <span class="card-num">009</span>
+      </div>
+      </div>
+
+      <!-- 信息面板 -->
+      <div class="stack-info">
+        <div class="poster-count">
+          <span class="count-big" id="posterNum">1</span>
+          <span class="count-total">/ 9</span>
+        </div>
+        <div class="poster-title" id="posterTitle">AI 海报 · 01</div>
+        <p class="poster-desc">用 AI 重新解构视觉叙事，将算法美学转化为完整的海报语言。点击或等待自动翻阅。</p>
+        <button class="stack-draw-btn" id="posterDrawBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+          下一张
+        </button>
+        <p class="stack-hint">自动翻牌中 · 悬停暂停</p>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1563,5 +1714,86 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 })();
 </script>
 
+<script>
+/* ── 创意海报堆叠抽牌 ── */
+(function() {
+  const INTERVAL = 3200;
+  const ROTATIONS = [0, 2.8, -2, 3.5, -1.5, 2, -2.8, 1.2, -1];
+  let drawing = false;
+  let paused = false;
+  let autoTimer = null;
+  let current = 0; // 当前显示的是第几张（0-indexed）
+
+  const deck = document.getElementById('posterDeck');
+  if (!deck) return;
+
+  const numEl   = document.getElementById('posterNum');
+  const titleEl = document.getElementById('posterTitle');
+  const btn     = document.getElementById('posterDrawBtn');
+
+  function restack() {
+    const cards = [...deck.querySelectorAll('.stack-card')];
+    cards.forEach((c, i) => {
+      const y = i * 7;
+      const r = ROTATIONS[i % ROTATIONS.length];
+      c.style.transform = `translateY(${y}px) rotate(${r}deg)`;
+      c.style.zIndex = 9 - i;
+      c.style.opacity = '1';
+      c.style.transition = 'transform 0.65s cubic-bezier(0.34,1.4,0.64,1), opacity 0.4s ease, box-shadow 0.4s ease';
+    });
+  }
+
+  function drawTop() {
+    if (drawing) return;
+    drawing = true;
+
+    const cards = [...deck.querySelectorAll('.stack-card')];
+    const top = cards[0];
+
+    // 飞出右侧
+    top.style.transition = 'transform 0.55s cubic-bezier(0.4,0,0.6,1), opacity 0.3s 0.2s';
+    top.style.transform = 'translateX(420px) translateY(-40px) rotate(14deg)';
+    top.style.opacity = '0';
+    top.style.zIndex = '10';
+
+    setTimeout(() => {
+      // 瞬间重置到牌堆最底层（不动画）
+      top.style.transition = 'none';
+      top.style.transform = `translateY(70px) rotate(${ROTATIONS[8]|| -1}deg)`;
+      top.style.opacity = '1';
+      top.style.zIndex = '1';
+      deck.appendChild(top); // 移到DOM最后
+
+      // 重新排列剩余牌
+      setTimeout(() => {
+        restack();
+        current = (current + 1) % 9;
+        numEl.textContent = current + 1;
+        titleEl.textContent = `AI 海报 · ${String(current + 1).padStart(2, '0')}`;
+        drawing = false;
+      }, 60);
+    }, 620);
+  }
+
+  function startAuto() {
+    clearInterval(autoTimer);
+    autoTimer = setInterval(() => {
+      if (!paused) drawTop();
+    }, INTERVAL);
+  }
+
+  // 悬停暂停
+  deck.addEventListener('mouseenter', () => paused = true);
+  deck.addEventListener('mouseleave', () => paused = false);
+
+  // 点击手动抽牌
+  deck.addEventListener('click', () => drawTop());
+  btn.addEventListener('click', () => drawTop());
+
+  // 初始排列 + 启动
+  restack();
+  startAuto();
+})();
+</script>
 </body>
 </html>
