@@ -377,43 +377,14 @@ img {
 }
 
 /* ─────────────────────────────────────────────
-   ① DESIGN SECTION — 瀑布流 Masonry 风格
+   ① DESIGN SECTION — 竖图双列瀑布流
 ───────────────────────────────────────────── */
 .design-layout {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: auto;
-  gap: 16px;
+  columns: 2;
+  column-gap: 16px;
 }
-
-/* 特大主图：占 7列 × 2行 */
-.design-item-hero {
-  grid-column: 1 / 8;
-  grid-row: 1 / 3;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  aspect-ratio: 3/4;
-  position: relative;
-  cursor: pointer;
-  box-shadow: var(--shadow-md);
-  transition: all 0.45s cubic-bezier(0.25, 1, 0.3, 1);
-  background: rgba(255,255,255,0.5);
-  border: 1px solid rgba(255,255,255,0.8);
-  content-visibility: auto;
-}
-.design-item-hero:hover {
-  transform: translateY(-8px) scale(1.01);
-  box-shadow: var(--shadow-lg);
-}
-.design-item-hero img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.25, 1, 0.3, 1);
-}
-.design-item-hero:hover img { transform: scale(1.05); }
-
-/* 右侧竖向排 3 张 */
-.design-item-sm {
+.design-item {
+  break-inside: avoid;
   border-radius: var(--radius-md);
   overflow: hidden;
   cursor: pointer;
@@ -421,110 +392,53 @@ img {
   transition: all 0.4s cubic-bezier(0.25, 1, 0.3, 1);
   background: rgba(255,255,255,0.5);
   border: 1px solid rgba(255,255,255,0.8);
-  content-visibility: auto;
-  contain: layout style paint;
+  margin-bottom: 16px;
+  display: block;
 }
-.design-item-sm:nth-child(2) { grid-column: 8 / 13; grid-row: 1; aspect-ratio: 4/3; }
-.design-item-sm:nth-child(3) { grid-column: 8 / 11; grid-row: 2; aspect-ratio: 1/1; }
-.design-item-sm:nth-child(4) { grid-column: 11 / 13; grid-row: 2; aspect-ratio: 1/1; }
-/* 第二排：3张横排 */
-.design-item-sm:nth-child(5) { grid-column: 1 / 5; grid-row: 3; aspect-ratio: 3/4; }
-.design-item-sm:nth-child(6) { grid-column: 5 / 9; grid-row: 3; aspect-ratio: 3/4; }
-.design-item-sm:nth-child(7) { grid-column: 9 / 13; grid-row: 3; aspect-ratio: 3/4; }
-
-.design-item-sm:hover {
+.design-item:hover {
   transform: translateY(-6px);
   box-shadow: var(--shadow-lg);
 }
-.design-item-sm img {
-  width: 100%; height: 100%;
+.design-item img {
+  width: 100%;
+  height: auto;
+  display: block;
   object-fit: cover;
   transition: transform 0.5s cubic-bezier(0.25, 1, 0.3, 1);
 }
-.design-item-sm:hover img { transform: scale(1.05); }
+.design-item:hover img { transform: scale(1.04); }
 
 /* ─────────────────────────────────────────────
-   ② CREATIVE POSTER — 全新不对称布局
-   左：1张大竖图；右：2×2 网格
+   ② CREATIVE POSTER — 竖图双列瀑布流
 ───────────────────────────────────────────── */
 .poster-layout {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: auto auto;
-  gap: 16px;
+  columns: 2;
+  column-gap: 16px;
 }
-
-.poster-featured {
-  grid-column: 1;
-  grid-row: 1 / 3;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  cursor: pointer;
-  aspect-ratio: 9/16;
-  box-shadow: var(--shadow-md);
-  transition: all 0.45s cubic-bezier(0.25, 1, 0.3, 1);
-  background: rgba(255,255,255,0.5);
-  border: 1px solid rgba(255,255,255,0.8);
-  content-visibility: auto;
-}
-.poster-featured:hover {
-  transform: translateY(-8px) rotate(-0.5deg);
-  box-shadow: var(--shadow-lg);
-}
-.poster-featured img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.25, 1, 0.3, 1);
-}
-.poster-featured:hover img { transform: scale(1.05); }
-
-.poster-grid-item {
+.poster-item {
+  break-inside: avoid;
   border-radius: var(--radius-md);
   overflow: hidden;
   cursor: pointer;
-  aspect-ratio: 9/13;
   box-shadow: var(--shadow-sm);
   transition: all 0.4s cubic-bezier(0.25, 1, 0.3, 1);
   background: rgba(255,255,255,0.5);
   border: 1px solid rgba(255,255,255,0.8);
-  content-visibility: auto;
-  contain: layout style paint;
+  margin-bottom: 16px;
+  display: block;
 }
-.poster-grid-item:hover {
+.poster-item:hover {
   transform: translateY(-6px);
   box-shadow: var(--shadow-lg);
 }
-.poster-grid-item img {
-  width: 100%; height: 100%;
+.poster-item img {
+  width: 100%;
+  height: auto;
+  display: block;
   object-fit: cover;
   transition: transform 0.5s cubic-bezier(0.25, 1, 0.3, 1);
 }
-.poster-grid-item:hover img { transform: scale(1.06); }
-
-/* 宽海报横跨两列 */
-.poster-wide {
-  grid-column: 2 / 4;
-  grid-row: 1;
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  cursor: pointer;
-  aspect-ratio: 16/9;
-  box-shadow: var(--shadow-md);
-  transition: all 0.4s cubic-bezier(0.25, 1, 0.3, 1);
-  background: rgba(255,255,255,0.5);
-  border: 1px solid rgba(255,255,255,0.8);
-  content-visibility: auto;
-}
-.poster-wide:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-lg);
-}
-.poster-wide img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s cubic-bezier(0.25, 1, 0.3, 1);
-}
-.poster-wide:hover img { transform: scale(1.04); }
+.poster-item:hover img { transform: scale(1.04); }
 
 /* ─────────────────────────────────────────────
    ③ CITY POSTER — 横向滚动（保留原风格，强化视觉）
@@ -634,21 +548,26 @@ img {
 }
 
 /* ─────────────────────────────────────────────
-   ④⑤ VIDEO + GIF 合并板块
-   布局结构：
-   行1：视频1(宽) | 视频2(窄) | GIF-1(竖)
-   行2：GIF-2 | GIF-3 | GIF-4 | GIF-5
-   行3：GIF-6(宽2列)
+   ④⑤ VIDEO + GIF 合并板块 — 完全重写
+   桌面：视频3列 + GIF双列瀑布流
+   手机：全部单列堆叠，清晰可读
 ───────────────────────────────────────────── */
 
-/* 统一容器：4列网格 */
-.motion-grid {
+/* 视频区：三个视频横排，视频1较宽 */
+.video-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 2fr 1fr 1fr;
   gap: 16px;
+  margin-bottom: 16px;
 }
 
-/* ── 视频卡片 ── */
+/* GIF区：双列瀑布流（CSS columns实现，图片自然高度） */
+.gif-masonry {
+  columns: 2;
+  column-gap: 16px;
+}
+
+/* ── 通用视频卡片 ── */
 .video-slot {
   border-radius: var(--radius-lg);
   overflow: hidden;
@@ -656,123 +575,39 @@ img {
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255,255,255,0.8);
   box-shadow: var(--shadow-md);
-  transition: all 0.45s cubic-bezier(0.25, 1, 0.3, 1);
-  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.3, 1);
 }
-.video-slot:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--shadow-lg);
-}
-/* 视频1：占2列，行1-2（高大） */
-.video-slot-1 {
-  grid-column: 1 / 3;
-  grid-row: 1 / 2;
-}
-/* 视频2：占1列，行1 */
-.video-slot-2 {
-  grid-column: 3 / 4;
-  grid-row: 1 / 2;
-}
-/* 视频3：占1列，行2（GIF-2位置） */
-.video-slot-3 {
-  grid-column: 3 / 4;
-  grid-row: 2 / 3;
-}
+.video-slot:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
 
-/* B站 iframe 嵌入容器 */
-.bili-wrap {
+/* 视频嵌入容器：固定16:9，iframe绝对定位填满 */
+.video-thumb-wrap {
   width: 100%;
   aspect-ratio: 16/9;
   position: relative;
   overflow: hidden;
-  background: #0a0a1a;
+  background: #080818;
 }
-.bili-wrap iframe {
+.video-thumb-wrap iframe {
+  position: absolute;
+  top: 0; left: 0;
   width: 100%; height: 100%;
   border: none;
-  display: block;
-}
-/* 待上传占位（有BV号后删掉这块，换iframe） */
-.video-placeholder {
-  width: 100%; height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 14px;
-  position: relative;
-}
-.video-placeholder.v1 { background: linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 50%, #0a1a2e 100%); }
-.video-placeholder.v2 { background: linear-gradient(135deg, #0d1b2a 0%, #1b2838 50%, #0a0a0a 100%); }
-.video-placeholder::before {
-  content: '';
-  position: absolute; inset: 0;
-  background:
-    radial-gradient(ellipse 60% 50% at 30% 40%, rgba(94,196,255,0.18) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 60% at 70% 60%, rgba(255,107,157,0.14) 0%, transparent 60%);
-}
-.video-pending-label {
-  position: relative; z-index: 1;
-  display: flex; flex-direction: column; align-items: center; gap: 10px;
-}
-.bili-icon {
-  width: 48px; height: 48px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.12);
-  backdrop-filter: blur(12px);
-  border: 1.5px solid rgba(255,255,255,0.25);
-  display: flex; align-items: center; justify-content: center;
-  transition: all 0.35s;
-}
-/* B站粉色品牌色小圆点装饰 */
-.bili-icon::after {
-  content: '▶';
-  font-size: 1.1rem;
-  color: rgba(255,255,255,0.8);
-  margin-left: 3px;
-}
-.video-pending-text {
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.4);
-}
-.bili-badge {
-  position: absolute;
-  top: 12px; right: 12px;
-  z-index: 2;
-  padding: 4px 12px;
-  border-radius: 50px;
-  font-size: 0.62rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  background: rgba(251,114,153,0.85); /* B站粉 */
-  color: white;
-  backdrop-filter: blur(6px);
-}
-.video-label {
-  position: relative; z-index: 1;
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.5);
 }
 .video-info-bar {
-  padding: 16px 20px;
+  padding: 14px 18px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-top: 1px solid rgba(0,0,0,0.05);
 }
-.video-info-bar h5 { font-size: 0.9rem; font-weight: 600; color: var(--text-primary); }
-.video-info-bar p  { font-size: 0.75rem; color: var(--text-secondary); margin-top: 2px; }
-.video-info-bar span { font-size: 0.72rem; color: var(--text-tertiary); white-space: nowrap; }
+.video-info-bar h5 { font-size: 0.88rem; font-weight: 600; }
+.video-info-bar p  { font-size: 0.72rem; color: var(--text-secondary); margin-top: 2px; }
+.video-info-bar span { font-size: 0.7rem; color: var(--text-tertiary); }
 
-/* ── GIF 卡片 ── */
+/* ── GIF 卡片：瀑布流子项 ── */
 .gif-slot {
-  border-radius: var(--radius-lg);
+  break-inside: avoid;
+  border-radius: var(--radius-md);
   overflow: hidden;
   cursor: pointer;
   background: rgba(255,255,255,0.6);
@@ -780,79 +615,56 @@ img {
   border: 1px solid rgba(255,255,255,0.8);
   box-shadow: var(--shadow-sm);
   transition: all 0.4s cubic-bezier(0.25, 1, 0.3, 1);
-  content-visibility: auto;
+  margin-bottom: 16px;
+  display: block;
 }
-.gif-slot:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--shadow-lg);
-}
+.gif-slot:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
 
-/* GIF布局定位 */
-/* GIF-1: 第4列，竖版，跨3行（紧贴视频右侧） */
-.gif-slot-1 { grid-column: 4; grid-row: 1 / 4; }
-/* GIF 2-4: 行2，各占1列（列1-3） */
-.gif-slot-2 { grid-column: 1; grid-row: 3; }
-.gif-slot-3 { grid-column: 2; grid-row: 3; }
-.gif-slot-4 { grid-column: 3; grid-row: 3; }
-/* GIF-5: 行4，宽2列 */
-.gif-slot-5 { grid-column: 1 / 3; grid-row: 4; }
-/* GIF-6: 行4，宽2列 */
-.gif-slot-6 { grid-column: 3 / 5; grid-row: 4; }
-
-/* GIF 媒体容器 */
+/* GIF媒体容器：img自然高度，不强制比例 */
 .gif-media {
   width: 100%;
-  position: relative;
   overflow: hidden;
+  position: relative;
 }
 .gif-media img {
-  width: 100%; height: 100%;
+  width: 100%;
+  height: auto;
+  display: block;
   object-fit: cover;
 }
-/* 标准GIF比例 */
-.gif-slot:not(.gif-slot-1) .gif-media { aspect-ratio: 16/9; }
-/* 竖版GIF（列4） */
-.gif-slot-1 .gif-media { height: 100%; min-height: 300px; aspect-ratio: unset; }
+/* 无图时占位保持比例 */
+.gif-media .gif-placeholder { aspect-ratio: 4/3; }
 
-/* GIF占位 */
+/* GIF占位样式 */
 .gif-placeholder {
-  width: 100%; height: 100%; min-height: 160px;
+  width: 100%;
   display: flex; align-items: center; justify-content: center;
   flex-direction: column; gap: 10px;
-  position: relative;
+  position: relative; min-height: 100px;
 }
-.gif-slot-1 .gif-placeholder { min-height: 100%; }
-.gif-placeholder .emoji { font-size: 2.2rem; }
+.gif-placeholder .emoji { font-size: 2rem; }
 .gif-placeholder .gif-label {
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.7);
-  background: rgba(0,0,0,0.2);
-  padding: 3px 10px;
-  border-radius: 50px;
-  backdrop-filter: blur(6px);
+  font-size: 0.62rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(255,255,255,0.75);
+  background: rgba(0,0,0,0.22);
+  padding: 3px 10px; border-radius: 50px;
 }
 .gif-badge-overlay {
-  position: absolute;
-  top: 10px; right: 10px;
-  padding: 3px 10px;
-  border-radius: 50px;
-  font-size: 0.62rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  background: rgba(255,255,255,0.85);
+  position: absolute; top: 8px; right: 8px;
+  padding: 3px 9px; border-radius: 50px;
+  font-size: 0.6rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  background: rgba(255,255,255,0.88);
   backdrop-filter: blur(8px);
   color: var(--text-secondary);
 }
 .gif-caption {
-  padding: 12px 16px;
+  padding: 10px 14px;
   border-top: 1px solid rgba(0,0,0,0.05);
 }
-.gif-caption h6 { font-size: 0.82rem; font-weight: 600; margin-bottom: 2px; }
-.gif-caption p  { font-size: 0.7rem; color: var(--text-secondary); }
+.gif-caption h6 { font-size: 0.8rem; font-weight: 600; margin-bottom: 2px; }
+.gif-caption p  { font-size: 0.68rem; color: var(--text-secondary); }
 
 /* 占位背景色 */
 .bg-dark-blue    { background: linear-gradient(160deg, #0f0c29, #302b63, #24243e); }
@@ -939,53 +751,80 @@ footer a:hover { color: var(--text-primary); }
 ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 50px; }
 
 /* ─────────────────────────────────────────────
-   Responsive
+   Responsive — 全面手机适配
 ───────────────────────────────────────────── */
+
+/* 平板：视频改为1大+2小纵排 */
 @media (max-width: 1024px) {
-  .design-layout { grid-template-columns: repeat(6, 1fr); }
-  .design-item-hero { grid-column: 1 / 4; }
-  .design-item-sm:nth-child(2) { grid-column: 4 / 7; }
-  .design-item-sm:nth-child(3) { grid-column: 4 / 6; }
-  .design-item-sm:nth-child(4) { grid-column: 6 / 7; }
-  .design-item-sm:nth-child(5) { grid-column: 1 / 3; }
-  .design-item-sm:nth-child(6) { grid-column: 3 / 5; }
-  .design-item-sm:nth-child(7) { grid-column: 5 / 7; }
-  /* motion grid 缩为2列 */
-  .motion-grid { grid-template-columns: 1fr 1fr; }
-  .video-slot-1 { grid-column: 1 / 3; grid-row: 1; }
-  .video-slot-2 { grid-column: 1; grid-row: 2; }
-  .gif-slot-1   { grid-column: 2; grid-row: 2 / 4; }
-  .gif-slot-2   { grid-column: 1; grid-row: 3; }
-  .gif-slot-3   { grid-column: 1; grid-row: 4; }
-  .gif-slot-4   { grid-column: 2; grid-row: 4; }
-  .gif-slot-5   { grid-column: 1; grid-row: 5; }
-  .gif-slot-6   { grid-column: 2; grid-row: 5; }
+  .video-grid { grid-template-columns: 1fr 1fr; }
+  .video-grid .video-slot:first-child { grid-column: 1 / 3; }
+  .gif-masonry { columns: 2; }
 }
-@media (max-width: 900px) {
-  section { padding: 70px 24px; }
-  nav { padding: 0 24px; }
+
+/* 手机横屏 / 小平板 */
+@media (max-width: 768px) {
+  section { padding: 60px 20px; }
+  nav { padding: 0 20px; }
   .nav-links { display: none; }
-  .design-layout { grid-template-columns: 1fr 1fr; }
-  .design-item-hero { grid-column: 1 / 3; grid-row: 1; aspect-ratio: 16/9; }
-  .design-item-sm:nth-child(n) { grid-column: auto; grid-row: auto; aspect-ratio: 1/1; }
-  .poster-layout { grid-template-columns: 1fr 1fr; }
-  .poster-featured { grid-column: 1; grid-row: 1 / 3; }
-  .poster-wide { grid-column: 2; grid-row: 1; aspect-ratio: 1/1; }
-  .poster-grid-item { grid-column: 2; }
-  /* motion 单列 */
-  .motion-grid { grid-template-columns: 1fr; }
-  .video-slot-1, .video-slot-2,
-  .gif-slot-1, .gif-slot-2, .gif-slot-3,
-  .gif-slot-4, .gif-slot-5, .gif-slot-6 {
-    grid-column: 1; grid-row: auto;
-  }
-  .gif-slot-1 .gif-media { aspect-ratio: 16/9; }
-  .process-grid { grid-template-columns: 1fr; }
+
+  /* 设计+海报：双列瀑布流在手机保持，列间距缩小 */
+  .design-layout { columns: 2; column-gap: 10px; }
+  .design-item { margin-bottom: 10px; border-radius: var(--radius-sm); }
+  .poster-layout { columns: 2; column-gap: 10px; }
+  .poster-item { margin-bottom: 10px; border-radius: var(--radius-sm); }
+
+  /* 视频：手机单列 */
+  .video-grid { grid-template-columns: 1fr; gap: 12px; }
+  .video-grid .video-slot:first-child { grid-column: 1; }
+
+  /* GIF：手机保持双列，更紧凑 */
+  .gif-masonry { columns: 2; column-gap: 10px; }
+  .gif-slot { margin-bottom: 10px; border-radius: var(--radius-sm); }
+
+  /* Process */
+  .process-grid { grid-template-columns: 1fr; gap: 12px; }
+
+  /* 海报section内边距 */
+  #poster { padding: 60px 20px !important; }
+  #gif { padding: 60px 20px !important; }
+  #process { padding: 60px 20px !important; }
+
+  /* 城市海报滚动容器 */
+  .poster-scroll-container { margin: 0 -20px; }
+  .poster-track { padding: 16px 20px 32px; gap: 12px; }
+  .city-item { width: 220px; }
+
+  /* Hero */
+  .hero h1 { font-size: 2.8rem; }
+  .hero-desc { font-size: 0.95rem; }
+
+  /* Glass quote */
+  .glass[style*="padding:56px"] { padding: 36px 28px !important; }
 }
-@media (max-width: 600px) {
-  .poster-layout { grid-template-columns: 1fr; }
-  .poster-featured { grid-row: auto; }
-  .poster-wide { grid-column: 1; grid-row: auto; }
+
+/* 手机竖屏 */
+@media (max-width: 480px) {
+  section { padding: 50px 16px; }
+  nav { padding: 0 16px; }
+
+  /* 极小屏：设计+海报改为单列 */
+  .design-layout { columns: 1; }
+  .poster-layout { columns: 1; }
+
+  /* GIF保持双列 */
+  .gif-masonry { columns: 2; column-gap: 8px; }
+  .gif-slot { margin-bottom: 8px; }
+  .gif-caption { padding: 8px 10px; }
+
+  /* 视频单列 */
+  .video-grid { gap: 10px; }
+  .video-info-bar { padding: 10px 14px; }
+
+  /* City */
+  .city-item { width: 180px; }
+
+  .hero h1 { font-size: 2.2rem; }
+  .section-title { font-size: 1.8rem; }
 }
 </style>
 </head>
@@ -1053,30 +892,13 @@ footer a:hover { color: var(--text-primary); }
   </div>
 
   <div class="design-layout fade-up fade-up-delay-1">
-    <!-- 主图 -->
-    <div class="design-item-hero">
-      <img src="assets/ai/设计-1.png" alt="AI 创意设计 1" loading="lazy" decoding="async">
-    </div>
-    <!-- 右侧小图 -->
-    <div class="design-item-sm">
-      <img src="assets/ai/设计-2.png" alt="AI 创意设计 2" loading="lazy" decoding="async">
-    </div>
-    <div class="design-item-sm">
-      <img src="assets/ai/设计-3.png" alt="AI 创意设计 3" loading="lazy" decoding="async">
-    </div>
-    <div class="design-item-sm">
-      <img src="assets/ai/设计-4.png" alt="AI 创意设计 4" loading="lazy" decoding="async">
-    </div>
-    <!-- 第二排 -->
-    <div class="design-item-sm">
-      <img src="assets/ai/设计-5.png" alt="AI 创意设计 5" loading="lazy" decoding="async">
-    </div>
-    <div class="design-item-sm">
-      <img src="assets/ai/设计-6.png" alt="AI 创意设计 6" loading="lazy" decoding="async">
-    </div>
-    <div class="design-item-sm">
-      <img src="assets/ai/设计-7.png" alt="AI 创意设计 7" loading="lazy" decoding="async">
-    </div>
+    <div class="design-item"><img src="assets/ai/设计-1.png" alt="AI 创意设计 1" loading="lazy"></div>
+    <div class="design-item"><img src="assets/ai/设计-2.png" alt="AI 创意设计 2" loading="lazy"></div>
+    <div class="design-item"><img src="assets/ai/设计-3.png" alt="AI 创意设计 3" loading="lazy"></div>
+    <div class="design-item"><img src="assets/ai/设计-4.png" alt="AI 创意设计 4" loading="lazy"></div>
+    <div class="design-item"><img src="assets/ai/设计-5.png" alt="AI 创意设计 5" loading="lazy"></div>
+    <div class="design-item"><img src="assets/ai/设计-6.png" alt="AI 创意设计 6" loading="lazy"></div>
+    <div class="design-item"><img src="assets/ai/设计-7.png" alt="AI 创意设计 7" loading="lazy"></div>
   </div>
 </section>
 
@@ -1094,34 +916,13 @@ footer a:hover { color: var(--text-primary); }
     </div>
 
     <div class="poster-layout fade-up fade-up-delay-1">
-      <!-- 左侧主海报 -->
-      <div class="poster-featured">
-        <img src="assets/ai/海报-1.png" alt="创意海报 1" loading="lazy" decoding="async">
-      </div>
-      <!-- 右上：宽版横图 -->
-      <div class="poster-wide">
-        <img src="assets/ai/海报-2.png" alt="创意海报 2" loading="lazy" decoding="async">
-      </div>
-      <!-- 右下：两格 -->
-      <div class="poster-grid-item">
-        <img src="assets/ai/海报-3.png" alt="创意海报 3" loading="lazy" decoding="async">
-      </div>
-      <div class="poster-grid-item">
-        <img src="assets/ai/海报-4.png" alt="创意海报 4" loading="lazy" decoding="async">
-      </div>
-    </div>
-
-    <!-- 第二行：剩余3张 -->
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px;" class="fade-up fade-up-delay-2">
-      <div class="poster-grid-item">
-        <img src="assets/ai/海报-5.png" alt="创意海报 5" loading="lazy" decoding="async">
-      </div>
-      <div class="poster-grid-item">
-        <img src="assets/ai/海报-6.png" alt="创意海报 6" loading="lazy" decoding="async">
-      </div>
-      <div class="poster-grid-item">
-        <img src="assets/ai/海报-7.png" alt="创意海报 7" loading="lazy" decoding="async">
-      </div>
+      <div class="poster-item"><img src="assets/ai/海报-1.png" alt="创意海报 1" loading="lazy"></div>
+      <div class="poster-item"><img src="assets/ai/海报-2.png" alt="创意海报 2" loading="lazy"></div>
+      <div class="poster-item"><img src="assets/ai/海报-3.png" alt="创意海报 3" loading="lazy"></div>
+      <div class="poster-item"><img src="assets/ai/海报-4.png" alt="创意海报 4" loading="lazy"></div>
+      <div class="poster-item"><img src="assets/ai/海报-5.png" alt="创意海报 5" loading="lazy"></div>
+      <div class="poster-item"><img src="assets/ai/海报-6.png" alt="创意海报 6" loading="lazy"></div>
+      <div class="poster-item"><img src="assets/ai/海报-7.png" alt="创意海报 7" loading="lazy"></div>
     </div>
   </div>
 </section>
@@ -1206,7 +1007,7 @@ footer a:hover { color: var(--text-primary); }
 
 
 <!-- ══════════════════════════════════════════
-     ④⑤ VIDEO + GIF — 动态影像合并板块
+     ④⑤ VIDEO + GIF — 动态影像板块
 ══════════════════════════════════════════ -->
 <section id="video">
   <div class="section-header fade-up">
@@ -1215,105 +1016,84 @@ footer a:hover { color: var(--text-primary); }
     <p class="section-sub">视频与 GIF 同台——记录 AI 赋予画面运动与情绪的每一次实验。</p>
   </div>
 
-  <div class="motion-grid fade-up fade-up-delay-1">
+  <!-- ── 视频区：三列网格，视频1较宽 ── -->
+  <div class="video-grid fade-up fade-up-delay-1">
 
-    <!-- ── 视频 1：主推，宽2列 ── -->
-    <div class="video-slot video-slot-1">
+    <div class="video-slot">
       <div class="video-thumb-wrap">
         <iframe src="//player.bilibili.com/player.html?bvid=BV1gtwAzUEwz&autoplay=0&danmaku=0" scrolling="no" frameborder="0" allowfullscreen></iframe>
       </div>
       <div class="video-info-bar">
-        <div>
-          <h5>AI 视频 · 01</h5>
-          <p>Bilibili · BV1gtwAzUEwz</p>
-        </div>
-        <span>主推作品</span>
+        <div><h5>AI 视频 · 01</h5><p>主推作品</p></div>
+        <span>Bilibili</span>
       </div>
     </div>
 
-    <!-- ── 视频 2 ── -->
-    <div class="video-slot video-slot-2">
+    <div class="video-slot">
       <div class="video-thumb-wrap">
         <iframe src="//player.bilibili.com/player.html?bvid=BV1h4wAzJEUg&autoplay=0&danmaku=0" scrolling="no" frameborder="0" allowfullscreen></iframe>
       </div>
       <div class="video-info-bar">
-        <div>
-          <h5>AI 视频 · 02</h5>
-          <p>Bilibili · BV1h4wAzJEUg</p>
-        </div>
-        <span>Kling AI</span>
+        <div><h5>AI 视频 · 02</h5><p>Kling AI</p></div>
+        <span>Bilibili</span>
       </div>
     </div>
 
-    <!-- ── 视频 3 ── -->
-    <div class="video-slot video-slot-3">
+    <div class="video-slot">
       <div class="video-thumb-wrap">
         <iframe src="//player.bilibili.com/player.html?bvid=BV1Q4wAzEEL5&autoplay=0&danmaku=0" scrolling="no" frameborder="0" allowfullscreen></iframe>
       </div>
       <div class="video-info-bar">
-        <div>
-          <h5>AI 视频 · 03</h5>
-          <p>Bilibili · BV1Q4wAzEEL5</p>
-        </div>
-        <span>Runway ML</span>
+        <div><h5>AI 视频 · 03</h5><p>Runway ML</p></div>
+        <span>Bilibili</span>
       </div>
     </div>
 
-    <!-- ── GIF 1：竖版，跨2行（与视频并列右侧） ── -->
-    <div class="gif-slot gif-slot-1">
+  </div>
+
+  <!-- ── GIF区：双列瀑布流，图片自然高度 ── -->
+  <div class="gif-masonry fade-up fade-up-delay-2">
+
+    <div class="gif-slot">
       <div class="gif-media">
-        <img src="assets/ai/AI GIF-1.gif" alt="AI GIF 1" loading="lazy">
-        <div class="gif-badge-overlay">GIF · Loop</div>
+        <img src="assets/ai/AI%20GIF-1.gif" alt="AI GIF 1" loading="lazy">
       </div>
-      <div class="gif-caption">
-        <h6>AI GIF · 01</h6>
-        <p>上传 AI GIF-1</p>
-      </div>
+      <div class="gif-caption"><h6>AI GIF · 01</h6><p>AI 生成动图</p></div>
     </div>
 
-    <!-- ── GIF 2 ── -->
-    <div class="gif-slot gif-slot-2">
+    <div class="gif-slot">
       <div class="gif-media">
-        <img src="assets/ai/AI GIF-2.gif" alt="AI GIF 2" loading="lazy">
-        <div class="gif-badge-overlay">GIF</div>
+        <img src="assets/ai/AI%20GIF-2.gif" alt="AI GIF 2" loading="lazy">
       </div>
-      <div class="gif-caption"><h6>AI GIF · 02</h6><p>上传 AI GIF-2</p></div>
+      <div class="gif-caption"><h6>AI GIF · 02</h6><p>AI 生成动图</p></div>
     </div>
 
-    <!-- ── GIF 3 ── -->
-    <div class="gif-slot gif-slot-3">
+    <div class="gif-slot">
       <div class="gif-media">
-        <img src="assets/ai/AI GIF-3.gif" alt="AI GIF 3" loading="lazy">
-        <div class="gif-badge-overlay">GIF</div>
+        <img src="assets/ai/AI%20GIF-3.gif" alt="AI GIF 3" loading="lazy">
       </div>
-      <div class="gif-caption"><h6>AI GIF · 03</h6><p>上传 AI GIF-3</p></div>
+      <div class="gif-caption"><h6>AI GIF · 03</h6><p>AI 生成动图</p></div>
     </div>
 
-    <!-- ── GIF 4 ── -->
-    <div class="gif-slot gif-slot-4">
+    <div class="gif-slot">
       <div class="gif-media">
-        <img src="assets/ai/AI GIF-4.gif" alt="AI GIF 4" loading="lazy">
-        <div class="gif-badge-overlay">GIF</div>
+        <img src="assets/ai/AI%20GIF-4.gif" alt="AI GIF 4" loading="lazy">
       </div>
-      <div class="gif-caption"><h6>AI GIF · 04</h6><p>上传 AI GIF-4</p></div>
+      <div class="gif-caption"><h6>AI GIF · 04</h6><p>AI 生成动图</p></div>
     </div>
 
-    <!-- ── GIF 5：宽2列 ── -->
-    <div class="gif-slot gif-slot-5">
-      <div class="gif-media" style="aspect-ratio:21/9;">
-        <img src="assets/ai/AI GIF-5.gif" alt="AI GIF 5" loading="lazy">
-        <div class="gif-badge-overlay">GIF · Loop</div>
+    <div class="gif-slot">
+      <div class="gif-media">
+        <img src="assets/ai/AI%20GIF-5.gif" alt="AI GIF 5" loading="lazy">
       </div>
-      <div class="gif-caption"><h6>AI GIF · 05</h6><p>上传 AI GIF-5</p></div>
+      <div class="gif-caption"><h6>AI GIF · 05</h6><p>AI 生成动图</p></div>
     </div>
 
-    <!-- ── GIF 6：宽2列 ── -->
-    <div class="gif-slot gif-slot-6">
-      <div class="gif-media" style="aspect-ratio:21/9;">
-        <img src="assets/ai/AI GIF-6.gif" alt="AI GIF 6" loading="lazy">
-        <div class="gif-badge-overlay">GIF</div>
+    <div class="gif-slot">
+      <div class="gif-media">
+        <img src="assets/ai/AI%20GIF-6.gif" alt="AI GIF 6" loading="lazy">
       </div>
-      <div class="gif-caption"><h6>AI GIF · 06</h6><p>上传 AI GIF-6（可选）</p></div>
+      <div class="gif-caption"><h6>AI GIF · 06</h6><p>AI 生成动图</p></div>
     </div>
 
   </div>
