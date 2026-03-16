@@ -730,22 +730,15 @@ img {
    手机：全部单列堆叠，清晰可读
 ───────────────────────────────────────────── */
 
-/* 视频区：左列竖屏 × 3 | 右列横屏 × 3 */
-.video-grid {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  grid-template-rows: auto auto auto;
+/* 视频区：竖屏一行 + 横屏一行，各自flex排列 */
+.video-row {
+  display: flex;
   gap: 16px;
   margin-bottom: 16px;
-  align-items: start;
 }
-/* 竖屏视频：左列，各占1行 */
-.video-grid .video-slot.portrait {
-  grid-column: 1;
-}
-/* 横屏视频：右列，各占1行 */
-.video-grid .video-slot.landscape {
-  grid-column: 2;
+.video-row .video-slot {
+  flex: 1;
+  min-width: 0;
 }
 
 /* GIF区：双列瀑布流（CSS columns实现，图片自然高度） */
@@ -945,8 +938,7 @@ footer a:hover { color: var(--text-primary); }
 
 /* 平板：视频改为1大+2小纵排 */
 @media (max-width: 1024px) {
-  .video-grid { grid-template-columns: 1fr 1fr; }
-  .video-grid .video-slot:first-child { grid-column: 1 / 3; }
+  /* 平板：竖屏行保持3列，横屏行保持3列 */
   .gif-masonry { columns: 2; }
 }
 
@@ -960,15 +952,10 @@ footer a:hover { color: var(--text-primary); }
   .flip-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
 
 
-  /* 视频：手机单列，重置所有定位 */
-  .video-grid {
-    grid-template-columns: 1fr;
+  /* 视频：手机单列 */
+  .video-row {
+    flex-direction: column;
     gap: 12px;
-  }
-  .video-grid .video-slot.portrait,
-  .video-grid .video-slot.landscape {
-    grid-column: 1;
-    grid-row: auto;
   }
 
   /* GIF：手机保持双列，更紧凑 */
@@ -1010,7 +997,7 @@ footer a:hover { color: var(--text-primary); }
   .gif-caption { padding: 8px 10px; }
 
   /* 视频单列 */
-  .video-grid { gap: 10px; }
+  .video-row { gap: 10px; }
   .video-info-bar { padding: 10px 14px; }
 
   /* City */
@@ -1442,11 +1429,10 @@ footer a:hover { color: var(--text-primary); }
     <p class="section-sub">视频与 GIF 同台——记录 AI 赋予画面运动与情绪的每一次实验。</p>
   </div>
 
-  <!-- ── 视频区：左竖屏 × 3 | 右横屏 × 3 ── -->
-  <div class="video-grid fade-up fade-up-delay-1">
+  <!-- ── 竖屏行：三个9:16并排 ── -->
+  <div class="video-row fade-up fade-up-delay-1">
 
-    <!-- 竖屏 01 -->
-    <div class="video-slot portrait">
+    <div class="video-slot">
       <div class="video-thumb-wrap" style="aspect-ratio:9/16;">
         <iframe src="//player.bilibili.com/player.html?bvid=BV1gtwAzUEwz&autoplay=0&danmaku=0" scrolling="no" frameborder="0" allowfullscreen></iframe>
       </div>
@@ -1456,8 +1442,7 @@ footer a:hover { color: var(--text-primary); }
       </div>
     </div>
 
-    <!-- 竖屏 A -->
-    <div class="video-slot portrait">
+    <div class="video-slot">
       <div class="video-thumb-wrap" style="aspect-ratio:9/16;">
         <iframe src="//player.bilibili.com/player.html?bvid=BV14jwLzyEZ7&autoplay=0&danmaku=0" scrolling="no" frameborder="0" allowfullscreen></iframe>
       </div>
@@ -1467,8 +1452,7 @@ footer a:hover { color: var(--text-primary); }
       </div>
     </div>
 
-    <!-- 竖屏 B -->
-    <div class="video-slot portrait">
+    <div class="video-slot">
       <div class="video-thumb-wrap" style="aspect-ratio:9/16;">
         <iframe src="//player.bilibili.com/player.html?bvid=BV1QewTzFEsy&autoplay=0&danmaku=0" scrolling="no" frameborder="0" allowfullscreen></iframe>
       </div>
@@ -1478,8 +1462,12 @@ footer a:hover { color: var(--text-primary); }
       </div>
     </div>
 
-    <!-- 横屏 02 -->
-    <div class="video-slot landscape">
+  </div>
+
+  <!-- ── 横屏行：三个16:9并排 ── -->
+  <div class="video-row fade-up fade-up-delay-2">
+
+    <div class="video-slot">
       <div class="video-thumb-wrap" style="aspect-ratio:16/9;">
         <iframe src="//player.bilibili.com/player.html?bvid=BV1h4wAzJEUg&autoplay=0&danmaku=0" scrolling="no" frameborder="0" allowfullscreen></iframe>
       </div>
@@ -1489,8 +1477,7 @@ footer a:hover { color: var(--text-primary); }
       </div>
     </div>
 
-    <!-- 横屏 03 -->
-    <div class="video-slot landscape">
+    <div class="video-slot">
       <div class="video-thumb-wrap" style="aspect-ratio:16/9;">
         <iframe src="//player.bilibili.com/player.html?bvid=BV1Q4wAzEEL5&autoplay=0&danmaku=0" scrolling="no" frameborder="0" allowfullscreen></iframe>
       </div>
@@ -1500,8 +1487,7 @@ footer a:hover { color: var(--text-primary); }
       </div>
     </div>
 
-    <!-- 横屏 C -->
-    <div class="video-slot landscape">
+    <div class="video-slot">
       <div class="video-thumb-wrap" style="aspect-ratio:16/9;">
         <iframe src="//player.bilibili.com/player.html?bvid=BV1TjwLzyEAT&autoplay=0&danmaku=0" scrolling="no" frameborder="0" allowfullscreen></iframe>
       </div>
