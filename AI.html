@@ -730,27 +730,22 @@ img {
    手机：全部单列堆叠，清晰可读
 ───────────────────────────────────────────── */
 
-/* 视频区：视频01竖屏(左) + 视频02/03横屏叠放(右) */
+/* 视频区：左列竖屏 × 3 | 右列横屏 × 3 */
 .video-grid {
   display: grid;
   grid-template-columns: 1fr 2fr;
+  grid-template-rows: auto auto auto;
   gap: 16px;
   margin-bottom: 16px;
   align-items: start;
 }
-/* 视频01：竖屏，占左列整格 */
-.video-grid .video-slot:nth-child(1) {
+/* 竖屏视频：左列，各占1行 */
+.video-grid .video-slot.portrait {
   grid-column: 1;
-  grid-row: 1 / 3;
 }
-/* 视频02/03：横屏，右列上下排 */
-.video-grid .video-slot:nth-child(2) {
+/* 横屏视频：右列，各占1行 */
+.video-grid .video-slot.landscape {
   grid-column: 2;
-  grid-row: 1;
-}
-.video-grid .video-slot:nth-child(3) {
-  grid-column: 2;
-  grid-row: 2;
 }
 
 /* GIF区：双列瀑布流（CSS columns实现，图片自然高度） */
@@ -965,14 +960,13 @@ footer a:hover { color: var(--text-primary); }
   .flip-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
 
 
-  /* 视频：手机单列，重置所有grid定位 */
+  /* 视频：手机单列，重置所有定位 */
   .video-grid {
     grid-template-columns: 1fr;
     gap: 12px;
   }
-  .video-grid .video-slot:nth-child(1),
-  .video-grid .video-slot:nth-child(2),
-  .video-grid .video-slot:nth-child(3) {
+  .video-grid .video-slot.portrait,
+  .video-grid .video-slot.landscape {
     grid-column: 1;
     grid-row: auto;
   }
@@ -1448,35 +1442,71 @@ footer a:hover { color: var(--text-primary); }
     <p class="section-sub">视频与 GIF 同台——记录 AI 赋予画面运动与情绪的每一次实验。</p>
   </div>
 
-  <!-- ── 视频区：三列网格，视频1较宽 ── -->
+  <!-- ── 视频区：左竖屏 × 3 | 右横屏 × 3 ── -->
   <div class="video-grid fade-up fade-up-delay-1">
 
-    <div class="video-slot">
+    <!-- 竖屏 01 -->
+    <div class="video-slot portrait">
       <div class="video-thumb-wrap" style="aspect-ratio:9/16;">
         <iframe src="//player.bilibili.com/player.html?bvid=BV1gtwAzUEwz&autoplay=0&danmaku=0" scrolling="no" frameborder="0" allowfullscreen></iframe>
       </div>
       <div class="video-info-bar">
-        <div><h5>AI 视频 · 01</h5><p>主推作品 · 竖屏</p></div>
+        <div><h5>AI 视频 · 01</h5><p>竖屏</p></div>
         <span>Bilibili</span>
       </div>
     </div>
 
-    <div class="video-slot">
-      <div class="video-thumb-wrap">
+    <!-- 竖屏 A -->
+    <div class="video-slot portrait">
+      <div class="video-thumb-wrap" style="aspect-ratio:9/16;">
+        <iframe src="//player.bilibili.com/player.html?bvid=BV14jwLzyEZ7&autoplay=0&danmaku=0" scrolling="no" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <div class="video-info-bar">
+        <div><h5>AI 视频 · 04</h5><p>竖屏</p></div>
+        <span>Bilibili</span>
+      </div>
+    </div>
+
+    <!-- 竖屏 B -->
+    <div class="video-slot portrait">
+      <div class="video-thumb-wrap" style="aspect-ratio:9/16;">
+        <iframe src="//player.bilibili.com/player.html?bvid=BV1QewTzFEsy&autoplay=0&danmaku=0" scrolling="no" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <div class="video-info-bar">
+        <div><h5>AI 视频 · 05</h5><p>竖屏</p></div>
+        <span>Bilibili</span>
+      </div>
+    </div>
+
+    <!-- 横屏 02 -->
+    <div class="video-slot landscape">
+      <div class="video-thumb-wrap" style="aspect-ratio:16/9;">
         <iframe src="//player.bilibili.com/player.html?bvid=BV1h4wAzJEUg&autoplay=0&danmaku=0" scrolling="no" frameborder="0" allowfullscreen></iframe>
       </div>
       <div class="video-info-bar">
-        <div><h5>AI 视频 · 02</h5><p>Kling AI</p></div>
+        <div><h5>AI 视频 · 02</h5><p>横屏</p></div>
         <span>Bilibili</span>
       </div>
     </div>
 
-    <div class="video-slot">
-      <div class="video-thumb-wrap">
+    <!-- 横屏 03 -->
+    <div class="video-slot landscape">
+      <div class="video-thumb-wrap" style="aspect-ratio:16/9;">
         <iframe src="//player.bilibili.com/player.html?bvid=BV1Q4wAzEEL5&autoplay=0&danmaku=0" scrolling="no" frameborder="0" allowfullscreen></iframe>
       </div>
       <div class="video-info-bar">
-        <div><h5>AI 视频 · 03</h5><p>Runway ML</p></div>
+        <div><h5>AI 视频 · 03</h5><p>横屏</p></div>
+        <span>Bilibili</span>
+      </div>
+    </div>
+
+    <!-- 横屏 C -->
+    <div class="video-slot landscape">
+      <div class="video-thumb-wrap" style="aspect-ratio:16/9;">
+        <iframe src="//player.bilibili.com/player.html?bvid=BV1TjwLzyEAT&autoplay=0&danmaku=0" scrolling="no" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <div class="video-info-bar">
+        <div><h5>AI 视频 · 06</h5><p>横屏</p></div>
         <span>Bilibili</span>
       </div>
     </div>
