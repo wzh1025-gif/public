@@ -506,9 +506,23 @@ section { padding: 96px 48px; }
   top: 50%; left: 50%;
   transform: translate(-50%,-50%);
 }
-.ai-lab-visual .glyph { position: relative; text-align: center; }
-.ai-lab-visual .glyph b { display: block; font-size: 5rem; font-weight: 400; margin-bottom: 16px; opacity: 0.85; color: var(--paper); }
-.ai-lab-visual .glyph span { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(250,248,245,0.35); }
+.ai-lab-visual canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.lab-status {
+  position: absolute; left: 28px; bottom: 24px;
+  font-family: "SF Mono", "JetBrains Mono", Consolas, monospace;
+  font-size: 0.7rem; letter-spacing: 0.06em;
+  color: rgba(250,248,245,0.4);
+  pointer-events: none;
+}
+.lab-status b { color: #C6B5FF; font-weight: 600; }
+.lab-enter {
+  position: absolute; right: 28px; bottom: 22px;
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(250,248,245,0.45);
+  pointer-events: none;
+  transition: color 0.2s;
+}
+.ai-lab:hover .lab-enter { color: #C6B5FF; }
 .ai-corner { position: absolute; top: 32px; right: 36px; font-size: 1.2rem; color: rgba(250,248,245,0.25); }
 
 /* generator feature — palette echoes the generator itself */
@@ -930,7 +944,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
   .media-figure:nth-child(n+3) { border-top: var(--rule); }
   .ai-lab { grid-template-columns: 1fr; }
   .ai-lab-text { padding: 40px 28px; border-right: none; }
-  .ai-lab-visual { min-height: 200px; }
+  .ai-lab-visual { min-height: 240px; }
   .gen { grid-template-columns: 1fr; }
   .gen-text { padding: 40px 28px 36px; }
   .gen-demo { border-left: none; border-top: 1px solid var(--g-line); padding: 32px 28px; }
@@ -1223,8 +1237,10 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
           <span class="hl">AIGC</span>
         </div>
       </div>
-      <div class="ai-lab-visual">
-        <div class="glyph"><b>✦</b><span>Enter Lab →</span></div>
+      <div class="ai-lab-visual" id="labVisual">
+        <canvas id="labField" aria-hidden="true"></canvas>
+        <div class="lab-status" id="labStatus">去噪 <b>0</b> / 50</div>
+        <div class="lab-enter">Enter Lab →</div>
       </div>
       <div class="ai-corner">↗</div>
     </a>
@@ -1563,6 +1579,129 @@ function startStatCycle() {
   });
 }
 setTimeout(startStatCycle, 1200);
+
+// AI 创作实验室：噪点去噪聚合成文字（呼应实验室首页的效果）
+(function () {
+  const box = document.getElementById('labVisual');
+  const cv = document.getElementById('labField');
+  if (!box || !cv) return;
+  const ctx = cv.getContext('2d');
+  const statusEl = document.getElementById('labStatus');
+  const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const PALETTE = ['#A999FF', '#C6B5FF', '#E6E4F7', '#F7C3DA', '#F4A6C8', '#FFD1B0'];
+  const PHRASES = ['AIGC', '点击进入', '创作实验'];
+  const STEPS = 50, FORM_MS = 2200, HOLD_MS = 3200;
+  let W, H, DPR, parts = [], noise = [], idx = 0, t0 = 0, raf = null, visible = false, dot = 1.8;
+  const pointer = { x: -9999, y: -9999 };
+
+  function size() {
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    W = box.clientWidth; H = box.clientHeight;
+    cv.width = W * DPR; cv.height = H * DPR;
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    noise = Array.from({ length: Math.round(W * H / 2600) }, () => ({
+      x: Math.random() * W, y: Math.random() * H,
+      vx: (Math.random() - 0.5) * 0.25, vy: (Math.random() - 0.5) * 0.25,
+      a: Math.random() * 0.3 + 0.05
+    }));
+  }
+
+  // 把文字画到离屏画布，按格子采样出目标点
+  function targets(text) {
+    const oc = document.createElement('canvas');
+    oc.width = W; oc.height = H;
+    const o = oc.getContext('2d', { willReadFrequently: true });
+    const fam = '"Noto Serif SC","Songti SC","STSong","SimSun",serif';
+    let fs = Math.min(H * 0.5, W * 0.34);
+    o.font = `900 ${fs}px ${fam}`;
+    const w = o.measureText(text).width;
+    if (w > W * 0.8) { fs *= (W * 0.8) / w; o.font = `900 ${fs}px ${fam}`; }
+    o.fillStyle = '#fff'; o.textAlign = 'center'; o.textBaseline = 'middle';
+    o.fillText(text, W / 2, H * 0.46);
+    const data = o.getImageData(0, 0, W, H).data;
+    const cap = W < 500 ? 1400 : 2600;
+    let step = 3, out;
+    do {
+      out = [];
+      for (let y = 0; y < H; y += step)
+        for (let x = 0; x < W; x += step) {
+          let c = 0, n = 0;
+          for (let yy = y; yy < y + step && yy < H; yy++)
+            for (let xx = x; xx < x + step && xx < W; xx++, n++) c += data[(yy * W + xx) * 4 + 3];
+          if (n && c / (n * 255) > 0.3) out.push([x + step / 2, y + step / 2]);
+        }
+      step++;
+    } while (out.length > cap);
+    dot = Math.max(1.5, (step - 1) * 0.55);
+    for (let i = out.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [out[i], out[j]] = [out[j], out[i]]; }
+    return out;
+  }
+
+  function form(scatter) {
+    const tg = targets(PHRASES[idx]);
+    parts = tg.map(([tx, ty], i) => {
+      const p = parts[i] || { x: Math.random() * W, y: Math.random() * H, vx: 0, vy: 0 };
+      p.tx = tx; p.ty = ty;
+      const c = Math.floor((tx / W + (Math.random() - 0.5) * 0.15) * PALETTE.length);
+      p.col = PALETTE[Math.max(0, Math.min(PALETTE.length - 1, c))];
+      p.jx = (Math.random() - 0.5) * W; p.jy = (Math.random() - 0.5) * H;   // 每个点的噪声偏移
+      if (scatter) { const a = Math.random() * Math.PI * 2, s = 4 + Math.random() * 10; p.vx += Math.cos(a) * s; p.vy += Math.sin(a) * s; }
+      return p;
+    });
+    t0 = performance.now();
+  }
+
+  function draw(k) {
+    ctx.clearRect(0, 0, W, H);
+    for (const n of noise) {
+      if (!REDUCED) { n.x = (n.x + n.vx + W) % W; n.y = (n.y + n.vy + H) % H; }
+      ctx.globalAlpha = n.a; ctx.fillStyle = '#E6E4F7';
+      ctx.fillRect(n.x, n.y, 1.2, 1.2);
+    }
+    // 去噪进度：k 从 0 到 1，噪声幅度逐步减小
+    const amp = Math.pow(1 - k, 2.2);
+    ctx.globalAlpha = 0.95;
+    for (const p of parts) {
+      let gx = p.tx + p.jx * amp, gy = p.ty + p.jy * amp;
+      const dx = p.x - pointer.x, dy = p.y - pointer.y, d2 = dx * dx + dy * dy, R = 70;
+      if (d2 < R * R) {                                   // 鼠标附近的点退回噪声
+        const f = (1 - Math.sqrt(d2) / R) * 3.2, d = Math.sqrt(d2) || 1;
+        p.vx += (dx / d) * f; p.vy += (dy / d) * f;
+      }
+      p.vx += (gx - p.x) * 0.06; p.vy += (gy - p.y) * 0.06;
+      p.vx *= 0.8; p.vy *= 0.8;
+      p.x += p.vx; p.y += p.vy;
+      ctx.fillStyle = p.col;
+      ctx.fillRect(p.x, p.y, dot, dot);
+    }
+    ctx.globalAlpha = 1;
+    statusEl.innerHTML = `去噪 <b>${Math.round(k * STEPS)}</b> / ${STEPS}　「${PHRASES[idx]}」`;
+  }
+
+  function loop(now) {
+    const el = now - t0;
+    draw(Math.min(1, el / FORM_MS));
+    if (el > FORM_MS + HOLD_MS) { idx = (idx + 1) % PHRASES.length; form(true); }
+    raf = visible ? requestAnimationFrame(loop) : null;
+  }
+
+  function start() {
+    size(); form(false);
+    if (REDUCED) { parts.forEach(p => { p.x = p.tx; p.y = p.ty; p.jx = p.jy = 0; }); draw(1); return; }
+    new IntersectionObserver(es => {
+      visible = es[0].isIntersecting;
+      if (visible && !raf) { t0 = performance.now() - (t0 ? 0 : 0); raf = requestAnimationFrame(loop); }
+    }, { threshold: 0.1 }).observe(box);
+  }
+
+  box.addEventListener('pointermove', e => { const r = box.getBoundingClientRect(); pointer.x = e.clientX - r.left; pointer.y = e.clientY - r.top; });
+  box.addEventListener('pointerleave', () => { pointer.x = pointer.y = -9999; });
+  let rt;
+  window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { parts = []; size(); form(false); if (REDUCED) { parts.forEach(p => { p.x = p.tx; p.y = p.ty; p.jx = p.jy = 0; }); draw(1); } }, 200); });
+
+  // 等字体加载完再采样，笔画才准确
+  (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(start);
+})();
 </script>
 </body>
 </html>
