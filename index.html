@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wang Zeheng · Media Researcher & Journalist</title>
+<title>Wang Zeheng · 王泽恒 · Educator, Media Researcher & Journalist</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
 
@@ -70,7 +70,7 @@ nav {
 }
 .nav-links {
   display: flex;
-  gap: 36px;
+  gap: 32px;
   list-style: none;
 }
 .nav-links a {
@@ -123,21 +123,6 @@ nav {
   font-style: italic;
   color: var(--ink-60);
 }
-.hero-desc {
-  font-size: 1.05rem;
-  color: var(--ink-60);
-  line-height: 1.8;
-  max-width: 480px;
-  margin-bottom: 48px;
-  font-weight: 300;
-}
-.hero-desc strong { font-weight: 600; color: var(--ink); }
-.hero-cta {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-  margin-bottom: 64px;
-}
 .btn-primary {
   display: inline-flex;
   align-items: center;
@@ -181,7 +166,7 @@ nav {
   border-top: var(--rule);
   padding-top: 32px;
 }
-.hero-stat { flex: 1; }
+.hero-stat { flex: 1; overflow: hidden; }
 .hero-stat + .hero-stat {
   padding-left: 24px;
   border-left: var(--rule);
@@ -193,7 +178,6 @@ nav {
   line-height: 1;
   margin-bottom: 6px;
 }
-/* hero right panel — text + portrait layout */
 .hero-right {
   position: relative;
   background: var(--cream);
@@ -267,7 +251,7 @@ nav {
 .ticker-inner {
   display: inline-flex;
   gap: 40px;
-  animation: ticker 28s linear infinite;
+  animation: ticker 32s linear infinite;
 }
 .ticker-inner span {
   font-size: 0.7rem;
@@ -335,6 +319,7 @@ section { padding: 96px 48px; }
   padding-bottom: 12px;
   border-bottom: var(--rule);
 }
+.col-title.spaced { margin-top: 40px; }
 .skills-wrap { margin-top: 32px; }
 .skill-tag {
   display: inline-block;
@@ -360,6 +345,214 @@ section { padding: 96px 48px; }
 .t-text { font-size: 0.88rem; line-height: 1.5; }
 .t-sub { color: var(--ink-60); font-size: 0.8rem; margin-top: 2px; }
 
+/* ─── TEACHING (师资风采) ───────────────────────── */
+.teaching-section { border-bottom: var(--rule); }
+.teach-intro {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 56px;
+  align-items: start;
+  margin-bottom: 64px;
+}
+.teach-lede {
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 2.6vw, 2.2rem);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  margin-bottom: 24px;
+}
+.teach-body {
+  font-size: 0.98rem;
+  line-height: 1.9;
+  color: var(--ink-60);
+  font-weight: 300;
+  max-width: 600px;
+}
+.teach-body strong { color: var(--ink); font-weight: 600; }
+
+.sub-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+.sub-head h3 { font-size: 1.6rem; letter-spacing: -0.01em; }
+.sub-head p { font-size: 0.85rem; color: var(--ink-60); }
+
+.shows {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+}
+.show-card { display: flex; flex-direction: column; }
+.show-card img {
+  width: 100%;
+  aspect-ratio: 9/16;
+  object-fit: cover;
+  display: block;
+  border: var(--rule);
+  background: var(--cream);
+}
+.show-info { padding-top: 14px; }
+.show-info h4 { font-family: 'Noto Serif SC', var(--serif); font-weight: 700; font-size: 0.98rem; line-height: 1.4; margin-bottom: 6px; }
+.show-genre { font-size: 0.72rem; font-weight: 600; color: var(--accent); margin-bottom: 8px; }
+.show-log { font-size: 0.82rem; line-height: 1.7; color: var(--ink-60); margin-bottom: 10px; }
+.show-team { font-size: 0.72rem; line-height: 1.6; color: var(--ink-60); border-top: var(--rule); padding-top: 8px; }
+.show-team span { display: block; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+
+/* media figures live in the portfolio section */
+.media-figures {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: var(--rule);
+  border-bottom: var(--rule);
+  margin-bottom: 48px;
+}
+.media-figure { padding: 28px 24px 28px 0; }
+.media-figure + .media-figure { padding-left: 24px; border-left: var(--rule); }
+.media-figure .n { font-family: var(--serif); font-size: 2.2rem; line-height: 1; margin-bottom: 8px; }
+.media-figure .d { font-size: 0.82rem; color: var(--ink-60); line-height: 1.5; }
+.media-bottom {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  margin-top: 64px;
+}
+.media-bottom p { font-size: 0.92rem; line-height: 1.85; color: var(--ink-60); font-weight: 300; }
+.media-bottom p strong { color: var(--ink); font-weight: 600; }
+.honor-list { list-style: none; }
+.honor-list li {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: var(--rule);
+  font-size: 0.9rem;
+}
+.honor-list li:last-child { border-bottom: none; }
+.honor-list .y { color: var(--accent); font-weight: 700; font-size: 0.78rem; padding-top: 2px; }
+
+/* ─── AI SECTION ─────────────────────────────────── */
+.ai-section { border-bottom: var(--rule); }
+.ai-lab {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 380px;
+  background: var(--ink);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.3s;
+}
+.ai-lab:hover { opacity: 0.92; }
+.ai-lab-text {
+  padding: 56px 52px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 1px solid rgba(250,248,245,0.1);
+}
+.ai-pill {
+  display: inline-block;
+  padding: 4px 14px;
+  background: rgba(200,71,10,0.25);
+  font-size: 0.67rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #ff8c5a;
+  margin-bottom: 28px;
+}
+.ai-lab h3 {
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  color: var(--paper);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+}
+.ai-lab-desc {
+  font-size: 0.92rem;
+  color: rgba(250,248,245,0.55);
+  line-height: 1.8;
+  font-weight: 300;
+  max-width: 400px;
+}
+.ai-tools { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 36px; }
+.ai-tools span {
+  padding: 5px 14px;
+  border: 1px solid rgba(250,248,245,0.18);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: rgba(250,248,245,0.5);
+}
+.ai-tools span.hl { border-color: rgba(200,71,10,0.4); color: #ff8c5a; font-weight: 700; }
+.ai-lab-visual {
+  position: relative;
+  background: linear-gradient(135deg, #1a1714 0%, #2d1f0e 50%, #1a0f00 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.ai-lab-visual::before {
+  content: '';
+  position: absolute;
+  width: 320px; height: 320px;
+  background: radial-gradient(circle, rgba(200,71,10,0.25) 0%, transparent 65%);
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+}
+.ai-lab-visual .glyph { position: relative; text-align: center; }
+.ai-lab-visual .glyph b { display: block; font-size: 5rem; font-weight: 400; margin-bottom: 16px; opacity: 0.85; color: var(--paper); }
+.ai-lab-visual .glyph span { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(250,248,245,0.35); }
+.ai-corner { position: absolute; top: 32px; right: 36px; font-size: 1.2rem; color: rgba(250,248,245,0.25); }
+
+/* generator tool card */
+.tool-card {
+  margin-top: 1px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 40px;
+  align-items: center;
+  padding: 40px 52px;
+  background: #2a1a1c;
+  border-radius: 4px;
+  color: #f4ead9;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s;
+}
+.tool-card:hover { background: #33201f; }
+.tool-card .seal {
+  width: 88px; height: 88px;
+  border: 2px solid #e8b04b;
+  color: #e8b04b;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Noto Serif SC', serif;
+  font-weight: 700;
+  font-size: 2.2rem;
+  flex-shrink: 0;
+}
+.tool-card .tk { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; color: #e8b04b; margin-bottom: 8px; }
+.tool-card h4 { font-family: 'Noto Serif SC', var(--serif); font-weight: 700; font-size: 1.5rem; margin-bottom: 8px; }
+.tool-card p { font-size: 0.88rem; line-height: 1.75; color: #a58a7f; max-width: 560px; }
+.tool-card .go {
+  padding: 12px 24px;
+  border: 1px solid #e8b04b;
+  color: #e8b04b;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  transition: all 0.25s;
+}
+.tool-card:hover .go { background: #e8b04b; color: #17100e; }
+
 /* ─── WORKS ──────────────────────────────────────── */
 .works-section { border-bottom: var(--rule); }
 .works-filter {
@@ -381,6 +574,7 @@ section { padding: 96px 48px; }
   color: var(--ink-60);
   transition: all 0.2s;
   font-family: var(--sans);
+  white-space: nowrap;
 }
 .filter-btn:last-child { border-right: none; }
 .filter-btn:hover { color: var(--ink); background: var(--cream); }
@@ -403,11 +597,6 @@ section { padding: 96px 48px; }
   text-decoration: none;
 }
 .work-card.show { display: block; }
-.work-card.featured {
-  aspect-ratio: unset;
-  grid-column: span 2;
-  grid-row: span 2;
-}
 .work-card-img {
   width: 100%;
   height: 100%;
@@ -429,6 +618,10 @@ section { padding: 96px 48px; }
   transition: all 0.35s ease;
 }
 .work-card:hover .work-card-info { opacity: 1; transform: translateY(0); }
+/* 触屏设备没有悬停，标题常驻 */
+@media (hover: none) {
+  .work-card-info { opacity: 1; transform: none; }
+}
 .work-tag {
   font-size: 0.63rem;
   font-weight: 700;
@@ -444,17 +637,6 @@ section { padding: 96px 48px; }
   color: white;
   line-height: 1.3;
 }
-/* Placeholder for missing images */
-.work-placeholder {
-  width: 100%;
-  height: 100%;
-  background: var(--cream);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-  color: var(--ink-30);
-}
 
 /* ─── ACADEMIC ─────────────────────────────────── */
 .academic-section {
@@ -464,8 +646,15 @@ section { padding: 96px 48px; }
 .academic-section .section-title { color: var(--paper); }
 .academic-section .section-header { border-color: rgba(250,248,245,0.12); }
 .academic-section .label { color: rgba(250,248,245,0.45); }
-.academic-section .see-all { color: rgba(250,248,245,0.45); }
-.academic-section .see-all:hover { color: var(--paper); }
+.research-note {
+  font-size: 0.92rem;
+  line-height: 1.85;
+  color: rgba(250,248,245,0.55);
+  font-weight: 300;
+  max-width: 760px;
+  margin-bottom: 40px;
+}
+.research-note strong { color: var(--paper); font-weight: 600; }
 
 .papers-list { display: flex; flex-direction: column; }
 .paper-row {
@@ -549,24 +738,6 @@ section { padding: 96px 48px; }
 }
 .p-desc { font-size: 0.88rem; color: var(--ink-60); line-height: 1.75; font-weight: 300; }
 
-/* AI card — dark */
-.project-card.ai-card {
-  background: var(--ink);
-  color: var(--paper);
-}
-.project-card.ai-card:hover { background: #26211e; }
-.project-card.ai-card .p-desc { color: rgba(250,248,245,0.5); }
-.project-card.ai-card .p-tag { background: rgba(200,71,10,0.25); color: #ff8c5a; }
-.project-card.ai-card .project-arrow { color: rgba(250,248,245,0.25); }
-.project-card.ai-card:hover .project-arrow { color: #ff8c5a; }
-.ai-glow {
-  position: absolute;
-  width: 280px; height: 280px;
-  background: radial-gradient(circle, rgba(200,71,10,0.18) 0%, transparent 70%);
-  bottom: -80px; right: -80px;
-  pointer-events: none;
-}
-
 /* ─── CONTACT ──────────────────────────────────── */
 .contact-section {
   background: var(--cream);
@@ -596,15 +767,16 @@ section { padding: 96px 48px; }
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 16px;
   padding: 20px 0;
   border-bottom: var(--rule);
   text-decoration: none;
   color: var(--ink);
   transition: padding-left 0.25s, color 0.2s;
 }
-.contact-link:hover { padding-left: 12px; color: var(--accent); }
+a.contact-link:hover { padding-left: 12px; color: var(--accent); }
 .cl-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
-.cl-val { font-size: 0.85rem; color: var(--ink-60); }
+.cl-val { font-size: 0.85rem; color: var(--ink-60); text-align: right; }
 
 /* ─── FOOTER ───────────────────────────────────── */
 footer {
@@ -620,38 +792,36 @@ footer {
 /* ─── STAT SLOT ANIMATION ───────────────────────── */
 .stat-slot {
   display: inline-block;
-  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
-              opacity 0.45s ease;
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.45s ease;
 }
-.stat-slot.exit-up {
-  transform: translateY(-28px);
-  opacity: 0;
-}
-.stat-slot.enter-down {
-  transform: translateY(28px);
-  opacity: 0;
-}
+.stat-slot.exit-up { transform: translateY(-28px); opacity: 0; }
+.stat-slot.enter-down { transform: translateY(28px); opacity: 0; }
 .stat-label-slot {
   display: inline-block;
-  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-              opacity 0.35s ease;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
 }
-.stat-label-slot.exit-up {
-  transform: translateY(-14px);
-  opacity: 0;
-}
-.stat-label-slot.enter-down {
-  transform: translateY(14px);
-  opacity: 0;
-}
-.hero-stat {
-  overflow: hidden;
-}
+.stat-label-slot.exit-up { transform: translateY(-14px); opacity: 0; }
+.stat-label-slot.enter-down { transform: translateY(14px); opacity: 0; }
 
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
+/* 没有 JS 时内容照常显示 */
+.no-js .reveal { opacity: 1; transform: none; }
+
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .ticker-inner { animation: none; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  * { transition-duration: 0.01ms !important; }
+}
 
 /* ─── RESPONSIVE ────────────────────────────────── */
+@media (max-width: 1100px) {
+  .nav-links { gap: 22px; }
+  .shows { grid-template-columns: repeat(3, 1fr); }
+}
 @media (max-width: 960px) {
   nav { padding: 0 24px; }
   .nav-links { display: none; }
@@ -663,8 +833,15 @@ footer {
   .hero-right-desc { font-size: 0.85rem; }
   section { padding: 64px 24px; }
   .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .teach-intro, .media-bottom { grid-template-columns: 1fr; gap: 40px; }
+  .media-figures { grid-template-columns: 1fr 1fr; }
+  .media-figure:nth-child(3) { padding-left: 0; border-left: none; }
+  .media-figure:nth-child(n+3) { border-top: var(--rule); }
+  .ai-lab { grid-template-columns: 1fr; }
+  .ai-lab-text { padding: 40px 28px; border-right: none; }
+  .ai-lab-visual { min-height: 200px; }
+  .tool-card { grid-template-columns: 1fr; gap: 20px; padding: 32px 28px; }
   .works-grid { grid-template-columns: 1fr 1fr; }
-  .work-card.featured { grid-column: span 2; aspect-ratio: 16/9; }
   .projects-grid { grid-template-columns: 1fr; }
   .contact-grid { grid-template-columns: 1fr; gap: 48px; }
   footer { flex-direction: column; gap: 10px; padding: 24px; text-align: center; }
@@ -673,21 +850,27 @@ footer {
 }
 @media (max-width: 600px) {
   .hero-name { font-size: clamp(2.8rem, 10vw, 4rem); }
+  .hero-right-inner { flex-direction: column-reverse; }
   .works-grid { grid-template-columns: 1fr; }
-  .work-card.featured { grid-column: span 1; aspect-ratio: 4/5; }
   .hero-stats { flex-direction: column; gap: 16px; }
   .hero-stat + .hero-stat { padding-left: 0; border-left: none; border-top: var(--rule); padding-top: 16px; }
   .works-filter { overflow-x: auto; max-width: 100%; }
+  .shows { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .sub-head { flex-direction: column; gap: 6px; }
+  .section-header { flex-wrap: wrap; gap: 12px; }
+  .honor-list li { grid-template-columns: 1fr; gap: 2px; }
 }
 </style>
 </head>
-<body>
+<body class="no-js">
+<script>document.body.classList.remove('no-js');</script>
 
 <!-- NAV -->
 <nav id="navbar">
   <a href="#" class="nav-brand">Wang Zeheng</a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
+    <li><a href="#teaching">师资风采</a></li>
     <li><a href="#ai">AI Works</a></li>
     <li><a href="#works">Portfolio</a></li>
     <li><a href="#research">Research</a></li>
@@ -698,11 +881,10 @@ footer {
 
 <!-- HERO -->
 <div class="hero">
-  <!-- LEFT: big name + stats -->
   <div class="hero-left">
     <div>
       <div class="hero-eyebrow">
-        <span class="label">Media Researcher · Journalist · Creator</span>
+        <span class="label">Educator · Media Researcher · Journalist · Creator</span>
       </div>
       <h1 class="hero-name">
         Wang<br><em>Zeheng</em><br>王泽恒
@@ -710,53 +892,51 @@ footer {
     </div>
     <div class="hero-stats">
       <div class="hero-stat">
-        <div class="stat-n" id="stat-0">
-          <span class="stat-slot" data-values='["1.5亿+","新华社","学习强国"]' data-current="0">1.5亿+</span>
+        <div class="stat-n">
+          <span class="stat-slot" data-values='["1.5亿+","1400万+","新华社"]'>1.5亿+</span>
         </div>
-        <div class="label stat-label-slot" data-labels='["全网播放量","内容转载","平台收录"]' data-current="0">全网播放量</div>
+        <div class="label stat-label-slot" data-labels='["全网播放量","单条视频播放","内容转载"]'>全网播放量</div>
       </div>
       <div class="hero-stat">
-        <div class="stat-n" id="stat-1">
-          <span class="stat-slot" data-values='["1200+","5年","南昌电视台"]' data-current="0">1200+</span>
+        <div class="stat-n">
+          <span class="stat-slot" data-values='["1200+","300+期","5年"]'>1200+</span>
         </div>
-        <div class="label stat-label-slot" data-labels='["原创稿件","从业经验","工作经历"]' data-current="0">原创稿件</div>
+        <div class="label stat-label-slot" data-labels='["原创稿件","《大事小编》","媒体从业"]'>原创稿件</div>
       </div>
       <div class="hero-stat">
-        <div class="stat-n" id="stat-2">
-          <span class="stat-slot" data-values='["7+","4.23","MBA"]' data-current="0">7+</span>
+        <div class="stat-n">
+          <span class="stat-slot" data-values='["5篇","硕士","100条"]'>5篇</span>
         </div>
-        <div class="label stat-label-slot" data-labels='["学术论文","GPA / 4.5","庆熙大学"]' data-current="0">学术论文</div>
+        <div class="label stat-label-slot" data-labels='["已发表论文","庆熙大学","爽剧套路库"]'>已发表论文</div>
       </div>
     </div>
   </div>
 
-  <!-- RIGHT: portrait (right) + desc + CTA (left of portrait) -->
   <div class="hero-right">
     <div class="hero-right-inner">
-      <!-- text side -->
       <div class="hero-right-text">
-        <div class="hero-location">📍 Seoul, South Korea</div>
+        <div class="hero-location">📍 Nanchang, China</div>
         <p class="hero-right-desc">
-          从南昌到首尔——五年新闻一线经验，毕业于<strong>庆熙大学</strong>媒体经营硕士，专注<strong>算法议程设置、情感传播与AIGC</strong>研究。<br><br>
+          从新闻现场到AI漫剧课堂——五年新闻一线经验，<strong>庆熙大学媒体管理硕士</strong>（已毕业），现任<strong>南昌工学院 AI与短漫剧产业学院</strong>专任教师，专注<strong>算法议程设置、情感传播与AIGC</strong>研究。<br><br>
           记录时代，也研究时代如何被记录。
         </p>
         <div style="display:flex; gap:12px; flex-wrap:wrap;">
-          <a href="#ai" class="btn-primary">AI 作品集</a>
+          <a href="#teaching" class="btn-primary">师资风采</a>
+          <a href="#ai" class="btn-ghost">AI 作品集 →</a>
           <a href="#works" class="btn-ghost">新闻作品集 →</a>
-          <a href="#research" class="btn-ghost">学术研究 →</a>
         </div>
       </div>
-      <!-- portrait side -->
       <div class="hero-portrait">
-        <img src="assets/11cun.jpg" alt="Wang Zeheng" onerror="this.style.display='none'">
+        <img src="assets/11cun.jpg" alt="王泽恒" onerror="this.style.display='none'">
       </div>
     </div>
   </div>
 </div>
 
 <!-- TICKER -->
-<div class="ticker-strip">
+<div class="ticker-strip" aria-hidden="true">
   <div class="ticker-inner">
+    <span>AI Manga Drama Education</span><span class="ticker-dot">·</span>
     <span>Multimedia Journalism</span><span class="ticker-dot">·</span>
     <span>New Media Research</span><span class="ticker-dot">·</span>
     <span>Algorithmic Agenda-Setting</span><span class="ticker-dot">·</span>
@@ -764,7 +944,7 @@ footer {
     <span>Short Video Dynamics</span><span class="ticker-dot">·</span>
     <span>Emotional Communication</span><span class="ticker-dot">·</span>
     <span>Xinhua Featured</span><span class="ticker-dot">·</span>
-    <span>Kyung Hee University</span><span class="ticker-dot">·</span>
+    <span>AI Manga Drama Education</span><span class="ticker-dot">·</span>
     <span>Multimedia Journalism</span><span class="ticker-dot">·</span>
     <span>New Media Research</span><span class="ticker-dot">·</span>
     <span>Algorithmic Agenda-Setting</span><span class="ticker-dot">·</span>
@@ -772,7 +952,6 @@ footer {
     <span>Short Video Dynamics</span><span class="ticker-dot">·</span>
     <span>Emotional Communication</span><span class="ticker-dot">·</span>
     <span>Xinhua Featured</span><span class="ticker-dot">·</span>
-    <span>Kyung Hee University</span><span class="ticker-dot">·</span>
   </div>
 </div>
 
@@ -787,20 +966,40 @@ footer {
   <div class="about-grid reveal">
     <div>
       <p class="about-bio">
-        毕业于<strong>荆楚理工学院</strong>广播电视导演专业，曾任<strong>南昌广播电视台</strong>融媒体记者与新媒体编辑，深耕时政、民生、突发事件报道，多篇作品获<strong>新华社转载</strong>、登上<strong>学习强国</strong>平台。<br><br>
-        现就读于<strong>庆熙大学媒体管理硕士</strong>，研究方向聚焦于短视频平台算法对文化记忆的影响，构建「算法—情感—记忆」（AEM）理论框架，探索人工智能时代媒体传播的边界与可能。
+        现任<strong>南昌工学院 AI与短漫剧产业学院</strong>专任教师，承担AI漫剧全流程教学。此前任<strong>南昌广播电视台</strong>融媒体记者与新媒体编辑，深耕时政、民生、突发事件报道，多篇作品获<strong>新华社转载</strong>、登上<strong>学习强国</strong>平台。<br><br>
+        硕士毕业于<strong>韩国庆熙大学媒体管理专业</strong>，研究方向聚焦于短视频平台算法对文化记忆的影响，构建「算法—情感—记忆」（AEM）理论框架。<br><br>
+        本科毕业于<strong>荆楚理工学院</strong>广播电视编导专业。
       </p>
       <div class="skills-wrap">
         <div class="col-title">专业技能</div>
+        <span class="skill-tag">AI漫剧全流程制作</span>
         <span class="skill-tag">多媒体报道</span>
         <span class="skill-tag">短视频制作</span>
         <span class="skill-tag">影视编导</span>
         <span class="skill-tag">议程设置研究</span>
         <span class="skill-tag">AIGC创作</span>
         <span class="skill-tag">AI影像</span>
-        <span class="skill-tag">AI内容创作</span>
+        <span class="skill-tag">课程设计</span>
         <span class="skill-tag">深度访谈</span>
         <span class="skill-tag">混合研究方法</span>
+      </div>
+    </div>
+    <div>
+      <div class="col-title">工作经历</div>
+      <div class="timeline-item">
+        <div class="t-year">现任</div>
+        <div class="t-text">南昌工学院</div>
+        <div class="t-sub">AI与短漫剧产业学院 · 专任教师</div>
+      </div>
+      <div class="timeline-item">
+        <div class="t-year">2019 — 2023</div>
+        <div class="t-text">南昌广播电视台</div>
+        <div class="t-sub">融媒体记者 · 新媒体编辑</div>
+      </div>
+      <div class="timeline-item">
+        <div class="t-year">2024 — </div>
+        <div class="t-text">小红书自媒体</div>
+        <div class="t-sub">独立运营 · 总阅读量 100万+</div>
       </div>
     </div>
     <div>
@@ -808,80 +1007,159 @@ footer {
       <div class="timeline-item">
         <div class="t-year">2024 — 2025</div>
         <div class="t-text">庆熙大学 · 媒体管理硕士</div>
-        <div class="t-sub">GPA 4.23 / 4.5 · Seoul, Korea</div>
+        <div class="t-sub">已毕业 · GPA 4.23 / 4.5 · Seoul, Korea</div>
       </div>
       <div class="timeline-item">
         <div class="t-year">2014 — 2018</div>
         <div class="t-text">荆楚理工学院</div>
-        <div class="t-sub">广播电视导演专业 · 学士</div>
-      </div>
-    </div>
-    <div>
-      <div class="col-title">工作经历</div>
-      <div class="timeline-item">
-        <div class="t-year">2019 — 2023</div>
-        <div class="t-text">南昌广播电视台</div>
-        <div class="t-sub">融媒体记者 · 新媒体编辑</div>
-      </div>
-      <div class="timeline-item">
-        <div class="t-year">荣誉</div>
-        <div class="t-text">先进工作者 · 新华社转载 · 学习强国推荐</div>
-        <div class="t-sub">全网累计播放量超 1.5亿+</div>
+        <div class="t-sub">广播电视编导专业 · 学士</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- AI WORKS — standalone section before portfolio -->
-<section id="ai" style="padding: 96px 48px; border-bottom: var(--rule);">
+<!-- TEACHING · 师资风采 -->
+<section id="teaching" class="teaching-section">
   <div class="section-header">
     <div>
-      <div class="label" style="margin-bottom:10px;">02 — AI Creative</div>
+      <div class="label" style="margin-bottom:10px;">02 — Teaching</div>
+      <h2 class="section-title">师资风采</h2>
+    </div>
+    <span class="label">南昌工学院 AI与短漫剧产业学院</span>
+  </div>
+
+  <div class="teach-intro reveal">
+    <div>
+      <p class="teach-lede">从新闻现场到AI漫剧课堂，带着学生把作品送上短剧平台。</p>
+      <p class="teach-body">
+        承担AI漫剧全流程教学，自主搭建课程大纲、教案、逐字稿与课件体系，开发<strong>「爽剧套路库」</strong>教学资源（100个剧情套路条目），并为学生项目设计管理工具与SOP。坚持<strong>以真实项目带动教学</strong>，指导学生独立完成从剧本到成片的全流程制作。
+      </p>
+    </div>
+    <div>
+      <div class="col-title">主讲课程</div>
+      <span class="skill-tag">剧本创作</span>
+      <span class="skill-tag">AI角色生成与IP形象设计</span>
+      <span class="skill-tag">场景生成</span>
+      <span class="skill-tag">AI分镜与动态漫制作</span>
+      <span class="skill-tag">声音设计与剪辑</span>
+      <span class="skill-tag">行业认知</span>
+    </div>
+  </div>
+
+  <div class="sub-head reveal">
+    <h3>指导学生上架作品</h3>
+    <p>上架平台：红果短剧 / 火龙漫剧 · 指导老师：王泽恒</p>
+  </div>
+  <div class="shows reveal">
+    <article class="show-card">
+      <img src="assets/student-work-01.jpg" alt="《穿书之我在古代开饭馆》海报" loading="lazy">
+      <div class="show-info">
+        <h4>《穿书之我在古代开饭馆》</h4>
+        <div class="show-genre">穿书 · 美食 · 古风</div>
+        <p class="show-log">现代女孩穿进书中，凭一手好厨艺在古代开起饭馆，用美食打开局面、改写原书命运。</p>
+        <p class="show-team"><span>制作团队</span>袁梦云、李小红、范晓艳、卞福蓉、孙阳光、后心蕾</p>
+      </div>
+    </article>
+    <article class="show-card">
+      <img src="assets/student-work-02.jpg" alt="《摆烂皇帝，被满朝文武封神》海报" loading="lazy">
+      <div class="show-info">
+        <h4>《摆烂皇帝，被满朝文武封神》</h4>
+        <div class="show-genre">古风 · 帝王 · 反差喜剧</div>
+        <p class="show-log">只想躺平的皇帝处处"摆烂"，却被满朝文武解读成深谋远虑，一路被捧成千古明君。</p>
+        <p class="show-team"><span>制作团队</span>李海缘、陈熙、邹莉、王睿雯、温慧玲</p>
+      </div>
+    </article>
+    <article class="show-card">
+      <img src="assets/student-work-03.jpg" alt="《签到百日，虐跪继父唱征服》海报" loading="lazy">
+      <div class="show-info">
+        <h4>《签到百日，虐跪继父唱征服》</h4>
+        <div class="show-genre">都市 · 系统 · 逆袭</div>
+        <p class="show-log">隐忍百日，只为翻盘。主角靠每日签到积蓄实力，最终让欺压自己的继父付出代价。</p>
+        <p class="show-team"><span>制作团队</span>谢明懿、彭轩、朱家豪、何少奇、徐子捷、徐锦泽、郑胡涛</p>
+      </div>
+    </article>
+    <article class="show-card">
+      <img src="assets/student-work-04.jpg" alt="《穿书后，我反手炸了修罗场》海报" loading="lazy">
+      <div class="show-info">
+        <h4>《穿书后，我反手炸了修罗场》</h4>
+        <div class="show-genre">穿书 · 古风 · 情感</div>
+        <p class="show-log">女主穿进书中，身陷众人纠缠的修罗场，不按原剧情出牌，亲手改写自己的结局。</p>
+        <p class="show-team"><span>制作团队</span>夏俊婷、郭宝霞、詹妍婕、刘倩、文静</p>
+      </div>
+    </article>
+    <article class="show-card">
+      <img src="assets/student-work-05.jpg" alt="《寒潮降临，我来重建文明》海报" loading="lazy">
+      <div class="show-info">
+        <h4>《寒潮降临，我来重建文明》</h4>
+        <div class="show-genre">末世 · 生存 · 基建</div>
+        <p class="show-log">极端寒潮席卷世界，主角在冰封废土中带领幸存者一步步重建文明。</p>
+        <p class="show-team"><span>制作团队</span>刘凌奇、陈嘉睿、陈元、黄能豪、邹立鑫、尹颀琛</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- AI WORKS -->
+<section id="ai" class="ai-section">
+  <div class="section-header">
+    <div>
+      <div class="label" style="margin-bottom:10px;">03 — AI Creative</div>
       <h2 class="section-title">AI 创作实验室</h2>
     </div>
     <a href="AI.html" target="_blank" class="see-all">进入实验室</a>
   </div>
-  <a href="AI.html" target="_blank" style="text-decoration:none; color:inherit; display:block;">
-    <div class="reveal" style="background: var(--ink); border-radius: 4px; overflow: hidden; position: relative; display: grid; grid-template-columns: 1fr 1fr; min-height: 380px; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.92'" onmouseout="this.style.opacity='1'">
-      <!-- left: text -->
-      <div style="padding: 56px 52px; display: flex; flex-direction: column; justify-content: space-between; border-right: 1px solid rgba(250,248,245,0.1);">
+
+  <div class="reveal">
+    <a href="AI.html" target="_blank" class="ai-lab">
+      <div class="ai-lab-text">
         <div>
-          <div style="display:inline-block; padding: 4px 14px; background: rgba(200,71,10,0.25); font-size: 0.67rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #ff8c5a; margin-bottom: 28px;">AI Portfolio</div>
-          <h3 style="font-family: var(--serif); font-size: clamp(1.8rem, 3vw, 2.6rem); color: var(--paper); line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 20px;">AI Creative<br><em>Works</em></h3>
-          <p style="font-size: 0.92rem; color: rgba(250,248,245,0.55); line-height: 1.8; font-weight: 300; max-width: 400px;">
+          <div class="ai-pill">AI Portfolio</div>
+          <h3>AI Creative<br><em>Works</em></h3>
+          <p class="ai-lab-desc">
             AI生成视频、AIGC影像实验、提示词工程与人机协作叙事——探索算法时代下媒体创作的边界与可能。
           </p>
         </div>
-        <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 36px;">
-          <span style="padding: 5px 14px; border: 1px solid rgba(250,248,245,0.18); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; color: rgba(250,248,245,0.5);">ChatGPT</span>
-          <span style="padding: 5px 14px; border: 1px solid rgba(250,248,245,0.18); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; color: rgba(250,248,245,0.5);">即梦</span>
-          <span style="padding: 5px 14px; border: 1px solid rgba(250,248,245,0.18); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; color: rgba(250,248,245,0.5);">Sora</span>
-          <span style="padding: 5px 14px; border: 1px solid rgba(250,248,245,0.18); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; color: rgba(250,248,245,0.5);">Claude</span>
-          <span style="padding: 5px 14px; border: 1px solid rgba(200,71,10,0.4); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; color: #ff8c5a;">AIGC</span>
+        <div class="ai-tools">
+          <span>ChatGPT</span>
+          <span>即梦</span>
+          <span>Sora</span>
+          <span>Claude</span>
+          <span class="hl">AIGC</span>
         </div>
       </div>
-      <!-- right: visual -->
-      <div style="position: relative; background: linear-gradient(135deg, #1a1714 0%, #2d1f0e 50%, #1a0f00 100%); display: flex; align-items: center; justify-content: center; overflow: hidden;">
-        <div style="position:absolute; width:320px; height:320px; background: radial-gradient(circle, rgba(200,71,10,0.25) 0%, transparent 65%); top: 50%; left: 50%; transform: translate(-50%,-50%);"></div>
-        <div style="position:absolute; width:200px; height:200px; background: radial-gradient(circle, rgba(42,75,141,0.2) 0%, transparent 65%); top: 20%; right: 10%;"></div>
-        <div style="position: relative; text-align: center;">
-          <div style="font-size: 5rem; margin-bottom: 16px; opacity: 0.85;">✦</div>
-          <div style="font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(250,248,245,0.35);">Enter Lab →</div>
-        </div>
+      <div class="ai-lab-visual">
+        <div class="glyph"><b>✦</b><span>Enter Lab →</span></div>
       </div>
-      <!-- corner arrow -->
-      <div style="position:absolute; top: 32px; right: 36px; font-size: 1.2rem; color: rgba(250,248,245,0.25);">↗</div>
-    </div>
-  </a>
+      <div class="ai-corner">↗</div>
+    </a>
+
+    <a href="shuangju-generator.html" target="_blank" class="tool-card">
+      <div class="seal">爽</div>
+      <div>
+        <div class="tk">教学工具 · 离线可用</div>
+        <h4>爽剧套路生成器</h4>
+        <p>AI漫剧编剧台：勾选视角、时空、题材、角色、情绪五个维度，写下一句情感困境，一键组合出六项套路骨架。纯本地运算，断网可用，适合课堂发散和快速起本。</p>
+      </div>
+      <span class="go">打开生成器 ↗</span>
+    </a>
+  </div>
 </section>
 
 <!-- WORKS -->
 <section id="works" class="works-section">
   <div class="section-header">
     <div>
-      <div class="label" style="margin-bottom:10px;">03 — Portfolio</div>
+      <div class="label" style="margin-bottom:10px;">04 — Portfolio</div>
       <h2 class="section-title">新闻作品集</h2>
     </div>
+    <span class="label">南昌广播电视台 · 2019—2023</span>
+  </div>
+
+  <div class="media-figures reveal">
+    <div class="media-figure"><div class="n">1000+</div><div class="d">新闻及专题作品</div></div>
+    <div class="media-figure"><div class="n">300+期</div><div class="d">主创广播节目《大事小编》</div></div>
+    <div class="media-figure"><div class="n">1400万+</div><div class="d">《白鹭王国迎来万余"小可爱"》12小时播放量，登上微博热搜</div></div>
+    <div class="media-figure"><div class="n">100万+</div><div class="d">与央视频、学习强国合作直播单场点击量</div></div>
   </div>
 
   <div class="works-filter reveal">
@@ -922,7 +1200,7 @@ footer {
       </div>
     </a>
     <a href="https://xhpfmapi.xinhuaxmt.com/vh512/share/9262544" target="_blank" class="work-card show" data-cat="event">
-      <img src="assets/Event 01.png" alt="防汛" class="work-card-img" onerror="this.style.display='none'">
+      <img src="assets/Event%2001.png" alt="防汛" class="work-card-img" onerror="this.style.display='none'">
       <div class="work-card-info">
         <span class="work-tag">突发事件 · 紧急救援</span>
         <div class="work-title">休假不休战！铁血战士回乡防汛</div>
@@ -936,16 +1214,37 @@ footer {
       </div>
     </a>
   </div>
+
+  <div class="media-bottom reveal">
+    <div>
+      <div class="col-title">媒体从业经历</div>
+      <p>
+        负责微信、微博、抖音、视频号新媒体矩阵的运营与视频生产，多部作品被新华社客户端等国家级平台采用。连续参与南昌市两会、世界VR产业大会、新冠疫情防控等重大主题融媒体报道，其中<strong>《战"疫"日记》《天使日记》</strong>系列累计阅读量超200万，获人民日报、央视新闻等转发。2024年起独立运营小红书自媒体账号，总阅读量突破100万。
+      </p>
+    </div>
+    <div>
+      <div class="col-title">荣誉奖项</div>
+      <ul class="honor-list">
+        <li><span class="y">2021</span><span>江西省广播电视奖三等奖</span></li>
+        <li><span class="y">2020、2021</span><span>南昌广播电视台年度先进个人</span></li>
+        <li><span class="y">大学期间</span><span>湖北省大学生新闻传播实践技能竞赛一等奖等多项奖励</span></li>
+      </ul>
+    </div>
+  </div>
 </section>
 
 <!-- RESEARCH -->
 <section id="research" class="academic-section">
   <div class="section-header">
     <div>
-      <div class="label" style="margin-bottom:10px;">04 — Research</div>
+      <div class="label" style="margin-bottom:10px;">05 — Research</div>
       <h2 class="section-title">学术研究</h2>
     </div>
   </div>
+
+  <p class="research-note reveal">
+    研究聚焦<strong>AI与媒体融合、新媒体传播策略</strong>，关注人机协作写作的能力边界、直播场景中的情绪化传播与用户行为、地方媒体议程设置创新与自媒体成长路径。相关成果曾获省级哲学社会科学重大项目资助，并于<strong>2025年中韩国际学术研讨会</strong>上宣读。
+  </p>
 
   <div class="papers-list reveal">
     <a href="#" class="paper-row">
@@ -976,7 +1275,7 @@ footer {
       <div class="paper-num">04</div>
       <div>
         <div class="paper-title">《AI 新闻写作能力边界与感知悖论研究》</div>
-        <div class="paper-meta">对比新华社稿件与AI生成内容 · 人机协作分层模式 · 2026</div>
+        <div class="paper-meta">对比新华社稿件与AI生成内容 · 人机协作分层模式 · 2025年中韩国际学术研讨会宣读 · 2026</div>
       </div>
       <div class="paper-badge">已录用</div>
     </a>
@@ -995,7 +1294,7 @@ footer {
 <section id="projects" class="projects-section">
   <div class="section-header">
     <div>
-      <div class="label" style="margin-bottom:10px;">05 — Projects</div>
+      <div class="label" style="margin-bottom:10px;">06 — Projects</div>
       <h2 class="section-title">创作项目</h2>
     </div>
   </div>
@@ -1018,6 +1317,12 @@ footer {
       <h3 class="p-title">CyberSeed 赛博种子</h3>
       <p class="p-desc">连接算法逻辑与生活诗意的创作者实验室。通过「赛博抽签」从近百件生活小事中捕捉创作契机，将碎片灵感转化为高质感内容。</p>
     </a>
+    <a href="shuangju-generator.html" target="_blank" class="project-card">
+      <span class="project-arrow">↗</span>
+      <div class="p-tag">教学工具</div>
+      <h3 class="p-title">爽剧套路生成器</h3>
+      <p class="p-desc">为AI漫剧编剧课开发的离线工具。词库取自《爽剧套路说明书》五维分类，学生组合维度得到套路骨架，再做「填空—改写」练习，进入剧本与分镜环节。</p>
+    </a>
   </div>
 </section>
 
@@ -1025,9 +1330,9 @@ footer {
 <section id="contact" class="contact-section">
   <div class="contact-grid reveal">
     <div>
-      <div class="label" style="margin-bottom:16px;">06 — Contact</div>
+      <div class="label" style="margin-bottom:16px;">07 — Contact</div>
       <h2 class="contact-headline">Let's<br><em>Connect.</em></h2>
-      <p class="contact-sub">无论是学术合作、媒体项目，还是博士项目咨询，欢迎随时联系。我目前在中国，开放媒体研究、内容策划、新媒体相关职位机会。</p>
+      <p class="contact-sub">无论是学术合作、AI漫剧项目与课程交流，还是媒体内容策划，欢迎随时联系。</p>
       <a href="mailto:1433890263@qq.com" class="btn-primary">发送邮件 →</a>
     </div>
     <div>
@@ -1041,25 +1346,24 @@ footer {
           <span class="cl-val">wangzeheng202311@163.com</span>
         </a>
         <a href="mailto:wzh1025@khu.ac.kr" class="contact-link">
-          <span class="cl-label">学校邮箱</span>
+          <span class="cl-label">校友邮箱</span>
           <span class="cl-val">wzh1025@khu.ac.kr</span>
         </a>
-        <a href="#" class="contact-link">
+        <div class="contact-link">
           <span class="cl-label">Location</span>
-          <span class="cl-val">Seoul, South Korea</span>
-        </a>
-        <div class="contact-link" style="cursor:default;">
+          <span class="cl-val">Nanchang, China</span>
+        </div>
+        <div class="contact-link">
           <span class="cl-label">Status</span>
-          <span class="cl-val" style="color:#22a35a; font-weight:600;">● Open to Opportunities</span>
+          <span class="cl-val" style="color:#22a35a; font-weight:600;">● 南昌工学院在职任教 · 开放合作</span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
-  <span class="footer-copy">© 2026 Wang Zeheng · From Nanchang to Seoul</span>
+  <span class="footer-copy">© 2026 Wang Zeheng · Nanchang — Seoul — Nanchang</span>
   <span class="footer-brand">王泽恒</span>
 </footer>
 
@@ -1093,10 +1397,12 @@ window.addEventListener('scroll', () => {
     window.scrollY > 10 ? '0 2px 24px rgba(26,23,20,0.08)' : 'none';
 }, { passive: true });
 
-// Smooth scroll for nav links
+// Smooth scroll for in-page links
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
-    const target = document.querySelector(a.getAttribute('href'));
+    const id = a.getAttribute('href');
+    if (id === '#') return;
+    const target = document.querySelector(id);
     if (target) {
       e.preventDefault();
       target.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1104,50 +1410,40 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
-// ── Stat slot-machine rotation ─────────────────────
+// Stat slot-machine rotation
 function animateSlot(slot, labelEl, nextVal, nextLabel) {
-  // exit current
   slot.classList.add('exit-up');
   labelEl.classList.add('exit-up');
-
   setTimeout(() => {
-    // swap value while invisible
     slot.textContent = nextVal;
     labelEl.textContent = nextLabel;
     slot.classList.remove('exit-up');
     labelEl.classList.remove('exit-up');
     slot.classList.add('enter-down');
     labelEl.classList.add('enter-down');
-
-    // force reflow so transition fires
     slot.getBoundingClientRect();
     labelEl.getBoundingClientRect();
-
     slot.classList.remove('enter-down');
     labelEl.classList.remove('enter-down');
   }, 420);
 }
 
 function startStatCycle() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const slots  = document.querySelectorAll('.stat-slot');
   const labels = document.querySelectorAll('.stat-label-slot');
-
   slots.forEach((slot, i) => {
     const values    = JSON.parse(slot.dataset.values);
     const labelVals = JSON.parse(labels[i].dataset.labels);
     let current = 0;
-
-    // stagger each stat column slightly
     setTimeout(() => {
       setInterval(() => {
         current = (current + 1) % values.length;
         animateSlot(slot, labels[i], values[current], labelVals[current]);
       }, 2800);
-    }, i * 600); // 0ms, 600ms, 1200ms stagger
+    }, i * 600);
   });
 }
-
-// Start after a short delay so page has settled
 setTimeout(startStatCycle, 1200);
 </script>
 </body>
