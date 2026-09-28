@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>爽剧套路生成器 · 离线版｜AI漫剧编剧台</title>
+<style>
+  :root{
+    --ink:#17100e; --ink2:#20161a; --ink3:#2c1e24; --line:#4a3540;
+    --cream:#f4ead9; --dim:#a58a7f; --gold:#e8b04b; --gold-d:#c78a26;
+    --red:#e8433f; --red-d:#b32d2b;
+    --mono:"SF Mono","JetBrains Mono","Consolas","Roboto Mono",monospace;
+    --han:"PingFang SC","Microsoft YaHei","Noto Sans SC","Source Han Sans SC","Hiragino Sans GB",sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:var(--han);
+    background:
+      radial-gradient(1200px 600px at 82% -10%, rgba(232,176,75,.10), transparent 60%),
+      radial-gradient(900px 500px at -5% 110%, rgba(232,67,63,.08), transparent 55%),
+      var(--ink);
+    color:var(--cream); -webkit-font-smoothing:antialiased; line-height:1.6;
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:26px 20px 60px}
+  header{position:relative;padding:14px 0 22px;border-bottom:1px dashed var(--line);margin-bottom:22px}
+  .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.32em;color:var(--gold);text-transform:uppercase}
+  h1{margin:.15em 0 .1em;font-size:clamp(28px,4.4vw,46px);font-weight:800;letter-spacing:.02em;line-height:1.05}
+  h1 .hot{color:var(--red)}
+  .sub{color:var(--dim);font-size:14px;max-width:60ch}
+  .sub b{color:var(--cream);font-weight:600}
+  .grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:22px;align-items:start}
+  @media(max-width:880px){.grid{grid-template-columns:1fr}}
+  .panel{background:linear-gradient(180deg,var(--ink2),#1b1315);border:1px solid var(--line);border-radius:14px;padding:20px}
+  .panel h2{margin:0 0 4px;font-size:13px;letter-spacing:.28em;color:var(--gold);font-family:var(--mono);text-transform:uppercase}
+  .field{margin:18px 0 0}
+  .field:first-of-type{margin-top:10px}
+  .flabel{display:flex;align-items:baseline;gap:8px;margin-bottom:9px}
+  .flabel .name{font-weight:700;font-size:15px}
+  .flabel .hint{font-size:12px;color:var(--dim)}
+  .flabel .count{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--gold);border:1px solid var(--gold-d);border-radius:20px;padding:1px 9px}
+  .chips{display:flex;flex-wrap:wrap;gap:7px}
+  .chip{cursor:pointer;user-select:none;font-size:13.5px;padding:6px 12px;border-radius:20px;
+        border:1px solid var(--line);background:#241a1e;color:var(--cream);transition:.14s;line-height:1.2}
+  .chip:hover{border-color:var(--gold-d);color:#fff}
+  .chip.on{background:linear-gradient(180deg,var(--gold),var(--gold-d));color:#1a1207;border-color:var(--gold);font-weight:700;box-shadow:0 2px 0 rgba(0,0,0,.35)}
+  .chip.red.on{background:linear-gradient(180deg,var(--red),var(--red-d));color:#fff;border-color:var(--red)}
+  .chip.dis{opacity:.32;cursor:not-allowed}
+  .chip.dis:hover{border-color:var(--line);color:var(--cream)}
+  textarea{width:100%;min-height:78px;resize:vertical;background:#241a1e;border:1px solid var(--line);
+           border-radius:10px;color:var(--cream);font-family:var(--han);font-size:14.5px;padding:11px 12px;line-height:1.55}
+  textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(232,176,75,.14)}
+  textarea::placeholder{color:#6d5a52}
+  .btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+  button{font-family:var(--han);cursor:pointer;border:none;border-radius:10px;font-size:14.5px;font-weight:700;
+         padding:11px 16px;transition:.14s;letter-spacing:.02em}
+  .b-go{background:linear-gradient(180deg,var(--red),var(--red-d));color:#fff;flex:1;min-width:150px;box-shadow:0 3px 0 #7c1f1d}
+  .b-go:hover{transform:translateY(-1px);box-shadow:0 4px 0 #7c1f1d}
+  .b-go:active{transform:translateY(2px);box-shadow:0 1px 0 #7c1f1d}
+  .b-alt{background:#2c1e24;color:var(--cream);border:1px solid var(--line)}
+  .b-alt:hover{border-color:var(--gold-d);color:#fff}
+  .warn{color:var(--red);font-size:12.5px;margin-top:10px;min-height:1.2em}
+  .stage{position:relative}
+  .card{position:relative;background:linear-gradient(180deg,var(--ink3),#211519);border:1px solid var(--line);
+        border-radius:14px;padding:26px 26px 26px 44px;overflow:hidden;min-height:420px}
+  .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:26px;
+    background:repeating-linear-gradient(180deg, transparent 0 12px, #0d0809 12px 20px);
+    border-right:1px solid var(--line);opacity:.9}
+  .card::after{content:"";position:absolute;left:8px;top:10px;bottom:10px;width:9px;border-radius:2px;
+    background:repeating-linear-gradient(180deg,#0d0809 0 8px, #3a2830 8px 16px)}
+  .sweep{position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,transparent 30%,rgba(232,176,75,.16) 48%,transparent 62%);transform:translateX(-120%);}
+  .card.reveal .sweep{animation:sweep .75s ease-out}
+  @keyframes sweep{to{transform:translateX(120%)}}
+  .card.reveal .title,.card.reveal .row{animation:rise .5s both}
+  @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion: reduce){.card.reveal .sweep,.card.reveal .title,.card.reveal .row{animation:none}}
+  .placeholder{color:var(--dim);text-align:center;padding-top:120px;font-size:15px}
+  .placeholder .big{font-size:40px;margin-bottom:12px;opacity:.5}
+  .tagline{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;color:var(--gold);margin-bottom:6px}
+  .title{font-size:clamp(24px,3.4vw,34px);font-weight:800;line-height:1.12;margin:2px 0 4px;color:#fff}
+  .title .mark{color:var(--red)}
+  .stamp{display:inline-block;font-family:var(--mono);font-size:11px;color:var(--gold);border:1px dashed var(--gold-d);
+         border-radius:6px;padding:2px 8px;margin-bottom:16px}
+  .row{border-top:1px solid rgba(74,53,64,.6);padding:13px 0}
+  .row:first-of-type{border-top:none}
+  .rlabel{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--gold);font-weight:700;letter-spacing:.05em;margin-bottom:5px}
+  .rlabel .no{font-family:var(--mono);font-size:11px;color:var(--red);border:1px solid var(--red-d);border-radius:4px;padding:0 5px}
+  .rtext{font-size:14.5px;color:var(--cream);line-height:1.72}
+  .foot{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap}
+  .copybtn{background:#2c1e24;border:1px solid var(--line);color:var(--cream);font-size:13px;padding:8px 14px;border-radius:9px;cursor:pointer}
+  .copybtn:hover{border-color:var(--gold-d);color:#fff}
+  .note{color:var(--dim);font-size:12px;margin-top:22px;line-height:1.7;border-top:1px dashed var(--line);padding-top:14px}
+  .note b{color:var(--cream)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="kicker">AI 漫剧编剧台 · 离线工具</div>
+    <h1>爽剧套路<span class="hot">生成器</span></h1>
+    <p class="sub">勾选<b>视角 · 时空 · 题材 · 角色 · 情绪</b>五个维度，写下一句<b>情感困境</b>，一键组合出符合《爽剧套路说明书》格式的六项套路。<b>纯本地运算，断网可用。</b></p>
+  </header>
+  <div class="grid">
+    <section class="panel" aria-label="维度选择">
+      <h2>WRITER'S CONSOLE</h2>
+      <div class="field">
+        <div class="flabel"><span class="name">视角</span><span class="hint">面向的目标受众</span></div>
+        <div class="chips" id="c-view" data-single="1" data-max="1"></div>
+      </div>
+      <div class="field">
+        <div class="flabel"><span class="name">时空</span><span class="hint">故事发生的时代</span></div>
+        <div class="chips" id="c-set" data-single="1" data-max="1"></div>
+      </div>
+      <div class="field">
+        <div class="flabel"><span class="name">题材</span><span class="hint">最多选 3 个来「跨类混搭」</span><span class="count" id="cnt-genre">0 / 3</span></div>
+        <div class="chips" id="c-genre" data-max="3"></div>
+      </div>
+      <div class="field">
+        <div class="flabel"><span class="name">角色</span><span class="hint">最多 2 个</span><span class="count" id="cnt-role">0 / 2</span></div>
+        <div class="chips" id="c-role" data-max="2"></div>
+      </div>
+      <div class="field">
+        <div class="flabel"><span class="name">情绪</span><span class="hint">整体基调，最多 2 个</span><span class="count" id="cnt-mood">0 / 2</span></div>
+        <div class="chips red" id="c-mood" data-max="2"></div>
+      </div>
+      <div class="field">
+        <div class="flabel"><span class="name">情感困境 / 共鸣点</span><span class="hint">写一句真实的憋屈或不甘</span></div>
+        <textarea id="emo" placeholder="例：付出全部却在最需要时被抛弃 / 被同事抢走功劳还得赔笑脸 / 家里老人被当空气、没人听他说话……"></textarea>
+      </div>
+      <div class="btns">
+        <button class="b-go" id="go">⚡ 生成套路</button>
+        <button class="b-alt" id="rand">🎲 随机组合</button>
+        <button class="b-alt" id="again" title="维度不变，换一种写法">↻ 换个说法</button>
+      </div>
+      <div class="warn" id="warn"></div>
+    </section>
+    <section class="stage">
+      <div class="card" id="card">
+        <div class="sweep"></div>
+        <div id="out">
+          <div class="placeholder">
+            <div class="big">🎬</div>
+            左边选好维度、写下情感困境，<br>点击「生成套路」，戏单在这里亮相。
+          </div>
+        </div>
+      </div>
+      <div class="foot" id="foot" style="display:none">
+        <button class="copybtn" id="copy">📋 复制六项文本</button>
+        <button class="copybtn" id="copymd">📋 复制为 Markdown</button>
+      </div>
+      <p class="note">
+        本工具的文本由<b>本地规则模板</b>拼装，词库取自您的《爽剧套路说明书》五维分类。它给的是<b>可用的套路骨架</b>与思路方向，用作课堂发散、快速起本、给学生做「填空—改写」练习；成稿仍需人工润色。多点几次「换个说法 / 随机组合」，会得到不同的组合与措辞。
+      </p>
+    </section>
+  </div>
+</div>
+<script>
+const VIEWS = ["男频","女频"];
+const SETTINGS = {
+  "古代":"深宅高墙、礼法森严的古代",
+  "现代":"节奏飞快、人人自顾不暇的当下都市",
+  "历史":"真实史事翻涌的时代洪流里",
+  "未来":"科技碾压人情的近未来",
+  "架空":"一个规则由强者书写的架空世界",
+  "末日":"文明崩塌、活着就是奢望的末世",
+  "民国":"新旧交替、暗流汹涌的民国"
+};
+const GENRES = {
+  "甜宠":{困:"想要一段不必猜、不必忍的干净感情",愿:["被无条件偏爱的愿望","一个人把你放在所有人前面"],冲:"「怕被辜负的防备」与「对方一次次证明真心」",词:["偏偏就宠你","他把我宠成了反派","一整年的糖"],机:"用密集的宠溺细节把观众按在糖里"},
+  "虐恋":{困:"深爱一个人，却被命运和误会反复撕扯",愿:["把错过重新爱回来的愿望","痛过之后被狠狠珍惜"],冲:"「不能爱」与「偏偏爱了」的两难",词:["爱你是我的死劫","错的时间对的人","眼泪先到"],机:"把每一次靠近都写成代价"},
+  "先婚后爱":{困:"在没有爱的关系里，学会重新心动",愿:["契约里长出真心的愿望","从搭伙到非你不可"],冲:"「假戏」与「真心」的边界崩塌",词:["先领证后动心","契约老公失控了","婚后才心动"],机:"用同居日常把假夫妻磨成真"},
+  "霸总":{困:"在权力面前，普通人连说话都要掂量",愿:["被顶端强者一眼选中的愿望","逆转身份差的心动"],冲:"「悬殊的身份地位」与「不肯低头的自尊」",词:["总裁他急了","惹不起的他偏偏对我心软","身价三个亿只宠我"],机:"让高高在上的人为你破例、失态、丢盔弃甲"},
+  "追妻火葬场":{困:"曾经卑微付出，凭什么现在才后悔",愿:["让辜负你的人跪着求回来的愿望","反转施与受的关系"],冲:"「男主的悔恨追求」与「女主的清醒离场」",词:["他后悔时我已不在","晚了，我不爱了","追妻路上全是坟"],机:"前期他伤你有多狠，后期他求你有多惨"},
+  "破镜重圆":{困:"最深的遗憾，是本该在一起的人走散了",愿:["把走散的人重新爱回来的愿望","跨过障碍再牵手"],冲:"「旧伤与误会」与「重新选择彼此的勇气」",词:["兜兜转转还是你","再见面已隔一场雨","第二次我不会松手"],机:"让当年拆散他们的原因，成为如今相拥的理由"},
+  "复仇":{困:"被人踩到泥里，凭什么不能连本带利讨回来",愿:["以牙还牙、伸张正义的愿望","让恶人付出代价"],冲:"「隐忍布局的猎手」与「作恶多端的仇敌」",词:["她回来复仇了","这一次换我出牌","血债血偿"],机:"一步步把仇人推进他们自己挖的坑"},
+  "重生":{困:"如果能重来，绝不再原谅、再错过、再受骗",愿:["带着记忆改写命运的愿望","把错过和亏欠一次补回"],冲:"「已知的结局」与「亲手改写它的决心」",词:["重生第一天我就撕了她","这一世我先动手","重来我不做善人"],机:"用先知优势把前世的坑变成这世的刀"},
+  "穿越":{困:"厌倦了被安排的人生，想去一个能重新洗牌的地方",愿:["在陌生世界白手翻盘的愿望","身份归零后强势崛起"],冲:"「格格不入的外来者」与「吃人的旧规则」",词:["一睁眼我成了","古代第一个懂它的人","穿到这我要当赢家"],机:"用现代脑打古代局，降维碾压"},
+  "系统":{困:"努力半天没回报，多想有人告诉我「下一步做什么就能赢」",愿:["按任务通关、稳定变强的愿望","付出立刻兑现奖励"],冲:"「系统的硬核任务」与「主角的资源困局」",词:["签到就变强","叮！奖励到账","我的系统专治不服"],机:"把成长做成看得见的进度条与爆发点"},
+  "穿书":{困:"眼睁睁看着悲剧发生，多想有人能改掉这个「剧本」",愿:["跳出既定命运、改写结局的愿望","反抗「作者」的安排"],冲:"「原著注定的死局」与「主角逆天改命的挣扎」",词:["我把炮灰剧本演炸了","书里死的人不会是我","改剧情从今天开始"],机:"用「剧透」当武器，专拆原著的坑"},
+  "团宠":{困:"在人群里习惯了被忽略，多想有人真心把我当宝",愿:["被所有人捧在手心的愿望","从边缘到中心"],冲:"「主角的自我怀疑」与「众人越界式的守护」",词:["全家排队宠我","惹她？全世界跟你急","团宠预定"],机:"让身边每个人都为主角撑腰、护短"},
+  "娱乐圈":{困:"努力被人抢功、被资本按头，实力还得看后台",愿:["靠真本事翻红打脸的愿望","把偷来的光还回去"],冲:"「实力派的清白」与「资本与流量的黑幕」",词:["她翻红了","顶流的马甲藏不住","这个咖不好惹"],机:"一场直播或颁奖礼当众实锤，全网倒戈"},
+  "职场":{困:"活我干、功他领，赔笑脸的永远是我",愿:["能力被看见、被越级重用的愿望","让抢功者当众露馅"],冲:"「实干者的成果」与「甩锅精的表演」",词:["她一开口全场安静","被辞退的第二天我成了甲方","职场没有背锅侠"],机:"用一次关键项目让所有小丑现原形"},
+  "校园":{困:"青春里那点没说出口的喜欢和不甘",愿:["逆袭并被暗恋的人看见的愿望","从被看轻到被追逐"],冲:"「不被看好的少年」与「偏见的目光」",词:["全校都以为她学渣","前桌他心动了","这题只有我会"],机:"一次考试或比赛让所有人闭嘴"},
+  "末日":{困:"当秩序崩塌，善良会不会变成活不下去的理由",愿:["靠脑子和物资绝地求生的愿望","在废墟里重建掌控感"],冲:"「求生的资源争夺」与「人心比丧尸更险」",词:["末世第一天我囤了三年粮","活下来的都不是好人","她的空间藏着整座城"],机:"用先知加囤货把弱者变成规则制定者"},
+  "丧尸":{困:"灾难面前，人到底能不能保住人味儿",愿:["守住所爱、杀出重围的愿望","在恐惧里不丢掉自己"],冲:"「生存的绝境」与「守护与放弃的抉择」",词:["最后的安全屋","咬我可以，动他不行","尸潮之上"],机:"每一集都把人逼到「救谁」的墙角"},
+  "规则怪谈":{困:"生活里那些「必须遵守却没人解释」的荒诞规矩",愿:["靠逻辑破局、掌握主动的愿望","看穿规则背后的真相"],冲:"「诡异矛盾的规则」与「必须活着走出去的推理」",词:["规则一：不要回头","第七条是假的","读懂规则的人不会死"],机:"把恐惧做成一道道能被智取的谜题"},
+  "仙侠":{困:"心中的道义，值不值得用一切去守",愿:["守护苍生、逆天改命的愿望","以凡心撼动天道"],冲:"「个人情义」与「天道大势」的撕扯",词:["逆天而行","这一剑为你","我命由我不由天"],机:"用一次逆天之举把小人物写成传说"},
+  "宫斗宅斗":{困:"在处处是算计的地方，善良是不是就等于被吃",愿:["以智谋逆袭、掌握生杀的愿望","从棋子变成执棋人"],冲:"「后宅的步步杀机」与「不甘为鱼肉的清醒」",词:["她进宫是来掀桌的","中宫之位我坐定了","后宅无善人"],机:"把每一次示弱都写成埋好的杀招"},
+  "救赎":{困:"心里那道旧伤，好像永远好不了",愿:["被理解、被治愈、走出黑暗的愿望","与过去的自己和解"],冲:"「无法原谅的过去」与「重新开始的可能」",词:["你值得被爱","把碎掉的我拼回来","伤口开出了花"],机:"让一个人的靠近，慢慢照进另一个人的裂缝"},
+  "玄学":{困:"讲不清道不明的时运不公，凭什么落到我头上",愿:["以奇门之术破局、替人翻案的愿望","让作恶者被反噬"],冲:"「肉眼看不见的因果」与「铁口直断的破局者」",词:["这局，我来解","一算吓一跳","风水轮流转到你头上"],机:"用一次「神机妙算」当众打脸质疑者"},
+  "养成":{困:"想守护一个人慢慢长大，也在这过程里被治愈",愿:["陪伴与被需要的愿望","看着弱小者长成依靠"],冲:"「守护者的付出」与「成长中的风险与离别」",词:["我把他养成了大佬","小奶团长牙了","养成计划启动"],机:"用点滴陪伴换来一次盛大的回报"},
+  "囤物资":{困:"总怕来不及、总怕不够，想抢在灾难前把命攥牢",愿:["以先知优势稳操胜券的愿望","把恐慌换成掌控"],冲:"「先知的抢跑」与「众人的将信将疑」",词:["她提前囤了三年","别人抢厕纸，我抢黄金","预感成真那天"],机:"用一次应验把嘲笑变成排队求助"},
+  "女性成长":{困:"总被定义、被规训，什么时候能为自己活一次",愿:["独立、清醒、自我实现的愿望","撕掉别人贴的标签"],冲:"「旧身份的束缚」与「重新定义自己的决心」",词:["她不再等谁来救","这一次为自己","她把人生夺了回来"],机:"用一次关键选择完成从依附到独立的转身"},
+  "原生家庭":{困:"在自己家里却像外人，规矩很多、爱意很少",愿:["看清、和解、把自己解救出来的愿望","跳出代际的循环"],冲:"「想否定这个家」与「发现规矩背后是笨拙的爱」",词:["妈妈留下的规矩","这个家我说了算","我不做懂事的小孩了"],机:"每揭一层旧事，就松开一道心里的结"}
+};
+const ROLES = {
+  "豪门霸总":"出身豪门、掌控商业帝国、却唯独对主角失控的男主",
+  "疯批霸总":"占有欲极强、为爱走极端的偏执总裁",
+  "沙雕霸总":"想装高冷却总闹乌龙的反差总裁",
+  "白月光":"可望不可即、始终横在心口的那个人",
+  "大女主":"有独立头脑与强大能力、只信自己的女主",
+  "恶女":"为目的不择手段、以自我为中心的非典型女主",
+  "替身":"因相似被当作替代品、渴望被「看见本人」的角色",
+  "马甲":"藏着足以震惊全场的多重隐藏身份的主角",
+  "病娇":"因极端爱意而占有、危险又心软的角色",
+  "萌宝":"聪明早慧、亲手撮合父母的小神兽",
+  "赘婿":"入赘受尽白眼、实则深藏不露的男主",
+  "真假千金":"因抱错互换人生、身份反转在即的两个女孩",
+  "姐弟恋":"年长女方与年下男方之间不被看好的心动",
+  "草根":"出身平凡、只能靠自己一寸寸翻身的主角",
+  "医生/警察/律师":"以硬核专业身份行走、专治不平事的主角",
+  "风水道士":"精通玄学、铁口直断、专破怪局的高人",
+  "学霸/校霸":"被全校误解、实则深藏实力的少年",
+  "女配":"从被牺牲的配角视角逆袭翻盘的她"
+};
+const MOODS = {
+  "甜宠":{调:"轻松甜蜜、糖分密集",愿:"被偏爱"},
+  "虐恋":{调:"揪心虐心、情绪浓烈",愿:"痛过被珍惜"},
+  "暗恋":{调:"酸涩克制、心事藏不住",愿:"被回应"},
+  "先虐后甜":{调:"前段压抑、后段加倍甜",愿:"苦尽甘来"},
+  "沙雕":{调:"搞笑无厘头、笑点密集",愿:"被逗乐解压"},
+  "爽文":{调:"节奏飞快、一路开挂",愿:"畅快到底"},
+  "反转":{调:"关键处颠覆认知",愿:"意料之外"},
+  "逆袭":{调:"从谷底强势翻盘",愿:"改写命运"},
+  "励志":{调:"燃、暖、向上",愿:"被激励"},
+  "热血":{调:"激情、战斗、兄弟情",愿:"被点燃"},
+  "烧脑":{调:"谜题层叠、智力博弈",愿:"被智取快感征服"},
+  "求生":{调:"绝境求存、步步惊心",愿:"活下去的掌控感"},
+  "打脸":{调:"前后强烈反差、当众打脸",愿:"扬眉吐气"},
+  "多视角反转":{调:"切视角揭真相、层层反转",愿:"恍然大悟"},
+  "治愈":{调:"温暖抚慰、慢慢回血",愿:"被安放"}
+};
+
+const $=s=>document.querySelector(s);
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const shuffle=a=>a.map(v=>[Math.random(),v]).sort((x,y)=>x[0]-y[0]).map(v=>v[1]);
+const state={view:[],set:[],genre:[],role:[],mood:[]};
+
+function fillChips(id,items,key){
+  const box=$("#"+id);
+  items.forEach(t=>{
+    const c=document.createElement("div");
+    c.className="chip";c.textContent=t;c.dataset.v=t;
+    c.onclick=()=>toggle(box,c,key);
+    box.appendChild(c);
+  });
+}
+function toggle(box,chip,key){
+  if(chip.classList.contains("dis")&&!chip.classList.contains("on"))return;
+  const single=box.dataset.single==="1";
+  const max=parseInt(box.dataset.max||"9");
+  const v=chip.dataset.v;
+  if(single){
+    box.querySelectorAll(".chip").forEach(c=>c.classList.remove("on"));
+    chip.classList.add("on");state[key]=[v];
+  }else{
+    if(chip.classList.contains("on")){chip.classList.remove("on");state[key]=state[key].filter(x=>x!==v);}
+    else{ if(state[key].length>=max)return; chip.classList.add("on");state[key].push(v);}
+  }
+  refreshLimits();updateCounts();
+}
+function refreshLimits(){
+  [["c-genre","genre",3],["c-role","role",2],["c-mood","mood",2]].forEach(([id,key,max])=>{
+    const full=state[key].length>=max;
+    $("#"+id).querySelectorAll(".chip").forEach(c=>{
+      if(!c.classList.contains("on"))c.classList.toggle("dis",full);
+    });
+  });
+}
+function updateCounts(){
+  $("#cnt-genre").textContent=state.genre.length+" / 3";
+  $("#cnt-role").textContent=state.role.length+" / 2";
+  $("#cnt-mood").textContent=state.mood.length+" / 2";
+}
+function cleanEmo(raw){ return (raw||"").trim().replace(/[。.！!,，；;\s]+$/,""); }
+
+function gen(){
+  const warn=$("#warn");warn.textContent="";
+  if(state.genre.length===0){warn.textContent="至少选 1 个「题材」，混搭才有内容～";return;}
+  const view=state.view[0]||pick(VIEWS);
+  const setName=state.set[0]||pick(Object.keys(SETTINGS));
+  const setDesc=SETTINGS[setName];
+  const gs=state.genre.map(g=>({name:g,...GENRES[g]}));
+  const g0=gs[0];
+  const roles=state.role.map(r=>({name:r,desc:ROLES[r]}));
+  const moods=state.mood.length?state.mood:[pick(Object.keys(MOODS))];
+  const moodObjs=moods.map(m=>({name:m,...MOODS[m]}));
+  const emoRaw=cleanEmo($("#emo").value);
+  const emo=emoRaw||pick(["拼尽全力却在最后被辜负","明明是自己的功劳却被人抢走","在最亲近的人那里最不被当回事"]);
+
+  const title=pick(g0.词);
+
+  const painMap={男频:"憋屈与不甘",女频:"委屈与不被珍惜"};
+  const con2=`很多人都尝过「${emo}」的滋味——${g0.困}，却总在现实里落空。观众对这种「${painMap[view]||"日常的无力"}」有强烈共鸣。本套路把它具象成${setDesc}里一场躲不开的风暴：${roles.length?roles[0].desc+"，":""}${g0.机}，让屏幕外那口憋了很久的气，跟着主角一点点吐出来。`;
+
+  const wish=pick(g0.愿);
+  const moodWish=moodObjs.map(m=>m.愿).filter((v,i,a)=>a.indexOf(v)===i);
+  const con3=`核心满足「${wish}」${moodWish.length?"，叠加「"+moodWish.join("、")+"」的情绪补偿":""}。它不是空喊爽，而是通过「${g0.机}」把愿望落地——${gs.length>1?"再借【"+gs[1].name+"】的机制加一层反差，":""}让"想赢"变成"眼看着一步步赢下来"的实感。`;
+
+  let con4;
+  if(gs.length>=2){
+    const combo=gs.map(g=>"【"+g.name+"】").join(" × ");
+    con4=`把 ${combo} 跨类混搭：以【${g0.name}】的外壳装载【${gs[1].name}】的内核${gs[2]?"，再用【"+gs[2].name+"】制造二次反转":""}。${gs[1].机.replace(/。$/,"")}——把两种本不搭界的爽点焊在同一条线上，观众既得到熟悉的期待，又被陌生的组合击中。`;
+  }else{
+    con4=`在经典【${g0.name}】的基础上做减法与错位：不按套路给爽点，而是把"${g0.困}"这一日常痛感前置，${roles.length?"用「"+roles[0].name+"」的身份反差破题，":""}让老套路长出新钩子。建议再叠一个题材做混搭，创新度会更高。`;
+  }
+
+  const rconf=roles.length?`；叠加角色冲突：「${roles.map(r=>r.name).join("、")}」自带的身份张力`:"";
+  const con5=`主要矛盾：${g0.冲}${gs[1]?`，并交织【${gs[1].name}】带来的${gs[1].冲}`:""}${rconf}。冲突越具体越锋利，情绪爆点就越密。`;
+
+  const setup=roles.length?`${roles.map(r=>r.desc).join("；且")}`:`一个被「${emo}」逼到墙角的普通人`;
+  const engine=gs.length>1?`${g0.机}，同时${gs[1].机}`:g0.机;
+  const moodLine=moodObjs.map(m=>m.name).join(" · ");
+  const comboTag=gs.map(g=>"【"+g.name+"】").join("×");
+  const con6=`（${view} · ${moodLine} · ${setName}）在${setDesc}，${setup}。故事从「${emo}」的至暗时刻起笔——${g0.困}的落空成为导火索；随后${engine}，每一集卡在一个钩子上，让观众忍不住往下滑。当所有人都以为主角认命时，${pick(["一记硬核反转","一场当众打脸","一个隐藏身份的揭开","一次先知优势的兑现"])}把牌桌彻底掀翻。= ${comboTag} 的「${moodLine}」式新组合。`;
+
+  render({title,view,setName,moodLine,comboTag,roles,gs,
+    items:[["剧情名称",title],["情感共鸣",con2],["愿望满足",con3],["创新点",con4],["冲突类型",con5],["套路陈述",con6]]});
+}
+
+let LAST=null;
+function render(d){
+  LAST=d;
+  const tags=`${d.view} / ${d.setName} / ${d.gs.map(g=>g.name).join("·")}${d.roles.length?" / "+d.roles.map(r=>r.name).join("·"):""} / ${d.moodLine}`;
+  let html=`<div class="tagline">戏单 · SHUANG-JU BLUEPRINT</div>
+    <div class="title">《<span class="mark">${d.title}</span>》</div>
+    <div class="stamp">${tags}</div>`;
+  d.items.forEach((it,i)=>{
+    if(i===0)return;
+    html+=`<div class="row"><div class="rlabel"><span class="no">0${i}</span>${it[0]}</div><div class="rtext">${it[1]}</div></div>`;
+  });
+  $("#out").innerHTML=html;
+  $("#foot").style.display="flex";
+  const card=$("#card");card.classList.remove("reveal");void card.offsetWidth;card.classList.add("reveal");
+}
+function plainText(){
+  if(!LAST)return"";
+  let t=`剧情名称：${LAST.title}\n\n`;
+  LAST.items.slice(1).forEach(it=>{t+=`${it[0]}：${it[1]}\n\n`;});
+  return t.trim();
+}
+function mdText(){
+  if(!LAST)return"";
+  let t=`### 《${LAST.title}》\n\n> ${LAST.view} / ${LAST.setName} / ${LAST.gs.map(g=>g.name).join("·")} / ${LAST.moodLine}\n\n`;
+  LAST.items.slice(1).forEach(it=>{t+=`**${it[0]}**：${it[1]}\n\n`;});
+  return t.trim();
+}
+function copy(txt,btn){
+  const done=()=>{const o=btn.textContent;btn.textContent="✓ 已复制";setTimeout(()=>btn.textContent=o,1400);};
+  navigator.clipboard.writeText(txt).then(done).catch(()=>{
+    const ta=document.createElement("textarea");ta.value=txt;document.body.appendChild(ta);ta.select();
+    try{document.execCommand("copy");}catch(e){}ta.remove();done();
+  });
+}
+function randomize(){
+  Object.keys(state).forEach(k=>state[k]=[]);
+  document.querySelectorAll(".chip").forEach(c=>c.classList.remove("on","dis"));
+  const setOne=(id,key,val)=>{const box=$("#"+id);const chip=[...box.children].find(c=>c.dataset.v===val);if(chip){chip.classList.add("on");state[key]=[val];}};
+  const setMany=(id,key,vals)=>{const box=$("#"+id);vals.forEach(v=>{const chip=[...box.children].find(c=>c.dataset.v===v);if(chip){chip.classList.add("on");state[key].push(v);}});};
+  setOne("c-view","view",pick(VIEWS));
+  setOne("c-set","set",pick(Object.keys(SETTINGS)));
+  setMany("c-genre","genre",shuffle(Object.keys(GENRES)).slice(0,1+Math.floor(Math.random()*2)));
+  if(Math.random()<0.8)setMany("c-role","role",shuffle(Object.keys(ROLES)).slice(0,1+Math.floor(Math.random()*2)));
+  setMany("c-mood","mood",shuffle(Object.keys(MOODS)).slice(0,1+Math.floor(Math.random()*2)));
+  refreshLimits();updateCounts();gen();
+}
+
+fillChips("c-view",VIEWS,"view");
+fillChips("c-set",Object.keys(SETTINGS),"set");
+fillChips("c-genre",Object.keys(GENRES),"genre");
+fillChips("c-role",Object.keys(ROLES),"role");
+fillChips("c-mood",Object.keys(MOODS),"mood");
+updateCounts();
+$("#go").onclick=gen;
+$("#rand").onclick=randomize;
+$("#again").onclick=()=>{ if(state.genre.length===0){randomize();}else{gen();} };
+$("#copy").onclick=e=>copy(plainText(),e.target);
+$("#copymd").onclick=e=>copy(mdText(),e.target);
+</script>
+</body>
+</html>
