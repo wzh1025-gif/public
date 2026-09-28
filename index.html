@@ -511,47 +511,138 @@ section { padding: 96px 48px; }
 .ai-lab-visual .glyph span { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(250,248,245,0.35); }
 .ai-corner { position: absolute; top: 32px; right: 36px; font-size: 1.2rem; color: rgba(250,248,245,0.25); }
 
-/* generator tool card */
-.tool-card {
-  margin-top: 1px;
+/* generator feature — palette echoes the generator itself */
+.gen {
+  --g-ink:#17100e; --g-ink2:#20161a; --g-line:#4a3540;
+  --g-cream:#f4ead9; --g-dim:#a58a7f; --g-gold:#e8b04b; --g-red:#e8433f;
+  margin-top: 24px;
   display: grid;
-  grid-template-columns: auto 1fr auto;
-  gap: 40px;
-  align-items: center;
-  padding: 40px 52px;
-  background: #2a1a1c;
+  grid-template-columns: 1fr 1.05fr;
+  background: var(--g-ink);
+  color: var(--g-cream);
   border-radius: 4px;
-  color: #f4ead9;
-  text-decoration: none;
-  position: relative;
   overflow: hidden;
-  transition: background 0.3s;
 }
-.tool-card:hover { background: #33201f; }
-.tool-card .seal {
-  width: 88px; height: 88px;
-  border: 2px solid #e8b04b;
-  color: #e8b04b;
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Noto Serif SC', serif;
+.gen-text { padding: 52px 52px 48px; display: flex; flex-direction: column; }
+.gen-kicker { font-size: 0.75rem; font-weight: 700; color: var(--g-gold); letter-spacing: 0.08em; margin-bottom: 18px; }
+.gen-title {
+  font-family: 'Noto Serif SC', var(--serif);
   font-weight: 700;
-  font-size: 2.2rem;
-  flex-shrink: 0;
+  font-size: clamp(2rem, 3.2vw, 2.8rem);
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+  margin-bottom: 16px;
 }
-.tool-card .tk { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; color: #e8b04b; margin-bottom: 8px; }
-.tool-card h4 { font-family: 'Noto Serif SC', var(--serif); font-weight: 700; font-size: 1.5rem; margin-bottom: 8px; }
-.tool-card p { font-size: 0.88rem; line-height: 1.75; color: #a58a7f; max-width: 560px; }
-.tool-card .go {
-  padding: 12px 24px;
-  border: 1px solid #e8b04b;
-  color: #e8b04b;
-  font-size: 0.78rem;
+.gen-title b { color: var(--g-red); font-weight: 700; }
+.gen-lede { font-size: 0.95rem; line-height: 1.8; color: var(--g-dim); max-width: 440px; margin-bottom: 32px; }
+.gen-steps { list-style: none; counter-reset: s; margin-bottom: 36px; border-top: 1px solid var(--g-line); }
+.gen-steps li {
+  counter-increment: s;
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--g-line);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+.gen-steps li::before {
+  content: counter(s);
+  font-family: 'Noto Serif SC', var(--serif);
   font-weight: 700;
-  letter-spacing: 0.06em;
-  white-space: nowrap;
-  transition: all 0.25s;
+  color: var(--g-gold);
+  font-size: 1.1rem;
+  line-height: 1.4;
 }
-.tool-card:hover .go { background: #e8b04b; color: #17100e; }
+.gen-steps li span { display: block; font-size: 0.8rem; color: var(--g-dim); }
+.gen-actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-top: auto; }
+.gen-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 26px;
+  background: var(--g-gold);
+  color: var(--g-ink);
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-decoration: none;
+  border: 2px solid var(--g-gold);
+  transition: background 0.2s, color 0.2s;
+}
+.gen-btn:hover { background: transparent; color: var(--g-gold); }
+.gen-note { font-size: 0.78rem; color: var(--g-dim); }
+
+/* right: a sketch of the generator's own console */
+.gen-demo {
+  background: var(--g-ink2);
+  border-left: 1px solid var(--g-line);
+  padding: 44px 44px 40px;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  position: relative;
+}
+.gen-demo-cap { font-size: 0.7rem; color: var(--g-dim); letter-spacing: 0.12em; }
+.dim-row { display: grid; grid-template-columns: 44px 1fr; gap: 12px; align-items: center; }
+.dim-row > b { font-size: 0.8rem; font-weight: 700; color: var(--g-cream); }
+.dim-row .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  font-size: 0.74rem;
+  padding: 3px 10px;
+  border: 1px solid var(--g-line);
+  color: var(--g-dim);
+}
+.chip.on { border-color: var(--g-gold); color: var(--g-gold); background: rgba(232,176,75,0.1); }
+.dilemma {
+  border: 1px dashed var(--g-line);
+  padding: 10px 14px;
+  font-size: 0.82rem;
+  color: var(--g-cream);
+}
+.dilemma i { font-style: normal; color: var(--g-dim); margin-right: 8px; font-size: 0.74rem; }
+.fake-go {
+  align-self: flex-start;
+  background: var(--g-red);
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 8px 18px;
+}
+.outline {
+  margin-top: 4px;
+  border-top: 1px solid var(--g-line);
+  padding-top: 14px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.outline span {
+  font-size: 0.74rem;
+  color: var(--g-dim);
+  padding: 6px 8px;
+  background: rgba(244,234,217,0.04);
+}
+.outline-title { grid-column: 1 / -1; font-family: 'Noto Serif SC', var(--serif); font-size: 0.95rem; color: var(--g-cream); }
+.outline span em { font-style: normal; color: var(--g-gold); margin-right: 4px; }
+.gen-demo:hover .fake-go { background: #ff5a55; }
+.gen-demo::after {
+  content: '点击试用 ↗';
+  position: absolute; top: 40px; right: 44px;
+  font-size: 0.74rem; color: var(--g-gold);
+  opacity: 0; transition: opacity 0.2s;
+}
+.gen-demo:hover::after { opacity: 1; }
+
+.inline-link {
+  display: inline-block;
+  margin-top: 18px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+}
+.inline-link:hover { color: var(--ink); }
 
 /* ─── WORKS ──────────────────────────────────────── */
 .works-section { border-bottom: var(--rule); }
@@ -840,7 +931,10 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
   .ai-lab { grid-template-columns: 1fr; }
   .ai-lab-text { padding: 40px 28px; border-right: none; }
   .ai-lab-visual { min-height: 200px; }
-  .tool-card { grid-template-columns: 1fr; gap: 20px; padding: 32px 28px; }
+  .gen { grid-template-columns: 1fr; }
+  .gen-text { padding: 40px 28px 36px; }
+  .gen-demo { border-left: none; border-top: 1px solid var(--g-line); padding: 32px 28px; }
+  .gen-demo::after { display: none; }
   .works-grid { grid-template-columns: 1fr 1fr; }
   .projects-grid { grid-template-columns: 1fr; }
   .contact-grid { grid-template-columns: 1fr; gap: 48px; }
@@ -856,6 +950,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
   .hero-stat + .hero-stat { padding-left: 0; border-left: none; border-top: var(--rule); padding-top: 16px; }
   .works-filter { overflow-x: auto; max-width: 100%; }
   .shows { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .outline { grid-template-columns: 1fr 1fr; }
   .sub-head { flex-direction: column; gap: 6px; }
   .section-header { flex-wrap: wrap; gap: 12px; }
   .honor-list li { grid-template-columns: 1fr; gap: 2px; }
@@ -1034,6 +1129,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
       <p class="teach-body">
         承担AI漫剧全流程教学，自主搭建课程大纲、教案、逐字稿与课件体系，开发<strong>「爽剧套路库」</strong>教学资源（100个剧情套路条目），并为学生项目设计管理工具与SOP。坚持<strong>以真实项目带动教学</strong>，指导学生独立完成从剧本到成片的全流程制作。
       </p>
+      <a class="inline-link" href="#generator">基于套路库开发的爽剧套路生成器，可以直接在线试用</a>
     </div>
     <div>
       <div class="col-title">主讲课程</div>
@@ -1133,15 +1229,37 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
       <div class="ai-corner">↗</div>
     </a>
 
-    <a href="shuangju-generator.html" target="_blank" class="tool-card">
-      <div class="seal">爽</div>
-      <div>
-        <div class="tk">教学工具 · 离线可用</div>
-        <h4>爽剧套路生成器</h4>
-        <p>AI漫剧编剧台：勾选视角、时空、题材、角色、情绪五个维度，写下一句情感困境，一键组合出六项套路骨架。纯本地运算，断网可用，适合课堂发散和快速起本。</p>
+    <div class="gen" id="generator">
+      <div class="gen-text">
+        <div class="gen-kicker">AI漫剧编剧课 · 教学工具</div>
+        <h3 class="gen-title">爽剧套路<b>生成器</b></h3>
+        <p class="gen-lede">不知道从哪里起本？选几个关键词，写下一句憋屈，生成器会按《爽剧套路说明书》的格式，给你一份可以直接改写的套路骨架。</p>
+        <ol class="gen-steps">
+          <li><div>勾选五个维度<span>视角、时空、题材（最多3个混搭）、角色、情绪</span></div></li>
+          <li><div>写一句情感困境<span>一句真实的憋屈或不甘，是整个故事的共鸣点</span></div></li>
+          <li><div>生成六项套路<span>剧情名称、情感共鸣、愿望满足、创新点、冲突类型、套路陈述，可一键复制</span></div></li>
+        </ol>
+        <div class="gen-actions">
+          <a class="gen-btn" href="爽剧套路生成器·离线版.html" target="_blank" rel="noopener">打开生成器 ↗</a>
+          <span class="gen-note">纯本地运行，断网可用</span>
+        </div>
       </div>
-      <span class="go">打开生成器 ↗</span>
-    </a>
+      <a class="gen-demo" href="爽剧套路生成器·离线版.html" target="_blank" rel="noopener" aria-label="打开爽剧套路生成器">
+        <div class="gen-demo-cap">界面示意</div>
+        <div class="dim-row"><b>视角</b><div class="chips"><span class="chip">男频</span><span class="chip on">女频</span></div></div>
+        <div class="dim-row"><b>时空</b><div class="chips"><span class="chip on">古代</span><span class="chip">现代</span><span class="chip">民国</span><span class="chip">末日</span></div></div>
+        <div class="dim-row"><b>题材</b><div class="chips"><span class="chip on">甜宠</span><span class="chip on">复仇</span><span class="chip">玄学</span><span class="chip">求生</span></div></div>
+        <div class="dim-row"><b>角色</b><div class="chips"><span class="chip on">女配</span><span class="chip">恶女</span><span class="chip">替身</span></div></div>
+        <div class="dim-row"><b>情绪</b><div class="chips"><span class="chip on">打脸</span><span class="chip">治愈</span><span class="chip">热血</span></div></div>
+        <div class="dilemma"><i>情感困境</i>明明付出最多，却永远是被牺牲的那一个</div>
+        <span class="fake-go">⚡ 生成套路</span>
+        <div class="outline">
+          <strong class="outline-title">《剧情名称》</strong>
+          <span><em>01</em>情感共鸣</span><span><em>02</em>愿望满足</span><span><em>03</em>创新点</span>
+          <span><em>04</em>冲突类型</span><span><em>05</em>套路陈述</span>
+        </div>
+      </a>
+    </div>
   </div>
 </section>
 
@@ -1317,7 +1435,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
       <h3 class="p-title">CyberSeed 赛博种子</h3>
       <p class="p-desc">连接算法逻辑与生活诗意的创作者实验室。通过「赛博抽签」从近百件生活小事中捕捉创作契机，将碎片灵感转化为高质感内容。</p>
     </a>
-    <a href="shuangju-generator.html" target="_blank" class="project-card">
+    <a href="爽剧套路生成器·离线版.html" target="_blank" rel="noopener" class="project-card">
       <span class="project-arrow">↗</span>
       <div class="p-tag">教学工具</div>
       <h3 class="p-title">爽剧套路生成器</h3>
