@@ -868,6 +868,29 @@ table.face thead th:first-child{width:64px}
 .backhome:hover{border-color:var(--yel);color:var(--yel)}
 .foot-home{display:inline-block;margin-bottom:6px;color:var(--yel);font-weight:700;text-decoration:none;border-bottom:2px dashed var(--yel)}
 @media (max-width:520px){.backhome{padding:5px 9px}.backhome em{display:none}.top{gap:10px}}
+/* 图片资产位 */
+.imgslot{display:none;margin:10px 0 0;position:relative;border-radius:10px;overflow:hidden}
+.imgslot img{display:block;width:100%;height:auto;border-radius:10px}
+.imgslot.ok{display:block}
+.imgslot .slotname{display:none}
+.card>.imgslot:first-child,.card.fam>.imgslot{margin:0 0 10px}
+.imgslot.over{position:absolute;inset:0;margin:0;border-radius:0;z-index:2}
+.imgslot.over img{width:100%;height:100%;object-fit:cover;border-radius:0}
+.imgwrap{position:relative;border-radius:10px;overflow:hidden;margin-bottom:10px}
+.imgwrap .mini{margin:0}
+.wideimg{margin:12px 0}
+.ba .imgslot{margin-top:10px}
+/* 图位模式 ?slots */
+body.slots .imgslot{display:block}
+body.slots .imgslot.miss{min-height:90px;border:2px dashed var(--yel);background:repeating-linear-gradient(-45deg,rgba(255,216,74,.06) 0 10px,transparent 10px 20px)}
+body.slots .imgslot.miss img{display:none}
+body.slots .imgslot .slotname{display:block;position:absolute;left:8px;bottom:8px;background:var(--yel);color:var(--ink);font-size:12px;font-weight:700;padding:1px 8px;border-radius:5px;z-index:3;max-width:calc(100% - 16px);word-break:break-all}
+body.slots .imgslot.miss .slotname{position:static;margin:28px 10px 10px;display:inline-block}
+body.slots .imgslot .slotname small{margin-left:6px;opacity:.7}
+body.slots .imgslot.over.miss{background:rgba(18,18,58,.55)}
+#slotbar{position:fixed;left:12px;bottom:calc(12px + var(--sb));z-index:70;background:var(--yel);color:var(--ink);font-size:13px;font-weight:700;padding:8px 14px;border-radius:10px;box-shadow:3px 3px 0 var(--ink);max-width:calc(100vw - 110px)}
+#slotbar code{background:rgba(0,0,0,.12);padding:0 5px;border-radius:4px}
+@media (max-width:980px){#slotbar{bottom:calc(80px + var(--sb))}}
 
 /* ---------- 响应式 ---------- */
 @media (max-width:1180px){
@@ -1873,6 +1896,70 @@ DATA.concepts.push(
   { cat:'诊断', term:'AI 能力边界', def:'当前模型很难稳定做对的少数问题：精确文字招牌、极端特写手指、真实物理接触、超长视频一致。', ex:'需要像素级准确的内容，交给后期' }
 );
 
+/* ============================ 图片资产表 ============================
+   所有图片放在 manju-studio.html 同级的 assets/img/ 文件夹里，统一 .jpg，文件名全小写。
+   放进去刷新网页就会显示；没放的图位自动隐藏，不影响页面。
+   在网址后面加 ?slots （例如 manju-studio.html?slots）可以看到所有图位和文件名。
+   每一项：[文件名(不含.jpg), 模块, 页面位置, 放什么, 比例, 优先级]
+   ==================================================================== */
+DATA.caseImg={'不同角色都长着同一张':'diag-sameface','出图脏糊':'diag-noise','场景图里冒出路人':'diag-scenepeople','角色合成进场景后':'diag-lightmismatch','视频里冒出字幕':'diag-subtitle','首尾帧差太多':'diag-firstlast','多人画面排排站':'diag-lineup','开场直接怼特写':'diag-opencloseup'};
+DATA.diag.cases.forEach(c=>{if(c.code)c.img='diag-'+c.code.toLowerCase();else{const k=Object.keys(DATA.caseImg).find(t=>c.title.startsWith(t));if(k)c.img=DATA.caseImg[k]}});
+DATA.style.styles.forEach((s,i)=>s.img=['style-urban','style-guzhuang','style-anime','style-ink','style-cyber','style-3dcg','style-chibi'][i]);
+DATA.style.families.forEach((f,i)=>f.img=['style-family-real','style-family-anime','style-family-3d'][i]);
+DATA.style.genres.forEach((g,i)=>g.img=['genre-sweet','genre-xianxia','genre-suspense','genre-xuanmen','genre-comedy'][i]);
+DATA.style.faceGallery=[['face-sweet','甜美系','鹅蛋脸+圆润杏眼+柳叶眉+悬胆鼻+樱桃唇 → 温婉灵动'],['face-cold','冷艳系','高颧骨长方圆脸+丹凤眼+剑眉+驼峰鼻+薄唇 → 清冷疏离'],['face-heroic','英气系','窄长瓜子脸+桃花眼+一字眉+希腊鼻+厚唇上扬 → 英姿飒爽'],
+  ['face-exotic','异域系','宽短圆脸+深眼窝圆眼+拱形眉+宽鼻+丰满翘唇 → 妩媚妖冶'],['face-mix-a','混合 A','瓜子脸+丹凤眼+一字眉+希腊鼻 → 冷艳中带英气'],['face-mix-b','混合 B','鹅蛋脸+桃花眼+柳叶眉+悬胆鼻 → 甜美中带妩媚']];
+DATA.style.scenes=[
+  { n:'交代空间：让观众 1 秒定位', lead:'前三张是正例，第四张是反例。开场第一张最忌用特写。', items:[
+    ['scene-space-wide','✅ 宽幅全景','一眼看清房间全貌与家具关系，观众立刻建立空间地图。','宽幅全景，正面平视，纵深感，家具门窗全可见'],
+    ['scene-space-depth','✅ 纵深引导','走廊/地板线条把视线引向远处，空间有进深不扁平。','强烈纵深感，透视引导线，前后景层次分明'],
+    ['scene-space-front','✅ 室内正面视角','正对房间横平竖直，交代“这是什么房间”最稳，适合开场。','室内正面视角，平视，稳定对称构图'],
+    ['scene-space-bad','❌ 无空间感','只给局部或背景糊成一片，观众不知道人在哪，容易出戏。','（反例）只有背景虚化特写，无参照物']]},
+  { n:'营造情绪：同一个房间，四种心情', lead:'地点完全不变，只改光线与色调。', items:[
+    ['scene-mood-warm','温馨','暖橙台灯 + 柔光，安全放松感，适合日常、团聚、告白。','暖橙色台灯，柔和暖光，温馨宁静'],
+    ['scene-mood-gloomy','压抑','阴雨 + 冷蓝 + 低光，沉闷不安，适合争吵、低谷、离别。','阴雨天气，冷蓝色调，昏暗压抑'],
+    ['scene-mood-suspense','悬疑','强侧光 + 大面积阴影，紧张危险，适合反转、秘密、跟踪。','戏剧性侧光，大片阴影，冷调神秘'],
+    ['scene-mood-hope','希望','清晨逆光 + 高亮通透，明亮开阔，适合转机、和解、新生。','清晨晨光，逆光，明亮通透']]},
+  { n:'六大场景类型', lead:'每类先出一张基础图，再用时间变体和多景别扩展成整场戏。', items:[
+    ['scene-type-indoor','室内日常','现代客厅/教室/咖啡馆，暖光温馨，正面平视。','现代（地点），（时间），（光线），温馨宁静氛围，正面平视视角，日式动漫风格，超高清，无人物'],
+    ['scene-type-outdoor','室外自然','公园/街道/山林，晴/阴/雨后，清新静谧。','（地点），（天气），（时间），（氛围），平视宽幅场景，2D动漫风格，超高清，无人物'],
+    ['scene-type-special','特殊环境','废墟/古建/科幻空间，水墨或赛博冷光。','（地点），（光线），（氛围），正面视角，（风格），超高清，无人物'],
+    ['scene-type-transit','过场场景','楼道/走廊/电梯间，简洁构图，轻微景深。','（地点），（时间），（光线），简洁构图，轻微景深，动漫风格，无人物，超高清'],
+    ['scene-type-extreme','极端情绪','暴雨/闪电/雾气，戏剧强光，压抑恐惧悲情。','（地点），（天气），（光线），（氛围），（风格），超高清，无人物'],
+    ['scene-type-time','时间变体','同一地点，白天/黄昏/夜晚三版切换。','（固定地点），（改变时间），保持其他参数不变']]},
+  { n:'同一场景，只改光源方向', lead:'四张都是同一个房间，只有光变了。角色图与场景图要用同一方向。', items:[
+    ['scene-light-left','左侧光 · 室内台灯','左脸受光、右脸落阴影，明暗交界清晰，温馨，宜室内对话。','左侧暖色台灯，左侧高光，右侧柔和阴影'],
+    ['scene-light-top','顶光 · 户外正午','头顶最亮，眼窝与下巴出现短硬阴影，硬朗、夏日感。','正午顶光，强烈日光直射，垂直阴影'],
+    ['scene-light-back','逆光 · 剪影氛围','主体偏暗，边缘一圈轮廓光，张力强，宜相遇/离别高潮。','逆光，背景强光源，前景阴暗，轮廓光'],
+    ['scene-light-soft','散射光 · 阴天室内','几乎无明显阴影，明暗过渡柔和，平静的日常感。','散射柔光，无明显方向，均匀照明']]},
+  { n:'多景别：同一客厅 5 个版本', lead:'固定部分一字不动，只替换“视角构图”那几个词。', items:[
+    ['scene-shot-wide','远景','进场 / 交代环境全貌','宽幅全景，正面平视，门窗家具全可见'],
+    ['scene-shot-mid','中景','大多数对话背景','中等景深，聚焦沙发茶几，背景自然虚化'],
+    ['scene-shot-close','特写','重要道具 / 细节','近距离特写，聚焦台灯与杯子，背景深虚化'],
+    ['scene-shot-top','俯视','宏观 / 孤独感','鸟瞰视角，自上而下俯视全貌，透视明显'],
+    ['scene-shot-low','仰视','压迫感 / 儿童视角','低角度仰视，坐地板视角向上，见天花板']]},
+  { n:'世界观：像不像同一部剧', lead:'上面四张共用同一套风格词，下面四张每张风格都不一样。', items:[
+    ['scene-world-ok-1','✅ 客厅','同一风格词',''],['scene-world-ok-2','✅ 街道','同一风格词',''],['scene-world-ok-3','✅ 办公室','同一风格词',''],['scene-world-ok-4','✅ 咖啡馆','同一风格词',''],
+    ['scene-world-bad-1','❌ 日式动漫风','风格不统一',''],['scene-world-bad-2','❌ 写实影视风','风格不统一',''],['scene-world-bad-3','❌ 国风水墨风','风格不统一',''],['scene-world-bad-4','❌ 3D 渲染风','风格不统一','']]}
+];
+DATA.moodImg=['mood-lonely','mood-suspense','mood-hope','mood-romance','mood-conflict'];
+
+DATA.images=(()=>{const L=[],S=DATA.style;
+  DATA.diag.cases.filter(c=>c.img).forEach(c=>{const n=(c.code?c.code+' ':'')+c.title;
+    L.push([c.img+'-bad','问题诊断','病例库 · '+n,'错误示范：'+c.badDesc,'16:9','高']);L.push([c.img+'-good','问题诊断','病例库 · '+n,'正确示范：'+c.goodDesc,'16:9','高'])});
+  S.families.forEach(f=>L.push([f.img,'风格与角色','三大家族 · '+f.n,'这一家族的代表画面','3:2','中']));
+  S.styles.forEach(s=>L.push([s.img,'风格与角色','风格卡片 · '+s.name,'该风格的代表画面（替换卡片上的插画）','3:2','高']));
+  S.tones.forEach(t=>L.push(['tone-'+t[1],'风格与角色','色调 · '+t[0],'同一画面的'+t[0]+'版本（四张构图光影一致）','16:9','中']));
+  S.scenes.forEach(g=>g.items.forEach(it=>L.push([it[0],'风格与角色','场景图示例 · '+g.n,it[1]+'：'+it[2],'16:9','中'])));
+  S.genres.forEach(g=>L.push([g.img,'风格与角色','题材参数包 · '+g.n,'该题材的成品截图或参考图','16:9','中']));
+  L.push(['exp-sweet','风格与角色','参数替换实验 · 甜宠版','“女主推门走进房间”甜宠版成片截图','16:9','中'],['exp-suspense','风格与角色','参数替换实验 · 悬疑版','“女主推门走进房间”悬疑版成片截图','16:9','中']);
+  S.faceGallery.forEach(f=>L.push([f[0],'风格与角色','捏脸机 · 组合示例 · '+f[1],f[2],'3:4','中']));
+  L.push(['id-linxia','风格与角色','角色身份证 · 林夏','林夏的定妆照或设定图','3:4','中'],['id-xiaoyi','风格与角色','角色身份证 · 萧亦','萧亦的定妆照或设定图','3:4','中']);
+  [['asset-makeup','定妆照','T-Pose 全身，纯白背景，正面','9:16'],['asset-turnaround','三视图','正视图+侧视图+后视图+面部特写','16:9'],['asset-expression','表情包','同角色 6 种常用表情','16:9'],['asset-prop','道具资产','单独道具，白色背景','1:1']].forEach(a=>L.push([a[0],'风格与角色','角色资产 4 级 · '+a[1],a[2],a[3],'中']));
+  DATA.moodRecipes.forEach((m,i)=>L.push([DATA.moodImg[i],'提示词库','情绪光影配方 · '+m[0],'用这条配方出的画面：'+m[1],'16:9','低']));
+  L.push(['board-example','分镜与镜头','12 秒镜头组','一张完整的故事板成品图（如《当归》6 镜）','16:9','中'],['fl-bad','分镜与镜头','首尾帧 · 坏首尾帧对','首帧和尾帧左右并排（差异过大的一对）','16:9','中'],['fl-good','分镜与镜头','首尾帧 · 好首尾帧对','首帧和尾帧左右并排（只变一个动作）','16:9','中']);
+  return L})();
+
 </script>
 <script>
 /* ====================== 交互逻辑，一般不需要改 ====================== */
@@ -1922,6 +2009,12 @@ function subnav(items){return `<nav class="subnav" aria-label="本页章节"><di
 function sect(id,title,lead,body,noM){return `<section class="sect" id="${id}" data-id="${id}" data-title="${esc(title)}"><div class="sect-h"><h3>${title}</h3>${noM?'':mBtn('sec-'+id,true)}</div>${lead?`<p class="lead2">${lead}</p>`:''}${body}</section>`}
 function ba(bad,good,o={}){return `<div class="ba"><div class="ba-bad"><b>${o.badL||'✗ 错误示范'}</b><div>${bad}</div></div><div class="ba-good${o.open?'':' locked'}"><b>${o.goodL||'✓ 正确示范'}</b><div class="ba-in">${good}</div>${o.open?'':'<button class="ba-rev" data-act="reveal">看正确示范</button>'}</div></div>`}
 const tplHTML=t=>esc(t).replace(/\[\[(.+?)\|(.*?)\]\]/g,(m,k,d)=>`<span class="slot" contenteditable="true" spellcheck="false" data-k="${k}" data-def="${d}">${d}</span>`);
+const IMGDIR='assets/img/';
+const IMGINFO={};DATA.images.forEach(r=>IMGINFO[r[0]]=r);
+function imgSlot(file,cls=''){if(!file)return '';const r=IMGINFO[file]||[];return `<figure class="imgslot ${cls}" data-file="${file}.jpg"><img src="${IMGDIR}${file}.jpg" alt="${esc(r[3]||'')}" onload="imgOk(this)" onerror="imgMiss(this)"><span class="slotname">${file}.jpg<small>${esc(r[4]||'')}</small></span></figure>`}
+function imgOk(i){i.parentNode.classList.add('ok');i.parentNode.classList.remove('miss');slotCount()}
+function imgMiss(i){i.parentNode.classList.add('miss');slotCount()}
+let slotT;function slotCount(){if(!document.body.classList.contains('slots'))return;clearTimeout(slotT);slotT=setTimeout(()=>{const ok=new Set($$('.imgslot.ok').map(f=>f.dataset.file)).size;$('#slotbar').innerHTML=`图位模式：共 ${DATA.images.length} 个图位，已放入 <b>${ok}</b> 张。图片放在 <code>${IMGDIR}</code>，文件名见虚线框。`},150)}
 const nl=s=>esc(s).replace(/\n/g,'<br>');
 
 /* ====================== 取景器 ====================== */
@@ -2100,7 +2193,7 @@ function caseCard(c){
   return `<article class="dx" data-id="${c.id}" data-cat="${esc(c.cat)}" style="--cc:${CATC[c.cat]}">
     <button class="dx-h" aria-expanded="false">${c.code?`<span class="code-tag">${c.code}</span>`:''}<span class="tag cat">${esc(c.cat)}</span><span class="dx-t">${esc(c.title)}</span><span class="chev" aria-hidden="true">›</span></button>
     <div class="dx-b"><div><div class="dx-in">
-      <div class="wide">${ba(`<p class="big">${esc(c.bad)}</p><p>${esc(c.badDesc)}</p>`,`<p class="big">${esc(c.good)}</p><p>${esc(c.goodDesc)}</p>`)}</div>
+      <div class="wide">${ba(`<p class="big">${esc(c.bad)}</p><p>${esc(c.badDesc)}</p>${imgSlot(c.img&&c.img+'-bad')}`,`<p class="big">${esc(c.good)}</p><p>${esc(c.goodDesc)}</p>${imgSlot(c.img&&c.img+'-good')}`)}</div>
       <div class="blk"><h4>为什么会出现</h4><p>${esc(c.why)}</p></div>
       <div class="blk"><h4>如何解决</h4><ol>${c.fix.map(f=>`<li>${esc(f)}</li>`).join('')}</ol></div>
       ${c.demo?`<div class="blk wide demo"><div class="dvf"></div><div><h4>在取景器里看</h4><p class="small">同样几个镜头，错误示范和正确示范剪出来差在哪。</p><div class="acts"><button class="btn ghost" data-demo="bad">▶ 错误示范</button><button class="btn" style="--c:var(--cyan)" data-demo="good">▶ 正确示范</button></div><p class="small demo-cap"></p></div></div>`:''}
@@ -2413,7 +2506,7 @@ function renderShot(){
     <div class="grid2 rhygrid">${H.rhythms.map((r,i)=>`<div class="card rhy"><div class="rh"><b>${r.n}</b><em>${r.tag}</em></div><div class="rbars" id="rb${i}">${r.p.map((x,j)=>`<i style="flex:${x}" title="${SZ[r.s[j]].name}"></i>`).join('')}</div><p>${r.how}</p><p class="small">${r.why}</p><button class="btn ghost sm" data-rhy="${i}">▶ 播放</button></div>`).join('')}</div></div>
     <p class="note">一句话总纲：真正有冲击力的，不是一直快切，而是关键点的停顿。</p>`)+
   sect('h-12','12 秒镜头组：短剧的最小叙事单元','锁死总时长 12 秒 + 限制对白密度（整组 ≤4 句、单句 ≤10 字），逼你把信息交给画面和道具特写。案例：原创《当归》。',`
-    <p class="card quote">原文案：${esc(H.twelveSrc)}</p>
+    <p class="card quote">原文案：${esc(H.twelveSrc)}</p>${imgSlot('board-example','wideimg')}
     <div class="sidewrap tw"><div class="sidevf"><div id="vf-tw"></div></div>
       <div class="tl"><div class="tlbar">${H.twelve.map((s,i)=>`<button style="flex:${s.t}" data-tw="${i}" class="${i?'':'on'}"><b>镜${i+1}</b><small>${s.t}s</small></button>`).join('')}<span class="playhead" id="tw-ph"></span></div>
       <div class="card" id="tw-out"></div><button class="btn" style="--c:var(--cyan)" data-act="tw-play">▶ 按真实时长播放 12 秒</button>
@@ -2429,7 +2522,7 @@ function renderShot(){
     <p class="note">三条基本功：节奏平衡（紧张快剪、情感慢剪）· 视线/动作匹配 · 由信息到反应（先道具后表情、先手后脸）。</p>`)+
   sect('h-fl','首尾帧：锁住起点和终点','把动作的开始画面和结束画面都交给 AI，由它补中间。它解决的是“动作连贯”，不是“画面好看”。',`
     <div class="grid3">${H.firstLast.rules.map(r=>`<div class="card"><b>${r[0]}</b><p>${r[1]}</p></div>`).join('')}</div>
-    ${ba(`<ul>${H.firstLast.bad.map(x=>`<li>${x}</li>`).join('')}</ul><p class="small">差异太大，中间补不出来 → 崩 / 闪 / 跳</p>`,`<ul>${H.firstLast.good.map(x=>`<li>${x}</li>`).join('')}</ul><p class="small">只变了“该变的那一点”，其余全锁死</p>`,{badL:'✗ 坏首尾帧对',goodL:'✓ 好首尾帧对'})}
+    ${ba(`<ul>${H.firstLast.bad.map(x=>`<li>${x}</li>`).join('')}</ul><p class="small">差异太大，中间补不出来 → 崩 / 闪 / 跳</p>${imgSlot('fl-bad')}`,`<ul>${H.firstLast.good.map(x=>`<li>${x}</li>`).join('')}</ul><p class="small">只变了“该变的那一点”，其余全锁死</p>${imgSlot('fl-good')}`,{badL:'✗ 坏首尾帧对',goodL:'✓ 好首尾帧对'})}
     <p class="note">接入完整工作流：四视图锁场景 → 设定图锁人物 → 生成关键分镜静帧 → 相邻两帧配首尾帧 → 生成片段 → 拼接配音。</p>`);
   shotVF=makeVF($('#vf-shot'),{vertical:true,onChange:(k,it)=>explain(k,it)});shotVF.setComp('thirds');explain('size',SZ[1]);
   rhyVF=makeVF($('#vf-rhy'),{vertical:true,bare:true,size:2});
@@ -2551,7 +2644,7 @@ function renderPrompt(){
     <div class="pgrid">${DATA.prompts.map(p=>`<article class="pc" data-id="${p.id}" data-cat="${p.cat}"><div class="pc-top"><span class="tag">${p.cat}</span><h3>${esc(p.title)}</h3></div><p class="use">${esc(p.use)}</p><div class="tpl">${tplHTML(p.template)}</div>
       <div class="acts"><button class="btn" data-act="copy">复制完整提示词</button><button class="btn ghost" data-act="reset">恢复默认</button></div></article>`).join('')}</div>`,true)+
   sect('p-mood','情绪光影配方','情绪 = 颜色 × 方向。把配方贴在画面描述后面，画面立刻有戏。',`
-    <div class="grid3">${DATA.moodRecipes.map(m=>`<div class="card"><b>${m[0]}</b><p class="ex">${m[2]}</p>${copyBox(m[1])}</div>`).join('')}</div>`,true);
+    <div class="grid3">${DATA.moodRecipes.map((m,i)=>`<div class="card">${imgSlot(DATA.moodImg[i])}<b>${m[0]}</b><p class="ex">${m[2]}</p>${copyBox(m[1])}</div>`).join('')}</div>`,true);
 
   /* 解剖 */
   const setAnat=i=>{const a=P.anatomy[i];$$('[data-an]',v).forEach((b,j)=>b.classList.toggle('on',j===i));
@@ -2630,19 +2723,21 @@ function bust(a){
 let expVF;
 function renderStyle(){
   const v=$('#v-style');
-  v.innerHTML=head('style')+subnav([['y-fam','风格家族'],['y-tone','色调'],['y-genre','题材参数包'],['y-pal','题材色卡'],['y-lock','风格锁定'],['y-face','捏脸机'],['y-id','角色身份证'],['y-asset','角色资产'],['y-pit','十个坑']])+
+  v.innerHTML=head('style')+subnav([['y-fam','风格家族'],['y-tone','色调'],['y-scene','场景图'],['y-genre','题材参数包'],['y-pal','题材色卡'],['y-lock','风格锁定'],['y-face','捏脸机'],['y-id','角色身份证'],['y-asset','角色资产'],['y-pit','十个坑']])+
   sect('y-fam','视觉风格：三大家族','先按题材选家族（真人 / 动漫 / 3D），再在家族内选具体风格。选定后全集锁死不变。点风格词可以单独复制。',`
-    <div class="grid3">${Y.families.map(f=>`<button class="card fam" data-fam="${f.n}"><b>${f.n}</b><p>${f.d}</p><code>${f.kw}</code></button>`).join('')}</div>
+    <div class="grid3">${Y.families.map(f=>`<button class="card fam" data-fam="${f.n}">${imgSlot(f.img)}<b>${f.n}</b><p>${f.d}</p><code>${f.kw}</code></button>`).join('')}</div>
     <div class="chips" id="fam-chips"><button class="chip on" data-famc="全部">全部</button>${Y.families.map(f=>`<button class="chip" data-famc="${f.n}">${f.n}</button>`).join('')}</div>
-    <div class="sgrid">${Y.styles.map(s=>{const a=s.art;return `<article class="sc" data-id="${s.id}" data-fam="${s.fam}"><div class="sc-art" style="background:${a.bg}"><span class="tag famtag">${s.fam}</span>${bust(a)}</div>
+    <div class="sgrid">${Y.styles.map(s=>{const a=s.art;return `<article class="sc" data-id="${s.id}" data-fam="${s.fam}"><div class="sc-art" style="background:${a.bg}"><span class="tag famtag">${s.fam}</span>${bust(a)}${imgSlot(s.img,'over')}</div>
       <div class="sc-b"><h3>${esc(s.name)}</h3><div class="kw">${s.kw.split(', ').map(k=>`<button data-copy="${esc(k)}" title="点击复制">${esc(k)}</button>`).join('')}</div>
       <dl><dt>特征</dt><dd>${esc(s.feat)}</dd><dt>适用</dt><dd>${esc(s.fit)}</dd></dl><div class="acts"><button class="btn" data-copy="${esc(s.kw)}">复制风格词</button>${mBtn(s.id)}</div></div></article>`}).join('')}</div>
     <p class="note">真人写实 = 最强代入感，但“换个镜头就变脸”的风险也最大，务必配合面部特征库和参考图锁脸。</p>`,true)+
   sect('y-tone','色调：换个色温就换了情绪','构图与光影都不变，只改色调词。主色调建议全集只用 1–2 种。',`
-    <div class="grid4">${Y.tones.map(t=>`<div class="card tone">${miniScene(t[1],'none',2)}<b>${t[0]}</b><p>${t[2]}</p>${copyBox(t[3])}</div>`).join('')}</div>`)+
+    <div class="grid4">${Y.tones.map(t=>`<div class="card tone"><div class="imgwrap">${miniScene(t[1],'none',2)}${imgSlot('tone-'+t[1],'over')}</div><b>${t[0]}</b><p>${t[2]}</p>${copyBox(t[3])}</div>`).join('')}</div>`)+
+  sect('y-scene','场景图示例','场景图要交代空间、营造情绪、建立世界观。每张图都附带看点和提示词。',
+    Y.scenes.map(g=>`<h4 class="h4">${g.n}<small>${g.lead}</small></h4><div class="grid4 scenegal">${g.items.map(it=>`<div class="card scard">${imgSlot(it[0])}<b>${it[1]}</b><p>${it[2]}</p>${it[3]?`<p class="small">提示词：${esc(it[3])}</p>`:''}</div>`).join('')}</div>`).join(''))+
   sect('y-genre','题材参数包','题材手感的本质 = 一套默认参数包：先记配方，再在配方上做减法或破格。',`
     <div class="sidewrap"><div class="sidevf"><div id="vf-genre"></div><p class="cap" id="gen-cap">点任意题材的 ▶，看它的默认参数</p></div>
-    <div class="grid2 rhygrid genres">${Y.genres.map((g,i)=>`<div class="card genre"><b>${g.n}</b><div class="knobs">${['景别高度','运镜','光影冷暖','节奏'].map((k,j)=>`<span><small>${k}</small>${g.p[j]}</span>`).join('')}</div><p>${g.why}</p><p class="small">声音：${g.sound}</p><button class="btn ghost sm" data-gen="${i}">▶ 看这套参数</button></div>`).join('')}</div></div>
+    <div class="grid2 rhygrid genres">${Y.genres.map((g,i)=>`<div class="card genre">${imgSlot(g.img)}<b>${g.n}</b><div class="knobs">${['景别高度','运镜','光影冷暖','节奏'].map((k,j)=>`<span><small>${k}</small>${g.p[j]}</span>`).join('')}</div><p>${g.why}</p><p class="small">声音：${g.sound}</p><button class="btn ghost sm" data-gen="${i}">▶ 看这套参数</button></div>`).join('')}</div></div>
     <h4 class="h4">参数替换实验：同一句戏，参数一换，情绪全变</h4>
     <p class="small">剧情“${Y.experiment.line}”一字没改，只拧“景别高度 · 运镜 · 光影冷暖 · 节奏”四个旋钮。</p>
     <div class="exp"><div id="vf-exp"></div><div><div class="seg" role="group"><button class="on" data-exp="a">${Y.experiment.a.n}</button><button data-exp="b">${Y.experiment.b.n}</button></div><div class="card" id="exp-out"></div></div></div>`)+
@@ -2657,18 +2752,20 @@ function renderStyle(){
     <div class="tblwrap"><table class="face"><thead><tr><th>维度</th>${Y.faceSys.map(s=>`<th>${s}</th>`).join('')}</tr></thead><tbody>${Y.faceDims.map((d,i)=>`<tr><th>${d}</th>${Y.face[i].map((x,j)=>`<td><button data-fc="${i}-${j}">${x}</button></td>`).join('')}</tr>`).join('')}</tbody></table></div>
     <div class="faceout"><p class="small">面部描述（放进角色提示词的“面部”模块）</p><code id="face-out"></code><div class="acts"><button class="btn" data-act="face-copy">复制面部描述</button><button class="btn ghost" data-act="face-asym">加一条不对称细节</button></div>
       <p class="small" style="margin-top:14px">防平均脸负面词（必加）</p>${copyBox(DATA.prompts.find(p=>p.title.includes('平均脸')).template)}</div>
+    <h4 class="h4">组合示例：6 张截然不同的脸</h4>
+    <div class="grid3 facegal">${Y.faceGallery.map(f=>`<div class="card">${imgSlot(f[0])}<b>${f[1]}</b><p class="small">${f[2]}</p></div>`).join('')}</div>
     <h4 class="h4">为什么 AI 漫剧“共用一张脸”</h4>
     <div class="grid3">${Y.sameFace.map(s=>`<div class="card"><b>${s[0]}</b><p>${s[1]}</p></div>`).join('')}</div>
     <p class="note">口诀：特征库选脸 + 负面词拦平均 + 数字化不对称。</p>`)+
   sect('y-id','角色身份证','动笔前先填，AI 生成越精准。视觉锚点 = 让观众一眼记住这个角色的那个细节。',`
-    <div class="grid2">${Y.idExamples.map(x=>`<div class="card idc"><b>${x.n}</b><small class="tagline">${x.tag}</small><dl><dt>画风</dt><dd>${x.style}</dd><dt>服装</dt><dd>${x.cloth}</dd><dt>道具</dt><dd>${x.prop}</dd><dt>视觉锚点</dt><dd class="anchor">${x.anchor}</dd></dl></div>`).join('')}</div>
+    <div class="grid2">${Y.idExamples.map(x=>`<div class="card idc">${imgSlot(x.n==='林夏'?'id-linxia':'id-xiaoyi')}<b>${x.n}</b><small class="tagline">${x.tag}</small><dl><dt>画风</dt><dd>${x.style}</dd><dt>服装</dt><dd>${x.cloth}</dd><dt>道具</dt><dd>${x.prop}</dd><dt>视觉锚点</dt><dd class="anchor">${x.anchor}</dd></dl></div>`).join('')}</div>
     <h4 class="h4">填一张你的角色身份证</h4>${formCard('idcard','',Y.idFields)}`)+
   sect('y-asset','角色资产 4 级体系','90% 新手的核心踩坑：未提前固定视觉资产。正确工作流：剧本 → 角色身份证 → 定妆照 → 三视图 → 道具资产 → 开始逐镜出图。',`
-    <div class="grid4">${Y.assetLevels.map(a=>`<div class="card lvl"><span class="lv ${a[4]==='最优先'?'hi':''}">${a[0]} · ${a[4]}</span><b>${a[1]}</b><p>${a[2]}</p><p class="small">${a[3]}</p></div>`).join('')}</div>
+    <div class="grid4">${Y.assetLevels.map(a=>`<div class="card lvl">${imgSlot(['asset-makeup','asset-turnaround','asset-expression','asset-prop'][Y.assetLevels.indexOf(a)])}<span class="lv ${a[4]==='最优先'?'hi':''}">${a[0]} · ${a[4]}</span><b>${a[1]}</b><p>${a[2]}</p><p class="small">${a[3]}</p></div>`).join('')}</div>
     <p class="note">命名规范：EP集号_场景名_景别_时间_版本号.格式，例如 EP01_客厅_远景_傍晚_v2.png。提示词必须存档到同名 .txt 文件。</p>`)+
   sect('y-pit','生图十个坑','实训最高频的返工原因。',`<ol class="pits">${Y.tenPits.map(p=>`<li>${p}</li>`).join('')}</ol>`);
   expVF=makeVF($('#vf-exp'),{bare:true,size:2});const genVF=makeVF($('#vf-genre'),{vertical:true,bare:true,size:2});
-  const setExp=k=>{const x=Y.experiment[k];$$('[data-exp]',v).forEach(b=>b.classList.toggle('on',b.dataset.exp===k));expVF.setGrade(x.grade);expVF.setLight(x.light);expVF.setComp(x.comp||'thirds');$('#exp-out').innerHTML=`<p class="big">${esc(x.t)}</p>`};setExp('a');
+  const setExp=k=>{const x=Y.experiment[k];$$('[data-exp]',v).forEach(b=>b.classList.toggle('on',b.dataset.exp===k));expVF.setGrade(x.grade);expVF.setLight(x.light);expVF.setComp(x.comp||'thirds');$('#exp-out').innerHTML=`<p class="big">${esc(x.t)}</p>${imgSlot(k==='a'?'exp-sweet':'exp-suspense')}`};setExp('a');
   const fsel=Y.faceDims.map(()=>0);let asym='';
   const face=()=>{$$('[data-fc]',v).forEach(b=>{const [i,j]=b.dataset.fc.split('-').map(Number);b.classList.toggle('on',fsel[i]===j)});
     $('#face-out').textContent='面部：'+Y.faceDims.map((d,i)=>d+'：'+Y.face[i][fsel[i]]).join('，')+(asym?'，'+asym:'')+'。'};
@@ -2805,6 +2902,7 @@ window.addEventListener('resize',setHH);
 
 /* ---------- 启动 ---------- */
 if(store.get('showall',false))document.body.classList.add('show-all');
+if(new URLSearchParams(location.search).has('slots')){document.body.classList.add('slots','show-all');const b=document.createElement('div');b.id='slotbar';document.body.appendChild(b);slotCount()}
 ['home','diag','script','shot','prompt','style','dict'].forEach(k=>$('#v-'+k).style.setProperty('--c',MODS[k].color));
 renderHome();renderDiag();renderScript();renderShot();renderPrompt();renderStyle();renderDict();
 ORDER.forEach(watchSections);buildIndex();setHH();
