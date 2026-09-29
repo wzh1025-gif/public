@@ -862,6 +862,13 @@ table.face thead th:first-child{width:64px}
 .move.on{border-color:var(--c);box-shadow:4px 4px 0 var(--c)}
 .fc-b .go{align-self:flex-start;margin-top:auto;background:var(--ink);color:var(--cyan);border:0;border-radius:8px;padding:4px 12px;font-size:12.5px;font-weight:700;cursor:pointer}
 
+.backhome{flex:none;display:flex;align-items:center;gap:6px;text-decoration:none;color:var(--paper);border:2px solid var(--line);border-radius:10px;padding:5px 12px 5px 10px;font-weight:700;font-size:13.5px;white-space:nowrap;transition:.15s}
+.backhome span{font-size:16px;line-height:1}
+.backhome em{font-style:normal}
+.backhome:hover{border-color:var(--yel);color:var(--yel)}
+.foot-home{display:inline-block;margin-bottom:6px;color:var(--yel);font-weight:700;text-decoration:none;border-bottom:2px dashed var(--yel)}
+@media (max-width:520px){.backhome{padding:5px 9px}.backhome em{display:none}.top{gap:10px}}
+
 /* ---------- 响应式 ---------- */
 @media (max-width:1180px){
   .tabs a{padding:6px 9px}
@@ -930,6 +937,7 @@ table.face thead th:first-child{width:64px}
 <body>
 
 <header class="top">
+  <a class="backhome" href="index.html" title="返回王泽恒的个人主页"><span aria-hidden="true">←</span><em>返回主页</em></a>
   <a class="logo" href="#home" aria-label="回到首页"><span class="logo-mark">漫</span><span><b>漫剧片场</b><small>AI短漫剧通关手册</small></span></a>
   <nav class="tabs" id="tabs" aria-label="模块"></nav>
   <div class="search">
@@ -947,7 +955,7 @@ table.face thead th:first-child{width:64px}
   <section class="view" id="v-style"></section>
   <section class="view" id="v-dict"></section>
 </main>
-<footer>王泽恒 整理制作 · 内容来自其 AI 短漫剧系列课程讲义　|　离线可用，勾选和填写的内容只保存在当前浏览器里。</footer>
+<footer><a class="foot-home" href="index.html">← 返回王泽恒的个人主页</a><br>王泽恒 整理制作 · 内容来自其 AI 短漫剧系列课程讲义　|　离线可用，勾选和填写的内容只保存在当前浏览器里。</footer>
 
 <nav class="bottombar" id="bottombar" aria-label="模块"></nav>
 <button class="dice" id="dice" aria-label="随机抽一题"><span class="d">🎲</span><span>抽一题</span></button>
