@@ -433,6 +433,149 @@ section { padding: 96px 48px; }
 .honor-list li:last-child { border-bottom: none; }
 .honor-list .y { color: var(--accent); font-weight: 700; font-size: 0.78rem; padding-top: 2px; }
 
+/* ─── 通关手册 · 师资风采里的主推块 ─────────────── */
+.hb {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) minmax(0,1.1fr);
+  margin-bottom: 72px;
+  scroll-margin-top: 88px;
+  background: var(--cream);
+  border: var(--rule);
+  border-top: 3px solid var(--ink);
+}
+.hb-text { padding: 48px 44px 40px 48px; display: flex; flex-direction: column; }
+.hb-kicker { font-size: 0.75rem; font-weight: 700; color: var(--accent); letter-spacing: 0.06em; margin-bottom: 18px; }
+.hb-title {
+  font-family: 'Noto Serif SC', var(--serif);
+  font-weight: 700;
+  font-size: clamp(2rem, 3.4vw, 2.9rem);
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+  margin-bottom: 16px;
+}
+.hb-lede { font-size: 0.95rem; line-height: 1.85; color: var(--ink-60); font-weight: 300; max-width: 460px; margin-bottom: 28px; }
+.hb-lede strong { color: var(--ink); font-weight: 600; }
+.hb-stats { display: flex; border-top: var(--rule); border-bottom: var(--rule); margin-bottom: 32px; }
+.hb-stats div { flex: 1; padding: 18px 0; }
+.hb-stats div + div { padding-left: 18px; border-left: var(--rule); }
+.hb-stats b { display: block; font-family: var(--serif); font-weight: 400; font-size: 2rem; line-height: 1; margin-bottom: 6px; font-variant-numeric: tabular-nums; }
+.hb-stats span { font-size: 0.76rem; color: var(--ink-60); }
+.hb-actions { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; margin-top: auto; }
+.hb-note { font-size: 0.78rem; color: var(--ink-60); }
+
+.hb-lab { background: var(--paper); border-left: var(--rule); padding: 36px 40px 32px; display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.hb-tabs { display: flex; width: fit-content; max-width: 100%; border: var(--rule); }
+.hb-tabs button {
+  padding: 10px 22px;
+  font: 600 0.8rem var(--sans);
+  letter-spacing: 0.04em;
+  background: transparent;
+  border: none;
+  border-right: var(--rule);
+  color: var(--ink-60);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.hb-tabs button:last-child { border-right: none; }
+.hb-tabs button:hover { color: var(--ink); background: var(--cream); }
+.hb-tabs button[aria-selected="true"] { background: var(--ink); color: var(--paper); }
+.hb-panel { display: flex; flex-direction: column; gap: 14px; }
+.hb-panel[hidden] { display: none; }
+
+/* 取景器 */
+.hb-screen { position: relative; aspect-ratio: 16/9; overflow: hidden; background: var(--ink); border: 1px solid var(--ink); }
+.hb-scene { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.hb-hud { position: absolute; inset: 0; pointer-events: none; color: var(--paper); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.06em; text-shadow: 0 1px 3px rgba(0,0,0,.7); }
+.hb-rec { position: absolute; top: 10px; left: 14px; display: flex; align-items: center; gap: 6px; }
+.hb-rec i { width: 7px; height: 7px; border-radius: 50%; background: #e0452a; animation: hbBlink 1s steps(2) infinite; }
+@keyframes hbBlink { 50% { opacity: 0; } }
+.hb-ratio { position: absolute; top: 10px; right: 14px; }
+.hb-sz { position: absolute; left: 12px; bottom: 10px; background: var(--paper); color: var(--ink); text-shadow: none; font: 700 0.8rem 'Noto Serif SC', var(--serif); padding: 3px 12px; }
+.hb-range { -webkit-appearance: none; appearance: none; width: 100%; height: 2px; background: var(--ink-30); margin: 8px 0 0; cursor: pointer; }
+.hb-range::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: var(--accent); border: 3px solid var(--paper); box-shadow: 0 0 0 1px var(--accent); }
+.hb-range::-moz-range-thumb { width: 14px; height: 14px; border-radius: 50%; background: var(--accent); border: 3px solid var(--paper); box-shadow: 0 0 0 1px var(--accent); }
+.hb-range:focus-visible { outline: 2px solid var(--accent); outline-offset: 8px; }
+.hb-ticks { display: flex; justify-content: space-between; }
+.hb-ticks button { background: none; border: 0; color: var(--ink-60); font: 600 0.78rem var(--sans); padding: 4px 2px; cursor: pointer; }
+.hb-ticks button:hover { color: var(--ink); }
+.hb-ticks button.on { color: var(--accent); }
+.hb-desc { font-size: 0.88rem; line-height: 1.75; color: var(--ink-60); min-height: 5.4em; }
+.hb-desc b { font-family: 'Noto Serif SC', var(--serif); font-weight: 700; font-size: 1.1rem; color: var(--ink); margin-right: 8px; }
+.hb-desc small { font-size: 0.75rem; }
+.hb-desc span { display: block; color: var(--accent); font-size: 0.78rem; font-weight: 600; margin-top: 4px; }
+.hb-panel .inline-link { margin-top: 0; align-self: flex-start; font-size: 0.82rem; }
+
+/* 按症状查问题 */
+.hb-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.hb-chips button {
+  border: var(--rule);
+  background: transparent;
+  color: var(--ink);
+  padding: 6px 14px;
+  font: 500 0.8rem var(--sans);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.hb-chips button:hover { border-color: var(--ink); }
+.hb-chips button.on { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.hb-case { background: var(--cream); border-left: 3px solid var(--accent); padding: 18px 22px; font-size: 0.88rem; line-height: 1.75; color: var(--ink-60); }
+.hb-case h4 { font-family: 'Noto Serif SC', var(--serif); font-weight: 700; font-size: 1.15rem; color: var(--ink); margin-bottom: 2px; }
+.hb-case .k { display: block; font-size: 0.72rem; font-weight: 700; color: var(--accent); margin: 12px 0 2px; }
+.hb-case ol { padding-left: 20px; }
+.hb-case .inline-link { margin-top: 14px; font-size: 0.82rem; }
+
+/* 六个模块：直达手册对应页面 */
+.hb-mods {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0,1fr));
+  gap: 1px;
+  background: var(--ink-10);
+  border-top: var(--rule);
+}
+.hb-mods-cap { grid-column: 1 / -1; background: var(--cream); padding: 16px 48px 4px; font-size: 0.75rem; color: var(--ink-60); }
+.hb-mod { display: flex; align-items: center; gap: 12px; padding: 18px 18px 22px; background: var(--cream); text-decoration: none; color: var(--ink); transition: background 0.2s; min-width: 0; }
+.hb-mod:first-of-type { padding-left: 48px; }
+.hb-mod:hover { background: var(--paper); }
+.hb-mod em {
+  flex: none;
+  display: grid; place-items: center;
+  width: 40px; height: 40px;
+  font-style: normal;
+  font-family: 'Noto Serif SC', var(--serif);
+  font-weight: 700;
+  font-size: 1.15rem;
+  border: 1px solid var(--ink);
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+.hb-mod:hover em { background: var(--accent); border-color: var(--accent); color: var(--paper); }
+.hb-mod b { display: block; font-size: 0.86rem; font-weight: 600; white-space: nowrap; }
+.hb-mod small { display: block; font-size: 0.7rem; color: var(--ink-60); line-height: 1.4; }
+
+/* ─── AI 创作实验室里的通关手册入口 ─────────────── */
+.hb-entry {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: minmax(0,1.05fr) minmax(0,1fr);
+  background: var(--cream);
+  border: var(--rule);
+  border-top: 3px solid var(--ink);
+}
+.hb-entry-main { padding: 44px 48px; display: flex; flex-direction: column; }
+.hb-entry-kicker { font-size: 0.75rem; font-weight: 700; color: var(--accent); letter-spacing: 0.06em; margin-bottom: 16px; }
+.hb-entry-title { font-family: 'Noto Serif SC', var(--serif); font-weight: 700; font-size: clamp(1.7rem, 2.8vw, 2.3rem); line-height: 1.2; letter-spacing: 0.02em; margin-bottom: 14px; }
+.hb-entry-main p { font-size: 0.92rem; line-height: 1.85; color: var(--ink-60); font-weight: 300; max-width: 460px; margin-bottom: 28px; }
+.hb-entry-main p strong { color: var(--ink); font-weight: 600; }
+.hb-entry-actions { display: flex; flex-wrap: wrap; gap: 12px 22px; align-items: center; margin-top: auto; }
+.hb-entry-actions .inline-link { margin-top: 0; }
+.hb-entry-list { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--ink-10); border-left: var(--rule); }
+.hb-entry-list a { display: flex; gap: 14px; align-items: flex-start; height: 100%; padding: 24px 22px; background: var(--paper); text-decoration: none; color: var(--ink); transition: background 0.2s; }
+.hb-entry-list a:hover { background: var(--cream); }
+.hb-entry-list em { flex: none; display: grid; place-items: center; width: 34px; height: 34px; font-style: normal; font-family: 'Noto Serif SC', var(--serif); font-weight: 700; font-size: 1rem; border: 1px solid var(--ink); transition: background 0.2s, border-color 0.2s, color 0.2s; }
+.hb-entry-list a:hover em { background: var(--accent); border-color: var(--accent); color: var(--paper); }
+.hb-entry-list b { display: block; font-size: 0.88rem; font-weight: 600; margin-bottom: 2px; }
+.hb-entry-list small { display: block; font-size: 0.76rem; line-height: 1.55; color: var(--ink-60); }
+
 /* ─── AI SECTION ─────────────────────────────────── */
 .ai-section { border-bottom: var(--rule); }
 .ai-lab {
@@ -913,12 +1056,13 @@ footer {
 /* 没有 JS 时内容照常显示 */
 .no-js .reveal { opacity: 1; transform: none; }
 
-a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .ticker-inner { animation: none; }
   .reveal { opacity: 1; transform: none; transition: none; }
+  .hb-rec i { animation: none; }
   * { transition-duration: 0.01ms !important; }
 }
 
@@ -926,6 +1070,9 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
 @media (max-width: 1100px) {
   .nav-links { gap: 22px; }
   .shows { grid-template-columns: repeat(3, 1fr); }
+  .hb-mods { grid-template-columns: repeat(3, minmax(0,1fr)); }
+  .hb-mod:first-of-type { padding-left: 18px; }
+  .hb-mods-cap { padding-left: 18px; }
 }
 @media (max-width: 960px) {
   nav { padding: 0 24px; }
@@ -939,6 +1086,12 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
   section { padding: 64px 24px; }
   .about-grid { grid-template-columns: 1fr; gap: 40px; }
   .teach-intro, .media-bottom { grid-template-columns: 1fr; gap: 40px; }
+  .hb { grid-template-columns: 1fr; margin-bottom: 56px; }
+  .hb-text { padding: 36px 24px 32px; }
+  .hb-lab { border-left: none; border-top: var(--rule); padding: 28px 24px; }
+  .hb-entry { grid-template-columns: 1fr; }
+  .hb-entry-main { padding: 36px 24px 32px; }
+  .hb-entry-list { border-left: none; border-top: var(--rule); }
   .media-figures { grid-template-columns: 1fr 1fr; }
   .media-figure:nth-child(3) { padding-left: 0; border-left: none; }
   .media-figure:nth-child(n+3) { border-top: var(--rule); }
@@ -968,6 +1121,19 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
   .sub-head { flex-direction: column; gap: 6px; }
   .section-header { flex-wrap: wrap; gap: 12px; }
   .honor-list li { grid-template-columns: 1fr; gap: 2px; }
+  .hb-lab { padding: 24px 18px; }
+  .hb-stats { display: grid; grid-template-columns: 1fr 1fr; }
+  .hb-stats div, .hb-stats div + div { padding: 14px 0; border-left: none; }
+  .hb-stats div:nth-child(n+3) { border-top: var(--rule); }
+  .hb-tabs { width: 100%; }
+  .hb-tabs button { flex: 1; padding: 10px 8px; }
+  .hb-ticks button { font-size: 0.72rem; }
+  .hb-mods { grid-template-columns: 1fr 1fr; }
+  .hb-mod { padding: 14px; gap: 10px; }
+  .hb-mod em { width: 34px; height: 34px; font-size: 1rem; }
+  .hb-mod small { display: none; }
+  .hb-entry-list a { padding: 18px 14px; gap: 10px; }
+  .hb-entry-list small { display: none; }
 }
 </style>
 </head>
@@ -980,6 +1146,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#teaching">师资风采</a></li>
+    <li><a href="#handbook">通关手册</a></li>
     <li><a href="#ai">AI Works</a></li>
     <li><a href="#works">Portfolio</a></li>
     <li><a href="#research">Research</a></li>
@@ -1030,7 +1197,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
           记录时代，也研究时代如何被记录。
         </p>
         <div style="display:flex; gap:12px; flex-wrap:wrap;">
-          <a href="#teaching" class="btn-primary">师资风采</a>
+          <a href="#handbook" class="btn-primary">AI短漫剧通关手册</a>
           <a href="#ai" class="btn-ghost">AI 作品集 →</a>
           <a href="#works" class="btn-ghost">新闻作品集 →</a>
         </div>
@@ -1141,9 +1308,9 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
     <div>
       <p class="teach-lede">从新闻现场到AI漫剧课堂，带着学生把作品送上短剧平台。</p>
       <p class="teach-body">
-        承担AI漫剧全流程教学，自主搭建课程大纲、教案、逐字稿与课件体系，开发<strong>「爽剧套路库」</strong>教学资源（100个剧情套路条目），并为学生项目设计管理工具与SOP。坚持<strong>以真实项目带动教学</strong>，指导学生独立完成从剧本到成片的全流程制作。
+        承担AI漫剧全流程教学，自主搭建课程大纲、教案、逐字稿与课件体系，开发<strong>「爽剧套路库」</strong>（100个剧情套路条目）和<strong>「AI短漫剧通关手册」</strong>两套教学资源，并为学生项目设计管理工具与SOP。坚持<strong>以真实项目带动教学</strong>，指导学生独立完成从剧本到成片的全流程制作。
       </p>
-      <a class="inline-link" href="#generator">基于套路库开发的爽剧套路生成器，可以直接在线试用</a>
+      <a class="inline-link" href="#handbook">把课程讲义整合成的 AI短漫剧通关手册，可以在下方直接试用</a>
     </div>
     <div>
       <div class="col-title">主讲课程</div>
@@ -1153,6 +1320,88 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
       <span class="skill-tag">AI分镜与动态漫制作</span>
       <span class="skill-tag">声音设计与剪辑</span>
       <span class="skill-tag">行业认知</span>
+    </div>
+  </div>
+
+  <!-- 通关手册 · 教学成果主推 -->
+  <div class="hb reveal" id="handbook">
+    <div class="hb-text">
+      <div class="hb-kicker">教学成果｜AI漫剧全流程课程的配套教学工具</div>
+      <h3 class="hb-title">AI短漫剧通关手册</h3>
+      <p class="hb-lede">我把<strong>剧本创作、AI分镜、生图、问题诊断</strong>四套课程讲义整合成了一个可交互的网页，学生做片子卡住时随时能查：按症状找病例，在取景器里看景别和运镜的变化，把提示词模板填好空后一键复制。右边两个小实验可以先试一下。</p>
+      <div class="hb-stats">
+        <div><b data-count="6">6</b><span>大模块</span></div>
+        <div><b data-count="31">31</b><span>个问题病例</span></div>
+        <div><b data-count="31">31</b><span>套提示词模板</span></div>
+        <div><b data-count="200" data-pre="近">近200</b><span>个概念闪卡</span></div>
+      </div>
+      <div class="hb-actions">
+        <a class="btn-primary" href="skill.html" target="_blank" rel="noopener">打开通关手册 ↗</a>
+        <span class="hb-note">纯本地运行，断网可用，手机也能看</span>
+      </div>
+    </div>
+
+    <div class="hb-lab">
+      <div class="hb-tabs" role="tablist" aria-label="通关手册小实验">
+        <button type="button" role="tab" id="hbt-vf" aria-controls="hbp-vf" aria-selected="true" tabindex="0" data-hbtab="vf">拖一下取景器</button>
+        <button type="button" role="tab" id="hbt-dx" aria-controls="hbp-dx" aria-selected="false" tabindex="-1" data-hbtab="dx">按症状查问题</button>
+      </div>
+
+      <!-- 取景器 -->
+      <div class="hb-panel" id="hbp-vf" role="tabpanel" aria-labelledby="hbt-vf" data-hbpanel="vf">
+        <div class="hb-screen">
+          <svg class="hb-scene" viewBox="0 0 3200 1800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <defs>
+              <linearGradient id="hbSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#231c18"/><stop offset=".55" stop-color="#5a3322"/><stop offset="1" stop-color="#c8703e"/></linearGradient>
+            </defs>
+            <rect width="3200" height="1800" fill="url(#hbSky)"/>
+            <circle cx="620" cy="380" r="260" fill="#f2d6b0" opacity=".1"/><circle cx="620" cy="380" r="150" fill="#f2d6b0"/>
+            <g fill="#35281f"><rect x="0" y="1050" width="260" height="510"/><rect x="240" y="900" width="200" height="660"/><rect x="480" y="1120" width="300" height="440"/><rect x="760" y="980" width="180" height="580"/><rect x="1100" y="1200" width="240" height="360"/><rect x="1400" y="1150" width="160" height="410"/><rect x="2200" y="1180" width="200" height="380"/><rect x="2500" y="1000" width="220" height="560"/><rect x="2700" y="860" width="180" height="700"/><rect x="2880" y="1080" width="320" height="480"/></g>
+            <g fill="#f2c48a" opacity=".7"><rect x="280" y="960" width="30" height="40"/><rect x="360" y="1040" width="30" height="40"/><rect x="800" y="1040" width="30" height="40"/><rect x="2740" y="930" width="30" height="40"/><rect x="2800" y="1080" width="30" height="40"/><rect x="2560" y="1100" width="30" height="40"/><rect x="1440" y="1210" width="26" height="34"/><rect x="2940" y="1150" width="30" height="40"/></g>
+            <rect y="1560" width="3200" height="240" fill="#1a1714"/><rect y="1640" width="3200" height="6" fill="#c8470a" opacity=".55"/>
+            <polygon points="2330,984 2150,1560 2510,1560" fill="#f2c48a" opacity=".12"/><rect x="2320" y="980" width="16" height="580" fill="#1a1714"/><rect x="2290" y="962" width="80" height="24" rx="6" fill="#1a1714"/><rect x="2300" y="984" width="60" height="6" fill="#f2c48a"/>
+            <g>
+              <ellipse cx="1900" cy="1562" rx="110" ry="14" fill="#000" opacity=".35"/>
+              <rect x="1868" y="1395" width="26" height="165" fill="#2a2320"/><rect x="1906" y="1395" width="26" height="165" fill="#2a2320"/>
+              <rect x="1858" y="1545" width="40" height="18" rx="6" fill="#c8470a"/><rect x="1902" y="1545" width="40" height="18" rx="6" fill="#c8470a"/>
+              <path d="M1845 1228 L1815 1380 L1840 1385 L1862 1240 Z" fill="#3a4a6a"/><path d="M1955 1228 L1985 1380 L1960 1385 L1938 1240 Z" fill="#3a4a6a"/>
+              <circle cx="1827" cy="1390" r="14" fill="#f0d2bc"/><circle cx="1973" cy="1390" r="14" fill="#f0d2bc"/>
+              <path d="M1842 1222 L1958 1222 L1975 1405 L1825 1405 Z" fill="#44587e"/><line x1="1900" y1="1250" x2="1900" y2="1405" stroke="#f2c48a" stroke-width="5"/>
+              <rect x="1888" y="1185" width="24" height="40" fill="#e2b9a2"/><path d="M1870 1214 L1900 1252 L1930 1214 Z" fill="#faf8f5"/>
+              <circle cx="1900" cy="1135" r="60" fill="#f0d2bc"/>
+              <path d="M1836 1140 Q1826 1068 1897 1060 Q1972 1058 1966 1138 L1952 1104 L1940 1126 L1922 1094 L1906 1120 L1886 1092 L1872 1122 L1856 1098 L1846 1128 Z" fill="#1a1714"/>
+              <path d="M1868 1121 L1892 1125" stroke="#1a1714" stroke-width="4" stroke-linecap="round"/><path d="M1908 1125 L1932 1121" stroke="#1a1714" stroke-width="4" stroke-linecap="round"/>
+              <line x1="1871" y1="1112" x2="1878" y2="1130" stroke="#a8503c" stroke-width="3" stroke-linecap="round"/>
+              <ellipse cx="1880" cy="1143" rx="9" ry="12" fill="#1a1714"/><circle cx="1880" cy="1147" r="5" fill="#8a5a3a"/><circle cx="1883" cy="1138" r="3.2" fill="#fff"/>
+              <ellipse cx="1920" cy="1143" rx="9" ry="12" fill="#1a1714"/><circle cx="1920" cy="1147" r="5" fill="#8a5a3a"/><circle cx="1923" cy="1138" r="3.2" fill="#fff"/>
+              <path d="M1893 1170 Q1900 1174 1907 1170" stroke="#8a4a3e" stroke-width="3" fill="none" stroke-linecap="round"/>
+            </g>
+          </svg>
+          <div class="hb-hud"><span class="hb-rec"><i></i>REC</span><span class="hb-ratio">16:9</span><span class="hb-sz" id="hbSz">全景</span></div>
+        </div>
+        <input class="hb-range" id="hbRange" type="range" min="0" max="5" step="1" value="1" aria-label="景别，从远景到大特写">
+        <div class="hb-ticks" id="hbTicks">
+          <button type="button">远景</button><button type="button" class="on">全景</button><button type="button">中景</button><button type="button">近景</button><button type="button">特写</button><button type="button">大特写</button>
+        </div>
+        <p class="hb-desc" id="hbDesc" aria-live="polite"></p>
+        <a class="inline-link" href="skill.html#shot" target="_blank" rel="noopener">手册里还能切换构图、光线、色调和机位</a>
+      </div>
+
+      <!-- 按症状查问题 -->
+      <div class="hb-panel" id="hbp-dx" role="tabpanel" aria-labelledby="hbt-dx" data-hbpanel="dx" hidden>
+        <div class="hb-chips" id="hbChips"></div>
+        <div class="hb-case" id="hbCase" aria-live="polite"></div>
+      </div>
+    </div>
+
+    <div class="hb-mods" role="navigation" aria-label="通关手册模块">
+      <p class="hb-mods-cap">六个模块，点击直接打开手册里对应的页面</p>
+      <a class="hb-mod" href="skill.html#diag" target="_blank" rel="noopener"><em>诊</em><span><b>问题诊断</b><small>三步定位，病例库</small></span></a>
+      <a class="hb-mod" href="skill.html#script" target="_blank" rel="noopener"><em>剧</em><span><b>剧本创作</b><small>套路，钩子，口播</small></span></a>
+      <a class="hb-mod" href="skill.html#shot" target="_blank" rel="noopener"><em>镜</em><span><b>分镜与镜头</b><small>取景器，站位，节奏</small></span></a>
+      <a class="hb-mod" href="skill.html#prompt" target="_blank" rel="noopener"><em>词</em><span><b>提示词库</b><small>拼装台，体检</small></span></a>
+      <a class="hb-mod" href="skill.html#style" target="_blank" rel="noopener"><em>风</em><span><b>风格与角色</b><small>画风，捏脸机</small></span></a>
+      <a class="hb-mod" href="skill.html#dict" target="_blank" rel="noopener"><em>典</em><span><b>概念词典</b><small>全课程闪卡</small></span></a>
     </div>
   </div>
 
@@ -1275,6 +1524,25 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
           <span><em>04</em>冲突类型</span><span><em>05</em>套路陈述</span>
         </div>
       </a>
+    </div>
+
+    <!-- 通关手册 · AI 创作实验室里的入口 -->
+    <div class="hb-entry">
+      <div class="hb-entry-main">
+        <div class="hb-entry-kicker">AI漫剧课程｜教学工具</div>
+        <h3 class="hb-entry-title">AI短漫剧通关手册</h3>
+        <p>提示词、分镜、生图、图生视频，这些是 AI 漫剧每天都要用到的环节。手册把我在课堂上反复讲的方法做成了能动手试的网页：<strong>提示词拼装台和体检、31 套可填空模板、带实时预览的取景器、捏脸机</strong>，出了问题还能按症状查到根因和解法。</p>
+        <div class="hb-entry-actions">
+          <a class="btn-primary" href="skill.html" target="_blank" rel="noopener">打开通关手册 ↗</a>
+          <a class="inline-link" href="#handbook">在师资风采里先试一下取景器</a>
+        </div>
+      </div>
+      <ul class="hb-entry-list">
+        <li><a href="skill.html#prompt" target="_blank" rel="noopener"><em>词</em><span><b>提示词库</b><small>拼装台实时预览，写完能体检</small></span></a></li>
+        <li><a href="skill.html#shot" target="_blank" rel="noopener"><em>镜</em><span><b>分镜与镜头</b><small>景别、机位、运镜和 12 秒镜头组</small></span></a></li>
+        <li><a href="skill.html#style" target="_blank" rel="noopener"><em>风</em><span><b>风格与角色</b><small>7 种画风、题材参数包、捏脸机</small></span></a></li>
+        <li><a href="skill.html#diag" target="_blank" rel="noopener"><em>诊</em><span><b>问题诊断</b><small>角色不像、瞬移、脸漂移怎么办</small></span></a></li>
+      </ul>
     </div>
   </div>
 </section>
@@ -1579,6 +1847,159 @@ function startStatCycle() {
   });
 }
 setTimeout(startStatCycle, 1200);
+
+// 通关手册：取景器、症状速查、数字计数
+(function () {
+  const hb = document.getElementById('handbook');
+  if (!hb) return;
+  const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let touched = false;   // 用户动过取景器或切换了标签，自动演示就停下
+
+  /* ---- 标签切换 ---- */
+  const tabs = [...hb.querySelectorAll('[data-hbtab]')];
+  const panels = [...hb.querySelectorAll('[data-hbpanel]')];
+  function showTab(k) {
+    tabs.forEach(t => {
+      const on = t.dataset.hbtab === k;
+      t.setAttribute('aria-selected', on);
+      t.tabIndex = on ? 0 : -1;
+    });
+    panels.forEach(p => { p.hidden = p.dataset.hbpanel !== k; });
+    if (k !== 'vf') touched = true;
+  }
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => showTab(t.dataset.hbtab));
+    t.addEventListener('keydown', e => {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      e.preventDefault();
+      const n = (i + (e.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
+      tabs[n].focus();
+      showTab(tabs[n].dataset.hbtab);
+    });
+  });
+
+  /* ---- 取景器：与手册里的景别数据一致 ---- */
+  const SIZES = [
+    { n: '远景',   en: 'Extreme wide shot', cy: 900,  h: 1800, d: '环境全貌，人很小。用来交代时空，也能表现渺小和孤独。', t: '0.8–1.5 秒' },
+    { n: '全景',   en: 'Wide shot',         cy: 1300, h: 720,  d: '全身加环境，交代动作，以及人物和环境的关系。',       t: '1–2 秒' },
+    { n: '中景',   en: 'Medium shot',       cy: 1215, h: 350,  d: '腰部以上，交代关系和冲突站位，是对话戏的骨架。',     t: '1–2 秒' },
+    { n: '近景',   en: 'Medium close-up',   cy: 1170, h: 235,  d: '胸部以上，看清表情，用来表现台词和情绪。',           t: '1–1.5 秒' },
+    { n: '特写',   en: 'Close-up',          cy: 1140, h: 150,  d: '面部占满画面，放大情绪。情绪弱时不要硬怼脸。',       t: '0.5–1 秒' },
+    { n: '大特写', en: 'Extreme close-up',  cy: 1145, h: 62,   d: '只拍眼睛、一滴泪或道具上的关键字，卡在情绪峰值。',   t: '0.5–1 秒' }
+  ];
+  const scene = hb.querySelector('.hb-scene');
+  const range = document.getElementById('hbRange');
+  const ticks = [...document.querySelectorAll('#hbTicks button')];
+  const szEl = document.getElementById('hbSz');
+  const desc = document.getElementById('hbDesc');
+  const CX = 1900;
+  let box = null, raf = 0;
+
+  function target(i) {
+    const s = SIZES[i];
+    let h = s.h, w = h * 16 / 9;
+    if (w > 3200) { w = 3200; h = w * 9 / 16; }
+    return {
+      x: Math.max(0, Math.min(3200 - w, CX - w / 2)),
+      y: Math.max(0, Math.min(1800 - h, s.cy - h / 2)),
+      w, h
+    };
+  }
+  function setBox(b) {
+    box = b;
+    scene.setAttribute('viewBox', `${b.x.toFixed(1)} ${b.y.toFixed(1)} ${b.w.toFixed(1)} ${b.h.toFixed(1)}`);
+  }
+  function setSize(i) {
+    const s = SIZES[i];
+    range.value = i;
+    ticks.forEach((b, j) => b.classList.toggle('on', j === i));
+    szEl.textContent = s.n;
+    desc.innerHTML = `<b>${s.n}</b><small>${s.en}</small><br>${s.d}<span>建议时长 ${s.t}</span>`;
+    const t = target(i), f = box || t;
+    cancelAnimationFrame(raf);
+    if (REDUCED) { setBox(t); return; }
+    const t0 = performance.now(), D = 650, L = (a, b, p) => a + (b - a) * p;
+    const step = now => {
+      let p = Math.min(1, (now - t0) / D);
+      p = p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+      setBox({ x: L(f.x, t.x, p), y: L(f.y, t.y, p), w: L(f.w, t.w, p), h: L(f.h, t.h, p) });
+      if (p < 1) raf = requestAnimationFrame(step);
+    };
+    raf = requestAnimationFrame(step);
+  }
+  range.addEventListener('input', () => { touched = true; setSize(+range.value); });
+  ticks.forEach((b, i) => b.addEventListener('click', () => { touched = true; setSize(i); }));
+  setBox(target(1));
+  setSize(1);
+
+  /* ---- 按症状查问题：摘自手册的病例库 ---- */
+  const CASES = [
+    { s: '同一个人每镜不像',
+      why: '只写“28岁女生、长发、漂亮”这种粗描述，脸型和眉眼都没说清，模型每次只能在“合理的漂亮女生”里另挑一张脸。',
+      fix: ['先做一张稳定的角色母版', '脸型、眉形、眼型、发型结构按固定词序写成身份句', '关键角色备齐正面、侧面、背面、近景参考'] },
+    { s: '两个人粘在一起',
+      why: '没说清两人隔多远、谁在前谁在后、怎么遮挡，模型只能把他们挤到同一个深度上，边界就糊在一起。',
+      fix: ['把关系写成坐标：间距、前后层次、遮挡、朝向', '加一句“两人轮廓分开，不得粘连”', '复杂互动一律先站位、后互动'] },
+    { s: '人物突然瞬移',
+      why: '“她走进屋子”一个动词里藏着好几个身体状态。模型只拿到起点和终点，中间没有依据，就抄近路直接“跳”过去。',
+      fix: ['把动作拆成起点、接触、过程、结果', '一个镜头只做一个主要动作', '先做贴近目标的中间关键帧，视频只负责这一小段运动'] },
+    { s: '视频里脸慢慢变',
+      why: '视频要同时维持身份和运动。大幅转头、大表情、遮挡叠在一起时，身份一致性就扛不住了。',
+      fix: ['单段别太长，母版要清晰', '同一段里别又大转头、又大表情、又大运镜', '用更接近目标姿势的输入帧，分段生成'] },
+    { s: '画面忽冷忽暖',
+      why: '光和色被当成“这一张的调色”，没被当成全片要冻结的资产，于是跨镜就跳，影子还会和光照打架。',
+      fix: ['把主色、辅助色、禁用色写进场景卡', '冻结主光方向、色温和对比度，同场景每镜复用', '前期定好这一句，胜过后期反复拉曲线'] },
+    { s: '文字招牌乱码',
+      why: '精确文字，尤其是复杂中文和小字号，本来就不是多数生图模型的强项。',
+      fix: ['前期把需要准确文字的地方设计成空白或简化图形', '别为几个字反复重抽整张图，后期替换是标准流程'] }
+  ];
+  const chipBox = document.getElementById('hbChips');
+  const caseBox = document.getElementById('hbCase');
+  chipBox.innerHTML = CASES.map((c, i) => `<button type="button" data-i="${i}">${c.s}</button>`).join('');
+  const chips = [...chipBox.querySelectorAll('button')];
+  function showCase(i) {
+    const c = CASES[i];
+    chips.forEach((b, j) => b.classList.toggle('on', j === i));
+    caseBox.innerHTML = `<h4>${c.s}</h4><span class="k">为什么会出现</span><p>${c.why}</p>` +
+      `<span class="k">怎么解决</span><ol>${c.fix.map(f => `<li>${f}</li>`).join('')}</ol>` +
+      `<a class="inline-link" href="skill.html#diag" target="_blank" rel="noopener">在手册里看全部 31 个病例</a>`;
+  }
+  chips.forEach((b, i) => b.addEventListener('click', () => showCase(i)));
+  showCase(0);
+
+  /* ---- 滚到这里时：数字计数，取景器自动推一遍 ---- */
+  function countUp() {
+    hb.querySelectorAll('[data-count]').forEach(b => {
+      const n = +b.dataset.count, pre = b.dataset.pre || '';
+      if (REDUCED) { b.textContent = pre + n; return; }
+      const t0 = performance.now(), D = 1100;
+      const step = now => {
+        const p = Math.min(1, (now - t0) / D);
+        b.textContent = pre + Math.round(n * (1 - Math.pow(1 - p, 3)));
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    });
+  }
+  function demo() {
+    if (REDUCED) return;
+    const seq = [0, 1, 2, 3, 4, 5, 2];
+    let i = 0;
+    const run = () => {
+      if (touched) return;
+      setSize(seq[i]);
+      i++;
+      if (i < seq.length) setTimeout(run, 900);
+    };
+    setTimeout(run, 600);
+  }
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((es, o) => {
+      if (es[0].isIntersecting) { countUp(); demo(); o.disconnect(); }
+    }, { threshold: 0.35 });
+    io.observe(hb);
+  }
+})();
 
 // AI 创作实验室：噪点去噪聚合成文字（呼应实验室首页的效果）
 (function () {
